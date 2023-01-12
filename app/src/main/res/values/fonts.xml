@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="MainTitle">
+        <item name="android:fontFamily">@font/spoqa_han_sans_neo1</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">32sp</item>
+        <item name="android:letterSpacing">-0.03</item>
+    </style>
+
+    <style name="Title1">
+        <item name="android:fontFamily">@font/spoqa_han_sans_neo1</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">26sp</item>
+        <item name="android:letterSpacing">-0.03</item>
+    </style>
+
+    <style name="Title2">
+        <item name="android:fontFamily">@font/spoqa_han_sans_neo1</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:letterSpacing">-0.03</item>
+    </style>
+
+    <style name="Title3">
+        <item name="android:fontFamily">@font/spoqa_han_sans_neo1</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:letterSpacing">-0.03</item>
+    </style>
+
+
+    <style name="Title3Med">
+        <item name="android:fontFamily">@font/spoqa_han_sans_neo2</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:letterSpacing">-0.03</item>
+    </style>
+
+    <style name="Body1Bold">
+        <item name="android:fontFamily">@font/spoqa_han_sans_neo1</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:letterSpacing">-0.03</item>
+    </style>
+
+    <style name="Body1Med">
+        <item name="android:fontFamily">@font/spoqa_han_sans_neo2</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:letterSpacing">-0.03</item>
+    </style>
+
+    <style name="Body1Reg">
+        <item name="android:fontFamily">@font/spoqa_han_sans_neo1</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:letterSpacing">-0.03</item>
+    </style>
+
+    <style name="Button">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:letterSpacing">0.09</item>
+        <item name="android:lineSpacingExtra">2sp</item>
+    </style>
+
+    <style name="Body2Med">
+        <item name="android:fontFamily">@font/spoqa_han_sans_neo2</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:letterSpacing">-0.03</item>
+    </style>
+
+    <style name="Body2Reg">
+        <item name="android:fontFamily">@font/spoqa_han_sans_neo1</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:letterSpacing">-0.03</item>
+    </style>
+
+    <style name="Body3Bold">
+        <item name="android:fontFamily">@font/spoqa_han_sans_neo1</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:letterSpacing">-0.03</item>
+    </style>
+
+    <style name="Body3Med">
+        <item name="android:fontFamily">@font/spoqa_han_sans_neo2</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:letterSpacing">-0.03</item>
+    </style>
+
+    <style name="Caption">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:letterSpacing">0.03</item>
+        <item name="android:lineSpacingExtra">4sp</item>
+    </style>
+
+    <style name="Body3Reg">
+        <item name="android:fontFamily">@font/spoqa_han_sans_neo1</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:letterSpacing">-0.03</item>
+    </style>
+    
+    <style name="Widget.BottomNavigationView" parent="Widget.Design.BottomNavigationView">
+        <item name="android:fontFamily">@font/spoqa_han_sans_neo2</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:letterSpacing">-0.03</item>
+    </style>
+
+</resources>

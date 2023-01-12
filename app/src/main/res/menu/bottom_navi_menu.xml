@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_home"
+        android:enabled="true"
+        android:icon="@drawable/home_vector_image"
+        android:title="@string/navi_home" />
+    <item
+        android:id="@+id/menu_favorites"
+        android:enabled="true"
+        android:icon="@drawable/heart_stroke_vector_image"
+        android:title="@string/navi_favorites" />
+    <item
+        android:id="@+id/menu_farm"
+        android:enabled="true"
+        android:icon="@drawable/keyboard_vector_image"
+        android:title="@string/navi_farm" />
+    <item
+        android:id="@+id/menu_chat"
+        android:enabled="true"
+        android:icon="@drawable/message_vector_image"
+        android:title="@string/navi_chat" />
+    <item
+        android:id="@+id/menu_my_page"
+        android:enabled="true"
+        android:icon="@drawable/mypage_vector_image"
+        android:title="@string/navi_mypage" />
+
+
+</menu>
