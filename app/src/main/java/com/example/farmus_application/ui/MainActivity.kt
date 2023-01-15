@@ -7,10 +7,14 @@ import androidx.fragment.app.commit
 import com.example.farmus_application.R
 import com.example.farmus_application.databinding.ActivityMainBinding
 import com.example.farmus_application.ui.account.MyPageFragment
+import com.example.farmus_application.ui.account.MyPageFragment.Companion.newInstance
 import com.example.farmus_application.ui.farm.FarmFragment
+import com.example.farmus_application.ui.farm.FarmFragment.Companion.newInstance
 import com.example.farmus_application.ui.favorite.FavoriteFragment
+import com.example.farmus_application.ui.favorite.FavoriteFragment.Companion.newInstance
 import com.example.farmus_application.ui.home.HomeFragment
 import com.example.farmus_application.ui.message.ChatFragment
+import com.example.farmus_application.ui.message.ChatFragment.Companion.newInstance
 
 class MainActivity : AppCompatActivity() {
 

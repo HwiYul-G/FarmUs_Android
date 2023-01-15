@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.home.HomeFilterFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/tool_bar"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <include
+                android:id="@+id/filter_toolbar"
+                layout="@layout/toolbar_with_title"/>
+
+            <TextView
+                style="@style/Body1Reg"
+                android:layout_width="29dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="18dp"
+                android:layout_marginBottom="18dp"
+                android:layout_marginRight="16dp"
+                android:textColor="@color/main"
+                android:textSize="16sp"
+                android:letterSpacing="-0.03"
+                app:layout_constraintBottom_toBottomOf="@+id/filter_toolbar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="적용" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/location_setting"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tool_bar">
+
+            <TextView
+                android:id="@+id/text_location"
+                style="@style/Body1Bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="25dp"
+                android:layout_marginLeft="16dp"
+                tools:text="위치"
+                android:letterSpacing="-0.03"
+                android:textColor="@color/text_1"/>
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@id/text_location"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp">
+
+                <TextView
+                    style="@style/Body2Med"
+                    android:layout_width="61dp"
+                    android:layout_height="16dp"
+                    android:letterSpacing="-0.03"
+                    android:textColor="@color/text_2"
+                    android:textSize="13sp"
+                    tools:text="가까운 동네" />
+
+                <View
+                    android:id="@+id/rectangle_4"
+                    android:layout_width="1dp"
+                    android:layout_height="12dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginRight="12dp"
+                    android:layout_marginBottom="3dp"
+                    android:background="@drawable/rectangle_4"
+                    android:backgroundTint="@color/gray_2" />
+
+                <TextView
+                    style="@style/Body2Reg"
+                    android:layout_width="38sp"
+                    android:layout_height="16sp"
+                    android:letterSpacing="-0.03"
+                    android:textColor="@color/gray_1"
+                    android:textSize="13sp"
+                    tools:text="먼 동네" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="10dp"
+                android:layout_height="4dp"
+                android:src="@drawable/rectangle_379_vector_image"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginBottom="13dp"
+                />
+
+            
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ImageView
+            android:layout_width="360dp"
+            android:layout_height="6dp"
+            android:src="@drawable/rectangle_404"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/location_setting" />
+
+
+
+        
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</FrameLayout>
