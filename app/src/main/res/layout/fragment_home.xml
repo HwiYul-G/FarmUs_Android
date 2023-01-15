@@ -3,8 +3,377 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.home.HomeFragment"
-    android:background="@color/main_hover">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.home.HomeFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context=".MainActivity"
+                android:orientation="vertical">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/alarm_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:layout_marginLeft="308dp"
+                        android:src="@drawable/alarm_vector_image"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/farmus_main_logo"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="12dp"
+                    app:layout_constraintTop_toBottomOf="@+id/alarm_bar">
+
+                    <TextView
+                        android:id="@+id/farmus_kr"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="24dp"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginBottom="4dp"
+                        android:fontFamily="@font/line_seed_kr_rg"
+                        android:letterSpacing="-0.03"
+                        android:textColor="@color/main"
+                        android:textSize="32sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/farmus_logo"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="파머스" />
+
+                    <ImageView
+                        android:id="@+id/farmus_logo"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_marginLeft="107dp"
+                        android:src="@drawable/farmus_logo_vector_image_"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/example_search_bar"
+                    style="@style/Body2Reg"
+                    android:layout_width="328dp"
+                    android:layout_height="48dp"
+                    android:background="@drawable/search_bar_selector"
+                    android:drawableStart="@drawable/search_vector_image_green"
+                    android:hint="@string/search_bar_hint_text"
+                    android:inputType="text"
+                    android:padding="1dp"
+                    android:textColorHint="@color/gray_first"
+                    android:layout_marginTop="30dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/farmus_main_logo"
+                    />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayout2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    app:layout_constraintTop_toBottomOf="@+id/example_search_bar"
+                    >
+
+                    <LinearLayout
+                        android:id="@+id/surrounding_farm"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:layout_constraintBottom_toTopOf="@id/rv_home_farm"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <LinearLayout
+                            android:id="@+id/go_to_surrounding_farm"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="16dp">
+
+                            <TextView
+                                style="@style/Title3"
+                                android:layout_width="116dp"
+                                android:layout_height="25dp"
+                                android:layout_marginTop="2dp"
+                                android:layout_marginBottom="3dp"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                tools:text="우리 동네 농장"
+                                android:textColor="@color/text_1"/>
+
+                            <ImageView
+                                android:layout_width="32dp"
+                                android:layout_height="32dp"
+                                android:src="@drawable/next_black_vector_image"
+                                app:layout_constraintStart_toEndOf="@+id/textView"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                        </LinearLayout>
+
+
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1" />
+
+                        <ImageButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/align_button_vector_image"
+                            android:layout_marginRight="16dp"
+                            />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        app:layout_constraintTop_toBottomOf="@id/surrounding_farm"
+                        app:layout_constraintBottom_toTopOf="@id/rv_home_farm">
+
+                        <ImageButton
+                            android:id="@+id/btn_option"
+                            android:layout_width="31dp"
+                            android:layout_height="31dp"
+                            android:background="@color/gray_3"
+                            android:src="@drawable/option_vector_image"
+                            app:tint="@color/text_3"/>
+
+                        <RelativeLayout
+                            android:layout_width="46dp"
+                            android:layout_height="31dp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_alignParentTop="true"
+                            android:paddingLeft="12dp"
+                            android:paddingRight="12dp"
+                            android:paddingTop="8dp"
+                            android:paddingBottom="8dp"
+                            android:layout_marginLeft="13dp"
+                            android:background="@drawable/button_fill_12"
+                            >
+                            <TextView
+                                style="@style/Body3Med"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                tools:text="위치"/>
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="46dp"
+                            android:layout_height="31dp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_alignParentTop="true"
+                            android:paddingLeft="12dp"
+                            android:paddingRight="12dp"
+                            android:paddingTop="8dp"
+                            android:paddingBottom="8dp"
+                            android:layout_marginLeft="13dp"
+                            android:background="@drawable/button_fill_12"
+                            >
+                            <TextView
+                                style="@style/Body3Med"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                tools:text="가격"/>
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="46dp"
+                            android:layout_height="31dp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_alignParentTop="true"
+                            android:paddingLeft="12dp"
+                            android:paddingRight="12dp"
+                            android:paddingTop="8dp"
+                            android:paddingBottom="8dp"
+                            android:layout_marginLeft="13dp"
+                            android:background="@drawable/button_fill_12"
+                            >
+                            <TextView
+                                style="@style/Body3Med"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                tools:text="기간"/>
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:layout_width="46dp"
+                            android:layout_height="31dp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_alignParentTop="true"
+                            android:paddingLeft="12dp"
+                            android:paddingRight="12dp"
+                            android:paddingTop="8dp"
+                            android:paddingBottom="8dp"
+                            android:layout_marginLeft="13dp"
+                            android:background="@drawable/button_fill_12"
+                            >
+                            <TextView
+                                style="@style/Body3Med"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                tools:text="평수"/>
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_home_farm"
+                        android:layout_width="match_parent"
+                        android:layout_height="578dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginTop="63dp"
+                        app:layout_constraintTop_toBottomOf="@id/surrounding_farm"
+                        tools:listitem="@layout/rv_local_farm" />
+
+                    <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@id/rv_home_farm"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent">
+
+                        <View
+                            android:layout_width="328dp"
+                            android:layout_height="40dp"
+                            android:layout_marginBottom="17dp"
+                            android:background="@drawable/longer_text_field__focus_vector_image">
+                        </View>
+
+                        <TextView
+                            style="@style/Body2Med"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            tools:text="더보기"
+                            android:layout_marginTop="12dp"
+                            android:layout_marginBottom="12dp"
+                            android:layout_marginRight="146dp"
+                            android:layout_marginLeft="146dp"/>
+
+                    </FrameLayout>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="6dp"
+                    android:background="@color/gray_2"
+                    app:layout_constraintBottom_toTopOf="@+id/constraintLayout3"
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayout3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
+
+                    <LinearLayout
+                        android:id="@+id/rec_contents_for_farmer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="29dp"
+                        android:layout_marginLeft="16dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:id="@+id/text_recommend_contents"
+                            style="@style/Title3"
+                            android:layout_width="190sp"
+                            android:layout_height="25sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            tools:text="농부를 위한 추천 콘텐츠"
+                            android:textColor="@color/text_1"
+                            android:layout_marginTop="3dp"
+                            android:layout_marginBottom="3dp"/>
+
+                        <ImageButton
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:background="@color/white"
+                            android:src="@drawable/next_black_vector_image"
+                            app:layout_constraintLeft_toRightOf="@id/text_recommend_contents"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:ignore="SpeakableTextPresentCheck" />
+
+
+                    </LinearLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_rec_contents"
+                        android:layout_width="match_parent"
+                        android:layout_height="250dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="71dp"
+                        android:layout_marginBottom="25dp"
+                        android:layout_marginRight="16dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:listitem="@layout/rv_recommend_farm_for_farmer" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/select_fragment_bottom_navi"
+            android:layout_width="match_parent"
+            android:layout_height="67dp"
+            android:background="@color/gray_third"
+            android:theme="@style/Body3Med"
+            app:itemIconTint="@drawable/select_fragment_bottom_navi_selector"
+            app:itemTextColor="@drawable/select_fragment_bottom_navi_selector"
+            app:labelVisibilityMode="labeled"
+            app:menu="@menu/bottom_navi_menu"
+            />
+    </LinearLayout>
+
+
 
 
 </FrameLayout>
