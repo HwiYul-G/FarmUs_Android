@@ -26,6 +26,8 @@
                 android:layout_marginLeft="9dp"
                 android:layout_marginTop="15dp"
                 tools:text="노동을 줄여주고 생산의 질을 높여주는 ‘스마트팜’ 시스템 "
+                android:textSize="16sp"
+                android:textColor="@color/text_1"
                 />
 
             <TextView
@@ -34,6 +36,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="2023.02.01"
+                android:textSize="12sp"
+                android:textColor="@color/text_3"
                 android:layout_gravity="right"/>
 
         </LinearLayout>
