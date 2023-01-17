@@ -12,13 +12,21 @@ import com.example.farmus_application.databinding.RvLocalFarmBinding
 
 class LocalFarmRVAdapter(val items: MutableList<String>): RecyclerView.Adapter<LocalFarmRVAdapter.ViewHolder>() {
 
+    private lateinit var localFarmBinding : RvLocalFarmBinding
+
     override fun getItemCount(): Int {
-        return 2
+
+        var count = 2
+
+        return count
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LocalFarmRVAdapter.ViewHolder{
 
         val view = LayoutInflater.from(parent.context).inflate(R.layout.rv_local_farm, parent, false)
+
+        //테두리 둥글게 설정
+        localFarmBinding.rvLocalFarmImage.clipToOutline = true
 
         return ViewHolder(view)
     }
