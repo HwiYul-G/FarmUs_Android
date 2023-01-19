@@ -13,4 +13,8 @@
     <string name="search_bar_hint_text">닉네임 또는 농장 이름을 입력하세요.</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="click_to_singup"><u>회원가입</u></string>
+    <string name="copy_my_id"><u>아이디(이메일) 복사</u></string>
+
 </resources>
