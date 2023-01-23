@@ -161,6 +161,7 @@
         android:layout_marginBottom="115dp"
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
-        android:text="파머스 시작하기"/>
+        android:text="파머스 시작하기"
+        android:stateListAnimator="@null"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
