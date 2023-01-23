@@ -6,7 +6,7 @@
 
     <include
         android:id="@+id/login_start_toolbar"
-        layout="@layout/toolbar_with_title" />
+        layout="@layout/toolbar_with_title"/>
 
     <TextView
         android:id="@+id/login_start_title"
@@ -45,7 +45,7 @@
         android:background="@drawable/input_field_selector"
         android:enabled="true"
         android:hint="이메일 주소 입력"
-        android:inputType="text"
+        android:inputType="textEmailAddress"
         android:padding="12dp"
         android:textColorHint="@color/gray_first"
         app:layout_constraintStart_toStartOf="@+id/login_start_title"
@@ -54,6 +54,7 @@
     <TextView
         android:id="@+id/id_warning_message"
         style="@style/Body3Reg"
+        android:visibility="invisible"
         android:textColor="@color/sub_red"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -80,7 +81,7 @@
         android:background="@drawable/input_field_selector"
         android:enabled="true"
         android:hint="비밀번호 입력"
-        android:inputType="text"
+        android:inputType="textPassword"
         android:padding="12dp"
         android:textColorHint="@color/gray_first"
         app:layout_constraintStart_toStartOf="@+id/login_start_title"
@@ -94,6 +95,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="비밀번호가 일치하지 않습니다."
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="@+id/login_start_title"
         app:layout_constraintTop_toBottomOf="@+id/pw_text_field"
         android:layout_marginTop="6dp"/>
@@ -167,7 +169,7 @@
     </View>
 
     <TextView
-        android:id="@+id/register_button"
+        android:id="@+id/signup_button"
         style="@style/Body2Reg"
         android:textColor="@color/text_third"
         android:layout_width="wrap_content"
