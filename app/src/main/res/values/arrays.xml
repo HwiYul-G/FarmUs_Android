@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="filter_list">
+        <item>인기순</item>
+        <item>최신순</item>
+        <item>조회순</item>
+        <item>찜 많은순</item>
+    </string-array>
+
+</resources>
