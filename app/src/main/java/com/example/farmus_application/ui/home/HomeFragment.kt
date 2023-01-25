@@ -1,5 +1,6 @@
 package com.example.farmus_application.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -38,18 +39,30 @@ class HomeFragment : Fragment() {
         // Inflate the layout for this fragment
         homeBinding = FragmentHomeBinding.inflate(inflater, container, false)
 
-        val local_farm_items = mutableListOf<String>()
+//      우리 동네 농장 아이템
+        val local_farm_items = mutableListOf<RVFarmDataModel>()
 
         homeBinding.rvHomeFarm.adapter = LocalFarmRVAdapter(local_farm_items)
         homeBinding.rvHomeFarm.layoutManager = GridLayoutManager(requireActivity(), 2)
 
-        val rec_contents_items = mutableListOf<String>()
+        // 농부를 위한 추천 콘텐츠 아이템
+        val rec_contents_items = mutableListOf<RVRecDataModel>()
 
         homeBinding.rvRecContents.adapter = RecRVAdapter(rec_contents_items)
         homeBinding.rvRecContents.layoutManager = LinearLayoutManager(requireActivity())
 
+
+        //searchBar 누르면 SearchFragment로 전환
+        homeBinding.searchBar.setOnClickListener{
+            requireActivity().supportFragmentManager
+                .beginTransaction()
+                .replace(homeBinding.homeFragmentLayout.id, SearchFragment())
+                .commitAllowingStateLoss()
+        }
+
         return homeBinding.root
     }
+
 
     companion object {
         /**

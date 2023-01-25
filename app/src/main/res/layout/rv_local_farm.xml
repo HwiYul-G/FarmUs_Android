@@ -7,7 +7,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginBottom="17dp">
+        android:layout_marginBottom="17dp"
+        android:background="@drawable/corner_rv_local_farm">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,57 +16,90 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/rv_local_farm_image"
+                android:id="@+id/rv_farm_image"
                 android:layout_width="156dp"
-                android:layout_height="210dp"
-                android:background="@drawable/corner_round_12dp"
+                android:layout_height="146dp"
+                android:background="@drawable/corner_rv_local_farm_top"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
 
             <ImageView
                 android:layout_width="36dp"
                 android:layout_height="36dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="6dp"
                 android:src="@drawable/bookmark_stroke_vector_image"
-                android:background="@drawable/corner_round_12dp"
-                app:tint="@color/gray_1"
+                app:tint="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <TextView
-            android:id="@+id/rv_farm_name"
-            style="@style/Body1Bold"
-            android:layout_width="102sp"
-            android:layout_height="20sp"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="12dp"
-            tools:text="고덕 농장 1구획"
-            android:textSize="16sp"
-            android:textColor="@color/text_1"/>
 
-        <TextView
-            android:id="@+id/rv_farm_price"
-            style="@style/Body2Reg"
-            android:layout_width="75sp"
-            android:layout_height="16sp"
-            android:layout_marginLeft="4dp"
-            android:layout_marginTop="4dp"
-            tools:text="150,000원/평"
-            android:textSize="13sp"
-            android:textColor="@color/text_2"/>
+        <LinearLayout
+            android:layout_width="156dp"
+            android:layout_height="120dp"
+            android:orientation="vertical"
+            >
 
-        <TextView
-            android:id="@+id/rv_farm_size"
-            style="@style/Body2Reg"
-            android:layout_width="54sp"
-            android:layout_height="16sp"
-            android:layout_marginLeft="4dp"
-            android:layout_marginTop="4dp"
-            tools:text="9.9㎡, 3평"
-            android:textSize="13sp"
-            android:textColor="@color/text_2"/>
+            <TextView
+                android:id="@+id/rv_farm_name"
+                style="@style/Body1Bold"
+                android:layout_width="wrap_content"
+                android:layout_height="20sp"
+                android:layout_marginStart="9dp"
+                android:layout_marginTop="12dp"
+                tools:text="고덕 주말 농장"
+                android:textSize="16sp"
+                android:lineHeight="20.03sp"
+                android:letterSpacing="-0.03"
+                android:textColor="@color/text_1"/>
+
+            <TextView
+                android:id="@+id/rv_farm_size"
+                style="@style/Body3Reg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="35dp"
+                android:textColor="@color/text_2"
+                android:textSize="12sp"
+                tools:text="3평 (9.9㎡)" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="12dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/rv_farm_price"
+                    style="@style/Body1Bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="150,000원"
+                    android:textSize="16sp"
+                    android:textColor="@color/main"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="/월"
+                    android:textSize="10sp"
+                    android:layout_marginStart="2dp"
+                    android:textColor="@color/text_3"
+                    android:layout_gravity="bottom"/>
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+
+
 
 
     </LinearLayout>

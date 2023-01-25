@@ -6,8 +6,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.farmus_application.R
 import com.example.farmus_application.databinding.RvRecommendFarmForFarmerBinding
+import com.example.farmus_application.ui.home.RVRecDataModel
 
-class RecRVAdapter(val items : MutableList<String>) : RecyclerView.Adapter<RecRVAdapter.ViewHolder>() {
+class RecRVAdapter(val items : MutableList<RVRecDataModel>) : RecyclerView.Adapter<RecRVAdapter.ViewHolder>() {
 
     private lateinit var recBinding: RvRecommendFarmForFarmerBinding
 
@@ -30,8 +31,12 @@ class RecRVAdapter(val items : MutableList<String>) : RecyclerView.Adapter<RecRV
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bindItems(item: String){
+        fun bindItems(item: RVRecDataModel){
 
+            //이미지 입력 수정!!
+            recBinding.rvRecImg.setImageResource(item.rec_image)
+            recBinding.rvRecTitle.text = item.rec_title
+            recBinding.rvRecDay.text = item.rec_day
         }
     }
 }

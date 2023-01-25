@@ -8,17 +8,16 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.farmus_application.R
 import com.example.farmus_application.databinding.RvLocalFarmBinding
+import com.example.farmus_application.ui.home.RVFarmDataModel
 
 
-class LocalFarmRVAdapter(val items: MutableList<String>): RecyclerView.Adapter<LocalFarmRVAdapter.ViewHolder>() {
+class LocalFarmRVAdapter(val items: MutableList<RVFarmDataModel>): RecyclerView.Adapter<LocalFarmRVAdapter.ViewHolder>() {
 
     private lateinit var localFarmBinding : RvLocalFarmBinding
 
     override fun getItemCount(): Int {
 
-        var count = 2
-
-        return count
+        return 4
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LocalFarmRVAdapter.ViewHolder{
@@ -26,7 +25,7 @@ class LocalFarmRVAdapter(val items: MutableList<String>): RecyclerView.Adapter<L
         val view = LayoutInflater.from(parent.context).inflate(R.layout.rv_local_farm, parent, false)
 
         //테두리 둥글게 설정
-        localFarmBinding.rvLocalFarmImage.clipToOutline = true
+        localFarmBinding.rvFarmImage.clipToOutline = true
 
         return ViewHolder(view)
     }
@@ -36,8 +35,14 @@ class LocalFarmRVAdapter(val items: MutableList<String>): RecyclerView.Adapter<L
     }
 
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
-        fun bindItems(item : String){
 
+        fun bindItems(item : RVFarmDataModel){
+
+            //이미지 어떻게 넣을지 수정!!
+            localFarmBinding.rvFarmImage.setImageResource(item.farm_image)
+            localFarmBinding.rvFarmName.text = item.farm_name
+            localFarmBinding.rvFarmSize.text = item.farm_size
+            localFarmBinding.rvFarmPrice.text = item.farm_price
         }
     }
 }
