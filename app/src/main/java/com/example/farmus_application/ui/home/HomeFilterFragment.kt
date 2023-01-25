@@ -1,24 +1,18 @@
 package com.example.farmus_application.ui.home
 
+import android.app.DatePickerDialog
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.farmus_application.R
-import com.example.farmus_application.databinding.FragmentHomeBinding
 import com.example.farmus_application.databinding.FragmentHomeFilterBinding
+import java.util.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [HomeFilterFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class HomeFilterFragment : Fragment() {
 
     private lateinit var homeFilterBinding : FragmentHomeFilterBinding
@@ -42,10 +36,39 @@ class HomeFilterFragment : Fragment() {
         // Inflate the layout for this fragment
         homeFilterBinding = FragmentHomeFilterBinding.inflate(inflater, container, false)
 
+//      상단바 텍스트 설정
         homeFilterBinding.filterToolbar.toolbarMainTitleText.text = "필터"
+
+        //툴바 back버튼 누르면 HomeFragment로 돌아가기
+        homeFilterBinding.filterToolbar.toolbarWithTitleBackButton.setOnClickListener{
+            requireActivity().run {
+                startActivity(Intent(this, HomeFragment::class.java))
+                finish()
+            }
+        }
+
+//        DatePickerDialog 설정.
+        homeFilterBinding.startDay.setOnClickListener {
+            //datePickerDialog 에 표시할 달력
+            val calendar = Calendar.getInstance()
+            val year = calendar.get(Calendar.YEAR)
+            val month = calendar.get(Calendar.MONTH)
+            val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+            val listener = DatePickerDialog.OnDateSetListener { datePicker, y, m, d ->
+                // y년 (m+1)월 d일
+                homeFilterBinding.textStartDay.text = "${y}.${m + 1}.${d}."
+            }
+
+            //show를 통해 dialog창 활성화
+            val picker = DatePickerDialog(requireContext(), listener, year, month, day)
+            picker.show()
+
+        }
 
         return homeFilterBinding.root
     }
+
 
     companion object {
         /**
