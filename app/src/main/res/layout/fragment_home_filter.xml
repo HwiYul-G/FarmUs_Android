@@ -21,15 +21,14 @@
                 layout="@layout/toolbar_with_title"/>
 
             <TextView
+                android:id="@+id/btn_apply_data"
                 style="@style/Body1Reg"
-                android:layout_width="29dp"
-                android:layout_height="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="18dp"
                 android:layout_marginBottom="18dp"
-                android:layout_marginRight="16dp"
+                android:layout_marginEnd="16dp"
                 android:textColor="@color/main"
-                android:textSize="16sp"
-                android:letterSpacing="-0.03"
                 app:layout_constraintBottom_toBottomOf="@+id/filter_toolbar"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -42,80 +41,53 @@
             android:id="@+id/location_filter_section"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             app:layout_constraintTop_toBottomOf="@id/tool_bar">
 
             <TextView
                 android:id="@+id/text_location"
-                style="@style/Body1Bold"
+                style="@style/Title3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginTop="25dp"
-                android:layout_marginLeft="16dp"
                 tools:text="위치"
-                android:letterSpacing="-0.03"
+                android:textSize="20sp"
                 android:textColor="@color/text_1"/>
 
-            <LinearLayout
+            <TextView
+                style="@style/Body1Med"
                 android:id="@+id/text_location_sub"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:text="지역"
+                android:textColor="#666666"
+                android:textSize="16sp"
+                android:layout_marginTop="17dp"
                 app:layout_constraintTop_toBottomOf="@id/text_location"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp">
+                app:layout_constraintStart_toStartOf="parent"/>
 
-                <TextView
-                    style="@style/Body2Med"
-                    android:layout_width="61dp"
-                    android:layout_height="16dp"
-                    android:letterSpacing="-0.03"
-                    android:textColor="@color/text_2"
-                    android:textSize="13sp"
-                    tools:text="가까운 동네" />
+            <!--시/도 선택에 따르 시/군/구 선택하는 dropdown 만들기-->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/text_location_sub"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginTop="13dp"
+                android:layout_marginBottom="25dp"
+                android:orientation="horizontal">
 
-                <View
-                    android:id="@+id/rectangle_4"
-                    android:layout_width="1dp"
-                    android:layout_height="12dp"
-                    android:layout_marginLeft="12dp"
-                    android:layout_marginTop="1dp"
-                    android:layout_marginRight="12dp"
-                    android:layout_marginBottom="3dp"
-                    android:background="@drawable/rectangle_4"
-                    android:backgroundTint="@color/gray_2" />
+                <androidx.appcompat.widget.AppCompatSpinner
+                    android:layout_width="156dp"
+                    android:layout_height="64dp"
+                    android:background="@drawable/loc_spn_dropdown_bg"
 
-                <TextView
-                    style="@style/Body2Reg"
-                    android:layout_width="38sp"
-                    android:layout_height="16sp"
-                    android:letterSpacing="-0.03"
-                    android:textColor="@color/gray_1"
-                    android:textSize="13sp"
-                    tools:text="먼 동네" />
+                    />
 
             </LinearLayout>
-
-            <View
-                android:id="@+id/location_items"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                app:layout_constraintTop_toBottomOf="@id/text_location_sub"
-                />
-            
-
-
-            <ImageView
-                android:layout_width="10dp"
-                android:layout_height="4dp"
-                android:src="@drawable/rectangle_379_vector_image"
-                app:layout_constraintTop_toBottomOf="@id/location_items"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginBottom="13dp"
-                />
 
             
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -134,44 +106,86 @@
             android:id="@+id/price_filter_section"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             app:layout_constraintTop_toBottomOf="@id/section_line_1"
             app:layout_constraintStart_toStartOf="parent">
 
             <TextView
                 android:id="@+id/text_price"
-                style="@style/Body1Bold"
+                style="@style/Title3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginTop="25dp"
-                android:layout_marginLeft="16dp"
                 tools:text="가격"
+                android:textSize="20sp"
                 android:textColor="@color/text_1"/>
 
             <TextView
                 android:id="@+id/text_price_sub"
-                style="@style/Body2Med"
-                android:layout_width="74sp"
-                android:layout_height="16sp"
-                android:layout_marginLeft="16dp"
+                style="@style/Body1Med"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="17dp"
-                android:textColor="@color/text_2"
-                android:textSize="13sp"
+                android:textColor="#666666"
+                android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text_price"
-                tools:text="매매가 (원/평)" />
+                tools:text="월 임대료" />
 
+            <!--가격 rangeSlider 필터-->
             <com.google.android.material.slider.RangeSlider
-                android:id="@+id/price_range"
-                android:layout_width="match_parent"
+                android:id="@+id/price_range_slider_bar"
+                android:layout_width="340dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_price_sub"
                 android:valueFrom="0"
                 android:valueTo="100"
-                app:trackColor="@color/main"
-                app:layout_constraintTop_toBottomOf="@id/text_price_sub"/>
+                android:stepSize="5"
+                app:trackColorActive="@color/main"
+                app:trackColorInactive="@color/gray_2"
+                app:trackHeight="6dp"
+                app:thumbColor="@color/white"
+                app:thumbRadius="8dp"
+                app:thumbStrokeColor="@color/gray_2"
+                app:thumbStrokeWidth="1dp"
+                app:tickVisible="false"
+                app:values="@array/price_initial_slider_values"/>
+            
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/price_range_slider_bar"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginStart="3dp"
+                android:layout_marginEnd="3dp"
+                android:layout_marginBottom="25dp">
+                
+                <TextView
+                    style="@style/Body3Reg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:text="0원"/>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    style="@style/Body3Reg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:text="100만"
+                    />
+                
+            </LinearLayout>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -190,47 +204,112 @@
             android:id="@+id/area_filter_section"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             app:layout_constraintTop_toBottomOf="@id/section_line_2"
             app:layout_constraintStart_toStartOf="parent">
 
             <TextView
                 android:id="@+id/text_area"
-                style="@style/Body1Bold"
+                style="@style/Title3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginTop="25dp"
-                android:layout_marginLeft="16dp"
                 tools:text="면적"
+                android:textSize="20sp"
                 android:letterSpacing="-0.03"
                 android:textColor="@color/text_1"/>
 
             <TextView
                 android:id="@+id/text_area_sub"
-                style="@style/Body2Med"
-                android:layout_width="50sp"
-                android:layout_height="16sp"
+                style="@style/Body1Med"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/text_area"
                 app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginLeft="16dp"
                 android:layout_marginTop="17dp"
-                android:textSize="13sp"
+                android:textSize="16sp"
                 android:textColor="@color/text_2"
-                tools:text="농지 평수"/>
+                tools:text="분양 면적 (다중 선택 가능)"/>
 
-            <com.google.android.material.slider.RangeSlider
-                android:id="@+id/area_range"
-                android:layout_width="match_parent"
+            <com.google.android.material.chip.ChipGroup
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:valueFrom="0"
-                android:valueTo="100"
-                app:bar_color="@color/main"
-                app:leftMenuItemDrawable="@drawable/motion_circle_vector_image"
-                app:trackColor="@color/main"
-                app:layout_constraintTop_toBottomOf="@id/text_area_sub"/>
+                android:layout_marginTop="13dp"
+                android:layout_marginBottom="25dp"
+                app:layout_constraintTop_toBottomOf="@id/text_area_sub"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:chipSpacingHorizontal="16dp"
+                app:chipSpacingVertical="13dp">
+
+                <com.google.android.material.chip.Chip
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:fontFamily="@font/spoqa_han_sans_neo2"
+                    android:layout_width="156dp"
+                    android:layout_height="44dp"
+                    android:text="5평 이하"
+                    android:textSize="13sp"
+                    android:textColor="@color/text_2"
+                    android:letterSpacing="-0.03"
+                    app:chipMinTouchTargetSize="0dp"
+                    app:chipBackgroundColor="@color/white"
+                    app:chipMinHeight="44dp"
+                    app:chipStrokeWidth="0.5dp"
+                    app:chipCornerRadius="3dp"
+                    app:chipStrokeColor="@color/gray_2"/>
+
+                <com.google.android.material.chip.Chip
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:fontFamily="@font/spoqa_han_sans_neo2"
+                    android:layout_width="156dp"
+                    android:layout_height="44dp"
+                    android:text="5평 ~ 10평"
+                    android:textSize="13sp"
+                    android:textColor="@color/text_2"
+                    android:letterSpacing="-0.03"
+                    app:chipMinTouchTargetSize="0dp"
+                    app:chipBackgroundColor="@color/white"
+                    app:chipMinHeight="44dp"
+                    app:chipStrokeWidth="0.5dp"
+                    app:chipCornerRadius="3dp"
+                    app:chipStrokeColor="@color/gray_2"/>
+
+                <com.google.android.material.chip.Chip
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:fontFamily="@font/spoqa_han_sans_neo2"
+                    android:layout_width="156dp"
+                    android:layout_height="44dp"
+                    android:text="10평 ~ 20평"
+                    android:textSize="13sp"
+                    android:textColor="@color/text_2"
+                    android:letterSpacing="-0.03"
+                    app:chipMinTouchTargetSize="0dp"
+                    app:chipBackgroundColor="@color/white"
+                    app:chipMinHeight="44dp"
+                    app:chipStrokeWidth="0.5dp"
+                    app:chipCornerRadius="3dp"
+                    app:chipStrokeColor="@color/gray_2"/>
+
+                <com.google.android.material.chip.Chip
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:fontFamily="@font/spoqa_han_sans_neo2"
+                    android:layout_width="156dp"
+                    android:layout_height="44dp"
+                    android:text="20평 이상"
+                    android:textSize="13sp"
+                    android:textColor="@color/text_2"
+                    android:letterSpacing="-0.03"
+                    app:chipMinTouchTargetSize="0dp"
+                    app:chipBackgroundColor="@color/white"
+                    app:chipMinHeight="44dp"
+                    app:chipStrokeWidth="0.5dp"
+                    app:chipCornerRadius="3dp"
+                    app:chipStrokeColor="@color/gray_2"/>
+
+            </com.google.android.material.chip.ChipGroup>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -248,147 +327,140 @@
             android:id="@+id/period_filter_section"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
             app:layout_constraintTop_toBottomOf="@id/section_line_3"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginBottom="25dp">
 
             <TextView
                 android:id="@+id/text_period"
-                style="@style/Body1Bold"
+                style="@style/Title3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginTop="25dp"
-                android:layout_marginLeft="16dp"
                 tools:text="기간"
-                android:letterSpacing="-0.03"
                 android:textColor="@color/text_1"/>
 
             <TextView
                 android:id="@+id/text_period_sub"
-                style="@style/Body2Med"
+                style="@style/Body1Med"
                 android:layout_width="wrap_content"
-                android:layout_height="16sp"
+                android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/text_period"
                 app:layout_constraintStart_toStartOf="parent"
-                android:textSize="13sp"
-                android:letterSpacing="-0.03"
-                android:layout_marginLeft="16dp"
                 android:layout_marginTop="17dp"
                 android:textColor="@color/text_2"
-                tools:text="사용하고 싶은 기간"/>
+                tools:text="희망 분양 기간"/>
             
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/date_picker"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/text_period_sub"
                 android:layout_marginTop="13dp"
-                android:layout_marginLeft="16dp">
+                >
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/start_day"
-                    android:layout_width="125sp"
-                    android:layout_height="36sp"
-                    android:background="@drawable/rectangle_413"
+                    android:layout_width="156dp"
+                    android:layout_height="64dp"
+                    android:background="@drawable/corner_radius_3dp"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent">
 
                     <TextView
-                        android:id="@+id/text_start_day"
-                        android:layout_width="74sp"
-                        android:layout_height="16sp"
-                        android:layout_marginStart="12dp"
-                        android:layout_marginTop="10sp"
-                        android:layout_marginBottom="10sp"
-                        android:text="2023.01.07."
-                        android:textColor="@color/text_2"
-                        android:textSize="13sp"
-                        android:gravity="top"
-                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:id="@+id/textView"
+                        style="@style/Body3Med"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:text="시작 일자"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        style="@style/Body2Med"
+                        android:id="@+id/text_start_day"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="36dp"
+                        android:layout_marginBottom="12dp"
+                        android:gravity="top"
+                        android:text="2023.01.07."
+                        android:textColor="@color/text_1"
+                        android:textSize="13sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf ="parent" />
 
                     <ImageView
                         android:id="@+id/imageView"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:layout_marginRight="6dp"
-                        android:layout_marginTop="7dp"
-                        android:layout_marginBottom="9dp"
+                        android:layout_marginEnd="6dp"
+                        android:layout_marginTop="6dp"
                         android:src="@drawable/next_down_vector_image"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:tint="@color/gray_2" />
+                        app:tint="@color/gray_1" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <TextView
-                    android:id="@+id/text_start"
-                    style="@style/Body2Med"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="부터"
-                    android:textSize="13sp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="6dp"
-                    app:layout_constraintLeft_toRightOf="@id/start_day"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:textColor="@color/text_2"/>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/end_day"
-                    android:layout_width="125sp"
-                    android:layout_height="36sp"
-                    android:background="@drawable/rectangle_413"
+                    android:layout_width="156dp"
+                    android:layout_height="64dp"
+                    android:background="@drawable/corner_radius_3dp"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintLeft_toRightOf="@id/text_start"
-                    android:layout_marginLeft="17dp">
+                    app:layout_constraintEnd_toEndOf="parent">
 
                     <TextView
-                        android:id="@+id/text_end_day"
-                        android:layout_width="74sp"
-                        android:layout_height="16sp"
-                        android:layout_marginStart="12dp"
-                        android:layout_marginTop="10sp"
-                        android:layout_marginBottom="10sp"
-                        android:text="2023.01.07."
-                        android:textColor="@color/text_2"
-                        android:textSize="13sp"
-                        android:gravity="top"
-                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:id="@+id/textView2"
+                        style="@style/Body3Med"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:text="반납 일자"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
+                    <TextView
+                        style="@style/Body2Med"
+                        android:id="@+id/text_end_day"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="36dp"
+                        android:layout_marginBottom="12dp"
+                        android:gravity="top"
+                        android:text="2023.01.07."
+                        android:textColor="@color/text_1"
+                        android:textSize="13sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf ="parent" />
+
                     <ImageView
+                        android:id="@+id/imageView2"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:layout_marginRight="6dp"
-                        android:layout_marginTop="7dp"
-                        android:layout_marginBottom="9dp"
+                        android:layout_marginEnd="6dp"
+                        android:layout_marginTop="6dp"
                         android:src="@drawable/next_down_vector_image"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:tint="@color/gray_2" />
+                        app:tint="@color/gray_1" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-                <TextView
-                    style="@style/Body2Med"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="까지"
-                    android:textSize="13sp"
-                    app:layout_constraintLeft_toRightOf="@id/end_day"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="6dp"
-                    android:textColor="@color/text_2"/>
-
             </androidx.constraintlayout.widget.ConstraintLayout>
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

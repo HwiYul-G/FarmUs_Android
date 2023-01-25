@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    android:id="@+id/home_fragment_layout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -14,12 +16,13 @@
         <ScrollView
             android:id="@+id/scrollView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:layout_weight="1">
 
+            <!--            전체 화면 Layout-->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 tools:context=".MainActivity"
                 android:orientation="vertical">
 
@@ -31,9 +34,10 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <ImageView
+                        android:id="@+id/btn_alarm"
                         android:layout_width="36dp"
                         android:layout_height="36dp"
-                        android:layout_marginLeft="308dp"
+                        android:layout_marginStart="308dp"
                         android:src="@drawable/alarm_vector_image"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -42,18 +46,22 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
+                <!--메인 로고-->
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/farmus_main_logo"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:layout_marginTop="12dp"
-                    app:layout_constraintTop_toBottomOf="@+id/alarm_bar">
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintTop_toBottomOf="@+id/alarm_bar"
+                    app:layout_constraintStart_toStartOf="parent">
 
                     <TextView
                         android:id="@+id/farmus_kr"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="24dp"
+                        android:layout_marginStart="24dp"
                         android:layout_marginTop="2dp"
                         android:layout_marginBottom="4dp"
                         android:fontFamily="@font/line_seed_kr_rg"
@@ -71,16 +79,17 @@
                         android:id="@+id/farmus_logo"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
-                        android:layout_marginLeft="107dp"
                         android:src="@drawable/farmus_logo_vector_image_"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintLeft_toRightOf="@id/farmus_kr"
                         app:layout_constraintTop_toTopOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
+
+                <!--메인 검색 바-->
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/example_search_bar"
+                    android:id="@+id/search_bar"
                     style="@style/Body2Reg"
                     android:layout_width="328dp"
                     android:layout_height="48dp"
@@ -90,277 +99,166 @@
                     android:inputType="text"
                     android:padding="1dp"
                     android:textColorHint="@color/gray_first"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="26dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/farmus_main_logo"
                     />
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/constraintLayout2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="25dp"
-                    app:layout_constraintTop_toBottomOf="@+id/example_search_bar"
-                    >
 
-                    <LinearLayout
-                        android:id="@+id/surrounding_farm"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    app:layout_constraintTop_toBottomOf="@id/search_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/constraintLayout2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        app:layout_constraintBottom_toTopOf="@id/rv_home_farm"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
+                        android:layout_marginTop="25dp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        >
 
                         <LinearLayout
-                            android:id="@+id/go_to_surrounding_farm"
-                            android:layout_width="wrap_content"
+                            android:id="@+id/surrounding_farm"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="16dp">
+                            android:orientation="horizontal"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginEnd="16dp"
+                            app:layout_constraintBottom_toTopOf="@id/rv_home_farm"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
 
                             <TextView
                                 style="@style/Title3"
-                                android:layout_width="116dp"
+                                android:layout_width="wrap_content"
                                 android:layout_height="25dp"
                                 android:layout_marginTop="2dp"
                                 android:layout_marginBottom="3dp"
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
-                                tools:text="우리 동네 농장"
+                                tools:text="파머스 추천 농장"
                                 android:textColor="@color/text_1"/>
 
-                            <ImageView
-                                android:layout_width="32dp"
-                                android:layout_height="32dp"
-                                android:src="@drawable/next_black_vector_image"
-                                app:layout_constraintStart_toEndOf="@+id/textView"
-                                app:layout_constraintTop_toTopOf="parent" />
+                            <View
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"/>
+
+                            <!--더보기 클릭-->
+                            <TextView
+                                android:id="@+id/btn_show_more_farm"
+                                style="@style/Body1Reg"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="더보기"
+                                android:textSize="16sp"
+                                android:textColor="@color/text_3"
+                                android:gravity="center"
+                                app:drawableEndCompat="@drawable/next_vector_image"
+                                app:drawableTint="@color/text_3" />
 
                         </LinearLayout>
 
-
-
-                        <View
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_weight="1" />
-
-                        <ImageButton
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/align_button_vector_image"
+                        <!--우리 동네 농장 리사이클러뷰-->
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rv_home_farm"
+                            android:layout_width="match_parent"
+                            android:layout_height="566dp"
+                            android:layout_marginLeft="16dp"
                             android:layout_marginRight="16dp"
-                            />
+                            android:layout_marginTop="17dp"
+                            app:layout_constraintTop_toBottomOf="@id/surrounding_farm"
+                            tools:listitem="@layout/rv_local_farm" />
 
 
-                    </LinearLayout>
+                        </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
-                        app:layout_constraintTop_toBottomOf="@id/surrounding_farm"
-                        app:layout_constraintBottom_toTopOf="@id/rv_home_farm">
+                        <!--구분선-->
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="6dp"
+                            android:background="@drawable/rectangle_section_line_vector_image"
+                            app:layout_constraintBottom_toTopOf="@+id/constraintLayout3"
+                            app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
 
-                        <ImageButton
-                            android:id="@+id/btn_option"
-                            android:layout_width="31dp"
-                            android:layout_height="31dp"
-                            android:background="@color/gray_3"
-                            android:src="@drawable/option_vector_image"
-                            app:tint="@color/text_3"/>
 
-                        <RelativeLayout
-                            android:layout_width="46dp"
-                            android:layout_height="31dp"
-                            android:layout_centerHorizontal="true"
-                            android:layout_alignParentTop="true"
-                            android:paddingLeft="12dp"
-                            android:paddingRight="12dp"
-                            android:paddingTop="8dp"
-                            android:paddingBottom="8dp"
-                            android:layout_marginLeft="13dp"
-                            android:background="@drawable/button_fill_12"
-                            >
-                            <TextView
-                                style="@style/Body3Med"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                tools:text="위치"/>
-
-                        </RelativeLayout>
-
-                        <RelativeLayout
-                            android:layout_width="46dp"
-                            android:layout_height="31dp"
-                            android:layout_centerHorizontal="true"
-                            android:layout_alignParentTop="true"
-                            android:paddingLeft="12dp"
-                            android:paddingRight="12dp"
-                            android:paddingTop="8dp"
-                            android:paddingBottom="8dp"
-                            android:layout_marginLeft="13dp"
-                            android:background="@drawable/button_fill_12"
-                            >
-                            <TextView
-                                style="@style/Body3Med"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                tools:text="가격"/>
-
-                        </RelativeLayout>
-
-                        <RelativeLayout
-                            android:layout_width="46dp"
-                            android:layout_height="31dp"
-                            android:layout_centerHorizontal="true"
-                            android:layout_alignParentTop="true"
-                            android:paddingLeft="12dp"
-                            android:paddingRight="12dp"
-                            android:paddingTop="8dp"
-                            android:paddingBottom="8dp"
-                            android:layout_marginLeft="13dp"
-                            android:background="@drawable/button_fill_12"
-                            >
-                            <TextView
-                                style="@style/Body3Med"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                tools:text="기간"/>
-
-                        </RelativeLayout>
-
-                        <RelativeLayout
-                            android:layout_width="46dp"
-                            android:layout_height="31dp"
-                            android:layout_centerHorizontal="true"
-                            android:layout_alignParentTop="true"
-                            android:paddingLeft="12dp"
-                            android:paddingRight="12dp"
-                            android:paddingTop="8dp"
-                            android:paddingBottom="8dp"
-                            android:layout_marginLeft="13dp"
-                            android:background="@drawable/button_fill_12"
-                            >
-                            <TextView
-                                style="@style/Body3Med"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                tools:text="평수"/>
-
-                        </RelativeLayout>
-
-                    </LinearLayout>
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rv_home_farm"
-                        android:layout_width="match_parent"
-                        android:layout_height="578dp"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
-                        android:layout_marginTop="63dp"
-                        app:layout_constraintTop_toBottomOf="@id/surrounding_farm"
-                        tools:listitem="@layout/rv_local_farm" />
-
-                    <FrameLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintTop_toBottomOf="@id/rv_home_farm"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent">
-
-                        <View
-                            android:layout_width="328dp"
-                            android:layout_height="40dp"
-                            android:layout_marginBottom="17dp"
-                            android:background="@drawable/longer_text_field__focus_vector_image">
-                        </View>
-
-                        <TextView
-                            style="@style/Body2Med"
-                            android:layout_width="wrap_content"
+                        <!--농부를 위한 추천 콘텐츠-->
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/constraintLayout3"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            tools:text="더보기"
-                            android:layout_marginTop="12dp"
-                            android:layout_marginBottom="12dp"
-                            android:layout_marginRight="146dp"
-                            android:layout_marginLeft="146dp"/>
-
-                    </FrameLayout>
-
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="6dp"
-                    android:background="@color/gray_2"
-                    app:layout_constraintBottom_toTopOf="@+id/constraintLayout3"
-                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/constraintLayout3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
-
-                    <LinearLayout
-                        android:id="@+id/rec_contents_for_farmer"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="29dp"
-                        android:layout_marginLeft="16dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <TextView
-                            android:id="@+id/text_recommend_contents"
-                            style="@style/Title3"
-                            android:layout_width="190sp"
-                            android:layout_height="25sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            tools:text="농부를 위한 추천 콘텐츠"
-                            android:textColor="@color/text_1"
-                            android:layout_marginTop="3dp"
-                            android:layout_marginBottom="3dp"/>
+                            app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
+                            >
 
-                        <ImageButton
-                            android:layout_width="32dp"
-                            android:layout_height="32dp"
-                            android:background="@color/white"
-                            android:src="@drawable/next_black_vector_image"
-                            app:layout_constraintLeft_toRightOf="@id/text_recommend_contents"
-                            app:layout_constraintTop_toTopOf="parent"
-                            tools:ignore="SpeakableTextPresentCheck" />
+                            <LinearLayout
+                                android:id="@+id/rec_contents_for_farmer"
+                                android:layout_width="match_parent"
+                                android:layout_height="32sp"
+                                android:orientation="horizontal"
+                                android:layout_marginTop="29dp"
+                                android:layout_marginStart="16dp"
+                                android:layout_marginEnd="16dp"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent">
+
+                                <TextView
+                                    android:id="@+id/text_recommend_contents"
+                                    style="@style/Title3"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="25sp"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    tools:text="농부를 위한 추천 콘텐츠"
+                                    android:textColor="@color/text_1"
+                                    android:textSize="20sp"
+                                    android:layout_marginTop="2dp"
+                                    android:layout_marginBottom="3dp"/>
+
+                                <View
+                                    android:layout_width="0dp"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="1"/>
+
+                                <TextView
+                                    android:id="@+id/btn_show_more_contents"
+                                    style="@style/Body1Reg"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="더보기"
+                                    android:textSize="16sp"
+                                    android:textColor="@color/text_3"
+                                    android:gravity="center"
+                                    app:drawableEndCompat="@drawable/next_vector_image"
+                                    app:drawableTint="@color/text_3" />
 
 
-                    </LinearLayout>
+                            </LinearLayout>
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rv_rec_contents"
-                        android:layout_width="match_parent"
-                        android:layout_height="250dp"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginTop="71dp"
-                        android:layout_marginBottom="25dp"
-                        android:layout_marginRight="16dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:listitem="@layout/rv_recommend_farm_for_farmer" />
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/rv_rec_contents"
+                                android:layout_width="match_parent"
+                                android:layout_height="250dp"
+                                android:layout_marginLeft="16dp"
+                                android:layout_marginTop="71dp"
+                                android:layout_marginBottom="25dp"
+                                android:layout_marginRight="16dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                tools:listitem="@layout/rv_recommend_farm_for_farmer" />
 
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
 
-        <com.google.android.material.bottomnavigation.BottomNavigationView
+<!--        <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/select_fragment_bottom_navi"
             android:layout_width="match_parent"
             android:layout_height="67dp"
@@ -370,10 +268,8 @@
             app:itemTextColor="@drawable/select_fragment_bottom_navi_selector"
             app:labelVisibilityMode="labeled"
             app:menu="@menu/bottom_navi_menu"
-            />
+            />-->
     </LinearLayout>
 
-
-
-
 </FrameLayout>
+    <!--주의: LinearLayout 혹은 FrameLayout 중 하나만 있어도 된다!-->
