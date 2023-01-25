@@ -13,7 +13,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:text="시/도"
-        android:textColor="text3"/>
+        android:textColor="@color/text_3"/>
 
     <TextView
         style="@style/Body2Med"
