@@ -4,11 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.util.Patterns
 import android.view.View
 import android.widget.EditText
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.farmus_application.databinding.ActivityLoginMainBinding
 import com.example.farmus_application.ui.StartActivity
@@ -47,7 +45,7 @@ class LoginActivity : AppCompatActivity() {
                     if (!pattern.matcher(s).matches()) {
                         loginBinding.idWarningMessage.visibility = View.VISIBLE
                         loginBinding.loginButton.isEnabled = false
-                    } else if (editTextPW!=null && editTextPW.toString() != ""){
+                    } else if (editTextPW.text!=null && editTextPW.text.toString() != ""){
                         loginBinding.idWarningMessage.visibility = View.INVISIBLE
                         loginBinding.loginButton.isEnabled = true
                     }
@@ -85,14 +83,21 @@ class LoginActivity : AppCompatActivity() {
 
         // 아이디 찾기 이동
         val findID_intent = Intent(this, FindidActivity::class.java)
-        loginBinding.signupButton.setOnClickListener{startActivity(findID_intent)}
+        val findPW_intent = Intent(this, FindpwActivity::class.java)
+        val signup_intent = Intent(this, SignupActivity::class.java)
+
+        loginBinding.findIdButton.setOnClickListener{
+            startActivity(findID_intent)
+        }
 
         // 비밀번호 찾기 이동
-        val findPW_intent = Intent(this, FindpwActivity::class.java)
-        loginBinding.signupButton.setOnClickListener{startActivity(findPW_intent)}
+        loginBinding.findPwButton.setOnClickListener{
+            startActivity(findPW_intent)
+        }
 
         // 회원가입 이동 (이전 액티비티에 따라서 툴바의 내용 다르게 변화)
-        val signup_intent = Intent(this, SignupActivity::class.java)
-        loginBinding.signupButton.setOnClickListener{startActivity(signup_intent)}
+        loginBinding.signupButton.setOnClickListener{
+            startActivity(signup_intent)
+        }
     }
 }

@@ -12,11 +12,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import com.example.farmus_application.databinding.ActivityMainBinding
 import com.example.farmus_application.databinding.ActivitySignupFirstBinding
-
-import com.example.farmus_application.databinding.FragmentSignupThirdBinding
-import com.example.farmus_application.databinding.FragmentSignupFourthBinding
-import com.example.farmus_application.databinding.FragmentSignupFifthBinding
-import com.example.farmus_application.databinding.FragmentSignupSecondBinding
 import com.example.farmus_application.ui.StartActivity
 import java.util.regex.Pattern
 
@@ -31,9 +26,9 @@ class SignupActivity : AppCompatActivity() {
 
         signupBinding.signupIdToolbar.toolbarMainTitleText.text = "시작화면"
 
+        // 시작화면으로 다시 이동
         signupBinding.signupIdToolbar.toolbarWithTitleBackButton.setOnClickListener(){
-            val back_intent = Intent(this, StartActivity::class.java)
-            if(!isFinishing) finish()
+            BacktoStartActivity()
         }
 
         // 입력칸 관련 value 설정
@@ -56,30 +51,63 @@ class SignupActivity : AppCompatActivity() {
                     }
                 } else {
                     signupBinding.idWarningMessage.visibility = View.INVISIBLE
+                    signupBinding.toSecondSignupButton.isEnabled = false
                 }
             }
         })
 
         //회원가입 두번째 화면(프래그먼트) 추가
         signupBinding.toSecondSignupButton.setOnClickListener{
-            supportFragmentManager
-                .beginTransaction()
-                .replace(signupBinding.signupMainLayout.id, SignupSecondFragment())
-                .commitAllowingStateLoss()
-        }
+            signupBinding.signupMainLayout.visibility = View.INVISIBLE
+            signupBinding.signupMainLayout.isClickable = false
+            signupBinding.signupMainLayout.isFocusable = false
 
-//        loginBinding.to_login_button.setOnClickListener{
+            val bundle = Bundle()
+            bundle.putString("idText", "${editTextID.text}")
+
+            val S2Fragment = SignupSecondFragment()
+            S2Fragment.arguments = bundle
+
+            val transaction = supportFragmentManager.beginTransaction()
+                .replace(signupBinding.signupFrameLayout.id, S2Fragment)
+            transaction.commit()
+
 //            supportFragmentManager
 //                .beginTransaction()
-//                .replace(binding.framefragment.id,FirstFragment())
+//                .replace(signupBinding.signupFrameLayout.id, S2Fragment)
 //                .commitAllowingStateLoss()
+        }
+
+//        changeFrame(signupBinding, HomeFragment.newInstance("","")) //Initialize Frame
+//        signupBinding.selectFragmentBottomNavi.run {
+//            setOnItemSelectedListener {
+//                val switchFragment = when(it.itemId){
+//                    R.id.menu_favorites -> FavoriteFragment.newInstance("", "")
+//                    R.id.menu_farm -> FarmFragment.newInstance("", "")
+//                    R.id.menu_chat -> ChatFragment.newInstance("", "")
+//                    R.id.menu_my_page -> MyPageFragment.newInstance("", "")
+//                    else -> HomeFragment.newInstance("","")
+//                }
+//                changeFrame(mainBinding, switchFragment)
+//                true
+//            }
 //        }
 
     }
     // 프래그먼트 변화 클래스
-//    private fun changeFrame(binding: ActivityMainBinding, fragment: Fragment){
-//        supportFragmentManager.commit{
-//            replace(binding.mainFragmentFrame.id, fragment)
-//        }
-//    }
+    fun replaceFragment(int: Int){
+        val transaction = supportFragmentManager.beginTransaction()
+        when(int){
+            2 -> transaction.replace(signupBinding.signupFrameLayout.id, SignupSecondFragment())
+            3 -> transaction.replace(signupBinding.signupFrameLayout.id, SignupThirdFragment())
+            4 -> transaction.replace(signupBinding.signupFrameLayout.id, SignupFourthFragment())
+            5 -> transaction.replace(signupBinding.signupFrameLayout.id, SignupFifthFragment())
+        }
+        transaction.commit()
+    }
+
+    fun BacktoStartActivity(){
+        val login_intent = Intent(this, LoginActivity::class.java)
+        if(!isFinishing) finish()
+    }
 }
