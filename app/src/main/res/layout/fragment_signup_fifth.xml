@@ -10,6 +10,7 @@
         layout="@layout/toolbar_with_title"/>
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/skip_to_login_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="@+id/signup_role_toolbar"
@@ -35,9 +36,9 @@
         android:letterSpacing="-0.03"
         android:lineSpacingExtra="11sp"
         android:text="이용하시는 목적이 궁금해요"
-        app:layout_constraintTop_toBottomOf="@+id/signup_role_toolbar"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="100dp"
         android:layout_marginStart="16dp"/>
 
     <TextView
@@ -65,13 +66,13 @@
         android:orientation="horizontal">
 
         <RadioButton
-            android:checked="true"
+            android:checked="false"
             android:id="@+id/select_borrow_button"
             android:layout_width="156dp"
             android:layout_height="200dp"
             android:background="@drawable/radio_button_selector"
             android:drawableTop="@drawable/heart_fill_vector_image"
-            android:textColor="@color/main_green"
+            android:textColor="@drawable/radio_button_text_selector"
             android:button="@null"
             android:textAlignment="center"
             android:fontFamily="@font/spoqa_han_sans_neo_regular"
@@ -86,7 +87,7 @@
            android:layout_height="200dp"
            android:background="@drawable/radio_button_selector"
            android:drawableTop="@drawable/heart_fill_vector_image"
-           android:textColor="@color/text_third"
+           android:textColor="@drawable/radio_button_text_selector"
            android:button="@null"
            android:textAlignment="center"
            android:fontFamily="@font/spoqa_han_sans_neo_regular"
@@ -144,6 +145,7 @@
         android:layout_marginTop="19dp"/>
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/back_to_main_button"
         style="@style/Body1Med"
         android:layout_width="328dp"
         android:layout_height="48dp"
@@ -154,7 +156,6 @@
         android:shadowDx="0"
         android:shadowDy="0"
         android:shadowRadius="4"
-        android:textColor="@color/text_third"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -2,7 +2,6 @@ package com.example.farmus_application.ui.login
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import com.example.farmus_application.databinding.ActivityFindIdBinding
 import com.example.farmus_application.ui.StartActivity
@@ -25,27 +24,6 @@ class FindidActivity : AppCompatActivity() {
             val back_intent = Intent(this,StartActivity::class.java)
             if(!isFinishing) finish()
         }
-
-        // 입력칸 관련 value 설정
-//        val editTextID : EditText = findIdBinding.idTextField
-
-//
-//        signupBinding.signupIdToolbar.toolbarWithTitleBackButton.setOnClickListener(){
-//            val back_intent = Intent(this, StartActivity::class.java)
-//            if(!isFinishing) finish()
-//        }
-
-//        supportFragmentManager
-//            .beginTransaction()
-//            .replace(loginBinding.framefragment.id,FirstFragment())
-//            .commitAllowingStateLoss()
-//
-//        loginBinding.to_login_button.setOnClickListener{
-//            supportFragmentManager
-//                .beginTransaction()
-//                .replace(binding.framefragment.id,FirstFragment())
-//                .commitAllowingStateLoss()
-//        }
 
     }
 }

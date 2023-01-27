@@ -33,7 +33,7 @@
         android:layout_width="wrap_content"
         android:text="이름"
         app:layout_constraintTop_toBottomOf="@+id/findid_title"
-        app:layout_constraintStart_toStartOf="@+id/findid_title"
+        app:layout_constraintStart_toStartOf="@+id/name_text_field"
         android:layout_marginTop="49dp"/>
 
     <com.google.android.material.textfield.TextInputEditText
@@ -47,7 +47,8 @@
         android:inputType="text"
         android:padding="12dp"
         android:textColorHint="@color/gray_first"
-        app:layout_constraintStart_toStartOf="@+id/findid_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sub_title_name"
         android:layout_marginTop="6dp"/>
 
@@ -60,115 +61,179 @@
         app:layout_constraintTop_toTopOf="@+id/name_text_field"
         app:layout_constraintBottom_toBottomOf="@+id/name_text_field"/>
 
-<!--    <TextView-->
-<!--        android:id="@+id/name_warning_message"-->
-<!--        style="@style/Body3Reg"-->
-<!--        android:textColor="@color/sub_red"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="중복된 아이디(이메일)입니다."-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/id_text_field"-->
-<!--        app:layout_constraintStart_toStartOf="@+id/findid_title"-->
-<!--        android:layout_marginTop="6dp"/>-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/input_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/name_text_field"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="49dp">
 
-    <TextView
-        android:id="@+id/sub_title_phone"
-        style="@style/Body2Reg"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:text="휴대폰 번호"
-        android:textColor="@color/text_second"
-        app:layout_constraintTop_toBottomOf="@+id/name_text_field"
-        app:layout_constraintStart_toStartOf="@+id/name_text_field"
-        android:layout_marginTop="49dp"/>
+            <TextView
+                android:id="@+id/sub_title_phone"
+                style="@style/Body2Reg"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="휴대폰 번호"
+                android:textColor="@color/text_second"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/phone_number_field"
-        style="@style/Body2Reg"
-        android:layout_width="267dp"
-        android:layout_height="44dp"
-        android:background="@drawable/input_field_selector"
-        android:enabled="true"
-        android:hint="휴대폰 번호 입력"
-        android:inputType="text"
-        android:padding="12dp"
-        android:textColorHint="@color/gray_first"
-        app:layout_constraintStart_toStartOf="@+id/findid_title"
-        app:layout_constraintTop_toBottomOf="@+id/sub_title_phone"
-        android:layout_marginTop="6dp"/>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/phone_number_field"
+                style="@style/Body2Reg"
+                android:layout_width="267dp"
+                android:layout_height="44dp"
+                android:background="@drawable/input_field_selector"
+                android:enabled="true"
+                android:hint="휴대폰 번호 입력"
+                android:inputType="number"
+                android:padding="12dp"
+                android:textColorHint="@color/gray_first"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/sub_title_phone"
+                android:layout_marginTop="6dp"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/send_verify_button"
+                style="@style/Body2Reg"
+                android:layout_width="48dp"
+                android:layout_height="44dp"
+                android:background="@drawable/button_fill_selector_7radius"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="13sp"
+                android:enabled="false"
+                app:layout_constraintTop_toTopOf="@+id/phone_number_field"
+                app:layout_constraintBottom_toBottomOf="@+id/phone_number_field"
+                app:layout_constraintStart_toEndOf="@+id/phone_number_field"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="13dp"
+                android:text="인증"
+                android:stateListAnimator="@null"/>
+
+            <TextView
+                android:id="@+id/verify_sent_message"
+                style="@style/Body3Reg"
+                android:visibility="invisible"
+                android:textColor="@color/main_green"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="인증번호가 전송되었습니다."
+                app:layout_constraintTop_toBottomOf="@+id/phone_number_field"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="6dp"/>
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/verify_number_field"
+                style="@style/Body2Reg"
+                android:visibility="invisible"
+                android:layout_width="255dp"
+                android:layout_height="44dp"
+                android:background="@drawable/input_field_selector"
+                android:enabled="true"
+                android:hint="인증번호 입력"
+                android:inputType="number"
+                android:padding="12dp"
+                android:textColorHint="@color/gray_first"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/phone_number_field"
+                android:layout_marginTop="38dp"/>
+
+            <TextView
+                android:id="@+id/verify_resent_unmatch_message"
+                style="@style/Body3Reg"
+                android:visibility="invisible"
+                android:textColor="@color/sub_red"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="인증번호가 일치하지 않습니다."
+                app:layout_constraintTop_toBottomOf="@+id/verify_number_field"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="6dp"/>
+
+            <TextView
+                android:id="@+id/verify_resent__message"
+                style="@style/Body3Reg"
+                android:visibility="invisible"
+                android:textColor="@color/sub_red"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="인증번호가 일치하지 않습니다."
+                app:layout_constraintTop_toBottomOf="@+id/verify_number_field"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="6dp"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/timer_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="@+id/verify_number_field"
+                app:layout_constraintBottom_toBottomOf="@+id/verify_number_field"
+                app:layout_constraintEnd_toEndOf="@+id/verify_number_field"
+                android:layout_marginEnd="6dp"
+                android:visibility="invisible">
+
+                <TextView
+                    android:id="@+id/timer_minute"
+                    style="@style/Body2Reg"
+                    android:textColor="@color/text_second"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/timer_divider"
+                    android:text="00"
+                    android:layout_marginEnd="2dp"/>
+
+                <TextView
+                    android:id="@+id/timer_divider"
+                    style="@style/Body2Reg"
+                    android:textColor="@color/text_second"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/timer_second"
+                    android:text=":"
+                    android:layout_marginEnd="2dp"/>
+
+                <TextView
+                    android:id="@+id/timer_second"
+                    style="@style/Body2Reg"
+                    android:textColor="@color/text_second"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:text="00"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/resend_verify_button"
+                style="@style/Body2Reg"
+                android:visibility="invisible"
+                android:layout_width="60dp"
+                android:layout_height="44dp"
+                android:background="@drawable/button_white_selector_7radius"
+                android:gravity="center"
+                android:textColor="@color/text_first"
+                android:textSize="13sp"
+                android:enabled="false"
+                app:layout_constraintTop_toTopOf="@+id/verify_number_field"
+                app:layout_constraintBottom_toBottomOf="@+id/verify_number_field"
+                app:layout_constraintStart_toEndOf="@+id/verify_number_field"
+                android:layout_marginStart="13dp"
+                android:text="재전송"
+                android:stateListAnimator="@null"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/send_verify_button"
-        style="@style/Body2Reg"
-        android:layout_width="48dp"
-        android:layout_height="44dp"
-        android:background="@drawable/button_fill_selector_7radius"
-        android:gravity="center"
-        android:enabled="false"
-        android:textColor="@color/white"
-        android:textSize="13sp"
-        app:layout_constraintTop_toTopOf="@+id/phone_number_field"
-        app:layout_constraintBottom_toBottomOf="@+id/phone_number_field"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="16dp"
-        android:text="인증"
-        android:stateListAnimator="@null"/>
-
-    <TextView
-        android:id="@+id/number_sent_message"
-        style="@style/Body3Reg"
-        android:textColor="@color/main_green"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="인증번호가 전송되었습니다."
-        app:layout_constraintTop_toBottomOf="@+id/phone_number_field"
-        app:layout_constraintStart_toStartOf="@+id/findid_title"
-        android:layout_marginTop="6dp"/>
-
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/resend_verify_button"
-        style="@style/Body2Reg"
-        android:layout_width="255dp"
-        android:layout_height="44dp"
-        android:background="@drawable/input_field_selector"
-        android:enabled="true"
-        android:hint="인증번호 입력"
-        android:inputType="text"
-        android:padding="12dp"
-        android:textColorHint="@color/gray_first"
-        app:layout_constraintStart_toStartOf="@+id/findid_title"
-        app:layout_constraintTop_toBottomOf="@+id/phone_number_field"
-        android:layout_marginTop="38dp"/>
-
-    <TextView
-        style="@style/Body2Reg"
-        android:textColor="@color/text_second"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@+id/resend_verify_button"
-        app:layout_constraintBottom_toBottomOf="@+id/resend_verify_button"
-        app:layout_constraintEnd_toEndOf="@+id/resend_verify_button"
-        android:text="2:00"
-        android:layout_marginEnd="12dp"/>
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/verify_number_field"
-        style="@style/Body2Reg"
-        android:layout_width="60dp"
-        android:layout_height="44dp"
-        android:background="@drawable/button_white_selector_7radius"
-        android:gravity="center"
-        android:textColor="@color/text_first"
-        android:textSize="13sp"
-        android:enabled="false"
-        app:layout_constraintTop_toTopOf="@+id/resend_verify_button"
-        app:layout_constraintBottom_toBottomOf="@+id/resend_verify_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="16dp"
-        android:text="재전송"
-        android:stateListAnimator="@null"/>
-
-    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/find_id_button"
         style="@style/Body1Med"
         android:layout_width="328dp"
         android:layout_height="48dp"

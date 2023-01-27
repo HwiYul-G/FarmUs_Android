@@ -19,9 +19,9 @@
         android:letterSpacing="-0.03"
         android:lineSpacingExtra="11sp"
         android:text="비밀번호를 입력해주세요."
-        app:layout_constraintTop_toBottomOf="@+id/signup_id_toolbar"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="100dp"
         android:layout_marginStart="16dp"/>
 
     <TextView
@@ -32,7 +32,7 @@
         android:text="아이디"
         android:textColor="@color/text_second"
         app:layout_constraintTop_toBottomOf="@+id/signup_id_title"
-        app:layout_constraintStart_toStartOf="@+id/signup_id_title"
+        app:layout_constraintStart_toStartOf="@+id/id_text_field"
         android:layout_marginTop="49dp"/>
 
     <com.google.android.material.textfield.TextInputEditText
@@ -41,12 +41,13 @@
         android:layout_width="328dp"
         android:layout_height="44dp"
         android:background="@drawable/input_field_selector"
-        android:enabled="true"
-        android:hint="이메일 주소 입력"
+        android:enabled="false"
+        android:text="이메일 주소 입력"
         android:inputType="text"
         android:padding="12dp"
         android:textColorHint="@color/gray_first"
-        app:layout_constraintStart_toStartOf="@+id/signup_id_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sub_title_id"
         android:layout_marginTop="6dp"/>
 
@@ -58,7 +59,7 @@
         android:text="비밀번호"
         android:textColor="@color/text_second"
         app:layout_constraintTop_toBottomOf="@+id/id_text_field"
-        app:layout_constraintStart_toStartOf="@+id/signup_id_title"
+        app:layout_constraintStart_toStartOf="@+id/pw_text_field"
         android:layout_marginTop="38dp"/>
 
     <com.google.android.material.textfield.TextInputEditText
@@ -69,10 +70,11 @@
         android:background="@drawable/input_field_selector"
         android:enabled="true"
         android:hint="비밀번호 입력"
-        android:inputType="text"
+        android:inputType="textPassword"
         android:padding="12dp"
         android:textColorHint="@color/gray_first"
-        app:layout_constraintStart_toStartOf="@+id/signup_id_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sub_title_pw"
         android:layout_marginTop="6dp"/>
 
@@ -80,6 +82,7 @@
         android:id="@+id/pw_text_field_clear"
         android:layout_width="20dp"
         android:layout_height="20dp"
+        android:visibility="invisible"
         android:background="@drawable/visibility_off"
         android:backgroundTint="@color/main_green"
         app:layout_constraintEnd_toEndOf="@+id/pw_text_field"
@@ -94,8 +97,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="강도 : "
+        android:visibility="invisible"
         app:layout_constraintTop_toBottomOf="@+id/pw_text_field"
-        app:layout_constraintStart_toStartOf="@+id/signup_id_title"
+        app:layout_constraintStart_toStartOf="@+id/pw_text_field"
         android:layout_marginTop="6dp"/>
 
     <TextView
@@ -105,6 +109,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="강함"
+        android:visibility="invisible"
         app:layout_constraintTop_toBottomOf="@+id/pw_text_field"
         app:layout_constraintStart_toEndOf="@+id/pw_level_text"
         android:layout_marginStart="4dp"
@@ -115,10 +120,10 @@
         style="@style/Body2Reg"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:text="비밀번호"
+        android:text="비밀번호 확인"
         android:textColor="@color/text_second"
         app:layout_constraintTop_toBottomOf="@+id/pw_text_field"
-        app:layout_constraintStart_toStartOf="@+id/signup_id_title"
+        app:layout_constraintStart_toStartOf="@+id/pw_check_text_field"
         android:layout_marginTop="38dp"/>
 
     <com.google.android.material.textfield.TextInputEditText
@@ -126,20 +131,22 @@
         style="@style/Body2Reg"
         android:layout_width="328dp"
         android:layout_height="44dp"
+        android:layout_marginTop="6dp"
         android:background="@drawable/input_field_selector"
         android:enabled="true"
-        android:hint="비밀번호 입력"
-        android:inputType="text"
+        android:hint="비밀번호 재입력"
+        android:inputType="textPassword"
         android:padding="12dp"
         android:textColorHint="@color/gray_first"
-        app:layout_constraintStart_toStartOf="@+id/signup_id_title"
-        app:layout_constraintTop_toBottomOf="@+id/sub_title_pw_check"
-        android:layout_marginTop="6dp"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sub_title_pw_check" />
 
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/pw_check_text_field_clear"
         android:layout_width="20dp"
         android:layout_height="20dp"
+        android:visibility="invisible"
         android:background="@drawable/visibility_off"
         android:backgroundTint="@color/main_green"
         app:layout_constraintEnd_toEndOf="@+id/pw_check_text_field"
@@ -154,11 +161,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="비밀번호가 일치하지 않습니다."
+        android:visibility="invisible"
         app:layout_constraintTop_toBottomOf="@+id/pw_check_text_field"
-        app:layout_constraintStart_toStartOf="@+id/signup_id_title"
+        app:layout_constraintStart_toStartOf="@+id/pw_check_text_field"
         android:layout_marginTop="6dp"/>
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/to_third_signup_button"
         style="@style/Body1Med"
         android:layout_width="328dp"
         android:layout_height="48dp"
@@ -169,14 +178,12 @@
         android:shadowDx="0"
         android:shadowDy="0"
         android:shadowRadius="4"
-        android:textColor="@color/text_third"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginBottom="115dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
         android:text="다음"
         android:stateListAnimator="@null"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
