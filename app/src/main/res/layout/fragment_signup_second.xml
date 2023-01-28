@@ -178,6 +178,7 @@
         android:shadowDx="0"
         android:shadowDy="0"
         android:shadowRadius="4"
+        android:textColor="@drawable/button_fill_text_selector"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
