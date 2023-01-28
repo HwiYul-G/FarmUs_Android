@@ -59,7 +59,6 @@ class SignupThirdFragment: Fragment(){
                 // 타이머가 종료되면 호출
             }
         }
-//            .start()
 
         //인증 버튼 누를 경우 인증번호 입력 칸 및 버튼 표시
         viewBinding.sendVerifyButton.setOnClickListener{

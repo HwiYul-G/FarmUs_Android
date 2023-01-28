@@ -71,11 +71,6 @@ class SignupActivity : AppCompatActivity() {
             val transaction = supportFragmentManager.beginTransaction()
                 .replace(signupBinding.signupFrameLayout.id, S2Fragment)
             transaction.commit()
-
-//            supportFragmentManager
-//                .beginTransaction()
-//                .replace(signupBinding.signupFrameLayout.id, S2Fragment)
-//                .commitAllowingStateLoss()
         }
 
 //        changeFrame(signupBinding, HomeFragment.newInstance("","")) //Initialize Frame

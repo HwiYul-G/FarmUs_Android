@@ -33,7 +33,6 @@ class SignupSecondFragment: Fragment(){
         viewBinding = FragmentSignupSecondBinding.inflate(inflater, container, false)
 
         val idText = arguments?.getString("idText")
-        Log.d("idText", ": $idText")
         viewBinding.idTextField.setText("$idText")
 
         // 입력칸 관련 value 설정
