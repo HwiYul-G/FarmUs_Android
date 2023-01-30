@@ -1,159 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
+<layout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    >
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <FrameLayout
+        android:id="@+id/home_search_frame"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ui.home.HomeSearchActivity">
+        android:layout_height="match_parent">
 
-        <RelativeLayout
-            android:id="@+id/home_search_title_bar"
-            android:layout_width="360dp"
-            android:layout_height="56dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
-
-            <ImageButton
-                android:id="@+id/toolbar_without_title_back_button"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:src="@drawable/back_btn_vector_image"
-                android:background="@color/white"
-                android:layout_marginTop="12dp"
-                android:layout_marginBottom="12dp"
-                android:layout_marginStart="5dp"/>
-        </RelativeLayout>
-
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/search_bar"
-            style="@style/Body2Reg"
-            android:layout_width="328dp"
-            android:layout_height="48dp"
-            android:background="@drawable/search_bar_selector"
-            android:drawableStart="@drawable/search_vector_image_green"
-            android:hint="@string/search_bar_hint_text"
-            android:inputType="text"
-            android:padding="1dp"
-            android:textColorHint="@color/gray_first"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/home_search_title_bar"
-            />
-
-<!--        필터-->
-        <LinearLayout
-            android:id="@+id/search_filter"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginTop="17dp"
-            app:layout_constraintTop_toBottomOf="@id/search_bar">
+            android:layout_height="match_parent"
+            tools:context=".ui.home.HomeSearchActivity">
 
-            <!--필터 옵션 버튼-->
-            <ImageButton
-                android:id="@+id/btn_option"
-                android:layout_width="31dp"
-                android:layout_height="31dp"
-                android:background="@drawable/option_background"
-                android:src="@drawable/option_vector_image"
-                app:tint="@color/text_3"/>
-
-
-            <!--검색 그룹 ChipGroup-->
-            <com.google.android.material.chip.ChipGroup
-                android:layout_width="211dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="13dp"
-                app:chipSpacingHorizontal="13dp"
-                app:singleLine="true"
-                >
-
-                <!--위치 chip-->
-                <com.google.android.material.chip.Chip
-                    android:layout_width="wrap_content"
-                    android:layout_height="31dp"
-                    android:fontFamily="@font/spoqa_han_sans_neo2"
-                    android:textStyle="normal"
-                    android:text="위치"
-                    android:textSize="12sp"
-                    android:checkable="true"
-                    style="@style/CustomChipStyle_filter"
-                    app:chipMinHeight="50dp"
-                    app:chipCornerRadius="7dp"
-                    />
-
-                <!--가격 chip-->
-                <com.google.android.material.chip.Chip
-                    android:layout_width="wrap_content"
-                    android:layout_height="31dp"
-                    android:fontFamily="@font/spoqa_han_sans_neo2"
-                    android:textStyle="normal"
-                    android:text="가격"
-                    android:textSize="12sp"
-                    android:checkable="true"
-                    style="@style/CustomChipStyle_filter"
-                    app:chipMinHeight="50dp"
-                    app:chipCornerRadius="7dp"
-                    />
-
-                <!--면적 chip-->
-                <com.google.android.material.chip.Chip
-                    android:layout_width="wrap_content"
-                    android:layout_height="31dp"
-                    android:fontFamily="@font/spoqa_han_sans_neo2"
-                    android:text="면적"
-                    android:textSize="12sp"
-                    android:checkable="true"
-                    style="@style/CustomChipStyle_filter"
-                    app:chipMinHeight="50dp"
-                    app:chipCornerRadius="7dp"
-                    />
-
-                <!--기간 chip-->
-                <com.google.android.material.chip.Chip
-                    android:layout_width="wrap_content"
-                    android:layout_height="31dp"
-                    android:fontFamily="@font/spoqa_han_sans_neo2"
-                    android:text="기간"
-                    android:textSize="12sp"
-                    android:checkable="true"
-                    style="@style/CustomChipStyle_filter"
-                    app:chipMinHeight="50dp"
-                    app:chipCornerRadius="7dp"
-                    />
-            </com.google.android.material.chip.ChipGroup>
-
-<!--        검색 정렬 순서 -->
-<!--        spinner 수정하기-->
-            <Spinner
-                android:id="@+id/filter_dropdown"
-                style="@style/Body3Med"
-                android:layout_width="70dp"
-                android:layout_height="31dp"
+            <!--메인 로고-->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/farmus_main_logo"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="56dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:spinnerMode="dropdown"
-                android:background="@drawable/spinner_dropdown_bg"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <ImageView
+                    android:id="@+id/farmus_kr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="4dp"
+                    android:src="@drawable/farmus_main_text_vector_image"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/farmus_logo"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    />
+
+                <ImageView
+                    android:id="@+id/farmus_logo"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/farmus_logo_vector_image_"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@id/farmus_kr"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!--메인 검색 바-->
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/search_bar"
+                style="@style/Body2Reg"
+                android:layout_width="328dp"
+                android:layout_height="48dp"
+                android:background="@drawable/search_bar_selector"
+                android:drawableStart="@drawable/search_vector_image_green"
+                android:paddingStart="8dp"
+                android:hint="@string/search_bar_hint_text"
+                android:inputType="text"
+                android:padding="1dp"
+                android:textColorHint="@color/gray_first"
+                android:layout_marginTop="26dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/farmus_main_logo"
                 />
 
+            <LinearLayout
+                android:id="@+id/text_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                app:layout_constraintTop_toBottomOf="@id/search_bar"
+                >
 
-        </LinearLayout>
+                <TextView
+                    style="@style/Title3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="최근 검색어"
+                    android:textColor="@color/text_1"
+                    />
 
-<!--        스크롤 내렸을 때 농장만 보이는지 아니면 위의 필터랑 검색 기능은 그대로 유지되고 농장 쪽 스크롤만 내려가는지-->
-<!--        ScrollView 안에 RelativeLayout 안에 RecyclerView 를 넣어라??-->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_home_search_farm"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="17dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            tools:listitem="@layout/rv_local_farm"
-            app:layout_constraintTop_toBottomOf="@id/search_filter"/>
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    style="@style/Body1Reg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="편집"
+                    android:textSize="16sp"
+                    android:textColor="@color/text_3"/>
+            </LinearLayout>
+
+            <!--최근 검색어 chip-->
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/recent_search_chipgroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/text_bar"
+                android:layout_marginTop="13dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                app:singleSelection="true"
+                app:singleLine="false"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
+
 </layout>

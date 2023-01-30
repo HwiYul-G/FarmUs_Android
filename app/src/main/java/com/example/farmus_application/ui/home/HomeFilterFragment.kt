@@ -7,7 +7,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.databinding.DataBindingUtil
+import com.example.farmus_application.R
 import com.example.farmus_application.databinding.FragmentHomeFilterBinding
+import org.w3c.dom.Text
 import java.util.*
 
 private const val ARG_PARAM1 = "param1"
@@ -34,41 +38,47 @@ class HomeFilterFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        homeFilterBinding = FragmentHomeFilterBinding.inflate(inflater, container, false)
+        homeFilterBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_home_filter, container, false)
+        val view = homeFilterBinding
 
 //      상단바 텍스트 설정
         homeFilterBinding.filterToolbar.toolbarMainTitleText.text = "필터"
 
-        //툴바 back버튼 누르면 HomeFragment로 돌아가기
+        //툴바 back버튼 누르면 SearchFragment로 돌아가기
         homeFilterBinding.filterToolbar.toolbarWithTitleBackButton.setOnClickListener{
-            requireActivity().run {
-                startActivity(Intent(this, HomeFragment::class.java))
-                finish()
-            }
+            (activity as HomeSearchActivity).changeFrame(SearchFragment.newInstance("",""))
         }
 
-//        DatePickerDialog 설정.
+//      DatePickerDialog- 시작 날짜
         homeFilterBinding.startDay.setOnClickListener {
-            //datePickerDialog 에 표시할 달력
-            val calendar = Calendar.getInstance()
-            val year = calendar.get(Calendar.YEAR)
-            val month = calendar.get(Calendar.MONTH)
-            val day = calendar.get(Calendar.DAY_OF_MONTH)
 
-            val listener = DatePickerDialog.OnDateSetListener { datePicker, y, m, d ->
-                // y년 (m+1)월 d일
-                homeFilterBinding.textStartDay.text = "${y}.${m + 1}.${d}."
-            }
-
-            //show를 통해 dialog창 활성화
-            val picker = DatePickerDialog(requireContext(), listener, year, month, day)
-            picker.show()
-
+            showDatePickerDialog(homeFilterBinding.textStartDay)
         }
 
-        return homeFilterBinding.root
+//      DatePickerDialog - 끝나는 날짜
+        homeFilterBinding.endDay.setOnClickListener {
+
+            showDatePickerDialog(homeFilterBinding.textEndDay)
+        }
+
+        return view.root
     }
 
+    private fun showDatePickerDialog(date : TextView) {
+        val calendar = Calendar.getInstance()
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+        val listener = DatePickerDialog.OnDateSetListener { datePicker, y, m, d ->
+            // y년 (m+1)월 d일
+            date.text = "${y}.${m + 1}.${d}."
+        }
+
+        //show를 통해 dialog창 활성화
+        val picker = DatePickerDialog(requireContext(), listener, year, month, day)
+        picker.show()
+    }
 
     companion object {
         /**

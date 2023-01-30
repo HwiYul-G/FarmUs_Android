@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.farmus_application.R
 import com.example.farmus_application.databinding.RvLocalFarmBinding
 import com.example.farmus_application.ui.home.RVFarmDataModel
+import java.util.Date.from
 
 
 class LocalFarmRVAdapter(val items: MutableList<RVFarmDataModel>): RecyclerView.Adapter<LocalFarmRVAdapter.ViewHolder>() {
@@ -22,12 +23,12 @@ class LocalFarmRVAdapter(val items: MutableList<RVFarmDataModel>): RecyclerView.
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LocalFarmRVAdapter.ViewHolder{
 
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.rv_local_farm, parent, false)
+        localFarmBinding = RvLocalFarmBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
         //테두리 둥글게 설정
         localFarmBinding.rvFarmImage.clipToOutline = true
 
-        return ViewHolder(view)
+        return ViewHolder(localFarmBinding.root)
     }
 
     override fun onBindViewHolder(holder: LocalFarmRVAdapter.ViewHolder, position: Int) {

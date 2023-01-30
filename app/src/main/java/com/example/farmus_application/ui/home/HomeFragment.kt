@@ -1,21 +1,25 @@
 package com.example.farmus_application.ui.home
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.farmus_application.R
+import com.example.farmus_application.databinding.ActivityMainBinding
 import com.example.farmus_application.databinding.FragmentHomeBinding
 import com.example.farmus_application.ui.MainActivity
-import com.example.farmus_application.ui.favorite.ARG_PARAM1
-import com.example.farmus_application.ui.favorite.ARG_PARAM2
-import com.example.farmus_application.ui.favorite.FavoriteFragment
 import com.example.farmus_application.ui.home.Adapter.LocalFarmRVAdapter
 import com.example.farmus_application.ui.home.Adapter.RecRVAdapter
+
+// TODO: Rename parameter arguments, choose names that match
+// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+private const val ARG_PARAM1 = "param1"
+private const val ARG_PARAM2 = "param2"
 
 class HomeFragment : Fragment() {
 
@@ -33,34 +37,37 @@ class HomeFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        homeBinding = FragmentHomeBinding.inflate(inflater, container, false)
-
-//      우리 동네 농장 아이템
-        val local_farm_items = mutableListOf<RVFarmDataModel>()
-
-        homeBinding.rvHomeFarm.adapter = LocalFarmRVAdapter(local_farm_items)
-        homeBinding.rvHomeFarm.layoutManager = GridLayoutManager(requireActivity(), 2)
-
-        // 농부를 위한 추천 콘텐츠 아이템
-        val rec_contents_items = mutableListOf<RVRecDataModel>()
-
-        homeBinding.rvRecContents.adapter = RecRVAdapter(rec_contents_items)
-        homeBinding.rvRecContents.layoutManager = LinearLayoutManager(requireActivity())
+        homeBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
+        val view = homeBinding
 
 
-        //searchBar 누르면 SearchFragment로 전환
+////      우리 동네 농장 아이템
+//        val local_farm_items = mutableListOf<RVFarmDataModel>()
+//
+//        homeBinding.rvHomeFarm.adapter = LocalFarmRVAdapter(local_farm_items)
+//        homeBinding.rvHomeFarm.layoutManager = GridLayoutManager(requireActivity(), 2)
+//
+//        // 농부를 위한 추천 콘텐츠 리사이클러뷰 아이템
+//        val rec_contents_items = mutableListOf<RVRecDataModel>()
+//
+//        homeBinding.rvRecContents.adapter = RecRVAdapter(rec_contents_items)
+//        homeBinding.rvRecContents.layoutManager = LinearLayoutManager(requireActivity())
+
+
+        //searchBar 누르면 HomeSearchActivity로 전환
+        val activity = activity as MainActivity
         homeBinding.searchBar.setOnClickListener{
-            requireActivity().supportFragmentManager
-                .beginTransaction()
-                .replace(homeBinding.homeFragmentLayout.id, SearchFragment())
-                .commitAllowingStateLoss()
+
+            activity.changeFragmentToActivity(HomeSearchActivity())
+
         }
 
-        return homeBinding.root
+        return view.root
     }
 
 
@@ -76,7 +83,7 @@ class HomeFragment : Fragment() {
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            FavoriteFragment().apply {
+            HomeFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)
