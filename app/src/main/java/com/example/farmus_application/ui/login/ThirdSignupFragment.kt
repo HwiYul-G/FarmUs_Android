@@ -30,6 +30,11 @@ class SignupThirdFragment: Fragment(){
     ): View {
         viewBinding = FragmentSignupThirdBinding.inflate(layoutInflater)
 
+        viewBinding.signupPhoneToolbar.toolbarWithTitleBackButton.setOnClickListener{
+            SignupActivity!!.supportFragmentManager.beginTransaction().remove(this).commit();
+            SignupActivity!!.supportFragmentManager.popBackStack();
+        }
+
         // 입력칸 관련 value 설정
         val editTextNum : EditText = viewBinding.phoneNumberField
         val editTextVerify : EditText = viewBinding.verifyNumberField
@@ -40,10 +45,9 @@ class SignupThirdFragment: Fragment(){
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             }
             override fun afterTextChanged(s: Editable?) {
+                viewBinding.sendVerifyButton.isEnabled = false
                 if(s!=null && s.toString() != ""){
                     viewBinding.sendVerifyButton.isEnabled = true
-                } else {
-                    viewBinding.sendVerifyButton.isEnabled = false
                 }
             }
         })
@@ -76,10 +80,9 @@ class SignupThirdFragment: Fragment(){
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             }
             override fun afterTextChanged(s: Editable?) {
+                viewBinding.toFourthButton.isEnabled = false
                 if(s!=null && s.toString() != ""){
                     viewBinding.toFourthButton.isEnabled = true
-                } else {
-                    viewBinding.toFourthButton.isEnabled = false
                 }
             }
         })

@@ -33,6 +33,11 @@ class SignupFourthFragment: Fragment(){
     ): View {
         viewBinding = FragmentSignupFourthBinding.inflate(inflater, container, false)
 
+        viewBinding.signupInfoToolbar.toolbarWithTitleBackButton.setOnClickListener{
+            SignupActivity!!.supportFragmentManager.beginTransaction().remove(this).commit();
+            SignupActivity!!.supportFragmentManager.popBackStack();
+        }
+
         // 입력칸 관련 value 설정
         val editTextName : EditText = viewBinding.nameTextField
         val editTextNick : EditText = viewBinding.nickTextField

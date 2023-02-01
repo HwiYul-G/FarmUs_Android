@@ -104,9 +104,9 @@ class FindidActivity : AppCompatActivity() {
 
         // 아이디 찾기 화면(프래그먼트) 추가
         findIdBinding.findIdButton.setOnClickListener{
-            findIdBinding.findidFrameLayout.visibility = View.INVISIBLE
-            findIdBinding.findidFrameLayout.isClickable = false
-            findIdBinding.findidFrameLayout.isFocusable = false
+            findIdBinding.findidMainLayout.visibility = View.INVISIBLE
+            findIdBinding.findidMainLayout.isClickable = false
+            findIdBinding.findidMainLayout.isFocusable = false
 
             val bundle = Bundle()
             bundle.putString("nameText", "${editTextName.text}")
@@ -119,5 +119,10 @@ class FindidActivity : AppCompatActivity() {
             transaction.commit()
         }
 
+    }
+    // 로그인 액티비티로 회귀
+    fun BacktoLoginActivity(){
+        val login_intent = Intent(this, LoginActivity::class.java)
+        if(!isFinishing) finish()
     }
 }
