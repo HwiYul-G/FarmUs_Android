@@ -5,12 +5,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.farmus_application.R
-import com.example.farmus_application.databinding.RvResultFarmBinding
+import com.example.farmus_application.databinding.RvLocalFarmBinding
 import com.example.farmus_application.ui.home.RVFarmDataModel
 
 class ResultRVAdapter(val items: MutableList<RVFarmDataModel>): RecyclerView.Adapter<ResultRVAdapter.ViewHolder>()  {
 
-    private lateinit var resultBinding : RvResultFarmBinding
+    private lateinit var resultBinding : RvLocalFarmBinding
 
     override fun getItemCount(): Int {
 
@@ -19,19 +19,18 @@ class ResultRVAdapter(val items: MutableList<RVFarmDataModel>): RecyclerView.Ada
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ResultRVAdapter.ViewHolder{
 
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.rv_result_farm, parent, false)
-
+        resultBinding = RvLocalFarmBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         //테두리 둥글게 설정
         resultBinding.rvFarmImage.clipToOutline = true
 
-        return ViewHolder(view)
+        return ViewHolder(resultBinding)
     }
 
     override fun onBindViewHolder(holder: ResultRVAdapter.ViewHolder, position: Int) {
         holder.bindItems(items[position])
     }
 
-    inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
+    inner class ViewHolder(binding: RvLocalFarmBinding): RecyclerView.ViewHolder(binding.root){
 
         fun bindItems(item : RVFarmDataModel){
 

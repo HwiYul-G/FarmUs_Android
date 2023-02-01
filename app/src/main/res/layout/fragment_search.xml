@@ -200,18 +200,18 @@
 
                     </LinearLayout>
 
-
-
                     <!--        스크롤 내렸을 때 농장만 보이는지 아니면 위의 필터랑 검색 기능은 그대로 유지되고 농장 쪽 스크롤만 내려가는지-->
                     <!--        ScrollView 안에 RelativeLayout 안에 RecyclerView 를 넣어라??-->
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rv_home_search_farm"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_marginTop="17dp"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
                         tools:listitem="@layout/rv_local_farm"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/search_filter"/>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

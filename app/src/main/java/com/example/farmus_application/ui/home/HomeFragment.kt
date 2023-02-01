@@ -56,15 +56,20 @@ class HomeFragment : Fragment() {
 
 //      우리 동네 농장 아이템
         val local_farm_items = mutableListOf<RVFarmDataModel>()
-
         homeBinding.rvHomeFarm.adapter = LocalFarmRVAdapter(local_farm_items)
         homeBinding.rvHomeFarm.layoutManager = GridLayoutManager(requireActivity(), 2)
+        local_farm_items.add(RVFarmDataModel(R.drawable.farm_image_example,"고덕 주말 농장","3평","150,000"))
+        local_farm_items.add(RVFarmDataModel(R.drawable.farm_image_example,"고덕 주말 농장","3평","150,000"))
+        local_farm_items.add(RVFarmDataModel(R.drawable.farm_image_example,"고덕 주말 농장","3평","150,000"))
+        local_farm_items.add(RVFarmDataModel(R.drawable.farm_image_example,"고덕 주말 농장","3평","150,000"))
 
 //        // 농부를 위한 추천 콘텐츠 리사이클러뷰 아이템
         val rec_contents_items = mutableListOf<RVRecDataModel>()
-
         homeBinding.rvRecContents.adapter = RecRVAdapter(rec_contents_items)
         homeBinding.rvRecContents.layoutManager = LinearLayoutManager(requireActivity())
+        rec_contents_items.add(RVRecDataModel(R.drawable.rec_image_example,"노동을 줄여주고 생산의 질을 높여주는 스마트팜","2023.02.01"))
+        rec_contents_items.add(RVRecDataModel(R.drawable.rec_image_example,"노동을 줄여주고 생산의 질을 높여주는 스마트팜","2023.02.01"))
+        rec_contents_items.add(RVRecDataModel(R.drawable.rec_image_example,"노동을 줄여주고 생산의 질을 높여주는 스마트팜","2023.02.01"))
 
 
         return view.root

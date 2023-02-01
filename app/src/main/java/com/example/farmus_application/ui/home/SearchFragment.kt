@@ -107,6 +107,17 @@ class SearchFragment : Fragment() {
         //검색 결과 농장 리사이클러뷰
         searchBinding.rvHomeSearchFarm.adapter = ResultRVAdapter(result_farm_items)
         searchBinding.rvHomeSearchFarm.layoutManager = GridLayoutManager(requireContext(), 2)
+        result_farm_items.add(RVFarmDataModel(R.drawable.farm_image_example, "고덕 주말 농장","4.5평","150,000"))
+        result_farm_items.add(RVFarmDataModel(R.drawable.farm_image_example, "고덕 주말 농장","4.5평","150,000"))
+        result_farm_items.add(RVFarmDataModel(R.drawable.farm_image_example, "고덕 주말 농장","4.5평","150,000"))
+        result_farm_items.add(RVFarmDataModel(R.drawable.farm_image_example, "고덕 주말 농장","4.5평","150,000"))
+        result_farm_items.add(RVFarmDataModel(R.drawable.farm_image_example, "고덕 주말 농장","4.5평","150,000"))
+        result_farm_items.add(RVFarmDataModel(R.drawable.farm_image_example, "고덕 주말 농장","4.5평","150,000"))
+        result_farm_items.add(RVFarmDataModel(R.drawable.farm_image_example, "고덕 주말 농장","4.5평","150,000"))
+        result_farm_items.add(RVFarmDataModel(R.drawable.farm_image_example, "고덕 주말 농장","4.5평","150,000"))
+        result_farm_items.add(RVFarmDataModel(R.drawable.farm_image_example, "고덕 주말 농장","4.5평","150,000"))
+        result_farm_items.add(RVFarmDataModel(R.drawable.farm_image_example, "고덕 주말 농장","4.5평","150,000"))
+
 
         return view.root
     }

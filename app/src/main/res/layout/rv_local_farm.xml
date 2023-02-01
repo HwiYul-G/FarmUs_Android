@@ -8,7 +8,8 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginBottom="17dp"
-        android:background="@drawable/corner_rv_local_farm">
+        android:background="@drawable/corner_rv_local_farm"
+        android:layout_marginEnd="16dp">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -58,16 +59,22 @@
                 android:letterSpacing="-0.03"
                 android:textColor="@color/text_1"/>
 
-            <TextView
-                android:id="@+id/rv_farm_size"
-                style="@style/Body3Reg"
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="35dp"
-                android:textColor="@color/text_2"
-                android:textSize="12sp"
-                tools:text="3평 (9.9㎡)" />
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/rv_farm_size"
+                    style="@style/Body3Reg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="35dp"
+                    android:textColor="@color/text_2"
+                    android:textSize="12sp"
+                    tools:text="3평 (9.9㎡)" />
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
