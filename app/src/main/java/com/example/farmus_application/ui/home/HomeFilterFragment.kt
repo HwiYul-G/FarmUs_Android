@@ -53,15 +53,25 @@ class HomeFilterFragment : Fragment() {
 //      상단바 텍스트 설정
         homeFilterBinding.filterToolbar.toolbarMainTitleText.text = "필터"
 
-
+//todo  적용 버튼 클릭 이벤트
         homeFilterBinding.btnApplyData.setOnClickListener {
-            val loc_city = homeFilterBinding.cityTextItem.text.toString()
-            val loc_town = homeFilterBinding.townTextItem.text.toString()
-            val price_start = homeFilterBinding.priceRangeSliderBar.valueTo.toInt()
-            val price_end = homeFilterBinding.priceRangeSliderBar.valueFrom.toInt()
-            val area_selected_num = homeFilterBinding.areaChipgroup.checkedChipId.toString()
-            val date_start = homeFilterBinding.textStartDay.toString()
-            val date_end = homeFilterBinding.textEndDay.toString()
+//            val loc_city = homeFilterBinding.cityTextItem.text.toString()
+//            val loc_town = homeFilterBinding.townTextItem.text.toString()
+//            val price_start = homeFilterBinding.priceRangeSliderBar.valueTo.toInt()
+//            val price_end = homeFilterBinding.priceRangeSliderBar.valueFrom.toInt()
+//            val area_selected_num = homeFilterBinding.areaChipgroup.checkedChipId.toString()
+//            val date_start = homeFilterBinding.textStartDay.toString()
+//            val date_end = homeFilterBinding.textEndDay.toString()
+//
+//            val dataModel = FilterDataModel(loc_city,loc_town,price_start,price_end,area_selected_num,date_start,date_end)
+//
+//            setFragmentResult("FilterDataRequestKey", bundleOf("loc_city" to loc_city))
+//            setFragmentResult("FilterDataRequestKey", bundleOf("loc_town" to loc_town))
+//            setFragmentResult("FilterDataRequestKey", bundleOf("price_start" to price_start))
+//            setFragmentResult("FilterDataRequestKey", bundleOf("price_end" to price_end))
+//            setFragmentResult("FilterDataRequestKey", bundleOf("area_selected_num" to area_selected_num))
+//            setFragmentResult("FilterDataRequestKey", bundleOf("date_start" to date_start))
+//            setFragmentResult("FilterDataRequestKey", bundleOf("date_end" to date_end))
 
             (activity as MainActivity).changeFragment(SearchFragment.newInstance("",""))
 

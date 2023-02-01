@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.core.os.bundleOf
 import androidx.core.view.size
 import androidx.databinding.DataBindingUtil
@@ -53,7 +54,7 @@ class HomeFragment : Fragment() {
             (activity as MainActivity).changeFragment(HomeSearchFragment.newInstance("",""))
         }
 
-////      우리 동네 농장 아이템
+//      우리 동네 농장 아이템
         val local_farm_items = mutableListOf<RVFarmDataModel>()
 
         homeBinding.rvHomeFarm.adapter = LocalFarmRVAdapter(local_farm_items)

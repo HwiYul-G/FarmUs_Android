@@ -63,14 +63,20 @@ class HomeSearchFragment : Fragment() {
 
             val searchText = homeSearchBinding.searchBar.text.toString()
 
-            setFragmentResult("searchTextRequestKey", bundleOf("searchTextBundleKey" to searchText))
+            if(searchText != "") {
 
-            (activity as MainActivity).changeFragment(SearchFragment.newInstance("",""))
+                setFragmentResult("searchTextRequestKey", bundleOf("searchTextBundleKey" to searchText))
+                (activity as MainActivity).changeFragment(SearchFragment.newInstance("",""))
+                addChip(searchText)
+            } else {
+                (activity as MainActivity).changeFragment(SearchFragment.newInstance("",""))
+            }
+
         }
 
 
         //chip 아이템 임의로 설정 (원래는 검색된 단어로 설정)
-        val chipItems = mutableListOf<String>()
+        val chipItems = mutableListOf<String>() //chip 에 들어갈 list
 
         chipItems.add("경기도")
         chipItems.add("강원도")

@@ -40,7 +40,7 @@ class SearchFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
-    private var searchText: String? = null
+    private var searchText: String? = null //검색창 텍스트
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,6 +59,12 @@ class SearchFragment : Fragment() {
             searchText = bundle.getString("bundleKey")
             searchBinding.searchBar.setText(searchText)
         }
+
+//        // homeFilterFragment에서 적용 버튼 누른 경우
+//        setFragmentResultListener("FilterDataRequestKey") { key, bundle ->
+//
+//
+//        }
     }
 
     override fun onCreateView(
@@ -74,9 +80,12 @@ class SearchFragment : Fragment() {
         val filterItemAdapter = ArrayAdapter(requireContext(),R.layout.loc_dropdown_item_list,filterItems)
         filterAutoCompleteTextView.setAdapter(filterItemAdapter)
 
+        //Spinner로 dropdown 하는 경우
 //        val filterItems = arrayListOf<String>("인기순", "최신순","조회순","찜 많은순")
 //        val adapter = ArrayAdapter(requireContext(), R.layout.loc_dropdown_item_list, filterItems)
 //        searchBinding.filterDropdown.adapter=adapter
+
+
 
         //option 버튼 클릭시 FilterFragment로 이동
         searchBinding.btnOption.setOnClickListener{
