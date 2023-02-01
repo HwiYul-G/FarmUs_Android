@@ -19,7 +19,6 @@
             android:layout_height="70dp"
             android:background="@drawable/corner_radius_rv_rec_item_box"
             android:scaleType="centerCrop"
-            android:src="@{recFarm.rec_image}"
             />
         
         <LinearLayout
@@ -34,7 +33,7 @@
                 android:layout_height="40dp"
                 android:layout_marginStart="9dp"
                 android:layout_marginTop="8dp"
-                tools:text="@{recFarm.rec_title}"
+                tools:text="노동을 줄여주고 생산의 질을 높여주는 ‘스마트팜’ 시스템 "
                 android:textSize="16sp"
                 android:textColor="@color/text_1"
                 />
@@ -59,7 +58,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="9dp"
-                    tools:text="@{recFarm.rec_day}"
+                    tools:text="2023.02.01"
                     android:textSize="12sp"
                     android:textColor="@color/text_2"/>
             </LinearLayout>

@@ -8,6 +8,7 @@
         android:id="@+id/home_filter_frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
         >
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -129,6 +130,7 @@
                             android:id="@+id/town_text_item"
                             style="@style/Body2Med"
                             android:background="@drawable/area_dropdown_bg"
+                            android:dropDownSelector="@color/main_hover"
                             android:dropDownHeight="wrap_content"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"

@@ -60,7 +60,7 @@ class SearchFragment : Fragment() {
             searchBinding.searchBar.setText(searchText)
         }
 
-//        // homeFilterFragment에서 적용 버튼 누른 경우
+//        todo homeFilterFragment에서 적용 버튼 누르면 데이터 전달받음
 //        setFragmentResultListener("FilterDataRequestKey") { key, bundle ->
 //
 //
@@ -73,7 +73,11 @@ class SearchFragment : Fragment() {
     ): View? {
         searchBinding = DataBindingUtil.inflate(inflater,R.layout.fragment_search,container, false)
         val view = searchBinding
+        //toolbar 텍스트 없애기
+        searchBinding.homeSearchTitleBar.toolbarMainTitleText.text = ""
 
+
+//todo  수정해야됨
         //filter dropdown
         val filterAutoCompleteTextView = searchBinding.filterTextItem
         val filterItems = arrayListOf<String>("인기순", "최신순","조회순","찜 많은순")
@@ -93,7 +97,7 @@ class SearchFragment : Fragment() {
         }
 
         //툴바의 백버튼 누르면 HomeSearchFragment로 이동
-        searchBinding.toolbarWithoutTitleBackButton.setOnClickListener{
+        searchBinding.homeSearchTitleBar.toolbarWithTitleBackButton.setOnClickListener{
             (activity as MainActivity).changeFragment(HomeSearchFragment.newInstance("",""))
         }
 
@@ -107,6 +111,7 @@ class SearchFragment : Fragment() {
         return view.root
     }
 
+    //뒤로가기 수행하면 화면 이동
     override fun onAttach(context: Context) {
         super.onAttach(context)
         callback = object : OnBackPressedCallback(true) {
