@@ -70,10 +70,6 @@ class TermsActivity : AppCompatActivity() {
             }
         }
 
-
-
-
-
     }
 
     // 프래그먼트 변화 클래스

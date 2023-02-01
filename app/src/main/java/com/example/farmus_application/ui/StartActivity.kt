@@ -33,6 +33,5 @@ class StartActivity : AppCompatActivity() {
             startActivity(signup_intent)
             if(!isFinishing) finish()
         }
-
     }
 }

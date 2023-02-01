@@ -16,6 +16,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.example.farmus_application.databinding.ActivityLoginMainBinding
+import com.example.farmus_application.ui.MainActivity
 import com.example.farmus_application.ui.StartActivity
 import com.kakao.sdk.auth.AuthApiClient
 import com.kakao.sdk.auth.model.OAuthToken
@@ -24,7 +25,6 @@ import com.kakao.sdk.common.model.ClientErrorCause
 import com.kakao.sdk.common.model.KakaoSdkError
 import com.kakao.sdk.user.UserApiClient
 import java.util.regex.Pattern
-
 
 class LoginActivity : AppCompatActivity() {
 
@@ -50,6 +50,7 @@ class LoginActivity : AppCompatActivity() {
         else if (token != null){
             Log.i("Login", "카카오계정으로 로그인 성공 ${token.accessToken}")
             updateStatus()
+//            toMainActivity()
         }
     }
 
@@ -83,6 +84,9 @@ class LoginActivity : AppCompatActivity() {
                     if (!pattern.matcher(s).matches()) {
                         loginBinding.idWarningMessage.visibility = View.VISIBLE
                         loginBinding.loginButton.isEnabled = false
+                    } else if (pattern.matcher(s).matches()) {
+                        loginBinding.idWarningMessage.visibility = View.INVISIBLE
+                        loginBinding.loginButton.isEnabled = true
                     } else if (editTextPW.text!=null && editTextPW.text.toString() != ""){
                         loginBinding.idWarningMessage.visibility = View.INVISIBLE
                         loginBinding.loginButton.isEnabled = true
@@ -108,6 +112,13 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
         })
+
+        //todo 로그인 API 통신 후에 메인 액티비티로 이동하도록
+        loginBinding.loginButton.setOnClickListener{
+            val main_intent = Intent(this, MainActivity::class.java)
+            startActivity(main_intent)
+//            toMainActivity()
+        }
 
         // 아이디 찾기 이동
         val findID_intent = Intent(this, FindidActivity::class.java)
@@ -152,9 +163,10 @@ class LoginActivity : AppCompatActivity() {
                         }
                     }
                     else {
-                        //토큰 유효성 체크 성공(필요 시 토큰 갱신됨)
-                        Log.i("AutoLogin", "::::::::::: 기존 토큰 정보로 자동로그인")
+                        //토큰 유효성 체크 성공(필요 시 토큰 갱신됨) + 로그인 후 메인 액티비티로 이동동
+                       Log.i("AutoLogin", "::::::::::: 기존 토큰 정보로 자동로그인")
                         updateStatus()
+//                        toMainActivity()
                     }
                 }
             }
@@ -195,6 +207,7 @@ class LoginActivity : AppCompatActivity() {
                 }
                 else if (token != null){
                     Log.i("Login", "카카오톡으로 로그인 성공 ${token.accessToken}")
+//                    toMainActivity()
                 }
             }
         }
@@ -224,5 +237,4 @@ class LoginActivity : AppCompatActivity() {
             Toast.makeText(this, "$currentStatus", Toast.LENGTH_LONG).show()
         }
     }
-
 }
