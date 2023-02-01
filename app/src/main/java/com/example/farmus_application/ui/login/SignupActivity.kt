@@ -28,7 +28,7 @@ class SignupActivity : AppCompatActivity() {
 
         // 시작화면으로 다시 이동
         signupBinding.signupIdToolbar.toolbarWithTitleBackButton.setOnClickListener(){
-            BacktoStartActivity()
+            BacktoTermsActivity()
         }
 
         // 입력칸 관련 value 설정
@@ -61,48 +61,48 @@ class SignupActivity : AppCompatActivity() {
             signupBinding.signupMainLayout.visibility = View.INVISIBLE
             signupBinding.signupMainLayout.isClickable = false
             signupBinding.signupMainLayout.isFocusable = false
-
-            val bundle = Bundle()
-            bundle.putString("idText", "${editTextID.text}")
-
-            val S2Fragment = SignupSecondFragment()
-            S2Fragment.arguments = bundle
-
-            val transaction = supportFragmentManager.beginTransaction()
-                .replace(signupBinding.signupFrameLayout.id, S2Fragment)
-            transaction.commit()
+            replaceFragment(2)
         }
-
-//        changeFrame(signupBinding, HomeFragment.newInstance("","")) //Initialize Frame
-//        signupBinding.selectFragmentBottomNavi.run {
-//            setOnItemSelectedListener {
-//                val switchFragment = when(it.itemId){
-//                    R.id.menu_favorites -> FavoriteFragment.newInstance("", "")
-//                    R.id.menu_farm -> FarmFragment.newInstance("", "")
-//                    R.id.menu_chat -> ChatFragment.newInstance("", "")
-//                    R.id.menu_my_page -> MyPageFragment.newInstance("", "")
-//                    else -> HomeFragment.newInstance("","")
-//                }
-//                changeFrame(mainBinding, switchFragment)
-//                true
-//            }
-//        }
 
     }
     // 프래그먼트 변화 클래스
     fun replaceFragment(int: Int){
         val transaction = supportFragmentManager.beginTransaction()
         when(int){
-            2 -> transaction.replace(signupBinding.signupFrameLayout.id, SignupSecondFragment())
-            3 -> transaction.replace(signupBinding.signupFrameLayout.id, SignupThirdFragment())
-            4 -> transaction.replace(signupBinding.signupFrameLayout.id, SignupFourthFragment())
-            5 -> transaction.replace(signupBinding.signupFrameLayout.id, SignupFifthFragment())
+            2 -> {
+                val editTextID : EditText = signupBinding.idTextField
+                val bundle = Bundle()
+                bundle.putString("idText", "${editTextID.text}")
+                val S2Fragment = SignupSecondFragment()
+                S2Fragment.arguments = bundle
+                transaction.replace(signupBinding.signupFrameLayout.id, S2Fragment)
+                transaction.addToBackStack("second")
+            }
+            3 -> {
+                transaction.replace(signupBinding.signupFrameLayout.id, SignupThirdFragment())
+                transaction.addToBackStack("third")
+            }
+            4 -> {
+                transaction.replace(signupBinding.signupFrameLayout.id, SignupFourthFragment())
+                transaction.addToBackStack("fourth")
+            }
+            5 -> {
+                transaction.replace(signupBinding.signupFrameLayout.id, SignupFifthFragment())
+                transaction.addToBackStack("fifth")
+            }
         }
         transaction.commit()
+        transaction.isAddToBackStackAllowed
     }
-
-    fun BacktoStartActivity(){
-        val login_intent = Intent(this, LoginActivity::class.java)
+    // 회원가입 액티비티의 메인 레이아웃 다시 활성화
+    fun activateMainLayout(){
+        signupBinding.signupMainLayout.visibility = View.VISIBLE
+        signupBinding.signupMainLayout.isClickable = true
+        signupBinding.signupMainLayout.isFocusable = true
+    }
+    // 로그인 액티비티로 전환
+    fun BacktoTermsActivity(){
+        val terms_intent = Intent(this, TermsActivity::class.java)
         if(!isFinishing) finish()
     }
 }

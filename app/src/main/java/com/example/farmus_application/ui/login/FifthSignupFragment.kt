@@ -34,6 +34,11 @@ class SignupFifthFragment: Fragment(){
     ): View {
         viewBinding = FragmentSignupFifthBinding.inflate(inflater, container, false)
 
+        viewBinding.signupRoleToolbar.toolbarWithTitleBackButton.setOnClickListener{
+            SignupActivity!!.supportFragmentManager.beginTransaction().remove(this).commit();
+            SignupActivity!!.supportFragmentManager.popBackStack();
+        }
+
         val btnBorrow : Button = viewBinding.selectBorrowButton
         val btnLend : Button = viewBinding.selectLendButton
 
@@ -46,12 +51,12 @@ class SignupFifthFragment: Fragment(){
 
         // TODO:  클릭 시 프래그먼트를 메인 로그인 페이지로 스왑
         viewBinding.skipToLoginButton.setOnClickListener{
-            SignupActivity!!.BacktoStartActivity()
+            SignupActivity!!.BacktoTermsActivity()
         }
 
         // TODO:  클릭 시 프래그먼트를 메인 로그인 페이지로 스왑
         viewBinding.backToMainButton.setOnClickListener {
-            SignupActivity!!.BacktoStartActivity()
+            SignupActivity!!.BacktoTermsActivity()
         }
 
         return viewBinding.root

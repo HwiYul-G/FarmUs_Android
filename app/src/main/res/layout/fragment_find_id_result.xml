@@ -97,6 +97,7 @@
         android:layout_marginTop="44dp"/>
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/back_to_login_button"
         style="@style/Body1Med"
         android:layout_width="328dp"
         android:layout_height="48dp"

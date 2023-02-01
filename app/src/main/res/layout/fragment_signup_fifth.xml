@@ -56,43 +56,47 @@
         style="@style/Body2Reg"
         android:id="@+id/select_role_frame"
         android:layout_width="328dp"
-        android:layout_height="200dp"
+        android:layout_height="wrap_content"
         android:textColor="@color/text_first"
         android:textSize="13sp"
         app:layout_constraintTop_toBottomOf="@+id/sub_title_role"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="49dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:gravity="fill_vertical"
+        >
 
         <RadioButton
             android:checked="false"
             android:id="@+id/select_borrow_button"
             android:layout_width="156dp"
-            android:layout_height="200dp"
+            android:layout_height="220dp"
             android:background="@drawable/radio_button_selector"
-            android:drawableTop="@drawable/heart_fill_vector_image"
+            android:drawableTop="@drawable/landlord_logo"
             android:textColor="@drawable/radio_button_text_selector"
             android:button="@null"
-            android:textAlignment="center"
+            android:gravity="center"
             android:fontFamily="@font/spoqa_han_sans_neo_regular"
             android:textStyle="bold"
             android:textSize="18sp"
+            android:padding="15dp"
             android:letterSpacing="-0.03"
             android:text="세입희망자"/>
 
        <RadioButton
            android:id="@+id/select_lend_button"
            android:layout_width="156dp"
-           android:layout_height="200dp"
+           android:layout_height="220dp"
            android:background="@drawable/radio_button_selector"
-           android:drawableTop="@drawable/heart_fill_vector_image"
+           android:drawableTop="@drawable/landlord_logo"
            android:textColor="@drawable/radio_button_text_selector"
            android:button="@null"
-           android:textAlignment="center"
+           android:gravity="center"
            android:fontFamily="@font/spoqa_han_sans_neo_regular"
            android:textStyle="bold"
            android:textSize="18sp"
+           android:padding="15dp"
            android:letterSpacing="-0.03"
            android:text="농장주"
            android:layout_marginLeft="16dp"/>
@@ -112,7 +116,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/select_role_frame"
         app:layout_constraintStart_toStartOf="@+id/select_role_frame"
         android:layout_marginStart="22dp"
-        android:layout_marginBottom="17dp"/>
+        android:layout_marginBottom="8dp"/>
 
     <TextView
         android:id="@+id/sub_explain_lend"
@@ -127,7 +131,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/select_role_frame"
         app:layout_constraintEnd_toEndOf="@+id/select_role_frame"
         android:layout_marginEnd="22dp"
-        android:layout_marginBottom="17dp"/>
+        android:layout_marginBottom="8dp"/>
 
     <TextView
         android:id="@+id/sub_explain_optional"
