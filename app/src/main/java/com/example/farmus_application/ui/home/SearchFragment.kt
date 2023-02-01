@@ -13,8 +13,10 @@ import android.widget.ArrayAdapter
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.setFragmentResultListener
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.farmus_application.R
+import com.example.farmus_application.databinding.FragmentHomeBinding
 import com.example.farmus_application.databinding.FragmentHomeFilterBinding
 import com.example.farmus_application.databinding.FragmentSearchBinding
 import com.example.farmus_application.ui.MainActivity
@@ -32,17 +34,30 @@ class SearchFragment : Fragment() {
 
     private lateinit var searchBinding: FragmentSearchBinding
 
+    //뒤로 가기 기능
+    private lateinit var callback: OnBackPressedCallback
+
     private var param1: String? = null
     private var param2: String? = null
-    private var chipText : String? = null
 
+    private var searchText: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
-            chipText = it.getString("text")
+        }
+
+        //검색어 입력한 경우
+        setFragmentResultListener("searchTextRequestKey"){key, bundle ->
+            searchText = bundle.getString("searchTextBundleKey")
+            searchBinding.searchBar.setText(searchText)
+        }
+        //최근 검색어 선택한 경우
+        setFragmentResultListener("selectTextRequestKey"){ key, bundle ->
+            searchText = bundle.getString("bundleKey")
+            searchBinding.searchBar.setText(searchText)
         }
     }
 
@@ -53,47 +68,49 @@ class SearchFragment : Fragment() {
         searchBinding = DataBindingUtil.inflate(inflater,R.layout.fragment_search,container, false)
         val view = searchBinding
 
-        //HomeSearchActivity 에서 선택한 chip의 text 받아오기
-        view.searchBar.setText(chipText)
+        //filter dropdown
+        val filterAutoCompleteTextView = searchBinding.filterTextItem
+        val filterItems = arrayListOf<String>("인기순", "최신순","조회순","찜 많은순")
+        val filterItemAdapter = ArrayAdapter(requireContext(),R.layout.loc_dropdown_item_list,filterItems)
+        filterAutoCompleteTextView.setAdapter(filterItemAdapter)
 
-        //dropdown 오류 수정해야됨
-        //dropdown
-//        val filter_dropdown_item = resources.getStringArray(R.array.filter_list)
-//        searchBinding.filterDropdown.adapter = ArrayAdapter(requireContext(), R.layout.fragment_search ,filter_dropdown_item)
-//
-//        searchBinding.filterDropdown.onItemSelectedListener = object: AdapterView.OnItemSelectedListener{
-//
-//            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-//
-//            }
-//
-//            override fun onNothingSelected(parent: AdapterView<*>?) {
-//            }
-//
-//        }
+//        val filterItems = arrayListOf<String>("인기순", "최신순","조회순","찜 많은순")
+//        val adapter = ArrayAdapter(requireContext(), R.layout.loc_dropdown_item_list, filterItems)
+//        searchBinding.filterDropdown.adapter=adapter
 
         //option 버튼 클릭시 FilterFragment로 이동
         searchBinding.btnOption.setOnClickListener{
-            (activity as HomeSearchActivity).changeFrame(HomeFilterFragment.newInstance("",""))
+            (activity as MainActivity).changeFragment(HomeFilterFragment.newInstance("",""))
         }
 
-        //툴바의 백버튼 누르면 HomeSearchActivity로 이동
+        //툴바의 백버튼 누르면 HomeSearchFragment로 이동
         searchBinding.toolbarWithoutTitleBackButton.setOnClickListener{
-            (activity as HomeSearchActivity).changeFragmentToActivity(HomeSearchActivity())
+            (activity as MainActivity).changeFragment(HomeSearchFragment.newInstance("",""))
         }
 
         //검색 결과 아이템
         val result_farm_items = mutableListOf<RVFarmDataModel>()
 
-        //result_farm_items.add(RVFarmDataModel(R.drawable.farm_image_example, "주말 농장 1", "100", "100,000"))
-
         //검색 결과 농장 리사이클러뷰
         searchBinding.rvHomeSearchFarm.adapter = ResultRVAdapter(result_farm_items)
         searchBinding.rvHomeSearchFarm.layoutManager = GridLayoutManager(requireContext(), 2)
 
-
-
         return view.root
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                (activity as MainActivity).changeFragment(HomeSearchFragment.newInstance("",""))
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        callback.remove()
     }
 
     companion object {

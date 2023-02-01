@@ -5,8 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.core.view.size
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.FragmentTransaction
+import androidx.fragment.app.setFragmentResult
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.farmus_application.R
@@ -45,31 +48,26 @@ class HomeFragment : Fragment() {
         homeBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
         val view = homeBinding
 
+        //검색바 누르면 HomeSearchFragment로 이동
+        homeBinding.searchBar.setOnClickListener{
+            (activity as MainActivity).changeFragment(HomeSearchFragment.newInstance("",""))
+        }
 
 ////      우리 동네 농장 아이템
-//        val local_farm_items = mutableListOf<RVFarmDataModel>()
-//
-//        homeBinding.rvHomeFarm.adapter = LocalFarmRVAdapter(local_farm_items)
-//        homeBinding.rvHomeFarm.layoutManager = GridLayoutManager(requireActivity(), 2)
-//
+        val local_farm_items = mutableListOf<RVFarmDataModel>()
+
+        homeBinding.rvHomeFarm.adapter = LocalFarmRVAdapter(local_farm_items)
+        homeBinding.rvHomeFarm.layoutManager = GridLayoutManager(requireActivity(), 2)
+
 //        // 농부를 위한 추천 콘텐츠 리사이클러뷰 아이템
-//        val rec_contents_items = mutableListOf<RVRecDataModel>()
-//
-//        homeBinding.rvRecContents.adapter = RecRVAdapter(rec_contents_items)
-//        homeBinding.rvRecContents.layoutManager = LinearLayoutManager(requireActivity())
+        val rec_contents_items = mutableListOf<RVRecDataModel>()
 
+        homeBinding.rvRecContents.adapter = RecRVAdapter(rec_contents_items)
+        homeBinding.rvRecContents.layoutManager = LinearLayoutManager(requireActivity())
 
-        //searchBar 누르면 HomeSearchActivity로 전환
-        val activity = activity as MainActivity
-        homeBinding.searchBar.setOnClickListener{
-
-            activity.changeFragmentToActivity(HomeSearchActivity())
-
-        }
 
         return view.root
     }
-
 
     companion object {
         /**

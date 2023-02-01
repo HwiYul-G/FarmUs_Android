@@ -4,12 +4,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <FrameLayout
-        android:id="@+id/search_frame"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -156,20 +150,50 @@
                             </com.google.android.material.chip.ChipGroup>
                         </HorizontalScrollView>
 
-                        <!--        검색 정렬 순서 -->
-                        <!--        spinner 수정하기-->
-                        <Spinner
-                            android:id="@+id/filter_dropdown"
-                            style="@style/Body3Med"
+<!--                                검색 정렬 순서 -->
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
                             android:layout_width="70dp"
                             android:layout_height="31dp"
-                            android:layout_marginEnd="16dp"
-                            android:spinnerMode="dropdown"
-                            android:background="@drawable/spinner_dropdown_bg"
-                            />
+                            android:paddingEnd="-50dp"
+                            app:endIconDrawable="@drawable/next_down_vector_image"
+                            android:background="@drawable/area_dropdown_bg"
+                            app:boxStrokeColor="@color/gray_1"
+                            app:boxStrokeWidth="0.5dp"
+                            app:boxCornerRadiusTopEnd="7dp"
+                            >
 
+                            <AutoCompleteTextView
+                                android:id="@+id/filter_text_item"
+                                style="@style/Body3Med"
+                                android:background="@drawable/area_dropdown_bg"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:paddingTop="8dp"
+                                android:paddingBottom="7dp"
+                                android:paddingStart="10dp"
+                                android:paddingEnd="0dp"
+                                android:text="인기순"
+                                android:inputType="none" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+<!--                        <Spinner-->
+<!--                            android:id="@+id/filter_dropdown"-->
+<!--                            android:layout_width="70dp"-->
+<!--                            android:layout_height="31dp"-->
+<!--                            android:paddingStart="0dp"-->
+<!--                            android:paddingTop="7dp"-->
+<!--                            android:paddingBottom="7dp"-->
+<!--                            android:spinnerMode="dropdown"-->
+<!--                            android:background="@drawable/spinner_dropdown_bg"-->
+<!--                            android:text="인기순"-->
+<!--                            android:textSize="6sp"-->
+<!--                            />-->
 
                     </LinearLayout>
+
+
 
                     <!--        스크롤 내렸을 때 농장만 보이는지 아니면 위의 필터랑 검색 기능은 그대로 유지되고 농장 쪽 스크롤만 내려가는지-->
                     <!--        ScrollView 안에 RelativeLayout 안에 RecyclerView 를 넣어라??-->
@@ -186,6 +210,6 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </ScrollView>
         </LinearLayout>
-    </FrameLayout>
+
 
 </layout>

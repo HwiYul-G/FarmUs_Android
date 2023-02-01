@@ -1,18 +1,24 @@
 package com.example.farmus_application.ui.home
 
 import android.app.DatePickerDialog
-import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Adapter
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import android.widget.TextView
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.setFragmentResult
 import com.example.farmus_application.R
 import com.example.farmus_application.databinding.FragmentHomeFilterBinding
-import org.w3c.dom.Text
+import com.example.farmus_application.ui.MainActivity
 import java.util.*
+import kotlin.collections.ArrayList
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -41,12 +47,46 @@ class HomeFilterFragment : Fragment() {
         homeFilterBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_home_filter, container, false)
         val view = homeFilterBinding
 
+        //BottomNavigationView 숨기기
+        (activity as MainActivity).hideBottomNavigation(true)
+
 //      상단바 텍스트 설정
         homeFilterBinding.filterToolbar.toolbarMainTitleText.text = "필터"
 
+
+        homeFilterBinding.btnApplyData.setOnClickListener {
+            val loc_city = homeFilterBinding.cityTextItem.text.toString()
+            val loc_town = homeFilterBinding.townTextItem.text.toString()
+            val price_start = homeFilterBinding.priceRangeSliderBar.valueTo.toInt()
+            val price_end = homeFilterBinding.priceRangeSliderBar.valueFrom.toInt()
+            val area_selected_num = homeFilterBinding.areaChipgroup.checkedChipId.toString()
+            val date_start = homeFilterBinding.textStartDay.toString()
+            val date_end = homeFilterBinding.textEndDay.toString()
+
+            (activity as MainActivity).changeFragment(SearchFragment.newInstance("",""))
+
+        }
+
+        //지역 설정 시/도
+        val cityAutoCompleteTextView = homeFilterBinding.cityTextItem
+
+        val cityItems = arrayListOf<String>("전체", "서울특별시", "경기도","강원도","충청북도","충청남도","전라북도","전라남도","경상북도","경상남도","제주특별자치도","부산광역시","대구광역시","인천광역시", "광주광역시","대전광역시","울산광역시","세종특별자치시")
+        val cityItemAdapter = ArrayAdapter(requireContext(),R.layout.loc_dropdown_item_list,cityItems)
+        cityAutoCompleteTextView.setAdapter(cityItemAdapter)
+
+        //지역 설정 시/군/구
+        val townAutoCompleteTextView = homeFilterBinding.townTextItem
+
+        val townItems = arrayListOf<String>()
+        setDropdown(cityItems, townItems, cityAutoCompleteTextView, townAutoCompleteTextView)
+
+        val countryItemAdapter = ArrayAdapter(requireContext(), R.layout.loc_dropdown_item_list, townItems)
+        townAutoCompleteTextView.setAdapter(countryItemAdapter)
+
+
         //툴바 back버튼 누르면 SearchFragment로 돌아가기
         homeFilterBinding.filterToolbar.toolbarWithTitleBackButton.setOnClickListener{
-            (activity as HomeSearchActivity).changeFrame(SearchFragment.newInstance("",""))
+            (activity as MainActivity).changeFragment(SearchFragment.newInstance("",""))
         }
 
 //      DatePickerDialog- 시작 날짜
@@ -64,6 +104,40 @@ class HomeFilterFragment : Fragment() {
         return view.root
     }
 
+    //fragment 에서 나가면 BottomNavigationView 다시 보이게
+    override fun onDestroyView() {
+        super.onDestroyView()
+        (activity as MainActivity).hideBottomNavigation(false)
+    }
+
+    //지역 선택 dropdowm
+    private fun setDropdown(checkList: ArrayList<String>, itemList: ArrayList<String>,cityAutoCompleteTextView: AutoCompleteTextView, townCompleteTextView: AutoCompleteTextView) {
+        cityAutoCompleteTextView.setOnItemClickListener{ adapterView, view, position, rowId ->
+            itemList.clear()
+            when(checkList[position]){
+                "서울특별시" -> itemList.addAll(resources.getStringArray(R.array.seoul_list))
+                "경기도" -> itemList.addAll(resources.getStringArray(R.array.gyeonggi_list))
+                "강원도" -> itemList.addAll(resources.getStringArray(R.array.gangwon_list))
+                "충청북도" -> itemList.addAll(resources.getStringArray(R.array.chungbuk_list))
+                "충청남도" -> itemList.addAll(resources.getStringArray(R.array.chungnam_list))
+                "전라북도" -> itemList.addAll(resources.getStringArray(R.array.jeonbuk_list))
+                "전라남도" -> itemList.addAll(resources.getStringArray(R.array.jeonnam_list))
+                "경상북도" -> itemList.addAll(resources.getStringArray(R.array.gyeongbuk_list))
+                "경상남도" -> itemList.addAll(resources.getStringArray(R.array.gyeongnam_list))
+                "제주도" -> itemList.addAll(resources.getStringArray(R.array.jeju_list))
+                "부산광역시" -> itemList.addAll(resources.getStringArray(R.array.busan_list))
+                "대구광역시" -> itemList.addAll(resources.getStringArray(R.array.daegu_list))
+                "인천광역시" -> itemList.addAll(resources.getStringArray(R.array.incheon_list))
+                "광주광역시" -> itemList.addAll(resources.getStringArray(R.array.gwangju_list))
+                "대전광역시" -> itemList.addAll(resources.getStringArray(R.array.daejeon_list))
+                "울산광역시" -> itemList.addAll(resources.getStringArray(R.array.ulsan_list))
+                "세종특별자치시" -> itemList.addAll(resources.getStringArray(R.array.sejong_list))
+                else -> itemList.add("전체")
+            }
+        }
+    }
+
+    //달력 Dialog 띄우기
     private fun showDatePickerDialog(date : TextView) {
         val calendar = Calendar.getInstance()
         val year = calendar.get(Calendar.YEAR)

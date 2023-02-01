@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        tools:context=".ui.home.HomeSearchFragment">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/blank_alarm_bar"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toTopOf="parent">
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!--메인 로고-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/farmus_main_logo"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/blank_alarm_bar"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <ImageView
+                android:id="@+id/farmus_kr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="4dp"
+                android:src="@drawable/farmus_main_text_vector_image"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/farmus_logo"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+
+            <ImageView
+                android:id="@+id/farmus_logo"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginRight="205dp"
+                android:src="@drawable/farmus_logo_vector_image_"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/farmus_kr"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <!--메인 검색 바-->
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/search_bar"
+            style="@style/Body2Reg"
+            android:layout_width="328dp"
+            android:layout_height="48dp"
+            android:background="@drawable/search_bar_selector"
+            android:drawableStart="@drawable/search_vector_image_green"
+            android:paddingStart="8dp"
+            android:hint="@string/search_bar_hint_text"
+            android:inputType="text"
+            android:padding="1dp"
+            android:textColorHint="@color/gray_first"
+            android:layout_marginTop="26dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/farmus_main_logo"
+            />
+        <LinearLayout
+            android:id="@+id/text_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            app:layout_constraintTop_toBottomOf="@id/search_bar"
+            >
+
+            <TextView
+                style="@style/Title3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="최근 검색어"
+                android:textColor="@color/text_1"
+                />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+            <TextView
+                style="@style/Body1Reg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="편집"
+                android:textSize="16sp"
+                android:textColor="@color/text_3"/>
+        </LinearLayout>
+
+        <!--최근 검색어 chip-->
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/recent_search_chipgroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/text_bar"
+            android:layout_marginTop="13dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:singleSelection="true"
+            app:singleLine="false"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

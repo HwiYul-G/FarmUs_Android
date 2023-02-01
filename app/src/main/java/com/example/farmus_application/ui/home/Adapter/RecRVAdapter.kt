@@ -13,7 +13,7 @@ class RecRVAdapter(val items : MutableList<RVRecDataModel>) : RecyclerView.Adapt
     private lateinit var recBinding: RvRecommendFarmForFarmerBinding
 
     override fun getItemCount(): Int {
-        return 3
+        return items.size
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType : Int) : RecRVAdapter.ViewHolder {
