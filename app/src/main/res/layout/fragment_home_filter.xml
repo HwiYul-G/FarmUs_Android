@@ -405,7 +405,7 @@
                         android:id="@+id/start_day"
                         android:layout_width="156dp"
                         android:layout_height="64dp"
-                        android:background="@drawable/corner_radius_3dp"
+                        android:background="@drawable/corner_radius_date_box"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintStart_toStartOf="parent">
 
@@ -455,7 +455,7 @@
                         android:layout_width="156dp"
                         android:layout_height="64dp"
                         android:layout_marginStart="16dp"
-                        android:background="@drawable/corner_radius_3dp"
+                        android:background="@drawable/corner_radius_date_box"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintStart_toEndOf="@id/start_day">
 

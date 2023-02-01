@@ -11,7 +11,7 @@
             android:id="@+id/rv_rec_img"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:background="@drawable/corner_radius_7dp"
+            android:background="@drawable/corner_radius_rv_rec_item_box"
             />
         
         <LinearLayout
