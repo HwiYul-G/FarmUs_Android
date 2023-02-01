@@ -50,7 +50,7 @@ class LoginActivity : AppCompatActivity() {
         else if (token != null){
             Log.i("Login", "카카오계정으로 로그인 성공 ${token.accessToken}")
             updateStatus()
-//            toMainActivity()
+            toMainActivity()
         }
     }
 
@@ -117,7 +117,7 @@ class LoginActivity : AppCompatActivity() {
         loginBinding.loginButton.setOnClickListener{
             val main_intent = Intent(this, MainActivity::class.java)
             startActivity(main_intent)
-//            toMainActivity()
+            toMainActivity()
         }
 
         // 아이디 찾기 이동
@@ -166,7 +166,7 @@ class LoginActivity : AppCompatActivity() {
                         //토큰 유효성 체크 성공(필요 시 토큰 갱신됨) + 로그인 후 메인 액티비티로 이동동
                        Log.i("AutoLogin", "::::::::::: 기존 토큰 정보로 자동로그인")
                         updateStatus()
-//                        toMainActivity()
+                        toMainActivity()
                     }
                 }
             }
@@ -207,7 +207,7 @@ class LoginActivity : AppCompatActivity() {
                 }
                 else if (token != null){
                     Log.i("Login", "카카오톡으로 로그인 성공 ${token.accessToken}")
-//                    toMainActivity()
+                    toMainActivity()
                 }
             }
         }
@@ -234,7 +234,12 @@ class LoginActivity : AppCompatActivity() {
 //                Glide.with(this).load(user.kakaoAccount?.profile?.thumbnailImageUrl).into(viewBinding.KakaoUserProfileImage)
             }
 //            loginBinding.KakaoUserInfoText.text = currentStatus
-            Toast.makeText(this, "$currentStatus", Toast.LENGTH_LONG).show()
+//            Toast.makeText(this, "$currentStatus", Toast.LENGTH_LONG).show()
         }
+    }
+
+    private fun toMainActivity() {
+        val main_intent = Intent(this, MainActivity::class.java)
+        startActivity(main_intent)
     }
 }
