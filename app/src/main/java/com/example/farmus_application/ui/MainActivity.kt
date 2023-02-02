@@ -1,9 +1,17 @@
 package com.example.farmus_application.ui
 
+import android.app.Activity
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.FrameLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.setupWithNavController
 import com.example.farmus_application.R
 import com.example.farmus_application.databinding.ActivityMainBinding
 import com.example.farmus_application.ui.account.MyPageFragment
@@ -37,6 +45,15 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+
+    }
+
+    fun hideBottomNavigation(bool: Boolean) {
+        if(bool) {
+            mainBinding.selectFragmentBottomNavi.visibility = View.GONE
+        } else {
+            mainBinding.selectFragmentBottomNavi.visibility = View.VISIBLE
+        }
     }
 
     private fun changeFrame(binding: ActivityMainBinding, fragment: Fragment){
@@ -44,4 +61,17 @@ class MainActivity : AppCompatActivity() {
             replace(binding.mainFragmentFrame.id, fragment)
         }
     }
+
+    fun changeFragment(fragment: Fragment) {
+        supportFragmentManager.commit{
+            replace(mainBinding.mainFragmentFrame.id, fragment)
+        }
+    }
+
+    //SearchFragment에서 HomeSearchActivity로 전환
+    fun changeFragmentToActivity(activity: Activity){
+        val intent = Intent(this, activity::class.java)
+        startActivity(intent)
+    }
+
 }
