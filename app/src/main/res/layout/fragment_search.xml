@@ -66,11 +66,11 @@
                     <!--        필터-->
                     <LinearLayout
                         android:id="@+id/search_filter"
-                        android:layout_width="match_parent"
+                        android:layout_width="328dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
                         android:layout_marginTop="17dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/search_bar">
 
                         <!--필터 옵션 버튼-->
@@ -204,11 +204,9 @@
                     <!--        ScrollView 안에 RelativeLayout 안에 RecyclerView 를 넣어라??-->
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rv_home_search_farm"
-                        android:layout_width="wrap_content"
+                        android:layout_width="328dp"
                         android:layout_height="0dp"
                         android:layout_marginTop="17dp"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginEnd="16dp"
                         tools:listitem="@layout/rv_local_farm"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
