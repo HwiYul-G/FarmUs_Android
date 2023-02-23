@@ -1,18 +1,24 @@
 package com.example.farmus_application.ui.login
 
-import android.app.PendingIntent.getActivity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.CheckBox
-import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentManager
+import com.example.farmus_application.R
+import com.example.farmus_application.database.TermsData
 import com.example.farmus_application.databinding.ActivityTermsMainBinding
 
 class TermsActivity : AppCompatActivity() {
 
     private lateinit var termsBinding: ActivityTermsMainBinding
+
+    lateinit var checkAll : CheckBox
+    lateinit var checkOne : CheckBox
+    lateinit var checkTwo : CheckBox
+    lateinit var checkThree : CheckBox
+    lateinit var checkFour : CheckBox
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,32 +50,20 @@ class TermsActivity : AppCompatActivity() {
             startActivity(Singup_intent)
         }
 
-        // 입력칸 관련 value 설정
-        val checkAll : CheckBox = termsBinding.checkboxAll
-        val checkOne : CheckBox = termsBinding.checkboxFirst
-        val checkTwo : CheckBox = termsBinding.checkboxSecond
-        val checkThree : CheckBox = termsBinding.checkboxThird
-        val checkFour : CheckBox = termsBinding.checkboxFourth
+        // 이용약관 클릭 및 데이터 묶음 처리
+        checkAll = termsBinding.checkboxAll
+        checkOne = termsBinding.checkboxFirst
+        checkTwo = termsBinding.checkboxSecond
+        checkThree = termsBinding.checkboxThird
+        checkFour = termsBinding.checkboxFourth
 
-        // 모두 동의시에만 다음으로 이어지는 버튼 클릭 가능하도록
-//        termsBinding.toSingupActivityButton.isEnabled = true
+//        checkAll = ArrayList<TermsData>
 
-        // 모두 동의시 전체 선택
-        checkAll.setOnClickListener{
-            checkOne.isChecked = false
-            checkTwo.isChecked = false
-            checkThree.isChecked = false
-            checkFour.isChecked = false
-            termsBinding.toSingupActivityButton.isEnabled = false
-            if(checkAll.isChecked){
-                checkOne.isChecked = true
-                checkTwo.isChecked = true
-                checkThree.isChecked = true
-                checkFour.isChecked = true
-                termsBinding.toSingupActivityButton.isEnabled = true
-            }
-        }
-
+        checkAll.setOnClickListener { onCheckChanged(checkAll) }
+        checkOne.setOnClickListener { onCheckChanged(checkOne) }
+        checkTwo.setOnClickListener { onCheckChanged(checkTwo) }
+        checkThree.setOnClickListener { onCheckChanged(checkThree) }
+        checkFour.setOnClickListener { onCheckChanged(checkFour) }
     }
 
     // 프래그먼트 변화 클래스
@@ -79,7 +73,7 @@ class TermsActivity : AppCompatActivity() {
         termsBinding.termsMainLayout.isFocusable = false
         val transaction = supportFragmentManager.beginTransaction()
         when(int){
-            1 -> transaction.replace(termsBinding.termsFrameLayout.id, TermsOneFragment())
+            1 -> transaction.replace(termsBinding.termsFrameLayout.id, TermsOneFragment(),)
             2 -> transaction.replace(termsBinding.termsFrameLayout.id, TermsTwoFragment())
             3 -> transaction.replace(termsBinding.termsFrameLayout.id, TermsThreeFragment())
             4 -> transaction.replace(termsBinding.termsFrameLayout.id, TermsFourFragment())
@@ -97,5 +91,52 @@ class TermsActivity : AppCompatActivity() {
     fun BacktoLoginActivity(){
         val login_intent = Intent(this, LoginActivity::class.java)
         if(!isFinishing) finish()
+    }
+
+    fun rememberChecked(check: Boolean, int: Int){
+        if(check){
+            when(int){
+                1 -> checkOne.isChecked = true
+                2 -> checkTwo.isChecked = true
+                3 -> checkThree.isChecked = true
+                4 -> checkFour.isChecked = true
+            }
+        } else {
+            when(int){
+                1 -> checkOne.isChecked = false
+                2 -> checkTwo.isChecked = false
+                3 -> checkThree.isChecked = false
+                4 -> checkFour.isChecked = false
+            }
+        }
+//        onCheckChanged(checkAll)
+    }
+
+    // 이용약관 동의 여부에 따른 다음 전환 버튼 활성화 여부
+    fun onCheckChanged(CheckBox: CheckBox) {
+        when(CheckBox.id) {
+            R.id.checkbox_all -> {
+                if (checkAll.isChecked) {
+                    checkOne.isChecked = true
+                    checkTwo.isChecked = true
+                    checkThree.isChecked = true
+                    checkFour.isChecked = true
+                    termsBinding.toSingupActivityButton.isEnabled = true
+                }else {
+                    checkOne.isChecked = false
+                    checkTwo.isChecked = false
+                    checkThree.isChecked = false
+                    checkFour.isChecked = false
+                    termsBinding.toSingupActivityButton.isEnabled = false
+                }
+            }
+            else -> {
+                checkAll.isChecked = (checkOne.isChecked && checkTwo.isChecked && checkThree.isChecked && checkFour.isChecked)
+                    termsBinding.toSingupActivityButton.isEnabled = false
+                if (checkAll.isChecked){
+                    termsBinding.toSingupActivityButton.isEnabled = true
+                }
+            }
+        }
     }
 }

@@ -2,9 +2,12 @@ package com.example.farmus_application.ui.login
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.farmus_application.databinding.FragmentTermsTwoBinding
 
@@ -13,6 +16,7 @@ import com.example.farmus_application.databinding.FragmentTermsTwoBinding
 class TermsTwoFragment: Fragment(){
 
     private lateinit var viewBinding : FragmentTermsTwoBinding
+    lateinit var checkBox : CheckBox
 
     var TermsActivity: TermsActivity? = null
 
@@ -39,6 +43,18 @@ class TermsTwoFragment: Fragment(){
             TermsActivity!!.replaceFragment(3)
         }
 
+        //클릭 시 이용약관 액티비티와 체크 연동
+        checkBox = viewBinding.checkboxFirst
+
+        viewBinding.termsAgreeBottom.setOnClickListener{
+            checkBox.isChecked = true
+            if(checkBox.isChecked){
+                TermsActivity!!.rememberChecked(true,1)
+            } else {
+//                checkBox.isChecked = false
+                TermsActivity!!.rememberChecked(false,1)
+            }
+        }
         return viewBinding.root
     }
 }
