@@ -2,18 +2,17 @@ package com.example.farmus_application.ui.account
 
 import android.content.Context
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
-import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 import com.example.farmus_application.R
+import com.example.farmus_application.databinding.FragmentMyPageSettingBinding
 import com.example.farmus_application.databinding.FragmentProfileSettingBinding
 import com.example.farmus_application.ui.MainActivity
+import com.example.farmus_application.ui.home.HomeFragment
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -22,12 +21,12 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [ProfileSettingFragment.newInstance] factory method to
+ * Use the [MyPageSettingFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class ProfileSettingFragment : Fragment() {
+class MyPageSettingFragment : Fragment() {
 
-    private lateinit var profileSettingBinding: FragmentProfileSettingBinding
+    private lateinit var myPageSettingBinding: FragmentMyPageSettingBinding
 
     //뒤로가기 기능 구현
     private lateinit var callback: OnBackPressedCallback
@@ -44,41 +43,24 @@ class ProfileSettingFragment : Fragment() {
         }
     }
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        profileSettingBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile_setting, container, false)
-        val view = profileSettingBinding
+        myPageSettingBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_my_page_setting, container, false)
+        val view = myPageSettingBinding
 
         //BottomNavigationView 숨기기
         (activity as MainActivity).hideBottomNavigation(true)
 
-        //toopbar 텍스트 설정
-        view.toolBar.toolbarMainTitleText.text = "프로필 수정"
-        //툴바 백터튼 누르면 MyPageFragment로 이동
+        //toolbar 텍스트 설정
+        view.toolBar.toolbarMainTitleText.text = "설정"
+        //툴바 백버튼 누르면 mypagefragment로 이동
         view.toolBar.toolbarWithTitleBackButton.setOnClickListener {
             (activity as MainActivity).changeFragment(MyPageFragment.newInstance("",""))
         }
-
-        //todo 오류 해결
-//        view.edittextIntroduction.addTextChangedListener(object : TextWatcher{
-//
-//            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-//
-//            }
-//
-//            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-//                val count : String = p0?.length.toString()
-//                view.edittextCount.text = "$count/20"
-//            }
-//
-//            override fun afterTextChanged(p0: Editable?) {
-//                val count : String = p0?.length.toString()
-//                view.edittextCount.text = "$count/20"
-//            }
-//        })
 
         return view.root
     }
@@ -100,6 +82,7 @@ class ProfileSettingFragment : Fragment() {
         callback.remove()
     }
 
+
     companion object {
         /**
          * Use this factory method to create a new instance of
@@ -107,12 +90,12 @@ class ProfileSettingFragment : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment ProfileSettingFragment.
+         * @return A new instance of fragment MyPageSettingFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            ProfileSettingFragment().apply {
+            MyPageSettingFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)

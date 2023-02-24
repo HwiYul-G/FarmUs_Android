@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.example.farmus_application.R
 import com.example.farmus_application.databinding.FragmentMyPageBinding
+import com.example.farmus_application.ui.MainActivity
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -42,6 +43,19 @@ class MyPageFragment : Fragment() {
         // Inflate the layout for this fragment
         myPageBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_my_page, container, false)
         val view = myPageBinding
+
+        //프로필 수정 버튼 누르면 ProfileSettingFragment로 이동
+        view.btnProfileSetting.setOnClickListener{
+            (activity as MainActivity).changeFragment(ProfileSettingFragment.newInstance("",""))
+        }
+        //설정 버튼 누르면 MyPageSettingFragment로 이동
+        view.btnSetting.setOnClickListener {
+            (activity as MainActivity).changeFragment(MyPageSettingFragment.newInstance("",""))
+        }
+
+        view.listEnrollFarmer.setOnClickListener {
+            (activity as MainActivity).changeFragment(EnrollFarmerFragment.newInstance("",""))
+        }
 
         return view.root
     }

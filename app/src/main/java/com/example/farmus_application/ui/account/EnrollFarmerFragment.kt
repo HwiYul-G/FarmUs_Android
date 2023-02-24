@@ -2,17 +2,14 @@ package com.example.farmus_application.ui.account
 
 import android.content.Context
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
-import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 import com.example.farmus_application.R
-import com.example.farmus_application.databinding.FragmentProfileSettingBinding
+import com.example.farmus_application.databinding.FragmentEnrollFarmerBinding
 import com.example.farmus_application.ui.MainActivity
 
 // TODO: Rename parameter arguments, choose names that match
@@ -22,12 +19,12 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [ProfileSettingFragment.newInstance] factory method to
+ * Use the [EnrollFarmerFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class ProfileSettingFragment : Fragment() {
+class EnrollFarmerFragment : Fragment() {
 
-    private lateinit var profileSettingBinding: FragmentProfileSettingBinding
+    private lateinit var enrollFarmerBinding: FragmentEnrollFarmerBinding
 
     //뒤로가기 기능 구현
     private lateinit var callback: OnBackPressedCallback
@@ -49,36 +46,56 @@ class ProfileSettingFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        profileSettingBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile_setting, container, false)
-        val view = profileSettingBinding
+        enrollFarmerBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_enroll_farmer,container,false)
+        val view = enrollFarmerBinding
 
         //BottomNavigationView 숨기기
         (activity as MainActivity).hideBottomNavigation(true)
 
-        //toopbar 텍스트 설정
-        view.toolBar.toolbarMainTitleText.text = "프로필 수정"
-        //툴바 백터튼 누르면 MyPageFragment로 이동
-        view.toolBar.toolbarWithTitleBackButton.setOnClickListener {
-            (activity as MainActivity).changeFragment(MyPageFragment.newInstance("",""))
+        view.btnAgree.isSelected = view.checkboxAgreeAll.isChecked
+
+        //모두 동의합니다 체크 박스 기능
+        view.checkboxAgreeAll.setOnClickListener {
+            if(view.checkboxAgreeAll.isChecked) {
+                view.checkboxPrivacy.isChecked = true
+                view.checkboxTOS.isChecked = true
+                view.btnAgree.isSelected = true
+            } else {
+                view.checkboxPrivacy.isChecked = false
+                view.checkboxTOS.isChecked = false
+                view.btnAgree.isSelected = false
+            }
+        }
+        //이용약관 체크박스 클릭 이벤트
+        view.checkboxTOS.setOnClickListener {
+            if(view.checkboxTOS.isChecked){
+                if(view.checkboxPrivacy.isChecked) {
+                    view.checkboxAgreeAll.isChecked = true
+                    view.btnAgree.isSelected = true
+                } else {
+                    view.btnAgree.isSelected = false
+                }
+            } else {
+                view.checkboxAgreeAll.isChecked = false
+                view.btnAgree.isSelected = false
+            }
+        }
+        //개인정보 처리방침 체크박스 클릭이벤트
+        view.checkboxPrivacy.setOnClickListener {
+            if(view.checkboxPrivacy.isChecked){
+                if(view.checkboxTOS.isChecked) {
+                    view.checkboxAgreeAll.isChecked = true
+                    view.btnAgree.isSelected = true
+                } else view.btnAgree.isSelected = false
+            } else{
+                view.checkboxAgreeAll.isChecked = false
+                view.btnAgree.isSelected = false
+            }
         }
 
-        //todo 오류 해결
-//        view.edittextIntroduction.addTextChangedListener(object : TextWatcher{
-//
-//            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-//
-//            }
-//
-//            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-//                val count : String = p0?.length.toString()
-//                view.edittextCount.text = "$count/20"
-//            }
-//
-//            override fun afterTextChanged(p0: Editable?) {
-//                val count : String = p0?.length.toString()
-//                view.edittextCount.text = "$count/20"
-//            }
-//        })
+        view.toolBar.toolbarWithoutTitleBackButton.setOnClickListener {
+            (activity as MainActivity).changeFragment(MyPageFragment.newInstance("",""))
+        }
 
         return view.root
     }
@@ -107,12 +124,12 @@ class ProfileSettingFragment : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment ProfileSettingFragment.
+         * @return A new instance of fragment EnrollFarmerFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            ProfileSettingFragment().apply {
+            EnrollFarmerFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)
