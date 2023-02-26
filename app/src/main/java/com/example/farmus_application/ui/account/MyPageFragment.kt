@@ -44,6 +44,9 @@ class MyPageFragment : Fragment() {
         myPageBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_my_page, container, false)
         val view = myPageBinding
 
+        //bottomNavigationView 보이게
+        (activity as MainActivity).hideBottomNavigation(false)
+
         //프로필 수정 버튼 누르면 ProfileSettingFragment로 이동
         view.btnProfileSetting.setOnClickListener{
             (activity as MainActivity).changeFragment(ProfileSettingFragment.newInstance("",""))
