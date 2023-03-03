@@ -2,9 +2,6 @@ package com.example.farmus_application.ui.home
 
 import android.content.Context
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,12 +10,9 @@ import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.content.res.AppCompatResources.getColorStateList
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.core.os.bundleOf
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.WindowInsetsControllerCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.setFragmentResult
 import com.example.farmus_application.R
-import com.example.farmus_application.databinding.FragmentHomeBinding
 import com.example.farmus_application.databinding.FragmentHomeSearchBinding
 import com.example.farmus_application.ui.MainActivity
 import com.google.android.material.chip.Chip
@@ -56,12 +50,12 @@ class HomeSearchFragment : Fragment() {
         val view = homeSearchBinding
 
         //fragment 이동시 searchBar로 focus
-        homeSearchBinding.searchBar.requestFocus()
+        view.searchBar.requestFocus()
 
         //수정해야됨
-        homeSearchBinding.searchBar.setOnClickListener {
+        view.searchBar.setOnClickListener {
 
-            val searchText = homeSearchBinding.searchBar.text.toString()
+            val searchText = view.searchBar.text.toString()
 
             if(searchText != "") {
 
@@ -87,11 +81,17 @@ class HomeSearchFragment : Fragment() {
         chipItems.add("전라남도")
         chipItems.add("제주도")
 
+        view.btnDeleteAll.setOnClickListener {
+            chipItems.clear()
+        }
+
         //chip 동적 추가
         if(chipItems.size > 0) {
             for(i in chipItems) {
                 addChip(i)
             }
+        } else {
+            clearChip()
         }
 
         return view.root
@@ -114,6 +114,11 @@ class HomeSearchFragment : Fragment() {
             homeSearchBinding.recentSearchChipgroup.removeView(chip) //삭제 버튼 누르면 chip 삭제
         }
 
+        //전체 삭제 버튼 누르면 전체 삭제
+        homeSearchBinding.btnDeleteAll.setOnClickListener {
+            homeSearchBinding.recentSearchChipgroup.removeAllViews()
+        }
+
         //chip 버튼 클릭 이벤트
         chip.setOnClickListener {
             val chipText = chip.text.toString()
@@ -124,6 +129,11 @@ class HomeSearchFragment : Fragment() {
         }
 
         homeSearchBinding.recentSearchChipgroup.addView(chip)
+    }
+
+    private fun clearChip() {
+        homeSearchBinding.recentSearchChipgroup.removeAllViews()
+
     }
 
     //뒤로가기 누르면 HomeSearchFragment로 이동

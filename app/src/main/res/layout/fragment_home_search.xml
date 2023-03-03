@@ -96,10 +96,11 @@
                 android:layout_weight="1"/>
 
             <TextView
+                android:id="@+id/btn_delete_all"
                 style="@style/Body1Reg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="편집"
+                android:text="전체 삭제"
                 android:textSize="16sp"
                 android:textColor="@color/text_3"/>
         </LinearLayout>

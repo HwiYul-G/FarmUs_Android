@@ -39,6 +39,10 @@ class ResultRVAdapter(val items: MutableList<RVFarmDataModel>): RecyclerView.Ada
             resultBinding.rvFarmName.text = item.farm_name
             resultBinding.rvFarmSize.text = item.farm_size
             resultBinding.rvFarmPrice.text = item.farm_price
+
+            resultBinding.bookMark.setOnClickListener {
+                resultBinding.bookMark.isSelected = !resultBinding.bookMark.isSelected
+            }
         }
     }
 }

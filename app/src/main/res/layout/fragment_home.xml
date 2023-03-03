@@ -171,63 +171,63 @@
                                 app:layout_constraintStart_toStartOf="parent"/>
 
                             <!--농부를 위한 추천 콘텐츠-->
-                            <androidx.constraintlayout.widget.ConstraintLayout
-                                android:id="@+id/rec_contents"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="16dp"
-                                android:layout_marginEnd="16dp"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@+id/section_line_1"
-                                >
+<!--                            <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                                android:id="@+id/rec_contents"-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_marginStart="16dp"-->
+<!--                                android:layout_marginEnd="16dp"-->
+<!--                                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                                app:layout_constraintStart_toStartOf="parent"-->
+<!--                                app:layout_constraintTop_toBottomOf="@+id/section_line_1"-->
+<!--                                >-->
 
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="32sp"
-                                    android:orientation="horizontal"
-                                    android:layout_marginTop="29dp"
-                                    app:layout_constraintStart_toStartOf="parent"
-                                    app:layout_constraintTop_toTopOf="parent"
-                                    app:layout_constraintEnd_toEndOf="parent">
+<!--                                <LinearLayout-->
+<!--                                    android:layout_width="match_parent"-->
+<!--                                    android:layout_height="32sp"-->
+<!--                                    android:orientation="horizontal"-->
+<!--                                    android:layout_marginTop="29dp"-->
+<!--                                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                                    app:layout_constraintTop_toTopOf="parent"-->
+<!--                                    app:layout_constraintEnd_toEndOf="parent">-->
 
-                                    <TextView
-                                        android:id="@+id/text_rec_contents"
-                                        style="@style/Title3"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="25sp"
-                                        app:layout_constraintStart_toStartOf="parent"
-                                        android:text="농부를 위한 추천 콘텐츠"
-                                        android:textColor="@color/text_1"
-                                        android:textSize="20sp"
-                                        android:layout_marginTop="2dp"
-                                        android:layout_marginBottom="3dp"/>
+<!--                                    <TextView-->
+<!--                                        android:id="@+id/text_rec_contents"-->
+<!--                                        style="@style/Title3"-->
+<!--                                        android:layout_width="wrap_content"-->
+<!--                                        android:layout_height="25sp"-->
+<!--                                        app:layout_constraintStart_toStartOf="parent"-->
+<!--                                        android:text="농부를 위한 추천 콘텐츠"-->
+<!--                                        android:textColor="@color/text_1"-->
+<!--                                        android:textSize="20sp"-->
+<!--                                        android:layout_marginTop="2dp"-->
+<!--                                        android:layout_marginBottom="3dp"/>-->
 
-                                    <View
-                                        android:layout_width="0dp"
-                                        android:layout_height="0dp"
-                                        android:layout_weight="1"/>
+<!--                                    <View-->
+<!--                                        android:layout_width="0dp"-->
+<!--                                        android:layout_height="0dp"-->
+<!--                                        android:layout_weight="1"/>-->
 
-                                    <ImageView
-                                        android:id="@+id/btn_show_more_contents"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:src="@drawable/next_vector_image"
-                                        app:tint="@color/text_2" />
-                                </LinearLayout>
+<!--                                    <ImageView-->
+<!--                                        android:id="@+id/btn_show_more_contents"-->
+<!--                                        android:layout_width="wrap_content"-->
+<!--                                        android:layout_height="wrap_content"-->
+<!--                                        android:src="@drawable/next_vector_image"-->
+<!--                                        app:tint="@color/text_2" />-->
+<!--                                </LinearLayout>-->
 
-                                <androidx.recyclerview.widget.RecyclerView
-                                    android:id="@+id/rv_rec_contents"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="261dp"
-                                    android:layout_marginTop="71dp"
-                                    android:layout_marginBottom="25dp"
-                                    app:layout_constraintBottom_toBottomOf="parent"
-                                    app:layout_constraintTop_toTopOf="parent"
-                                    tools:listitem="@layout/rv_recommend_farm_for_farmer" />
+<!--                                <androidx.recyclerview.widget.RecyclerView-->
+<!--                                    android:id="@+id/rv_rec_contents"-->
+<!--                                    android:layout_width="match_parent"-->
+<!--                                    android:layout_height="261dp"-->
+<!--                                    android:layout_marginTop="71dp"-->
+<!--                                    android:layout_marginBottom="25dp"-->
+<!--                                    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                                    app:layout_constraintTop_toTopOf="parent"-->
+<!--                                    tools:listitem="@layout/rv_recommend_farm_for_farmer" />-->
 
-                            </androidx.constraintlayout.widget.ConstraintLayout>
+<!--                            </androidx.constraintlayout.widget.ConstraintLayout>-->
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

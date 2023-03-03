@@ -44,6 +44,11 @@ class LocalFarmRVAdapter(val items: MutableList<RVFarmDataModel>): RecyclerView.
             localFarmBinding.rvFarmName.text = item.farm_name
             localFarmBinding.rvFarmSize.text = item.farm_size
             localFarmBinding.rvFarmPrice.text = item.farm_price
+
+            localFarmBinding.bookMark.setOnClickListener {
+                localFarmBinding.bookMark.isSelected = !localFarmBinding.bookMark.isSelected
+            }
         }
+
     }
 }

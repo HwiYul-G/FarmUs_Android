@@ -25,15 +25,14 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
 
-            <ImageView
+            <ImageButton
+                style="@style/CustomHeartBookMark"
                 android:id="@+id/book_mark"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="6dp"
                 android:background="@drawable/heart_selector"
-                android:src="@drawable/heart_selector"
-                app:tint="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -55,9 +54,6 @@
                 android:layout_marginStart="9dp"
                 android:layout_marginTop="12dp"
                 tools:text="고덕 주말 농장"
-                android:textSize="16sp"
-                android:lineHeight="20.03sp"
-                android:letterSpacing="-0.03"
                 android:textColor="@color/text_1"/>
 
             <LinearLayout
