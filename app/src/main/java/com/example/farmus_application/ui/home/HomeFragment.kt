@@ -54,6 +54,10 @@ class HomeFragment : Fragment() {
             (activity as MainActivity).changeFragment(HomeSearchFragment.newInstance("",""))
         }
 
+        view.btnShowMoreFarm.setOnClickListener {
+            (activity as MainActivity).changeFragment(FarmusRecFarmFragment.newInstance("",""))
+        }
+
 //      우리 동네 농장 아이템
         val local_farm_items = mutableListOf<RVFarmDataModel>()
         homeBinding.rvHomeFarm.adapter = LocalFarmRVAdapter(local_farm_items)
