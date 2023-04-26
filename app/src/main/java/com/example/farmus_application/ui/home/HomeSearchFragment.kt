@@ -50,6 +50,8 @@ class HomeSearchFragment : Fragment() {
             DataBindingUtil.inflate(inflater, R.layout.fragment_home_search, container, false)
         val view = homeSearchBinding
 
+        (activity as MainActivity).hideBottomNavigation(true)
+
         //fragment 이동시 searchBar로 focus
         view.searchBar.requestFocus()
 

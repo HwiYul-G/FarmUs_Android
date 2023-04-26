@@ -81,6 +81,8 @@ class SearchFragment : Fragment() {
         bottomSheetDialog = BottomSheetDialog(requireContext(), R.style.BottomSheetDialogTheme)
         bottomSheetDialog.setContentView(bottomSheetRegionBinding.root)
 
+        (activity as MainActivity).hideBottomNavigation(true)
+
         //toolbar 텍스트 없애기
         searchBinding.homeSearchTitleBar.toolbarMainTitleText.text = ""
 

@@ -42,6 +42,8 @@ class HomeFragment : Fragment() {
         // Inflate the layout for this fragment
         homeBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
 
+        (activity as MainActivity).hideBottomNavigation(false)
+
         //검색바 누르면 HomeSearchFragment로 이동
         homeBinding.searchBar.setOnClickListener {
             (activity as MainActivity).changeFragment(HomeSearchFragment.newInstance("", ""))
