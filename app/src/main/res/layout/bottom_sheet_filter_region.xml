@@ -1,119 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     app:layout_behavior="@string/bottom_sheet_behavior">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bottom_sheet_background"
-        >
+        android:background="@drawable/bottom_sheet_background">
 
-        <LinearLayout
-            android:id="@+id/text_layout"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/Title3"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/select_region"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="23dp"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="23dp">
+            android:textColor="@color/text_1" />
 
-            <TextView
-                style="@style/Body1Bold"
-                android:textColor="@color/text_1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/select_region"/>
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="1"/>
-
-            <TextView
-                android:id="@+id/btn_apply"
-                style="@style/Body2Med"
-                android:textColor="@color/text_3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/apply"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/btn_apply"
+            style="@style/Body1Reg"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/text_layout"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="@string/apply"
+            app:layout_constraintTop_toTopOf="@id/tv_title"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginHorizontal="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="1dp"
+            android:textColor="@color/text_3" />
+
+        <androidx.constraintlayout.helper.widget.Layer
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="tv_title, btn_apply"
+            tools:ignore="MissingConstraints" />
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/city_inputLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+            android:layout_width="0dp"
+            android:layout_height="64dp"
+            app:layout_constraintTop_toBottomOf="@id/tv_title"
+            app:layout_constraintStart_toStartOf="@id/tv_title"
+            app:layout_constraintEnd_toEndOf="@id/vertical_middle_line"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginEnd="8dp"
             android:layout_marginTop="17dp"
             android:layout_marginBottom="25dp"
-            android:orientation="horizontal">
+            android:background="@drawable/area_dropdown_bg"
+            android:hint="시/도"
+            android:textColorHint="@color/text_3"
+            app:boxStrokeColor="@color/main"
+            app:endIconDrawable="@drawable/next_down_vector_image"
+            app:endIconTint="@color/gray_2"
+            app:hintTextColor="@color/text_3">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/city_inputLayout"
-                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
-                android:layout_width="156dp"
-                android:layout_height="64dp"
-                app:boxStrokeColor="@color/main"
-                app:endIconDrawable="@drawable/next_down_vector_image"
-                app:endIconTint="@color/gray_2"
+            <AutoCompleteTextView
+                android:id="@+id/city_text_item"
+                style="@style/Body2Med"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:background="@drawable/area_dropdown_bg"
-                android:textColorHint="@color/text_3"
-                app:hintTextColor="@color/text_3"
-                android:hint="시/도"
-                >
+                android:dropDownHeight="300dp"
+                android:dropDownSelector="@color/main_hover"
+                android:inputType="none"
+                android:text="@string/all" />
 
-                <AutoCompleteTextView
-                    android:id="@+id/city_text_item"
-                    style="@style/Body2Med"
-                    android:background="@drawable/area_dropdown_bg"
-                    android:dropDownSelector="@color/main_hover"
-                    android:dropDownHeight="300dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="@string/all"
-                    android:inputType="none"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
-            </com.google.android.material.textfield.TextInputLayout>
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/vertical_middle_line"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5"/>
 
-            <View
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="1"/>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/town_inputLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+            android:layout_width="0dp"
+            android:layout_height="64dp"
+            app:layout_constraintTop_toBottomOf="@id/tv_title"
+            app:layout_constraintEnd_toEndOf="@id/btn_apply"
+            app:layout_constraintStart_toEndOf="@id/vertical_middle_line"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="17dp"
+            android:layout_marginBottom="25dp"
+            android:background="@drawable/area_dropdown_bg"
+            android:hint="시/군/구"
+            android:textColorHint="@color/text_3"
+            app:boxStrokeColor="@color/main"
+            app:endIconDrawable="@drawable/next_down_vector_image"
+            app:endIconTint="@color/gray_2"
+            app:hintTextColor="@color/text_3">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/town_inputLayout"
-                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
-                android:layout_width="156dp"
-                android:layout_height="64dp"
-                app:boxStrokeColor="@color/main"
-                app:endIconDrawable="@drawable/next_down_vector_image"
-                app:endIconTint="@color/gray_2"
+            <AutoCompleteTextView
+                android:id="@+id/town_text_item"
+                style="@style/Body2Med"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:background="@drawable/area_dropdown_bg"
-                android:textColorHint="@color/text_3"
-                app:hintTextColor="@color/text_3"
-                android:hint="시/군/구"
-                >
+                android:dropDownHeight="wrap_content"
+                android:dropDownSelector="@color/main_hover"
+                android:inputType="none"
+                android:maxHeight="300dp"
+                android:text="@string/all" />
 
-                <AutoCompleteTextView
-                    android:id="@+id/town_text_item"
-                    style="@style/Body2Med"
-                    android:background="@drawable/area_dropdown_bg"
-                    android:dropDownSelector="@color/main_hover"
-                    android:maxHeight="300dp"
-                    android:dropDownHeight="wrap_content"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="@string/all"
-                    android:inputType="none"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
-            </com.google.android.material.textfield.TextInputLayout>
-
-        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

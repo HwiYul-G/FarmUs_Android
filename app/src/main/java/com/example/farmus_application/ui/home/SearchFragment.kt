@@ -168,7 +168,7 @@ class SearchFragment : Fragment() {
         if (town == "전체") {
             searchBinding.chipRegionFilter.text = city
         } else {
-            searchBinding.chipRegionFilter.text = town
+            searchBinding.chipRegionFilter.text = "$city $town"
         }
     }
 
