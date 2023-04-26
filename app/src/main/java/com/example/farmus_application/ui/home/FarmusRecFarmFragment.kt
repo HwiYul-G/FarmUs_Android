@@ -48,6 +48,8 @@ class FarmusRecFarmFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_farmus_rec_farm, container, false)
         val view = binding
 
+        (activity as MainActivity).hideBottomNavigation(true)
+
         //툴바 설정
         view.toolBar.toolbarMainTitleText.text = "파머스 추천 농장"
         view.toolBar.toolbarMainTitleText.setTextColor(resources.getColor(R.color.text_2))
