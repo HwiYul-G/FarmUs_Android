@@ -46,7 +46,8 @@ class HomeSearchFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        homeSearchBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_home_search, container, false)
+        homeSearchBinding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_home_search, container, false)
         val view = homeSearchBinding
 
         //fragment 이동시 searchBar로 focus
@@ -54,18 +55,7 @@ class HomeSearchFragment : Fragment() {
 
         //수정해야됨
         view.searchBar.setOnClickListener {
-
-            val searchText = view.searchBar.text.toString()
-
-            if(searchText != "") {
-
-                setFragmentResult("searchTextRequestKey", bundleOf("searchTextBundleKey" to searchText))
-                (activity as MainActivity).changeFragment(SearchFragment.newInstance("",""))
-                addChip(searchText)
-            } else {
-                (activity as MainActivity).changeFragment(SearchFragment.newInstance("",""))
-            }
-
+            search()
         }
 
 
@@ -81,13 +71,14 @@ class HomeSearchFragment : Fragment() {
         chipItems.add("전라남도")
         chipItems.add("제주도")
 
+        //chip 전체 삭제
         view.btnDeleteAll.setOnClickListener {
-            chipItems.clear()
+            clearChip()
         }
 
         //chip 동적 추가
-        if(chipItems.size > 0) {
-            for(i in chipItems) {
+        if (chipItems.size > 0) {
+            for (i in chipItems) {
                 addChip(i)
             }
         } else {
@@ -97,35 +88,42 @@ class HomeSearchFragment : Fragment() {
         return view.root
     }
 
+    private fun search() {
+        val searchText = homeSearchBinding.searchBar.text.toString()
+
+        if (searchText != "") {
+            setFragmentResult(
+                "searchTextRequestKey",
+                bundleOf("searchTextBundleKey" to searchText)
+            )
+            (activity as MainActivity).changeFragment(SearchFragment.newInstance("", ""))
+            addChip(searchText)
+        }
+    }
     //chip 추가하는 함수
-    private fun addChip(searchText: String){
+    private fun addChip(searchText: String) {
         val chip = Chip(requireContext())
-        val radius : Float = 7.0f
+        val radius: Float = 7.0f
 
         chip.text = searchText
         chip.closeIcon = getDrawable(requireContext(), R.drawable.cancel_vector_image)
-        chip.chipStrokeColor = getColorStateList(requireContext(),R.color.gray_1)
+        chip.chipStrokeColor = getColorStateList(requireContext(), R.color.gray_1)
         chip.chipCornerRadius = radius
         chip.chipStrokeWidth = 0.5f
-        chip.chipBackgroundColor = getColorStateList(requireContext(),R.color.white)
+        chip.chipBackgroundColor = getColorStateList(requireContext(), R.color.white)
         chip.isCloseIconVisible = true
 
+        //삭제 버튼 누르면 chip 삭제
         chip.setOnCloseIconClickListener {
-            homeSearchBinding.recentSearchChipgroup.removeView(chip) //삭제 버튼 누르면 chip 삭제
+            homeSearchBinding.recentSearchChipgroup.removeView(chip)
         }
-
-        //전체 삭제 버튼 누르면 전체 삭제
-        homeSearchBinding.btnDeleteAll.setOnClickListener {
-            homeSearchBinding.recentSearchChipgroup.removeAllViews()
-        }
-
         //chip 버튼 클릭 이벤트
         chip.setOnClickListener {
             val chipText = chip.text.toString()
 
             setFragmentResult("selectTextRequestKey", bundleOf("bundleKey" to chipText))
             //SearchFragment로 이동
-            (activity as MainActivity).changeFragment(SearchFragment.newInstance("",""))
+            (activity as MainActivity).changeFragment(SearchFragment.newInstance("", ""))
         }
 
         homeSearchBinding.recentSearchChipgroup.addView(chip)
@@ -141,7 +139,7 @@ class HomeSearchFragment : Fragment() {
         super.onAttach(context)
         callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                (activity as MainActivity).changeFragment(HomeFragment.newInstance("",""))
+                (activity as MainActivity).changeFragment(HomeFragment.newInstance("", ""))
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(this, callback)

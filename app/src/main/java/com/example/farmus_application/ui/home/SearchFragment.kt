@@ -1,33 +1,23 @@
 package com.example.farmus_application.ui.home
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
-import android.text.TextUtils.replace
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import androidx.activity.OnBackPressedCallback
-import androidx.appcompat.content.res.AppCompatResources.getDrawable
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.setFragmentResultListener
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.farmus_application.R
-import com.example.farmus_application.databinding.BottomSheetLocationBinding
-import com.example.farmus_application.databinding.FragmentHomeBinding
-import com.example.farmus_application.databinding.FragmentHomeFilterBinding
+import com.example.farmus_application.databinding.BottomSheetFilterRegionBinding
 import com.example.farmus_application.databinding.FragmentSearchBinding
 import com.example.farmus_application.ui.MainActivity
-import com.example.farmus_application.ui.SplashActivity
-import com.example.farmus_application.ui.home.Adapter.ResultRVAdapter
+import com.example.farmus_application.ui.home.Adapter.FarmRVAdapter
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.chip.Chip
-import java.lang.reflect.Modifier
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -38,8 +28,12 @@ private const val ARG_PARAM2 = "param2"
 class SearchFragment : Fragment() {
 
     private lateinit var searchBinding: FragmentSearchBinding
+    private lateinit var bottomSheetRegionBinding: BottomSheetFilterRegionBinding
 
-    private lateinit var bottomSheetLocationBinding: BottomSheetLocationBinding
+    private var city = "전체"
+    private var town = "전체"
+
+    private var adapter = FarmRVAdapter()
 
     //뒤로 가기 기능
     private lateinit var callback: OnBackPressedCallback
@@ -79,76 +73,58 @@ class SearchFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         searchBinding = DataBindingUtil.inflate(inflater,R.layout.fragment_search,container, false)
-        bottomSheetLocationBinding = DataBindingUtil.inflate(inflater, R.layout.bottom_sheet_location, container, false)
+        bottomSheetRegionBinding = DataBindingUtil.inflate(inflater, R.layout.bottom_sheet_filter_region, container, false)
         val view = searchBinding
-        val locationBottomSheetView = bottomSheetLocationBinding
+
         //toolbar 텍스트 없애기
         searchBinding.homeSearchTitleBar.toolbarMainTitleText.text = ""
 
-
-          //todo  수정해야됨
-//        filter dropdown
-//        val filterAutoCompleteTextView = searchBinding.filterTextItem
-//        val filterItems = arrayListOf<String>("인기순", "최신순","조회순","찜 많은순")
-//        val filterItemAdapter = ArrayAdapter(requireContext(),R.layout.loc_dropdown_item_list,filterItems)
-//        filterAutoCompleteTextView.setAdapter(filterItemAdapter)
-
-        //Spinner로 dropdown 하는 경우
-//        val filterItems = arrayListOf<String>("인기순", "최신순","조회순","찜 많은순")
-//        val adapter = ArrayAdapter(requireContext(), R.layout.loc_dropdown_item_list, filterItems)
-//        searchBinding.filterDropdown.adapter=adapter
-
-
-//
-//        //option 버튼 클릭시 FilterFragment로 이동
-//        searchBinding.btnOption.setOnClickListener{
-//            (activity as MainActivity).changeFragment(HomeFilterFragment.newInstance("",""))
-//        }
-
-
-        //지역 설정 시/도
-        val cityAutoCompleteTextView = locationBottomSheetView.cityTextItem
-
-        val cityItems = arrayListOf<String>("전체", "서울특별시", "경기도","강원도","충청북도","충청남도","전라북도","전라남도","경상북도","경상남도","제주특별자치도","부산광역시","대구광역시","인천광역시", "광주광역시","대전광역시","울산광역시","세종특별자치시")
-        val cityItemAdapter = ArrayAdapter(requireContext(),R.layout.loc_dropdown_item_list,cityItems)
-        cityAutoCompleteTextView.setAdapter(cityItemAdapter)
-
-        //지역 설정 시/군/구
-        val townAutoCompleteTextView = locationBottomSheetView.townTextItem
-
-        val townItems = arrayListOf<String>()
-        setDropdown(cityItems, townItems, cityAutoCompleteTextView, townAutoCompleteTextView)
-        val countryItemAdapter = ArrayAdapter(requireContext(), R.layout.loc_dropdown_item_list, townItems)
-        townAutoCompleteTextView.setAdapter(countryItemAdapter)
+        //bottomSheet 설정
+        setBottomSheet()
 
         //bottomSheetDialog 설정
         val bottomSheetDialog = BottomSheetDialog(requireContext(),R.style.BottomSheetDialogTheme)
-        bottomSheetDialog.setContentView(locationBottomSheetView.root)
-        // bottomSheetDialog.setContentView(R.layout.bottom_sheet) 이렇게 사용 가능
+        bottomSheetDialog.setContentView(bottomSheetRegionBinding.root)
+
 
 
         //필터 버튼 click 이벤트
-        view.chipLocationFilter.setOnClickListener {
-            if(view.chipLocationFilter.isChecked){
+        view.chipRegionFilter.setOnClickListener {
+            if(view.chipRegionFilter.isChecked){
                 bottomSheetDialog.show()
             } else {
-                //todo
-            }
 
-            view.chipLocationFilter.isChecked = locationBottomSheetView.btnApply.isSelected
+                city = "전체"
+                town = "전체"
+                view.chipRegionFilter.text = "지역 필터링"
+                bottomSheetRegionBinding.cityTextItem.setText(city)
+                bottomSheetRegionBinding.townTextItem.setText(town)
+                setBottomSheet()
+
+            }
+            view.chipRegionFilter.isChecked = bottomSheetRegionBinding.btnApply.isSelected
 
         }
         //todo bottomSheetDialog 적용 버튼 클릭 이벤트
-        locationBottomSheetView.btnApply.setOnClickListener {
+        bottomSheetRegionBinding.btnApply.setOnClickListener {
+            town = bottomSheetRegionBinding.townTextItem.text.toString()
             bottomSheetDialog.dismiss()
-            view.chipLocationFilter.isChecked = true
+            view.chipRegionFilter.isChecked = true
+            if (town == "전체") {
+                view.chipRegionFilter.text = city
+            } else{
+                view.chipRegionFilter.text = town
+            }
         }
+
+
 
         //검색 결과 아이템
         val result_farm_items = mutableListOf<RVFarmDataModel>()
 
         //검색 결과 농장 리사이클러뷰
-        searchBinding.rvHomeSearchFarm.adapter = ResultRVAdapter(result_farm_items)
+        searchBinding.rvHomeSearchFarm.adapter = adapter
+        adapter.submitList(result_farm_items)
         searchBinding.rvHomeSearchFarm.layoutManager = GridLayoutManager(requireContext(), 2)
         result_farm_items.add(RVFarmDataModel(R.drawable.farm_image_example, "고덕 주말 농장","4.5평","150,000"))
         result_farm_items.add(RVFarmDataModel(R.drawable.farm_image_example, "고덕 주말 농장","4.5평","150,000"))
@@ -156,24 +132,29 @@ class SearchFragment : Fragment() {
         result_farm_items.add(RVFarmDataModel(R.drawable.farm_image_example, "고덕 주말 농장","4.5평","150,000"))
         result_farm_items.add(RVFarmDataModel(R.drawable.farm_image_example, "고덕 주말 농장","4.5평","150,000"))
         result_farm_items.add(RVFarmDataModel(R.drawable.farm_image_example, "고덕 주말 농장","4.5평","150,000"))
-        result_farm_items.add(RVFarmDataModel(R.drawable.farm_image_example, "고덕 주말 농장","4.5평","150,000"))
-        result_farm_items.add(RVFarmDataModel(R.drawable.farm_image_example, "고덕 주말 농장","4.5평","150,000"))
-        result_farm_items.add(RVFarmDataModel(R.drawable.farm_image_example, "고덕 주말 농장","4.5평","150,000"))
-        result_farm_items.add(RVFarmDataModel(R.drawable.farm_image_example, "고덕 주말 농장","4.5평","150,000"))
-
 
         //툴바의 백버튼 누르면 HomeSearchFragment로 이동
         searchBinding.homeSearchTitleBar.toolbarWithTitleBackButton.setOnClickListener{
             (activity as MainActivity).changeFragment(HomeSearchFragment.newInstance("",""))
         }
 
-
         return view.root
     }
 
+    private fun setBottomSheet() {
+        val cityItems = arrayListOf<String>()
+        cityItems.addAll(resources.getStringArray(R.array.city_list))
+        val cityItemAdapter = ArrayAdapter(requireContext(),R.layout.loc_dropdown_item_list,cityItems)
+        bottomSheetRegionBinding.cityTextItem.setAdapter(cityItemAdapter)
+
+        val townItems = arrayListOf<String>()
+        setDropdown(cityItems, townItems)
+        val townItemAdapter = ArrayAdapter(requireContext(), R.layout.loc_dropdown_item_list, townItems)
+        bottomSheetRegionBinding.townTextItem.setAdapter(townItemAdapter)
+    }
     //지역 선택 dropdowm
-    private fun setDropdown(checkList: ArrayList<String>, itemList: ArrayList<String>, cityAutoCompleteTextView: AutoCompleteTextView, townCompleteTextView: AutoCompleteTextView) {
-        cityAutoCompleteTextView.setOnItemClickListener{ adapterView, view, position, rowId ->
+    private fun setDropdown(checkList: ArrayList<String>, itemList: ArrayList<String>) {
+        bottomSheetRegionBinding.cityTextItem.setOnItemClickListener{ adapterView, view, position, rowId ->
             itemList.clear()
             when(checkList[position]){
                 "서울특별시" -> itemList.addAll(resources.getStringArray(R.array.seoul_list))

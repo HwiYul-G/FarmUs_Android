@@ -6,9 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.farmus_application.R
 import com.example.farmus_application.databinding.FragmentFarmusRecFarmBinding
 import com.example.farmus_application.ui.MainActivity
+import com.example.farmus_application.ui.home.Adapter.FarmRVAdapter
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -22,7 +24,9 @@ private const val ARG_PARAM2 = "param2"
  */
 class FarmusRecFarmFragment : Fragment() {
 
-    private lateinit var farmusRecFarmBinding: FragmentFarmusRecFarmBinding
+    private lateinit var binding: FragmentFarmusRecFarmBinding
+
+    private lateinit var adapter: FarmRVAdapter
 
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -41,8 +45,8 @@ class FarmusRecFarmFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        farmusRecFarmBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_farmus_rec_farm, container, false)
-        val view = farmusRecFarmBinding
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_farmus_rec_farm, container, false)
+        val view = binding
 
         //툴바 설정
         view.toolBar.toolbarMainTitleText.text = "파머스 추천 농장"
@@ -52,6 +56,16 @@ class FarmusRecFarmFragment : Fragment() {
         view.toolBar.toolbarWithTitleBackButton.setOnClickListener {
             (activity as MainActivity).changeFragment(HomeFragment.newInstance("",""))
         }
+
+        adapter = FarmRVAdapter()
+        val local_farm_items = mutableListOf<RVFarmDataModel>()
+        binding.rvFarm.adapter = adapter
+        adapter.submitList(local_farm_items)
+        binding.rvFarm.layoutManager = GridLayoutManager(requireActivity(), 2)
+        local_farm_items.add(RVFarmDataModel(R.drawable.farm_image_example,"고덕 주말 농장","3평","150,000"))
+        local_farm_items.add(RVFarmDataModel(R.drawable.farm_image_example,"고덕 주말 농장","3평","150,000"))
+        local_farm_items.add(RVFarmDataModel(R.drawable.farm_image_example,"고덕 주말 농장","3평","150,000"))
+        local_farm_items.add(RVFarmDataModel(R.drawable.farm_image_example,"고덕 주말 농장","3평","150,000"))
 
         return view.root
     }

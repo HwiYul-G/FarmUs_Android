@@ -24,6 +24,7 @@
             app:layout_constraintBottom_toBottomOf="@id/tool_bar"/>
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_farm"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             tools:listitem="@layout/rv_local_farm"
