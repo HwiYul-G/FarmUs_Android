@@ -19,7 +19,7 @@ private const val ARG_PARAM2 = "param2"
 
 class HomeFragment : Fragment() {
 
-    private lateinit var homeBinding : FragmentHomeBinding
+    private lateinit var homeBinding: FragmentHomeBinding
 
     private lateinit var adapter: FarmRVAdapter
 
@@ -43,12 +43,12 @@ class HomeFragment : Fragment() {
         homeBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
 
         //검색바 누르면 HomeSearchFragment로 이동
-        homeBinding.searchBar.setOnClickListener{
-            (activity as MainActivity).changeFragment(HomeSearchFragment.newInstance("",""))
+        homeBinding.searchBar.setOnClickListener {
+            (activity as MainActivity).changeFragment(HomeSearchFragment.newInstance("", ""))
         }
         //파머스 추천 농장으로 이동
         homeBinding.btnFarmUsRecommendFarm.setOnClickListener {
-            (activity as MainActivity).changeFragment(FarmusRecFarmFragment.newInstance("",""))
+            (activity as MainActivity).changeFragment(FarmusRecFarmFragment.newInstance("", ""))
         }
 
         adapter = FarmRVAdapter()
@@ -58,10 +58,38 @@ class HomeFragment : Fragment() {
         homeBinding.rvHomeFarm.adapter = adapter
         adapter.submitList(local_farm_items)
         homeBinding.rvHomeFarm.layoutManager = GridLayoutManager(requireActivity(), 2)
-        local_farm_items.add(RVFarmDataModel(R.drawable.farm_image_example,"고덕 주말 농장","3평","150,000"))
-        local_farm_items.add(RVFarmDataModel(R.drawable.farm_image_example,"고덕 주말 농장","3평","150,000"))
-        local_farm_items.add(RVFarmDataModel(R.drawable.farm_image_example,"고덕 주말 농장","3평","150,000"))
-        local_farm_items.add(RVFarmDataModel(R.drawable.farm_image_example,"고덕 주말 농장","3평","150,000"))
+        local_farm_items.add(
+            RVFarmDataModel(
+                R.drawable.farm_image_example,
+                "고덕 주말 농장",
+                "3평",
+                "150,000"
+            )
+        )
+        local_farm_items.add(
+            RVFarmDataModel(
+                R.drawable.farm_image_example,
+                "고덕 주말 농장",
+                "3평",
+                "150,000"
+            )
+        )
+        local_farm_items.add(
+            RVFarmDataModel(
+                R.drawable.farm_image_example,
+                "고덕 주말 농장",
+                "3평",
+                "150,000"
+            )
+        )
+        local_farm_items.add(
+            RVFarmDataModel(
+                R.drawable.farm_image_example,
+                "고덕 주말 농장",
+                "3평",
+                "150,000"
+            )
+        )
 
         return homeBinding.root
     }

@@ -25,7 +25,6 @@
 
 
         <!--메인 로고-->
-
         <TextView
             android:id="@+id/farmus_logo_kr"
             android:fontFamily="@font/line_seed_kr_bd"

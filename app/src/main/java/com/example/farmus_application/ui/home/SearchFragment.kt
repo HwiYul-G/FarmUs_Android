@@ -32,6 +32,7 @@ class SearchFragment : Fragment() {
 
     private var city = "전체"
     private var town = "전체"
+    private lateinit var bottomSheetDialog: BottomSheetDialog
 
     private var adapter = FarmRVAdapter()
 
@@ -51,12 +52,12 @@ class SearchFragment : Fragment() {
         }
 
         //검색어 입력한 경우
-        setFragmentResultListener("searchTextRequestKey"){key, bundle ->
+        setFragmentResultListener("searchTextRequestKey") { key, bundle ->
             searchText = bundle.getString("searchTextBundleKey")
             searchBinding.searchBar.setText(searchText)
         }
         //최근 검색어 선택한 경우
-        setFragmentResultListener("selectTextRequestKey"){ key, bundle ->
+        setFragmentResultListener("selectTextRequestKey") { key, bundle ->
             searchText = bundle.getString("bundleKey")
             searchBinding.searchBar.setText(searchText)
         }
@@ -72,9 +73,13 @@ class SearchFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        searchBinding = DataBindingUtil.inflate(inflater,R.layout.fragment_search,container, false)
-        bottomSheetRegionBinding = DataBindingUtil.inflate(inflater, R.layout.bottom_sheet_filter_region, container, false)
-        val view = searchBinding
+        searchBinding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_search, container, false)
+        bottomSheetRegionBinding =
+            DataBindingUtil.inflate(inflater, R.layout.bottom_sheet_filter_region, container, false)
+        //bottomSheetDialog 설정
+        bottomSheetDialog = BottomSheetDialog(requireContext(), R.style.BottomSheetDialogTheme)
+        bottomSheetDialog.setContentView(bottomSheetRegionBinding.root)
 
         //toolbar 텍스트 없애기
         searchBinding.homeSearchTitleBar.toolbarMainTitleText.text = ""
@@ -82,42 +87,14 @@ class SearchFragment : Fragment() {
         //bottomSheet 설정
         setBottomSheet()
 
-        //bottomSheetDialog 설정
-        val bottomSheetDialog = BottomSheetDialog(requireContext(),R.style.BottomSheetDialogTheme)
-        bottomSheetDialog.setContentView(bottomSheetRegionBinding.root)
-
-
-
         //필터 버튼 click 이벤트
-        view.chipRegionFilter.setOnClickListener {
-            if(view.chipRegionFilter.isChecked){
-                bottomSheetDialog.show()
-            } else {
-
-                city = "전체"
-                town = "전체"
-                view.chipRegionFilter.text = "지역 필터링"
-                bottomSheetRegionBinding.cityTextItem.setText(city)
-                bottomSheetRegionBinding.townTextItem.setText(town)
-                setBottomSheet()
-
-            }
-            view.chipRegionFilter.isChecked = bottomSheetRegionBinding.btnApply.isSelected
-
+        searchBinding.chipRegionFilter.setOnClickListener {
+            clickChipRegionFilter()
         }
-        //todo bottomSheetDialog 적용 버튼 클릭 이벤트
+        //bottomSheetDialog 적용 버튼 클릭 이벤트
         bottomSheetRegionBinding.btnApply.setOnClickListener {
-            town = bottomSheetRegionBinding.townTextItem.text.toString()
-            bottomSheetDialog.dismiss()
-            view.chipRegionFilter.isChecked = true
-            if (town == "전체") {
-                view.chipRegionFilter.text = city
-            } else{
-                view.chipRegionFilter.text = town
-            }
+            clickBottomSheetApply()
         }
-
-
 
         //검색 결과 아이템
         val result_farm_items = mutableListOf<RVFarmDataModel>()
@@ -126,37 +103,109 @@ class SearchFragment : Fragment() {
         searchBinding.rvHomeSearchFarm.adapter = adapter
         adapter.submitList(result_farm_items)
         searchBinding.rvHomeSearchFarm.layoutManager = GridLayoutManager(requireContext(), 2)
-        result_farm_items.add(RVFarmDataModel(R.drawable.farm_image_example, "고덕 주말 농장","4.5평","150,000"))
-        result_farm_items.add(RVFarmDataModel(R.drawable.farm_image_example, "고덕 주말 농장","4.5평","150,000"))
-        result_farm_items.add(RVFarmDataModel(R.drawable.farm_image_example, "고덕 주말 농장","4.5평","150,000"))
-        result_farm_items.add(RVFarmDataModel(R.drawable.farm_image_example, "고덕 주말 농장","4.5평","150,000"))
-        result_farm_items.add(RVFarmDataModel(R.drawable.farm_image_example, "고덕 주말 농장","4.5평","150,000"))
-        result_farm_items.add(RVFarmDataModel(R.drawable.farm_image_example, "고덕 주말 농장","4.5평","150,000"))
+        result_farm_items.add(
+            RVFarmDataModel(
+                R.drawable.farm_image_example,
+                "고덕 주말 농장",
+                "4.5평",
+                "150,000"
+            )
+        )
+        result_farm_items.add(
+            RVFarmDataModel(
+                R.drawable.farm_image_example,
+                "고덕 주말 농장",
+                "4.5평",
+                "150,000"
+            )
+        )
+        result_farm_items.add(
+            RVFarmDataModel(
+                R.drawable.farm_image_example,
+                "고덕 주말 농장",
+                "4.5평",
+                "150,000"
+            )
+        )
+        result_farm_items.add(
+            RVFarmDataModel(
+                R.drawable.farm_image_example,
+                "고덕 주말 농장",
+                "4.5평",
+                "150,000"
+            )
+        )
+        result_farm_items.add(
+            RVFarmDataModel(
+                R.drawable.farm_image_example,
+                "고덕 주말 농장",
+                "4.5평",
+                "150,000"
+            )
+        )
+        result_farm_items.add(
+            RVFarmDataModel(
+                R.drawable.farm_image_example,
+                "고덕 주말 농장",
+                "4.5평",
+                "150,000"
+            )
+        )
 
         //툴바의 백버튼 누르면 HomeSearchFragment로 이동
-        searchBinding.homeSearchTitleBar.toolbarWithTitleBackButton.setOnClickListener{
-            (activity as MainActivity).changeFragment(HomeSearchFragment.newInstance("",""))
+        searchBinding.homeSearchTitleBar.toolbarWithTitleBackButton.setOnClickListener {
+            (activity as MainActivity).changeFragment(HomeSearchFragment.newInstance("", ""))
         }
 
-        return view.root
+        return searchBinding.root
+    }
+
+    private fun clickBottomSheetApply() {
+        city = bottomSheetRegionBinding.cityTextItem.text.toString()
+        town = bottomSheetRegionBinding.townTextItem.text.toString()
+        bottomSheetDialog.dismiss()
+        searchBinding.chipRegionFilter.isChecked = true
+        if (town == "전체") {
+            searchBinding.chipRegionFilter.text = city
+        } else {
+            searchBinding.chipRegionFilter.text = town
+        }
+    }
+
+    private fun clickChipRegionFilter() {
+        if (searchBinding.chipRegionFilter.isChecked) {
+            bottomSheetDialog.show()
+        } else {
+            city = "전체"
+            town = "전체"
+            searchBinding.chipRegionFilter.text = "지역 필터링"
+            bottomSheetRegionBinding.cityTextItem.setText(city)
+            bottomSheetRegionBinding.townTextItem.setText(town)
+            setBottomSheet()
+
+        }
+        searchBinding.chipRegionFilter.isChecked = bottomSheetRegionBinding.btnApply.isSelected
     }
 
     private fun setBottomSheet() {
         val cityItems = arrayListOf<String>()
         cityItems.addAll(resources.getStringArray(R.array.city_list))
-        val cityItemAdapter = ArrayAdapter(requireContext(),R.layout.loc_dropdown_item_list,cityItems)
+        val cityItemAdapter =
+            ArrayAdapter(requireContext(), R.layout.loc_dropdown_item_list, cityItems)
         bottomSheetRegionBinding.cityTextItem.setAdapter(cityItemAdapter)
 
         val townItems = arrayListOf<String>()
         setDropdown(cityItems, townItems)
-        val townItemAdapter = ArrayAdapter(requireContext(), R.layout.loc_dropdown_item_list, townItems)
+        val townItemAdapter =
+            ArrayAdapter(requireContext(), R.layout.loc_dropdown_item_list, townItems)
         bottomSheetRegionBinding.townTextItem.setAdapter(townItemAdapter)
     }
+
     //지역 선택 dropdowm
     private fun setDropdown(checkList: ArrayList<String>, itemList: ArrayList<String>) {
-        bottomSheetRegionBinding.cityTextItem.setOnItemClickListener{ adapterView, view, position, rowId ->
+        bottomSheetRegionBinding.cityTextItem.setOnItemClickListener { adapterView, view, position, rowId ->
             itemList.clear()
-            when(checkList[position]){
+            when (checkList[position]) {
                 "서울특별시" -> itemList.addAll(resources.getStringArray(R.array.seoul_list))
                 "경기도" -> itemList.addAll(resources.getStringArray(R.array.gyeonggi_list))
                 "강원도" -> itemList.addAll(resources.getStringArray(R.array.gangwon_list))
@@ -180,13 +229,12 @@ class SearchFragment : Fragment() {
     }
 
 
-
     //뒤로가기 수행하면 화면 이동
     override fun onAttach(context: Context) {
         super.onAttach(context)
         callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                (activity as MainActivity).changeFragment(HomeSearchFragment.newInstance("",""))
+                (activity as MainActivity).changeFragment(HomeSearchFragment.newInstance("", ""))
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(this, callback)
