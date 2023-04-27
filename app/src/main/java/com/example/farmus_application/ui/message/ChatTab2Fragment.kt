@@ -45,19 +45,23 @@ class ChatTab2Fragment : Fragment() {
         chatTab2FragmentBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_chat_tab2, container, false)
         val view = chatTab2FragmentBinding
 
-        val requestItem = mutableListOf<RVTab2DataModel>()
-        view.rvChatTab2.adapter = ChatTab2RVAdapter(requestItem)
-        view.rvChatTab2.layoutManager = LinearLayoutManager(requireContext())
-        requestItem.add(RVTab2DataModel(R.drawable.farm_image_example, "서울 유일 농장", "2023.02.03~2023.05.07"))
-        requestItem.add(RVTab2DataModel(R.drawable.farm_image_example, "서울 유일 농장", "2023.02.03~2023.05.07"))
-        requestItem.add(RVTab2DataModel(R.drawable.farm_image_example, "서울 유일 농장", "2023.02.03~2023.05.07"))
-        requestItem.add(RVTab2DataModel(R.drawable.farm_image_example, "서울 유일 농장", "2023.02.03~2023.05.07"))
-        requestItem.add(RVTab2DataModel(R.drawable.farm_image_example, "서울 유일 농장", "2023.02.03~2023.05.07"))
-        requestItem.add(RVTab2DataModel(R.drawable.farm_image_example, "서울 유일 농장", "2023.02.03~2023.05.07"))
-        requestItem.add(RVTab2DataModel(R.drawable.farm_image_example, "서울 유일 농장", "2023.02.03~2023.05.07"))
-        requestItem.add(RVTab2DataModel(R.drawable.farm_image_example, "서울 유일 농장", "2023.02.03~2023.05.07"))
-        requestItem.add(RVTab2DataModel(R.drawable.farm_image_example, "서울 유일 농장", "2023.02.03~2023.05.07"))
-        requestItem.add(RVTab2DataModel(R.drawable.farm_image_example, "서울 유일 농장", "2023.02.03~2023.05.07"))
+        val waitItem = mutableListOf<RVTab2DataModel>()
+        view.rvChatWait.adapter = ChatTab2RVAdapter(waitItem)
+        view.rvChatWait.layoutManager = LinearLayoutManager(requireContext())
+        waitItem.add(RVTab2DataModel(R.drawable.farm_image_example, "서울 유일 농장", "2023.02.03~2023.05.07"))
+        waitItem.add(RVTab2DataModel(R.drawable.farm_image_example, "서울 유일 농장", "2023.02.03~2023.05.07"))
+        waitItem.add(RVTab2DataModel(R.drawable.farm_image_example, "서울 유일 농장", "2023.02.03~2023.05.07"))
+        waitItem.add(RVTab2DataModel(R.drawable.farm_image_example, "서울 유일 농장", "2023.02.03~2023.05.07"))
+        waitItem.add(RVTab2DataModel(R.drawable.farm_image_example, "서울 유일 농장", "2023.02.03~2023.05.07"))
+
+        val approveItem = mutableListOf<RVTab2DataModel>()
+        view.rvChatApprove.adapter = ChatTab2RVAdapter(approveItem)
+        view.rvChatApprove.layoutManager = LinearLayoutManager(requireContext())
+        approveItem.add(RVTab2DataModel(R.drawable.farm_image_example, "서울 유일 농장", "2023.02.03~2023.05.07"))
+        approveItem.add(RVTab2DataModel(R.drawable.farm_image_example, "서울 유일 농장", "2023.02.03~2023.05.07"))
+        approveItem.add(RVTab2DataModel(R.drawable.farm_image_example, "서울 유일 농장", "2023.02.03~2023.05.07"))
+        approveItem.add(RVTab2DataModel(R.drawable.farm_image_example, "서울 유일 농장", "2023.02.03~2023.05.07"))
+        approveItem.add(RVTab2DataModel(R.drawable.farm_image_example, "서울 유일 농장", "2023.02.03~2023.05.07"))
 
         return view.root
     }
