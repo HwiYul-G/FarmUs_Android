@@ -43,9 +43,8 @@ class BottomSheetFragment : BottomSheetDialogFragment() {
     ): View? {
         // Inflate the layout for this fragment
         bottomSheetBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_bottom_sheet, container, false)
-        val view = bottomSheetBinding
 
-        return view.root
+        return bottomSheetBinding.root
     }
 
     companion object {

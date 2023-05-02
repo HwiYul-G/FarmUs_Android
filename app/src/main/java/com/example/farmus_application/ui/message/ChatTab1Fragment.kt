@@ -24,6 +24,7 @@ private const val ARG_PARAM2 = "param2"
 class ChatTab1Fragment : Fragment() {
 
     private lateinit var chatTab1FragmentBinding : FragmentChatTab1Binding
+    private lateinit var adapter : ChatTab1RVAdapter
 
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -45,22 +46,18 @@ class ChatTab1Fragment : Fragment() {
         chatTab1FragmentBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_chat_tab1, container, false)
         val view = chatTab1FragmentBinding
 
+        adapter = ChatTab1RVAdapter()
+
         val requestItem = mutableListOf<RVTab1DataModel>()
-        view.rvChatTab1.adapter = ChatTab1RVAdapter(requestItem)
+        view.rvChatTab1.adapter = adapter
+        adapter.submitList(requestItem)
+
         view.rvChatTab1.layoutManager = LinearLayoutManager(requireContext())
         requestItem.add(RVTab1DataModel(R.drawable.farm_image_example, "서울 유일 농장", "2023.02.03~2023.05.07"))
         requestItem.add(RVTab1DataModel(R.drawable.farm_image_example, "서울 유일 농장", "2023.02.03~2023.05.07"))
         requestItem.add(RVTab1DataModel(R.drawable.farm_image_example, "서울 유일 농장", "2023.02.03~2023.05.07"))
         requestItem.add(RVTab1DataModel(R.drawable.farm_image_example, "서울 유일 농장", "2023.02.03~2023.05.07"))
         requestItem.add(RVTab1DataModel(R.drawable.farm_image_example, "서울 유일 농장", "2023.02.03~2023.05.07"))
-        requestItem.add(RVTab1DataModel(R.drawable.farm_image_example, "서울 유일 농장", "2023.02.03~2023.05.07"))
-        requestItem.add(RVTab1DataModel(R.drawable.farm_image_example, "서울 유일 농장", "2023.02.03~2023.05.07"))
-        requestItem.add(RVTab1DataModel(R.drawable.farm_image_example, "서울 유일 농장", "2023.02.03~2023.05.07"))
-        requestItem.add(RVTab1DataModel(R.drawable.farm_image_example, "서울 유일 농장", "2023.02.03~2023.05.07"))
-        requestItem.add(RVTab1DataModel(R.drawable.farm_image_example, "서울 유일 농장", "2023.02.03~2023.05.07"))
-        requestItem.add(RVTab1DataModel(R.drawable.farm_image_example, "서울 유일 농장", "2023.02.03~2023.05.07"))
-        requestItem.add(RVTab1DataModel(R.drawable.farm_image_example, "서울 유일 농장", "2023.02.03~2023.05.07"))
-
 
 
         return view.root
