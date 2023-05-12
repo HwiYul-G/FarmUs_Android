@@ -1,4 +1,6 @@
 package com.example.farmus_application.repository.farm
 
-class FarmDetailDataSource {
+interface FarmDetailDataSource {
+
+    // suspend 함수 작성
 }

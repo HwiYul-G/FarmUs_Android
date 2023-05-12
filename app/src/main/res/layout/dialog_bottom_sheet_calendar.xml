@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/dialog_bottom_sheet_calendar_background"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+        <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+            android:id="@+id/bottom_sheet_calendar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:mcv_dateTextAppearance="@style/CalenderViewDateCustomText"
+            app:mcv_weekDayTextAppearance="@style/CalenderViewWeekCustomText"
+            app:mcv_headerTextAppearance="@style/CalendarWidgetHeader"
+            app:mcv_selectionColor="@color/main_hover_2"
+            app:mcv_selectionMode="range" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

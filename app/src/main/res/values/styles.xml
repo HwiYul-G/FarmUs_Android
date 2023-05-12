@@ -13,6 +13,31 @@
         <item name="fontFamily">@font/spoqa_han_sans_neo2</item>
         <item name="android:textSize">13sp</item>
     </style>
+    
+    <style name="ShapeAppearanceOverlay_cornerSize50" parent="" >
+        <item name="cornerSize">50%</item>
+    </style>
+
+    <style name="BottomSheetDialog" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/BottomSheet</item>
+        <item name="android:colorBackground">@color/white</item>
+    </style>
+    <style name="BottomSheet" parent="Widget.MaterialComponents.BottomSheet.Modal">
+        <item name="backgroundTint">@android:color/transparent</item>
+    </style>
+    
+    <style name="CustomCalendarView" parent="Theme.AppCompat">
+        <item name="fontFamily">@font/spoqa_han_sans_neo1</item>
+    </style>
+    <style name="CalenderViewDateCustomText" parent="@style/Body2Reg">
+        <item name="android:textColor">@color/text_2</item>
+    </style>
+    <style name="CalenderViewWeekCustomText" parent="@style/Body2Med">
+        <item name="android:textColor">@color/text_2</item>
+    </style>
+    <style name="CalendarWidgetHeader" parent="@style/Body1Bold">
+        <item name="android:textColor">@color/text_1</item>
+    </style>
 
 </resources>
 
