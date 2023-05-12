@@ -43,18 +43,6 @@ class TermsTwoFragment: Fragment(){
             TermsActivity!!.replaceFragment(3)
         }
 
-        //클릭 시 이용약관 액티비티와 체크 연동
-        checkBox = viewBinding.checkboxFirst
-
-        viewBinding.termsAgreeBottom.setOnClickListener{
-            checkBox.isChecked = true
-            if(checkBox.isChecked){
-                TermsActivity!!.rememberChecked(true,1)
-            } else {
-//                checkBox.isChecked = false
-                TermsActivity!!.rememberChecked(false,1)
-            }
-        }
         return viewBinding.root
     }
 }

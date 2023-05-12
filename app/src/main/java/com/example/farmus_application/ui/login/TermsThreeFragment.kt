@@ -42,18 +42,6 @@ class TermsThreeFragment: Fragment(){
             TermsActivity!!.replaceFragment(4)
         }
 
-        //클릭 시 이용약관 액티비티와 체크 연동
-        checkBox = viewBinding.checkboxSecond
-
-        viewBinding.checkboxSecond.setOnClickListener{
-            Log.i("checked","-----------------------------------2 is checked")
-            if(checkBox.isChecked){
-                TermsActivity!!.rememberChecked(true,2)
-            } else {
-                TermsActivity!!.rememberChecked(false,2)
-            }
-        }
-
         return viewBinding.root
     }
 }

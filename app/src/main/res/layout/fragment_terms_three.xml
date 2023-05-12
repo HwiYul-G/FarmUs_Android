@@ -137,18 +137,6 @@
         </LinearLayout>
     </ScrollView>
 
-    <CheckBox
-        android:id="@+id/checkbox_second"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:button="@null"
-        android:background="@drawable/checkbox_selector"
-        app:layout_constraintBottom_toBottomOf="@+id/terms_agree_bottom"
-        app:layout_constraintStart_toStartOf="@+id/terms_agree_bottom"
-        app:layout_constraintTop_toTopOf="@+id/terms_agree_bottom"
-        android:layout_marginStart="16dp">
-    </CheckBox>
-
     <TextView
         android:id="@+id/checkbox_text_first"
         style="@style/Body2Med"
@@ -156,7 +144,7 @@
         android:layout_height="wrap_content"
         android:textColor="@color/text_first"
         app:layout_constraintBottom_toBottomOf="@+id/terms_agree_bottom"
-        app:layout_constraintStart_toEndOf="@+id/checkbox_second"
+        app:layout_constraintStart_toStartOf="@+id/terms_specific_title"
         app:layout_constraintTop_toTopOf="@+id/terms_agree_bottom"
         android:text="[필수] 위치기반서비스 이용약관"
         android:layout_marginStart="12dp"/>
