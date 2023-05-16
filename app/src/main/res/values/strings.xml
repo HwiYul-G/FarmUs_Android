@@ -368,5 +368,8 @@
     <string name="farm_detail_owner_title">농장주 정보</string>
     <string name="farm_detail_owner_nickname">닉네임</string>
     <string name="farm_detail_more_request">매물 더보기</string>
+    <string name="calendar_from">부터</string>
+    <string name="calendar_to">까지</string>
+    <string name="calendar_application_button">분양 신청</string>
 
 </resources>

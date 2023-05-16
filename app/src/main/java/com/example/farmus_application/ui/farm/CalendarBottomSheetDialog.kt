@@ -2,11 +2,8 @@ package com.example.farmus_application.ui.farm
 
 import android.content.Context
 import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
-import android.icu.text.CaseMap.Title
 import android.os.Bundle
-import android.provider.CalendarContract.Colors
 import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.view.LayoutInflater
@@ -20,7 +17,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.DayViewDecorator
 import com.prolificinteractive.materialcalendarview.DayViewFacade
-import com.prolificinteractive.materialcalendarview.format.TitleFormatter
 
 class CalendarBottomSheetDialog: BottomSheetDialogFragment() {
 
@@ -30,7 +26,7 @@ class CalendarBottomSheetDialog: BottomSheetDialogFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         bottomSheetDialogBinding = DataBindingUtil.inflate(inflater, R.layout.dialog_bottom_sheet_calendar, container, false)
         val view = bottomSheetDialogBinding
@@ -38,14 +34,24 @@ class CalendarBottomSheetDialog: BottomSheetDialogFragment() {
         view.bottomSheetCalendar.addDecorator(TodayDecorator(requireContext()))
         view.bottomSheetCalendar.addDecorator(BeforeDayDecorator())
         view.bottomSheetCalendar.setTitleFormatter { day -> "${day.month}월${day.year}년" }
-        view.bottomSheetCalendar.setLeftArrow(R.drawable.calendar_today_background)
+        view.bottomSheetCalendar.setLeftArrow(R.drawable.calendar_back_button_vector)
+        view.bottomSheetCalendar.setRightArrow(R.drawable.calendar_forward_button_vector)
+
+        settingDateTextView()
+
 
         view.bottomSheetCalendar.setOnDateChangedListener { widget, date, _ ->
             Log.e("setOnDateChangedListener","DateChangedClick!")
             widget.removeDecorators()
             widget.addDecorator(FirstDayDecorator(date))
             widget.addDecorators(TodayDecorator(requireContext()), BeforeDayDecorator())
-            // 다시 범위를 클릭할때 color를 다시 원상복구 시켜야함 (모든 deco 초기화 하고 today,befor Deco 다시 설정)
+            view.calendarStartDayYear.text = date.year.toString()
+            view.calendarStartDayMonth.text = String.format("%02d",date.month)
+            view.calendarStartDayDate.text = date.day.toString()
+            // month가 5월이면 05가 아닌 5로 나옴 -> 0을 붙혓 나오게 하던지 아니면 date변수의 string을 잘라서 사용
+            view.startDayConstraint.isSelected = true
+            view.lastDayConstraint.isSelected = false
+            view.applicationButton.isEnabled = false
         }
 
         view.bottomSheetCalendar.setOnRangeSelectedListener { widget, dates ->
@@ -58,14 +64,32 @@ class CalendarBottomSheetDialog: BottomSheetDialogFragment() {
             if (dayList.size != 0) {
                 widget.addDecorator(RangeDayDecorator(dayList, requireContext()))
             }
+            view.calendarLastDayYear.text = dates[dates.size-1].year.toString()
+            view.calendarLastDayMonth.text = String.format("%02d",dates[dates.size-1].month)
+            view.calendarLastDayDate.text = dates[dates.size-1].day.toString()
+            Log.e("StartDay:","${dates[dates.size-1].year},${dates[dates.size-1].month},${dates[dates.size-1].day}")
+            view.startDayConstraint.isSelected = false
+            view.lastDayConstraint.isSelected = true
+            view.applicationButton.isEnabled = true
         }
 
 
         return view.root
     }
+
+    private fun settingDateTextView() {
+        val today = CalendarDay.today()
+        bottomSheetDialogBinding.calendarStartDayYear.text = today.year.toString()
+        bottomSheetDialogBinding.calendarStartDayMonth.text = String.format("%02d",today.month)
+        bottomSheetDialogBinding.calendarStartDayDate.text = today.day.toString()
+        bottomSheetDialogBinding.calendarLastDayYear.text = today.year.toString()
+        bottomSheetDialogBinding.calendarLastDayMonth.text = String.format("%02d",today.month)
+        bottomSheetDialogBinding.calendarLastDayDate.text = today.day.toString()
+    }
+
 }
 
-class TodayDecorator(private val context: Context) : DayViewDecorator {
+class TodayDecorator(context: Context) : DayViewDecorator {
 
     private var drawable: Drawable = ContextCompat.getDrawable(context, R.drawable.calendar_today_background)!!
 
@@ -83,7 +107,7 @@ class TodayDecorator(private val context: Context) : DayViewDecorator {
     }
 }
 
-class BeforeDayDecorator(): DayViewDecorator {
+class BeforeDayDecorator: DayViewDecorator {
 
     override fun shouldDecorate(day: CalendarDay?): Boolean {
         return day?.isBefore(CalendarDay.today()) ?: false
@@ -104,14 +128,12 @@ class FirstDayDecorator(private val firstDay: CalendarDay): DayViewDecorator {
     }
 
     override fun decorate(view: DayViewFacade?) {
-        view?.let {
-            it.addSpan(ForegroundColorSpan(Color.parseColor("#ffffff")))
-        }
+        view?.addSpan(ForegroundColorSpan(Color.parseColor("#ffffff")))
     }
 }
 class RangeDayDecorator(
     private val days: List<CalendarDay>,
-    private val context: Context
+    context: Context
 ): DayViewDecorator {
     private var drawable: Drawable = ContextCompat.getDrawable(context, R.drawable.calendar_range_background)!!
 
@@ -120,9 +142,7 @@ class RangeDayDecorator(
     }
 
     override fun decorate(view: DayViewFacade?) {
-        view?.let {
-            it.setSelectionDrawable(drawable)
-        }
+        view?.setSelectionDrawable(drawable)
     }
 }
 class LastDayDecorator(private val lastDay: CalendarDay): DayViewDecorator {
@@ -132,9 +152,7 @@ class LastDayDecorator(private val lastDay: CalendarDay): DayViewDecorator {
     }
 
     override fun decorate(view: DayViewFacade?) {
-        view?.let {
-            it.addSpan(ForegroundColorSpan(Color.parseColor("#ffffff")))
-        }
+        view?.addSpan(ForegroundColorSpan(Color.parseColor("#ffffff")))
     }
 }
 
