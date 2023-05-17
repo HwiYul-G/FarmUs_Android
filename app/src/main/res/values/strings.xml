@@ -23,6 +23,8 @@
     <string name="example_farm_description">자유롭게 원하시는 모종 심으시면 됩니다.\n매주 체크하기 힘드시면 제가 따로 물주기는 해드릴 수 있으니, \n보시고 편하게 문의 주세요 !</string>
     <string name="farm_detail_information_title">상세 정보</string>
 
+    <string name="farm_complete_button_text">홈으로 이동</string>
+
     <string name="copy_my_id"><u>아이디 복사하기</u></string>
     <string name="click_to_singup"><u>회원가입</u></string>
     <string name="term_uses">제 1장 총칙
@@ -371,5 +373,7 @@
     <string name="calendar_from">부터</string>
     <string name="calendar_to">까지</string>
     <string name="calendar_application_button">분양 신청</string>
+    <string name="farm_complete_description">농장주가 요청을 승인하면 알려드릴게요</string>
+    <string name="farm_complete_description_title">분양 신청 완료 !</string>
 
 </resources>
