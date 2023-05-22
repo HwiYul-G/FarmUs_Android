@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/farm_application_toolbar"
+            layout="@layout/toolbar_with_title" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0.5dp"
+            android:background="@color/gray_2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/farm_application_toolbar" />
+
+        <TextView
+            android:id="@+id/farm_application_reservation"
+            style="@style/Title3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="25dp"
+            android:text="@string/farm_application_reservation"
+            android:textColor="@color/text_1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/farm_application_toolbar" />
+
+        <ImageView
+            android:id="@+id/farm_application_thumbnail"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="17dp"
+            android:background="@color/gray_1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/farm_application_reservation" />
+
+        <TextView
+            android:id="@+id/farm_application_address"
+            style="@style/Body3Reg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="13dp"
+            android:text="@string/farm_application_address"
+            android:textColor="@color/text_2"
+            app:layout_constraintStart_toEndOf="@id/farm_application_thumbnail"
+            app:layout_constraintTop_toTopOf="@id/farm_application_thumbnail" />
+
+        <TextView
+            android:id="@+id/farm_application_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:fontFamily="@font/spoqa_han_sans_neo_bold"
+            android:letterSpacing="-0.03"
+            android:text="@string/farm_application_title"
+            android:textColor="@color/text_1"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@id/farm_application_address"
+            app:layout_constraintTop_toBottomOf="@id/farm_application_address" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/farm_application_size_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="13dp"
+            android:background="@drawable/layout_line_vector_image"
+            app:layout_constraintBottom_toBottomOf="@id/farm_application_detail_size"
+            app:layout_constraintStart_toEndOf="@id/farm_application_thumbnail"
+            app:layout_constraintTop_toTopOf="@id/farm_application_detail_size" />
+
+        <TextView
+            android:id="@+id/farm_application_detail_size"
+            style="@style/Body3Med"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="7dp"
+            android:text="@string/example_farm_size"
+            android:textColor="@color/text_2"
+            app:layout_constraintStart_toEndOf="@id/farm_application_size_icon"
+            app:layout_constraintTop_toBottomOf="@id/farm_application_title" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/farm_application_calendar_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="19dp"
+            android:src="@drawable/calendar_black_vector_image"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/farm_application_thumbnail" />
+
+        <TextView
+            android:id="@+id/farm_application_date_title"
+            style="@style/Body1Reg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:text="@string/farm_application_date_title"
+            android:textColor="@color/text_1"
+            app:layout_constraintBottom_toBottomOf="@id/farm_application_calendar_icon"
+            app:layout_constraintStart_toEndOf="@id/farm_application_calendar_icon"
+            app:layout_constraintTop_toTopOf="@id/farm_application_calendar_icon" />
+
+        <TextView
+            android:id="@+id/farm_application_date_description"
+            style="@style/Body2Reg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="15dp"
+            android:text="@string/farm_application_date_description"
+            android:textColor="@color/text_2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/farm_application_date_title" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/farm_application_date_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="13dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/farm_application_date_description">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/farm_application_start_day_constraint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/calendar_date_selector_background"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/calendar_start_day_year"
+                    style="@style/Body2Med"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:textColor="@color/calendar_date_text_selector"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="2023" />
+
+                <View
+                    android:id="@+id/divider1"
+                    android:layout_width="1dp"
+                    android:layout_height="8dp"
+                    android:layout_marginStart="8dp"
+                    android:background="@color/gray_2"
+                    app:layout_constraintBottom_toBottomOf="@id/calendar_start_day_year"
+                    app:layout_constraintStart_toEndOf="@id/calendar_start_day_year"
+                    app:layout_constraintTop_toTopOf="@id/calendar_start_day_year" />
+
+                <TextView
+                    android:id="@+id/calendar_start_day_month"
+                    style="@style/Body2Med"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:textColor="@color/calendar_date_text_selector"
+                    app:layout_constraintBottom_toBottomOf="@id/calendar_start_day_year"
+                    app:layout_constraintStart_toEndOf="@id/divider1"
+                    app:layout_constraintTop_toTopOf="@id/calendar_start_day_year"
+                    tools:text="01" />
+
+                <View
+                    android:id="@+id/divider2"
+                    android:layout_width="1dp"
+                    android:layout_height="8dp"
+                    android:layout_marginStart="9dp"
+                    android:background="@color/gray_2"
+                    app:layout_constraintBottom_toBottomOf="@id/calendar_start_day_month"
+                    app:layout_constraintStart_toEndOf="@id/calendar_start_day_month"
+                    app:layout_constraintTop_toTopOf="@id/calendar_start_day_month" />
+
+                <TextView
+                    android:id="@+id/calendar_start_day_date"
+                    style="@style/Body2Med"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="10dp"
+                    android:textColor="@color/calendar_date_text_selector"
+                    app:layout_constraintBottom_toBottomOf="@id/calendar_start_day_year"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/divider2"
+                    app:layout_constraintTop_toTopOf="@id/calendar_start_day_year"
+                    tools:text="15" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/farm_application_calendar_from"
+                style="@style/Body2Reg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="7dp"
+                android:text="@string/calendar_from"
+                android:textColor="@color/text_2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/farm_application_start_day_constraint"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/farm_application_last_day_constraint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:background="@drawable/calendar_date_selector_background"
+                app:layout_constraintBottom_toBottomOf="parent  "
+                app:layout_constraintStart_toEndOf="@id/farm_application_calendar_from"
+                app:layout_constraintTop_toTopOf="parent">
+
+
+                <TextView
+                    android:id="@+id/calendar_last_day_year"
+                    style="@style/Body2Med"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:textColor="@color/calendar_date_text_selector"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="2023" />
+
+                <View
+                    android:id="@+id/divider3"
+                    android:layout_width="1dp"
+                    android:layout_height="8dp"
+                    android:layout_marginStart="8dp"
+                    android:background="@color/gray_2"
+                    app:layout_constraintBottom_toBottomOf="@id/calendar_last_day_year"
+                    app:layout_constraintStart_toEndOf="@id/calendar_last_day_year"
+                    app:layout_constraintTop_toTopOf="@id/calendar_last_day_year" />
+
+                <TextView
+                    android:id="@+id/calendar_last_day_month"
+                    style="@style/Body2Med"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:textColor="@color/calendar_date_text_selector"
+                    app:layout_constraintBottom_toBottomOf="@id/calendar_last_day_year"
+                    app:layout_constraintStart_toEndOf="@id/divider3"
+                    app:layout_constraintTop_toTopOf="@id/calendar_last_day_year"
+                    tools:text="01" />
+
+                <View
+                    android:id="@+id/divider4"
+                    android:layout_width="1dp"
+                    android:layout_height="8dp"
+                    android:layout_marginStart="9dp"
+                    android:background="@color/gray_2"
+                    app:layout_constraintBottom_toBottomOf="@id/calendar_last_day_month"
+                    app:layout_constraintStart_toEndOf="@id/calendar_last_day_month"
+                    app:layout_constraintTop_toTopOf="@id/calendar_last_day_month" />
+
+                <TextView
+                    android:id="@+id/calendar_last_day_date"
+                    style="@style/Body2Med"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="10dp"
+                    android:textColor="@color/calendar_date_text_selector"
+                    app:layout_constraintBottom_toBottomOf="@id/calendar_last_day_year"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/divider4"
+                    app:layout_constraintTop_toTopOf="@id/calendar_last_day_year"
+                    tools:text="15" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/farm_application_calendar_to"
+                style="@style/Body2Reg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="7dp"
+                android:text="@string/calendar_to"
+                android:textColor="@color/text_2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/farm_application_last_day_constraint"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/farm_application_divider_2"
+            android:layout_width="0dp"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/gray_2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/farm_application_date_container" />
+
+        <TextView
+            android:id="@+id/farm_application_charge"
+            style="@style/Title3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="25dp"
+            android:text="@string/farm_application_charge"
+            android:textColor="@color/text_1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/farm_application_divider_2" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/gray_3"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/farm_application_message_button"
+                style="@style/Body1Med"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="25dp"
+                android:background="@drawable/calendar_button_selector_background"
+                android:paddingTop="14dp"
+                android:paddingBottom="14dp"
+                android:text="@string/farm_application_message_button"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

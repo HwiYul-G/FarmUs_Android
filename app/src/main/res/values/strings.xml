@@ -375,5 +375,12 @@
     <string name="calendar_application_button">분양 신청</string>
     <string name="farm_complete_description">농장주가 요청을 승인하면 알려드릴게요</string>
     <string name="farm_complete_description_title">분양 신청 완료 !</string>
+    <string name="farm_application_reservation">예약 정보</string>
+    <string name="farm_application_address">서울특별시 강동구 고덕1동</string>
+    <string name="farm_application_title">서울 유일 농장</string>
+    <string name="farm_application_date_title">날짜</string>
+    <string name="farm_application_date_description">희망 분양 기간을 확인해주세요.</string>
+    <string name="farm_application_charge">요금 정보</string>
+    <string name="farm_application_message_button">문자로 문의하기</string>
 
 </resources>
