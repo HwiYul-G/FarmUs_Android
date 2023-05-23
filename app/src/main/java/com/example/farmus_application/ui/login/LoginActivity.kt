@@ -226,7 +226,6 @@ class LoginActivity : AppCompatActivity() {
             if (error1 != null) {
                 Log.e("AddressInfo", "사용자 정보 요청 실패", error1)
                 currentStatus = "로그인 필요"
-
 //                loginBinding.KakaoUserProfileImage.setImageResource(R.drawable.invisible_person2)
             } else if (user != null) {
                 Log.i("AddressInfo", "사용자 정보 요청 성공")
@@ -243,3 +242,5 @@ class LoginActivity : AppCompatActivity() {
         startActivity(main_intent)
     }
 }
+
+

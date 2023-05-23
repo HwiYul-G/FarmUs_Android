@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <include
+            android:id="@+id/findid_first_toolbar"
+            layout="@layout/toolbar_with_title" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/example_search_bar"
+            style="@style/Body2Reg"
+            android:layout_width="328dp"
+            android:layout_height="48dp"
+            android:background="@drawable/radio_button_selector"
+            android:drawableStart="@drawable/search_vector_image_green"
+            android:hint="@string/search_bar_hint_text"
+            android:inputType="text"
+            android:padding="5dp"
+            android:textColorHint="@color/gray_first"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="100dp"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/chat_view"
+        android:layout_width="match_parent"
+        android:layout_height="114dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/example_search_bar"
+        android:background="@drawable/button_stroke_selector"
+        android:layout_marginTop="16dp">
+
+        <ImageView
+            android:id="@+id/profile_picture"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/login_circle_button"
+            android:backgroundTint="@color/gray_second"
+            app:layout_constraintTop_toTopOf="@+id/name_text"
+            app:layout_constraintStart_toStartOf="@+id/chat_view"
+            android:layout_marginStart="16dp"/>
+
+        <TextView
+            style="@style/Body1Bold"
+            android:id="@+id/name_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/spoqa_han_sans_neo_bold"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@color/text_first"
+            android:letterSpacing="-0.03"
+            android:lineSpacingExtra="11sp"
+            android:text="닉네임"
+            app:layout_constraintTop_toTopOf="@+id/chat_view"
+            app:layout_constraintStart_toEndOf="@+id/profile_picture"
+            android:layout_marginTop="22dp"
+            android:layout_marginStart="9dp"
+            />
+
+        <TextView
+            style="@style/Body1Bold"
+            android:id="@+id/explain_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/spoqa_han_sans_neo_regular"
+            android:textStyle="normal"
+            android:textSize="13sp"
+            android:textColor="@color/text_second"
+            android:letterSpacing="-0.03"
+            android:lineSpacingExtra="11sp"
+            android:text="안녕하세요. 임차 문의를 하고 싶습니다."
+            app:layout_constraintTop_toBottomOf="@+id/name_text"
+            app:layout_constraintStart_toEndOf="@+id/profile_picture"
+            android:layout_marginTop="6dp"
+            android:layout_marginStart="9dp"
+            />
+
+        <TextView
+            android:id="@+id/new_message"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/login_circle_button"
+            android:backgroundTint="@color/main_green"
+            app:layout_constraintTop_toTopOf="@+id/name_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="16dp"
+            android:text="1"
+            android:textSize="10sp"
+            android:fontFamily="@font/spoqa_han_sans_neo_medium"
+            android:textStyle="normal"
+            android:textColor="@color/white"
+            android:gravity="center"/>
+
+        <TextView
+            style="@style/Body1Bold"
+            android:id="@+id/time_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/spoqa_han_sans_neo_regular"
+            android:textStyle="normal"
+            android:textSize="13sp"
+            android:textColor="@color/text_second"
+            android:letterSpacing="-0.03"
+            android:lineSpacingExtra="11sp"
+            android:text="하루 전"
+            app:layout_constraintTop_toBottomOf="@+id/new_message"
+            app:layout_constraintEnd_toEndOf="@+id/new_message"
+            android:layout_marginTop="9dp"
+            />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/specific_button"
+            style="@style/Body3Reg"
+            android:layout_width="126dp"
+            android:layout_height="25dp"
+            android:background="@drawable/button_fill_selector"
+            android:backgroundTint="@color/gray_third"
+            android:gravity="center"
+            android:textColor="@color/text_third"
+            app:layout_constraintTop_toTopOf="@+id/status_text"
+            app:layout_constraintBottom_toBottomOf="@+id/status_text"
+            app:layout_constraintEnd_toStartOf="@+id/status_text"
+            android:layout_marginEnd="14dp"
+            android:text="고덕 주말농장 1구획"
+            android:fontFamily="@font/spoqa_han_sans_neo_regular"
+            android:textSize="12sp"
+            android:enabled="false"
+            android:stateListAnimator="@null"/>
+
+        <TextView
+            style="@style/Body3Med"
+            android:id="@+id/status_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/spoqa_han_sans_neo_medium"
+            android:textStyle="normal"
+            android:textSize="12sp"
+            android:textColor="@color/text_second"
+            android:letterSpacing="-0.03"
+            android:lineSpacingExtra="11sp"
+            android:text="예약 대기"
+            app:layout_constraintTop_toBottomOf="@+id/time_text"
+            app:layout_constraintEnd_toEndOf="@+id/time_text"
+            android:layout_marginTop="9dp"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/chat_view2"
+        android:layout_width="match_parent"
+        android:layout_height="114dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chat_view"
+        android:background="@drawable/button_stroke_selector">
+
+        <ImageView
+            android:id="@+id/profile_picture2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/login_circle_button"
+            android:backgroundTint="@color/gray_second"
+            app:layout_constraintTop_toTopOf="@+id/name_text2"
+            app:layout_constraintStart_toStartOf="@+id/chat_view2"
+            android:layout_marginStart="16dp"/>
+
+        <TextView
+            style="@style/Body1Bold"
+            android:id="@+id/name_text2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/spoqa_han_sans_neo_bold"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@color/text_first"
+            android:letterSpacing="-0.03"
+            android:lineSpacingExtra="11sp"
+            android:text="닉네임"
+            app:layout_constraintTop_toTopOf="@+id/chat_view2"
+            app:layout_constraintStart_toEndOf="@+id/profile_picture2"
+            android:layout_marginTop="22dp"
+            android:layout_marginStart="9dp"
+            />
+
+        <TextView
+            style="@style/Body1Bold"
+            android:id="@+id/explain_text2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/spoqa_han_sans_neo_regular"
+            android:textStyle="normal"
+            android:textSize="13sp"
+            android:textColor="@color/text_second"
+            android:letterSpacing="-0.03"
+            android:lineSpacingExtra="11sp"
+            android:text="안녕하세요. 임차 문의를 하고 싶습니다."
+            app:layout_constraintTop_toBottomOf="@+id/name_text2"
+            app:layout_constraintStart_toEndOf="@+id/profile_picture2"
+            android:layout_marginTop="6dp"
+            android:layout_marginStart="9dp"
+            />
+
+        <TextView
+            android:id="@+id/new_message2"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="@drawable/login_circle_button"
+            android:backgroundTint="@color/main_green"
+            app:layout_constraintTop_toTopOf="@+id/name_text2"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="16dp"
+            android:text="1"
+            android:textSize="10sp"
+            android:fontFamily="@font/spoqa_han_sans_neo_medium"
+            android:textStyle="normal"
+            android:textColor="@color/white"
+            android:gravity="center"/>
+
+        <TextView
+            style="@style/Body1Bold"
+            android:id="@+id/time_text2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/spoqa_han_sans_neo_regular"
+            android:textStyle="normal"
+            android:textSize="13sp"
+            android:textColor="@color/text_second"
+            android:letterSpacing="-0.03"
+            android:lineSpacingExtra="11sp"
+            android:text="하루 전"
+            app:layout_constraintTop_toBottomOf="@+id/new_message2"
+            app:layout_constraintEnd_toEndOf="@+id/new_message2"
+            android:layout_marginTop="9dp"
+            />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/specific_button2"
+            style="@style/Body3Reg"
+            android:layout_width="126dp"
+            android:layout_height="25dp"
+            android:background="@drawable/button_fill_selector"
+            android:backgroundTint="@color/gray_third"
+            android:gravity="center"
+            android:textColor="@color/text_third"
+            app:layout_constraintTop_toTopOf="@+id/status_text2"
+            app:layout_constraintBottom_toBottomOf="@+id/status_text2"
+            app:layout_constraintEnd_toStartOf="@+id/status_text2"
+            android:layout_marginEnd="14dp"
+            android:text="고덕 주말농장 2구획"
+            android:fontFamily="@font/spoqa_han_sans_neo_regular"
+            android:textSize="12sp"
+            android:enabled="false"
+            android:stateListAnimator="@null"/>
+
+        <TextView
+            style="@style/Body3Med"
+            android:id="@+id/status_text2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/spoqa_han_sans_neo_medium"
+            android:textStyle="normal"
+            android:textSize="12sp"
+            android:textColor="@color/text_second"
+            android:letterSpacing="-0.03"
+            android:lineSpacingExtra="11sp"
+            android:text="예약 대기"
+            app:layout_constraintTop_toBottomOf="@+id/time_text2"
+            app:layout_constraintEnd_toEndOf="@+id/time_text2"
+            android:layout_marginTop="9dp"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
