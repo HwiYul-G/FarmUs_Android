@@ -1,6 +1,424 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/farm_second_registration_toolbar"
+            layout="@layout/toolbar_without_title" />
+
+        <TextView
+            android:id="@+id/farm_second_registration_toolbar_complete_button"
+            style="@style/Body1Med"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:text="@string/text_complete"
+            android:textColor="@color/gray_1"
+            app:layout_constraintBottom_toBottomOf="@id/farm_second_registration_toolbar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/farm_second_registration_toolbar" />
+
+        <TextView
+            android:id="@+id/farm_second_registration_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="56dp"
+            android:fontFamily="@font/line_seed_kr_bd"
+            android:text="@string/farm_second_registration_title"
+            android:textColor="@color/text_1"
+            android:textSize="22sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/farm_second_registration_toolbar" />
+
+        <TextView
+            android:id="@+id/farm_second_registration_location"
+            style="@style/Body1Med"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="47dp"
+            android:text="@string/farm_second_registration_location"
+            android:textColor="@color/text_2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/farm_second_registration_title" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/farm_second_registration_location_first"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="17dp"
+            android:background="@drawable/location_dropdown_background"
+            app:layout_constraintEnd_toStartOf="@id/farm_second_registration_location_second"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/farm_second_registration_location">
+
+            <TextView
+                android:id="@+id/farm_second_registration_location_first_hint"
+                style="@style/Body3Med"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/text_si_do"
+                android:textColor="@color/text_3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:entries="@array/seoul_list"
+                app:layout_constraintBottom_toBottomOf="@id/farm_second_registration_location_first_hint"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/farm_second_registration_location_first_hint" />
+
+            <TextView
+                android:id="@+id/farm_second_registration_location_first_text"
+                style="@style/Body2Med"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="13dp"
+                android:layout_marginBottom="12dp"
+                android:textColor="@color/text_1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/farm_second_registration_location_first_hint"
+                tools:text="전체" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/farm_second_registration_location_second"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="17dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/location_dropdown_background"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/farm_second_registration_location_first"
+            app:layout_constraintTop_toBottomOf="@id/farm_second_registration_location">
+
+            <TextView
+                android:id="@+id/farm_second_registration_location_second_hint"
+                style="@style/Body3Med"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/text_si_gun_gu"
+                android:textColor="@color/text_3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/dropdown_arrow"
+                app:layout_constraintBottom_toBottomOf="@id/farm_second_registration_location_second_hint"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/farm_second_registration_location_second_hint" />
+
+            <TextView
+                android:id="@+id/farm_second_registration_location_second_text"
+                style="@style/Body2Med"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="13dp"
+                android:layout_marginBottom="12dp"
+                android:textColor="@color/text_1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/farm_second_registration_location_second_hint"
+                tools:text="전체" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/farm_second_registration_total_area"
+            style="@style/Body1Med"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="35dp"
+            android:text="@string/farm_second_registration_total_area"
+            android:textColor="@color/text_2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/farm_second_registration_location_first" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/farm_second_registration_total_area_first"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="17dp"
+            android:background="@drawable/location_dropdown_background"
+            app:layout_constraintEnd_toStartOf="@id/total_conversion_image"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/farm_second_registration_total_area">
+
+            <EditText
+                android:id="@+id/total_conversion_first_text"
+                style="@style/Body1Reg"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginEnd="8dp"
+                android:background="@null"
+                android:gravity="center_vertical||end"
+                android:inputType="number"
+                android:textColor="@color/text_2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/total_conversion_first_unit"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="100" />
+
+
+            <TextView
+                android:id="@+id/total_conversion_first_unit"
+                style="@style/Body1Reg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="14dp"
+                android:text="@string/text_area_unit"
+                android:textColor="@color/text_2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ImageView
+            android:id="@+id/total_conversion_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="9dp"
+            android:layout_marginEnd="9dp"
+            android:src="@drawable/conversion_vector_image"
+            app:layout_constraintBottom_toBottomOf="@id/farm_second_registration_total_area_first"
+            app:layout_constraintEnd_toStartOf="@id/farm_second_registration_total_area_second"
+            app:layout_constraintStart_toEndOf="@id/farm_second_registration_total_area_first"
+            app:layout_constraintTop_toTopOf="@id/farm_second_registration_total_area_first" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/farm_second_registration_total_area_second"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="17dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/location_dropdown_background"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/total_conversion_image"
+            app:layout_constraintTop_toBottomOf="@id/farm_second_registration_total_area">
+
+            <EditText
+                android:id="@+id/total_conversion_second_text"
+                style="@style/Body1Reg"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginEnd="8dp"
+                android:background="@null"
+                android:gravity="center_vertical||end"
+                android:inputType="number"
+                android:textColor="@color/text_2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/total_conversion_second_unit"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="100" />
+
+
+            <TextView
+                android:id="@+id/total_conversion_second_unit"
+                style="@style/Body1Reg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="14dp"
+                android:text="@string/text_square_meter"
+                android:textColor="@color/text_2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/farm_second_registration_rental_area"
+            style="@style/Body1Med"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="35dp"
+            android:text="@string/farm_second_registration_rental_area"
+            android:textColor="@color/text_2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/farm_second_registration_total_area_first" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/farm_second_registration_rental_area_first"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="17dp"
+            android:background="@drawable/location_dropdown_background"
+            app:layout_constraintEnd_toStartOf="@id/rental_conversion_image"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/farm_second_registration_rental_area">
+
+            <EditText
+                android:id="@+id/rental_conversion_first_text"
+                style="@style/Body1Reg"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginEnd="8dp"
+                android:background="@null"
+                android:gravity="center_vertical||end"
+                android:inputType="number"
+                android:textColor="@color/text_2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/rental_conversion_first_unit"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="100" />
+
+
+            <TextView
+                android:id="@+id/rental_conversion_first_unit"
+                style="@style/Body1Reg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="14dp"
+                android:text="@string/text_area_unit"
+                android:textColor="@color/text_2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ImageView
+            android:id="@+id/rental_conversion_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="9dp"
+            android:layout_marginEnd="9dp"
+            android:src="@drawable/conversion_vector_image"
+            app:layout_constraintBottom_toBottomOf="@id/farm_second_registration_rental_area_first"
+            app:layout_constraintEnd_toStartOf="@id/farm_second_registration_rental_area_second"
+            app:layout_constraintStart_toEndOf="@id/farm_second_registration_rental_area_first"
+            app:layout_constraintTop_toTopOf="@id/farm_second_registration_rental_area_first" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/farm_second_registration_rental_area_second"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="17dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/location_dropdown_background"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/rental_conversion_image"
+            app:layout_constraintTop_toBottomOf="@id/farm_second_registration_rental_area">
+
+            <EditText
+                android:id="@+id/rental_conversion_second_text"
+                style="@style/Body1Reg"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginEnd="8dp"
+                android:background="@null"
+                android:gravity="center_vertical||end"
+                android:inputType="number"
+                android:textColor="@color/text_2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/rental_conversion_second_unit"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="100" />
+
+
+            <TextView
+                android:id="@+id/rental_conversion_second_unit"
+                style="@style/Body1Reg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="14dp"
+                android:text="@string/text_square_meter"
+                android:textColor="@color/text_2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            style="@style/Body1Med"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="35dp"
+            android:text="@string/text_rental_price"
+            android:textColor="@color/text_2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/farm_second_registration_rental_area_first" />
+
+        <TextView
+            android:id="@+id/farm_second_registration_rental_price"
+            style="@style/Body1Reg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:textColor="@color/text_2"
+            app:layout_constraintBottom_toBottomOf="@id/rental_price_unit"
+            app:layout_constraintEnd_toStartOf="@id/rental_price_unit"
+            app:layout_constraintTop_toTopOf="@id/rental_price_unit"
+            tools:text="100" />
+
+        <TextView
+            android:id="@+id/rental_price_unit"
+            style="@style/Body1Reg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:layout_marginEnd="16dp"
+            android:text="@string/rental_price_unit"
+            android:textColor="@color/text_2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/farm_second_registration_rental_area_first" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="17dp"
+            android:layout_marginEnd="16dp"
+            android:background="@color/gray_1"
+            app:layout_constraintTop_toBottomOf="@id/rental_price_unit" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

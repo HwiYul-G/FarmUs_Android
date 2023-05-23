@@ -17,7 +17,7 @@ class FarmTestActivity : AppCompatActivity() {
         binding.TestButton.setOnClickListener {
             // 여기서 등록 프래그먼트로 이동해서 layout확인
             supportFragmentManager.beginTransaction()
-                .replace(R.id.frameView, FirstFarmRegistrationFragment())
+                .replace(R.id.frameView, SecondFarmRegistrationFragment())
                 .commit()
 
         }

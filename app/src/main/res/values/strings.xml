@@ -389,5 +389,16 @@
     <string name="farm_first_registration_farm_introduction">농장 소개</string>
     <string name="farm_first_registration_farm_introduction_edit_hint">농장을 자유롭게 소개해보세요.</string>
     <string name="farm_first_registration_farm_image">농장 사진(선택,최대 5장)</string>
+    <string name="text_complete">완료</string>
+    <string name="farm_second_registration_title">상세 정보를 입력해주세요.</string>
+    <string name="farm_second_registration_location">위치</string>
+    <string name="text_si_do">시/도</string>
+    <string name="text_si_gun_gu">시/군/구</string>
+    <string name="farm_second_registration_total_area">총 면적</string>
+    <string name="text_area_unit">평</string>
+    <string name="text_square_meter">m^2</string>
+    <string name="farm_second_registration_rental_area">분양 면적</string>
+    <string name="text_rental_price">분양가격</string>
+    <string name="rental_price_unit">원</string>
 
 </resources>
