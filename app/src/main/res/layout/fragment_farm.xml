@@ -1,72 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
-    <FrameLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ui.farm.FarmFragment"
-        android:background="@color/white">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.farm.FarmFragment"
+    android:background="@color/sub_brown">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <include
-                style="@style/Body1Bold"
-                android:id="@+id/toolbar"
-                layout="@layout/toolbar_with_title"/>
-
-
-            <com.google.android.material.tabs.TabLayout
-                style="@style/Body1Bold"
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:id="@+id/tab_layout"
-                app:tabIndicatorColor="@color/main_green"
-                app:tabIndicatorHeight="3dp"
-                app:tabSelectedTextColor="@color/main_green"
-                app:tabTextAppearance="@style/Body1Reg"
-                app:tabTextColor="@color/text_third"
-                app:layout_constraintTop_toBottomOf="@id/toolbar">
-
-                <com.google.android.material.tabs.TabItem
-                    style="@style/Body1Bold"
-                    android:id="@+id/two_categories_first_item"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="@string/category"
-                    />
-
-                <com.google.android.material.tabs.TabItem
-                    style="@style/Body1Bold"
-                    android:id="@+id/two_categories_second_item"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="@string/category"/>
-
-
-            </com.google.android.material.tabs.TabLayout>
-
-            <ScrollView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/tab_layout"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                >
-                <androidx.viewpager2.widget.ViewPager2
-                    android:id="@+id/view_pager"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    app:layout_constraintTop_toBottomOf="@id/tab_layout"/>
-            </ScrollView>
-
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </FrameLayout>
-</layout>
-
+</FrameLayout>

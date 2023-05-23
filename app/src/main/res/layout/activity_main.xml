@@ -28,7 +28,7 @@
         style="@style/Body2Reg"
         android:layout_width="328dp"
         android:layout_height="48dp"
-        android:background="@drawable/radio_button_selector"
+        android:background="@drawable/search_bar_selector"
         android:drawableStart="@drawable/search_vector_image_green"
         android:hint="@string/search_bar_hint_text"
         android:inputType="text"

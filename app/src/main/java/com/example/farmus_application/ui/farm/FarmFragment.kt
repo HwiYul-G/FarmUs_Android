@@ -35,22 +35,7 @@ class FarmFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        farmBinding = DataBindingUtil.inflate(inflater,R.layout.fragment_farm,container,false)
-
-        farmBinding.toolbar.toolbarMainTitleText.text = "내 농장"
-        farmBinding.toolbar.toolbarMainTitleText.setTextColor(resources.getColor(R.color.text_first))
-
-        val viewPager = farmBinding.viewPager
-        val tabLayout = farmBinding.tabLayout
-
-
-        //viewPager.adapter = ViewPagerAdapter(childFragmentManager,lifecycle)
-
-        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-            tab.text = tabTitleArray[position]
-        }.attach()
-
-        return farmBinding.root
+        return inflater.inflate(R.layout.fragment_farm, container, false)
     }
 
     companion object {

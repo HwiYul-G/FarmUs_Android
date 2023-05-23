@@ -2,12 +2,9 @@ package com.example.farmus_application.ui.login
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CheckBox
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.farmus_application.databinding.FragmentTermsTwoBinding
 
@@ -16,7 +13,6 @@ import com.example.farmus_application.databinding.FragmentTermsTwoBinding
 class TermsTwoFragment: Fragment(){
 
     private lateinit var viewBinding : FragmentTermsTwoBinding
-    lateinit var checkBox : CheckBox
 
     var TermsActivity: TermsActivity? = null
 
