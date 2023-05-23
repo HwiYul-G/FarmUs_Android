@@ -49,8 +49,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="9dp"
-                    tools:text="작성일자"
-                   android:textSize="12sp"
+                    android:text="작성일자"
+                    android:textSize="12sp"
                     android:textColor="@color/text_3"/>
                 <TextView
                     android:id="@+id/rv_rec_day"
