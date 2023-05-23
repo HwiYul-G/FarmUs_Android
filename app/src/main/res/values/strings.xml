@@ -382,5 +382,12 @@
     <string name="farm_application_date_description">희망 분양 기간을 확인해주세요.</string>
     <string name="farm_application_charge">요금 정보</string>
     <string name="farm_application_message_button">문자로 문의하기</string>
+    <string name="text_next">다음</string>
+    <string name="farm_first_registration_title">새 농장을 소개해주세요.</string>
+    <string name="farm_first_registration_farm_title">농장명</string>
+    <string name="farm_first_registration_farm_title_edit_hint">농장 이름 입력</string>
+    <string name="farm_first_registration_farm_introduction">농장 소개</string>
+    <string name="farm_first_registration_farm_introduction_edit_hint">농장을 자유롭게 소개해보세요.</string>
+    <string name="farm_first_registration_farm_image">농장 사진(선택,최대 5장)</string>
 
 </resources>

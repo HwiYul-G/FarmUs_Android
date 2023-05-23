@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include
+            android:id="@+id/farm_first_registration_toolbar"
+            layout="@layout/toolbar_without_title" />
+
+        <TextView
+            android:id="@+id/farm_first_registration_toolbar_next_button"
+            style="@style/Body1Med"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:text="@string/text_next"
+            android:textColor="@color/gray_1"
+            app:layout_constraintBottom_toBottomOf="@id/farm_first_registration_toolbar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/farm_first_registration_toolbar" />
+
+        <TextView
+            android:id="@+id/farm_first_registration_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="56dp"
+            android:fontFamily="@font/line_seed_kr_bd"
+            android:text="@string/farm_first_registration_title"
+            android:textColor="@color/text_1"
+            android:textSize="22sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/farm_first_registration_toolbar" />
+
+        <TextView
+            android:id="@+id/farm_first_registration_farm_title"
+            style="@style/Body1Med"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="45dp"
+            android:text="@string/farm_first_registration_farm_title"
+            android:textColor="@color/text_2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/farm_first_registration_title" />
+
+        <EditText
+            android:id="@+id/farm_first_registration_farm_title_edit"
+            style="@style/Body1Reg"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:background="@null"
+            android:gravity="end"
+            android:hint="@string/farm_first_registration_farm_title_edit_hint"
+            android:inputType="text"
+            android:maxLength="20"
+            android:maxLines="1"
+            android:textColorHint="@color/gray_1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/farm_first_registration_farm_title"
+            app:layout_constraintTop_toTopOf="@id/farm_first_registration_farm_title" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="17dp"
+            android:layout_marginEnd="16dp"
+            android:background="@color/gray_1"
+            app:layout_constraintTop_toBottomOf="@id/farm_first_registration_farm_title" />
+
+        <TextView
+            android:id="@+id/farm_first_registration_farm_introduction"
+            style="@style/Body1Med"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="42dp"
+            android:text="@string/farm_first_registration_farm_introduction"
+            android:textColor="@color/text_2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/farm_first_registration_farm_title" />
+
+        <EditText
+            android:id="@+id/farm_first_registration_farm_introduction_edit"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="17dp"
+            android:layout_marginEnd="16dp"
+            android:backgroundTint="@color/gray_1"
+            android:fontFamily="@font/spoqa_han_sans_neo_regular"
+            android:gravity="top"
+            android:hint="@string/farm_first_registration_farm_introduction_edit_hint"
+            android:inputType="text"
+            android:maxLength="150"
+            android:textColorHint="@color/gray_1"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/farm_first_registration_farm_introduction" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/farm_first_registration_farm_introduction_edit">
+
+            <TextView
+                android:id="@+id/introduction_edit_count"
+                style="@style/Body2Reg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="0" />
+
+            <TextView
+                android:id="@+id/introduction_divider"
+                style="@style/Body2Reg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_3"
+                app:layout_constraintStart_toEndOf="@id/introduction_edit_count"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="/" />
+
+            <TextView
+                android:id="@+id/introduction_edit_max"
+                style="@style/Body2Reg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_3"
+                app:layout_constraintStart_toEndOf="@id/introduction_divider"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="150" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/farm_first_registration_farm_image"
+            style="@style/Body1Med"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="54dp"
+            android:text="@string/farm_first_registration_farm_image"
+            android:textColor="@color/text_2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/farm_first_registration_farm_introduction_edit" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="17dp"
+            android:background="@drawable/camera_background_vector_image"
+            android:scaleType="center"
+            android:src="@drawable/add_a_photo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/farm_first_registration_farm_image" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
