@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/splash_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/farmus_splash_image"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+     <TextView
+        android:id="@+id/sub_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/line_seed_kr_rg"
+        android:letterSpacing="-0.05"
+        android:text="우리들의 농지 거래 플랫폼"
+        android:textColor="@color/gray_third"
+        android:textSize="21sp"
+        android:textStyle="normal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="198dp"
+        android:layout_marginStart="24dp"
+        />
+
+    <TextView
+        android:id="@+id/main_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/line_seed_kr_rg"
+        android:letterSpacing="-0.03"
+        android:text="파머스"
+        android:textColor="@color/gray_third"
+        android:textSize="60sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/sub_title"
+        app:layout_constraintTop_toBottomOf="@+id/sub_title"
+        android:layout_marginTop="6dp"/>
+
+    <ImageView
+        android:id="@+id/LogoWhite"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:contentDescription="logo"
+        android:src="@drawable/farmus_logo_white"
+        app:layout_constraintTop_toTopOf="@+id/main_title"
+        app:layout_constraintBottom_toBottomOf="@+id/main_title"
+        app:layout_constraintStart_toEndOf="@+id/main_title"
+        android:layout_marginStart="0dp" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/to_login_button"
+        style="@style/Body1Med"
+        android:layout_width="312dp"
+        android:layout_height="54dp"
+        android:background="@drawable/button_fill_selector_7radius"
+        android:gravity="center"
+        android:text="로그인"
+        android:textColor="@color/gray_third"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="167dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:shadowColor="#26222222"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="4"/>
+
+    <TextView
+        style="@style/Body2Med"
+        android:textColor="@color/gray_second"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:shadowColor="#26222222"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/to_login_button"
+        android:text="아직 회원이 아니신가요?"
+        android:layout_marginTop="18dp"
+        android:layout_marginStart="87dp"
+        android:layout_marginEnd="146dp"/>
+
+    <TextView
+        style="@style/Body2Med"
+        android:id="@+id/signup_button"
+        android:textColor="@color/gray_second"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:shadowColor="#26222222"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/to_login_button"
+        android:layout_marginTop="18dp"
+        android:layout_marginStart="227dp"
+        android:layout_marginEnd="86dp"
+        android:text="@string/click_to_singup" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

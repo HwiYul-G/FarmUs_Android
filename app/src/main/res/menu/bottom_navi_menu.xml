@@ -8,12 +8,12 @@
     <item
         android:id="@+id/menu_favorites"
         android:enabled="true"
-        android:icon="@drawable/heart_stroke_vector_image"
+        android:icon="@drawable/heart_line_vector_image"
         android:title="@string/navi_favorites" />
     <item
         android:id="@+id/menu_farm"
         android:enabled="true"
-        android:icon="@drawable/keyboard_vector_image"
+        android:icon="@drawable/plant_line_vector_image"
         android:title="@string/navi_farm" />
     <item
         android:id="@+id/menu_chat"
