@@ -1,7 +1,6 @@
 package com.example.farmus_application.model
 
 
-import androidx.room.Entity
 import com.google.gson.annotations.SerializedName
 
 data class FarmList(
