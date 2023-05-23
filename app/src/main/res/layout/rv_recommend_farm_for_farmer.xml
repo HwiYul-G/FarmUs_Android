@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="recFarm"
+            type="com.example.farmus_application.ui.home.RVRecDataModel" />
+    </data>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="17dp">
+
+        <ImageView
+            android:id="@+id/rv_rec_img"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:background="@drawable/corner_radius_rv_rec_item_box"
+            android:scaleType="centerCrop"
+            />
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/rv_rec_title"
+                style="@style/Body1Med"
+                android:layout_width="241dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="9dp"
+                android:layout_marginTop="8dp"
+                tools:text="노동을 줄여주고 생산의 질을 높여주는 ‘스마트팜’ 시스템 "
+                android:textSize="16sp"
+                android:textColor="@color/text_1"
+                />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="4dp">
+
+                <TextView
+                    style="@style/Body3Reg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="9dp"
+                    tools:text="작성일자"
+                   android:textSize="12sp"
+                    android:textColor="@color/text_3"/>
+                <TextView
+                    android:id="@+id/rv_rec_day"
+                    style="@style/Body3Reg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="9dp"
+                    tools:text="2023.02.01"
+                    android:textSize="12sp"
+                    android:textColor="@color/text_2"/>
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+            
+
+
+    </LinearLayout>
+</layout>

@@ -5,7 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import com.example.farmus_application.R
+import com.example.farmus_application.databinding.FragmentFarmBinding
+import com.example.farmus_application.databinding.TabLayoutTwoCategoriesBinding
+import com.google.android.material.tabs.TabLayoutMediator
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -18,6 +22,13 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class FarmFragment : Fragment() {
+
+    private lateinit var farmBinding : FragmentFarmBinding
+    private val tabTitleArray = arrayListOf<String>(
+        "분양받은 농장",
+        "보유중인 농장"
+    )
+
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -35,7 +46,22 @@ class FarmFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_farm, container, false)
+        farmBinding = DataBindingUtil.inflate(inflater,R.layout.fragment_farm,container,false)
+
+        farmBinding.toolbar.toolbarMainTitleText.text = "내 농장"
+        farmBinding.toolbar.toolbarMainTitleText.setTextColor(resources.getColor(R.color.text_first))
+
+        val viewPager = farmBinding.viewPager
+        val tabLayout = farmBinding.tabLayout
+
+
+        //viewPager.adapter = ViewPagerAdapter(childFragmentManager,lifecycle)
+
+        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+            tab.text = tabTitleArray[position]
+        }.attach()
+
+        return farmBinding.root
     }
 
     companion object {

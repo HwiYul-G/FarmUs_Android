@@ -22,5 +22,14 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-</resources>
+    <color name="text_1">#333333</color>
+    <color name="text_2">#666666</color>
+    <color name="text_3">#999999</color>
+    <color name="gray_1">#cccccc</color>
+    <color name="gray_2">#e1e1e1</color>
+    <color name="gray_3">#f5f5f5</color>
 
+    <color name="main">#43c28a</color>
+
+
+</resources>

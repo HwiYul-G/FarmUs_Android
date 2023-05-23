@@ -16,6 +16,13 @@
         android:theme="@style/Theme.FarmUs_Application.NoActionBar"
         tools:targetApi="31">
         <activity
+            android:name=".ui.home.HomeSearchActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".ui.SplashActivity"
             android:exported="false">
             <meta-data
@@ -87,8 +94,9 @@
                 <category android:name="android.intent.category.BROWSABLE"/>
 
                 <!-- Redirect URI: "kakao${NATIVE_APP_KEY}://oauth" -->
-                <data android:host="oauth"
-                    android:scheme="kakao92bf853f239ace67c04e56eece5f31ba" />
+                <data
+                    android:host="oauth"
+                    android:scheme="${KAKAO_APP_KEY}" />
 
             </intent-filter>
         </activity>
