@@ -31,7 +31,7 @@
             android:textColor="@color/text_first"
             android:letterSpacing="-0.03"
             android:lineSpacingExtra="11sp"
-            android:text="이름과 휴대폰 번호를 입력해주세요."
+            android:text="이름과 휴대폰 번호를 입력해주세요"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginTop="100dp"
