@@ -164,7 +164,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="17dp"
-            android:background="@drawable/camera_background_vector_image"
+            android:background="@drawable/camera_green_background_vector_image"
             android:scaleType="center"
             android:src="@drawable/add_a_photo"
             app:layout_constraintStart_toStartOf="parent"

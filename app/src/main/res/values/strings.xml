@@ -400,5 +400,6 @@
     <string name="farm_second_registration_rental_area">분양 면적</string>
     <string name="text_rental_price">분양가격</string>
     <string name="rental_price_unit">원</string>
+    <string name="farm_modify_title">농장을 소개해주세요.</string>
 
 </resources>
