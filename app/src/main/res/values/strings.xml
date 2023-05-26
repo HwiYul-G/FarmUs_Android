@@ -401,5 +401,12 @@
     <string name="text_rental_price">분양가격</string>
     <string name="rental_price_unit">원</string>
     <string name="farm_modify_title">농장을 소개해주세요.</string>
+    <string name="dialog_request_detail"><u>분양신청내역</u></string>
+    <string name="dialog_request_title">요청 온 목록</string>
+    <string name="text_close">닫기</string>
+    <string name="dialog_request_name">파머스 1호</string>
+    <string name="dialog_request_period">희망 분양기간 2022.12.25~2023.01.07</string>
+    <string name="text_refuse">거절</string>
+    <string name="text_approve">승인</string>
 
 </resources>

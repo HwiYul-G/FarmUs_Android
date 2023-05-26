@@ -16,9 +16,11 @@ class FarmTestActivity : AppCompatActivity() {
 
         binding.TestButton.setOnClickListener {
             // 여기서 등록 프래그먼트로 이동해서 layout확인
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.frameView, SecondFarmRegistrationFragment())
-                .commit()
+//            supportFragmentManager.beginTransaction()
+//                .replace(R.id.frameView, SecondFarmRegistrationFragment())
+//                .commit()
+            val bottomsheet = RequestBottomSheetDialog()
+            bottomsheet.show(supportFragmentManager, bottomsheet.tag)
 
         }
         // 캘린더의 화살표 위치를 날짜 양옆으로 붙이기 -> 가능한가? -> 일단 setLeftArrow를 통해 drawable 설정

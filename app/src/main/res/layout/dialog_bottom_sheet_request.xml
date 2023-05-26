@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:paddingBottom="23dp"
+        android:layout_height="match_parent"
+        android:background="@drawable/dialog_bottom_sheet_r12"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+        <TextView
+            android:id="@+id/dialog_request_title"
+            style="@style/Title3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="23dp"
+            android:text="@string/dialog_request_title"
+            android:textColor="@color/text_1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/dialog_request_close"
+            style="@style/Body1Reg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="23dp"
+            android:layout_marginEnd="16dp"
+            android:text="@string/text_close"
+            android:textColor="@color/text_3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/dialog_request_image"
+            style="@style/ShapeAppearanceOverlay_cornerSize50"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="17dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/dialog_request_title" />
+
+        <TextView
+            android:id="@+id/dialog_request_name"
+            style="@style/Body1Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="9dp"
+            android:text="@string/dialog_request_name"
+            android:textColor="@color/text_1"
+            app:layout_constraintStart_toEndOf="@id/dialog_request_image"
+            app:layout_constraintTop_toTopOf="@id/dialog_request_image" />
+
+        <TextView
+            android:id="@+id/dialog_request_period"
+            style="@style/Body3Med"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="@string/dialog_request_period"
+            android:textColor="@color/text_2"
+            app:layout_constraintStart_toStartOf="@id/dialog_request_name"
+            app:layout_constraintTop_toBottomOf="@id/dialog_request_name" />
+
+        <TextView
+            android:id="@+id/dialog_request_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:fontFamily="@font/spoqa_han_sans_neo_regular"
+            android:text="@string/dialog_request_detail"
+            android:textColor="@color/text_3"
+            android:textColorHint="@color/text_3"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@id/dialog_request_name"
+            app:layout_constraintTop_toBottomOf="@id/dialog_request_period" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/dialog_request_refuse"
+            style="@style/Body3Med"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="13dp"
+            android:background="@drawable/dialog_bottom_sheet_button_r7"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:outlineProvider="none"
+            android:paddingStart="12dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="12dp"
+            android:paddingBottom="8dp"
+            android:text="@string/text_refuse"
+            android:textColor="@color/text_3"
+            app:layout_constraintEnd_toStartOf="@id/dialog_request_approve"
+            app:layout_constraintTop_toTopOf="@id/dialog_request_approve" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/dialog_request_approve"
+            style="@style/Body3Med"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="23dp"
+            android:background="@drawable/dialog_bottom_sheet_button_r7"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:outlineProvider="none"
+            android:paddingStart="12dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="12dp"
+            android:paddingBottom="8dp"
+            android:text="@string/text_approve"
+            android:textColor="@color/text_3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/dialog_request_detail" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
