@@ -408,5 +408,8 @@
     <string name="dialog_request_period">희망 분양기간 2022.12.25~2023.01.07</string>
     <string name="text_refuse">거절</string>
     <string name="text_approve">승인</string>
+    <string name="text_add">추가</string>
+    <string name="dialog_unavailable_title">분양 불가 기간</string>
+    <string name="text_remove">삭제</string>
 
 </resources>

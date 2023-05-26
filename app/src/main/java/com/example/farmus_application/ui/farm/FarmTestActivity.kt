@@ -19,7 +19,8 @@ class FarmTestActivity : AppCompatActivity() {
 //            supportFragmentManager.beginTransaction()
 //                .replace(R.id.frameView, SecondFarmRegistrationFragment())
 //                .commit()
-            val bottomsheet = RequestBottomSheetDialog()
+//            val bottomsheet = RequestBottomSheetDialog()
+            val bottomsheet = UnavailableBottomSheetDialog()
             bottomsheet.show(supportFragmentManager, bottomsheet.tag)
 
         }
