@@ -142,12 +142,12 @@ class LoginActivity : AppCompatActivity() {
         // 비밀번호 찾기로 액티비티가 종료되고 로그인 액티비티로 전환되었을 때 토스트 안내
         val getPwMessage = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()) { result ->
-                if (result.resultCode == RESULT_OK) {
-                    val resentMessage = result.data?.getStringExtra("PW_Resent")
-                    Log.v("resentMessage","$resentMessage")
-                    Toast.makeText(this, "$resentMessage", Toast.LENGTH_LONG).show()
-                }
+            if (result.resultCode == RESULT_OK) {
+                val resentMessage = result.data?.getStringExtra("PW_Resent")
+                Log.v("resentMessage","$resentMessage")
+                Toast.makeText(this, "$resentMessage", Toast.LENGTH_LONG).show()
             }
+        }
 
         // 카카오로 로그인 + 토큰 존재 여부 확인해서 자동로그인 및 정보 갱신
         loginBinding.kakaoLoginButton.setOnClickListener {
@@ -164,7 +164,7 @@ class LoginActivity : AppCompatActivity() {
                     }
                     else {
                         //토큰 유효성 체크 성공(필요 시 토큰 갱신됨) + 로그인 후 메인 액티비티로 이동동
-                       Log.i("AutoLogin", "::::::::::: 기존 토큰 정보로 자동로그인")
+                        Log.i("AutoLogin", "::::::::::: 기존 토큰 정보로 자동로그인")
                         updateStatus()
                         toMainActivity()
                     }
@@ -226,7 +226,6 @@ class LoginActivity : AppCompatActivity() {
             if (error1 != null) {
                 Log.e("AddressInfo", "사용자 정보 요청 실패", error1)
                 currentStatus = "로그인 필요"
-
 //                loginBinding.KakaoUserProfileImage.setImageResource(R.drawable.invisible_person2)
             } else if (user != null) {
                 Log.i("AddressInfo", "사용자 정보 요청 성공")
