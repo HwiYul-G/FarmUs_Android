@@ -84,16 +84,16 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <TextView
+    <TextView
         android:id="@+id/copy_id_text"
         style="@style/Body3Reg"
-            android:textColor="@color/text_second"
+        android:textColor="@color/text_second"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/copy_my_id"
         app:layout_constraintTop_toBottomOf="@+id/main_id_layout"
         app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="44dp"/>
 
     <androidx.appcompat.widget.AppCompatButton

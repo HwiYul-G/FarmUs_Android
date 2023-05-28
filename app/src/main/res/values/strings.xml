@@ -11,7 +11,10 @@
     <string name="navi_mypage">마이페이지</string>
     <string name="navi_chat">채팅</string>
     <string name="search_bar_hint_text">닉네임 또는 농장 이름을 입력하세요.</string>
-    <!-- TODO: Remove or change this placeholder text -->
+
+    <string name="copy_my_id"><u>아이디 복사하기</u></string>
+    <string name="click_to_singup"><u>회원가입</u></string>
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="farm_us_recommend_farm">파머스 추천 농장</string>
     <string name="recent_searches">최근 검색어</string>

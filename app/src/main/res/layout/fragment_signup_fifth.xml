@@ -7,7 +7,24 @@
 
     <include
         android:id="@+id/signup_role_toolbar"
-        layout="@layout/toolbar_with_title"/>
+        layout="@layout/toolbar_without_title"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/gray_second"
+        app:layout_constraintTop_toBottomOf="@+id/signup_role_toolbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+    </View>
+
+    <View
+        android:layout_width="300dp"
+        android:layout_height="2dp"
+        android:background="@color/main_green"
+        app:layout_constraintTop_toBottomOf="@+id/signup_role_toolbar"
+        app:layout_constraintStart_toStartOf="parent">
+    </View>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/skip_to_login_button"
@@ -84,22 +101,22 @@
             android:letterSpacing="-0.03"
             android:text="세입희망자"/>
 
-       <RadioButton
-           android:id="@+id/select_lend_button"
-           android:layout_width="156dp"
-           android:layout_height="220dp"
-           android:background="@drawable/radio_button_selector"
-           android:drawableTop="@drawable/landlord_logo"
-           android:textColor="@drawable/radio_button_text_selector"
-           android:button="@null"
-           android:gravity="center"
-           android:fontFamily="@font/spoqa_han_sans_neo_regular"
-           android:textStyle="bold"
-           android:textSize="18sp"
-           android:padding="15dp"
-           android:letterSpacing="-0.03"
-           android:text="농장주"
-           android:layout_marginLeft="16dp"/>
+        <RadioButton
+            android:id="@+id/select_lend_button"
+            android:layout_width="156dp"
+            android:layout_height="220dp"
+            android:background="@drawable/radio_button_selector"
+            android:drawableTop="@drawable/landlord_logo"
+            android:textColor="@drawable/radio_button_text_selector"
+            android:button="@null"
+            android:gravity="center"
+            android:fontFamily="@font/spoqa_han_sans_neo_regular"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:padding="15dp"
+            android:letterSpacing="-0.03"
+            android:text="농장주"
+            android:layout_marginLeft="16dp"/>
 
     </RadioGroup>
 
