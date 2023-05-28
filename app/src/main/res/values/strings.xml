@@ -21,4 +21,11 @@
     <string name="apply">적용</string>
     <string name="all">전체</string>
 
+    <string name="copy_my_id"> </string>
+    <string name="click_to_singup"> </string>
+    <string name="terms_payment"> </string>
+    <string name="term_uses"> </string>
+    <string name="terms_location"> </string>
+    <string name="term_personal_info"> </string>
+
 </resources>
