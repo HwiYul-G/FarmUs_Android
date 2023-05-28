@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "599766076062",
+    "project_id": "farmus-4e19b",
+    "storage_bucket": "farmus-4e19b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:599766076062:android:7f9ee77f97837dfaa1898f",
+        "android_client_info": {
+          "package_name": "com.example.farmus_application"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "599766076062-98vrkshhkt4oddt4513sgqmldi9v0smg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSdgDqwIJckHk4KpL49Oso2ijQ5Dr5ZGw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "599766076062-98vrkshhkt4oddt4513sgqmldi9v0smg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.home.FarmusRecFarmFragment">
+
+        <include
+            android:id="@+id/tool_bar"
+            style="@style/Body1Bold"
+            layout="@layout/toolbar_with_title"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/gray_2"
+            app:layout_constraintBottom_toBottomOf="@id/tool_bar"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_farm"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            tools:listitem="@layout/rv_local_farm"
+            app:layout_constraintTop_toBottomOf="@id/tool_bar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="25dp"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
