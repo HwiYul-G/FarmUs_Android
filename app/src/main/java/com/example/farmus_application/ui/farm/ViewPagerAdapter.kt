@@ -2,7 +2,6 @@ package com.example.farmus_application.ui.farm
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 
@@ -17,9 +16,9 @@ class ViewPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) :
 
     override fun createFragment(position: Int): Fragment {
         when(position){
-            0 -> return Tab1Fragment()
-            1 -> return Tab2Fragment()
+            0 -> return FarmTab1Fragment()
+            1 -> return FarmTab2Fragment()
         }
-        return Tab1Fragment()
+        return FarmTab1Fragment()
     }
 }
