@@ -21,4 +21,14 @@
     <string name="apply">적용</string>
     <string name="all">전체</string>
 
+    <!-- TODO: link-failed 해결을 위한 임시 텍스트 -->
+    <string name="copy_my_id"> </string>
+    <string name="click_to_singup"> </string>
+    <string name="terms_payment"> </string>
+    <string name="term_uses"> </string>
+    <string name="terms_location"> </string>
+    <string name="term_personal_info"> </string>
+    <string name="sign_out_kr">탈퇴하기</string>
+    <string name="logout_kr">로그아웃</string>
+
 </resources>
