@@ -7,7 +7,24 @@
 
     <include
         android:id="@+id/signup_info_toolbar"
-        layout="@layout/toolbar_with_title" />
+        layout="@layout/toolbar_without_title" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/gray_second"
+        app:layout_constraintTop_toBottomOf="@+id/signup_info_toolbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+    </View>
+
+    <View
+        android:layout_width="240dp"
+        android:layout_height="2dp"
+        android:background="@color/main_green"
+        app:layout_constraintTop_toBottomOf="@+id/signup_info_toolbar"
+        app:layout_constraintStart_toStartOf="parent">
+    </View>
 
     <TextView
         android:id="@+id/signup_info_title"
