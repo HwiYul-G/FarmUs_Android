@@ -7,7 +7,6 @@ import android.view.View
 import android.widget.CheckBox
 import androidx.appcompat.app.AppCompatActivity
 import com.example.farmus_application.R
-import com.example.farmus_application.database.TermsData
 import com.example.farmus_application.databinding.ActivityTermsMainBinding
 
 class TermsActivity : AppCompatActivity() {
@@ -26,7 +25,7 @@ class TermsActivity : AppCompatActivity() {
         setContentView(termsBinding.root)
 
         // 로그인 화면으로 다시 이동
-        termsBinding.termsMainToolbar.toolbarWithTitleBackButton.setOnClickListener(){
+        termsBinding.termsMainToolbar.toolbarWithoutTitleBackButton.setOnClickListener(){
             BacktoLoginActivity()
         }
 

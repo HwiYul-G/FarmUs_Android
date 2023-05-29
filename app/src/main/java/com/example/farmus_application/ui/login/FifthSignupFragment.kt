@@ -34,7 +34,7 @@ class SignupFifthFragment: Fragment(){
     ): View {
         viewBinding = FragmentSignupFifthBinding.inflate(inflater, container, false)
 
-        viewBinding.signupRoleToolbar.toolbarWithTitleBackButton.setOnClickListener{
+        viewBinding.signupRoleToolbar.toolbarWithoutTitleBackButton.setOnClickListener{
             SignupActivity!!.supportFragmentManager.beginTransaction().remove(this).commit();
             SignupActivity!!.supportFragmentManager.popBackStack();
         }

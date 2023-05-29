@@ -27,6 +27,9 @@ class FindpwActivity : AppCompatActivity() {
         // 입력칸 관련 value 설정
         val editTextID : EditText = signupBinding.emailTextField
 
+        // 추후 이전 화면에 따른 메인툴바의 설명 표시 변화 필요
+        signupBinding.findpwFirstToolbar.toolbarMainTitleText.text = "비밀번호 찾기"
+
         editTextID.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
