@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.content.res.AppCompatResources.getColorStateList
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
@@ -25,9 +26,10 @@ private const val ARG_PARAM2 = "param2"
 
 class HomeSearchFragment : Fragment() {
 
-    private lateinit var homeSearchBinding: FragmentHomeSearchBinding
+    private lateinit var binding: FragmentHomeSearchBinding
 
     private lateinit var callback: OnBackPressedCallback
+
 
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -46,17 +48,21 @@ class HomeSearchFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        homeSearchBinding =
+        binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_home_search, container, false)
-        val view = homeSearchBinding
 
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         (activity as MainActivity).hideBottomNavigation(true)
 
         //fragment 이동시 searchBar로 focus
-        view.searchBar.requestFocus()
+        binding.searchBar.requestFocus()
 
         //수정해야됨
-        view.searchBar.setOnClickListener {
+        binding.searchBar.setOnClickListener {
             search()
         }
 
@@ -74,7 +80,7 @@ class HomeSearchFragment : Fragment() {
         chipItems.add("제주도")
 
         //chip 전체 삭제
-        view.btnDeleteAll.setOnClickListener {
+        binding.btnDeleteAll.setOnClickListener {
             clearChip()
         }
 
@@ -86,12 +92,10 @@ class HomeSearchFragment : Fragment() {
         } else {
             clearChip()
         }
-
-        return view.root
     }
 
     private fun search() {
-        val searchText = homeSearchBinding.searchBar.text.toString()
+        val searchText = binding.searchBar.text.toString()
 
         if (searchText != "") {
             setFragmentResult(
@@ -117,7 +121,7 @@ class HomeSearchFragment : Fragment() {
 
         //삭제 버튼 누르면 chip 삭제
         chip.setOnCloseIconClickListener {
-            homeSearchBinding.recentSearchChipgroup.removeView(chip)
+            binding.recentSearchChipgroup.removeView(chip)
         }
         //chip 버튼 클릭 이벤트
         chip.setOnClickListener {
@@ -128,11 +132,11 @@ class HomeSearchFragment : Fragment() {
             (activity as MainActivity).changeFragment(SearchFragment.newInstance("", ""))
         }
 
-        homeSearchBinding.recentSearchChipgroup.addView(chip)
+        binding.recentSearchChipgroup.addView(chip)
     }
 
     private fun clearChip() {
-        homeSearchBinding.recentSearchChipgroup.removeAllViews()
+        binding.recentSearchChipgroup.removeAllViews()
 
     }
 
