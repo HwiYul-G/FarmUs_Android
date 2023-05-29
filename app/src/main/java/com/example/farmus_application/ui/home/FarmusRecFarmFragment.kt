@@ -1,6 +1,8 @@
 package com.example.farmus_application.ui.home
 
+import android.content.Context
 import android.os.Bundle
+import android.util.TypedValue
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -46,30 +48,45 @@ class FarmusRecFarmFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_farmus_rec_farm, container, false)
-        val view = binding
+        return binding.root
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         (activity as MainActivity).hideBottomNavigation(true)
 
         //툴바 설정
-        view.toolBar.toolbarMainTitleText.text = "파머스 추천 농장"
-        view.toolBar.toolbarMainTitleText.setTextColor(resources.getColor(R.color.text_2))
+        binding.toolBar.toolbarMainTitleText.text = "파머스 추천 농장"
+        binding.toolBar.toolbarMainTitleText.setTextColor(resources.getColor(R.color.text_2))
 
         //툴바 백버튼 누르면 홈
-        view.toolBar.toolbarWithTitleBackButton.setOnClickListener {
+        binding.toolBar.toolbarWithTitleBackButton.setOnClickListener {
             (activity as MainActivity).changeFragment(HomeFragment.newInstance("",""))
         }
 
+        val dp = 16
+        val px = dpToPx(requireContext(), dp.toFloat())
+
         adapter = FarmRVAdapter()
         val local_farm_items = mutableListOf<RVFarmDataModel>()
-        binding.rvFarm.adapter = adapter
         adapter.submitList(local_farm_items)
-        binding.rvFarm.layoutManager = GridLayoutManager(requireActivity(), 2)
-        local_farm_items.add(RVFarmDataModel(R.drawable.farm_image_example,"고덕 주말 농장","3평","150,000"))
-        local_farm_items.add(RVFarmDataModel(R.drawable.farm_image_example,"고덕 주말 농장","3평","150,000"))
-        local_farm_items.add(RVFarmDataModel(R.drawable.farm_image_example,"고덕 주말 농장","3평","150,000"))
-        local_farm_items.add(RVFarmDataModel(R.drawable.farm_image_example,"고덕 주말 농장","3평","150,000"))
 
-        return view.root
+        binding.rvFarm.adapter = adapter
+        binding.rvFarm.layoutManager = GridLayoutManager(requireContext(), 2)
+        binding.rvFarm.addItemDecoration(GridSpaceItemDecoration(2, px.toInt()))
+
+        local_farm_items.add(RVFarmDataModel(R.drawable.farm_image_example,"고덕 주말 농장","3평","150,000"))
+        local_farm_items.add(RVFarmDataModel(R.drawable.farm_image_example,"고덕 주말 농장","3평","150,000"))
+        local_farm_items.add(RVFarmDataModel(R.drawable.farm_image_example,"고덕 주말 농장","3평","150,000"))
+        local_farm_items.add(RVFarmDataModel(R.drawable.farm_image_example,"고덕 주말 농장","3평","150,000"))
+    }
+
+    private fun dpToPx(context: Context, dp: Float): Float {
+        return TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP,
+            dp,
+            context.resources.displayMetrics
+        )
     }
 
     companion object {

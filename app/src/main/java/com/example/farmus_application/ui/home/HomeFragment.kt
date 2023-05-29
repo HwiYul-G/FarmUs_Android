@@ -1,11 +1,15 @@
 package com.example.farmus_application.ui.home
 
+import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.DisplayMetrics
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.farmus_application.R
 import com.example.farmus_application.databinding.FragmentHomeBinding
@@ -19,7 +23,7 @@ private const val ARG_PARAM2 = "param2"
 
 class HomeFragment : Fragment() {
 
-    private lateinit var homeBinding: FragmentHomeBinding
+    private lateinit var binding: FragmentHomeBinding
 
     private lateinit var adapter: FarmRVAdapter
 
@@ -40,26 +44,34 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        homeBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
+
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         (activity as MainActivity).hideBottomNavigation(false)
 
         //검색바 누르면 HomeSearchFragment로 이동
-        homeBinding.searchBar.setOnClickListener {
+        binding.searchBar.setOnClickListener {
             (activity as MainActivity).changeFragment(HomeSearchFragment.newInstance("", ""))
         }
         //파머스 추천 농장으로 이동
-        homeBinding.btnFarmUsRecommendFarm.setOnClickListener {
+        binding.btnFarmUsRecommendFarm.setOnClickListener {
             (activity as MainActivity).changeFragment(FarmusRecFarmFragment.newInstance("", ""))
         }
 
+        val dp = 16
+        val px = dpToPx(requireContext(), dp.toFloat())
         adapter = FarmRVAdapter()
-
 //      우리 동네 농장 아이템
         val local_farm_items = mutableListOf<RVFarmDataModel>()
-        homeBinding.rvHomeFarm.adapter = adapter
+        binding.rvHomeFarm.adapter = adapter
         adapter.submitList(local_farm_items)
-        homeBinding.rvHomeFarm.layoutManager = GridLayoutManager(requireActivity(), 2)
+        binding.rvHomeFarm.addItemDecoration(GridSpaceItemDecoration(2, px.toInt()))
+        binding.rvHomeFarm.layoutManager = GridLayoutManager(requireActivity(), 2)
         local_farm_items.add(
             RVFarmDataModel(
                 R.drawable.farm_image_example,
@@ -92,8 +104,14 @@ class HomeFragment : Fragment() {
                 "150,000"
             )
         )
+    }
 
-        return homeBinding.root
+    private fun dpToPx(context: Context, dp: Float): Float {
+        return TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP,
+            dp,
+            context.resources.displayMetrics
+        )
     }
 
     companion object {
