@@ -30,7 +30,7 @@ class SignupThirdFragment: Fragment(){
     ): View {
         viewBinding = FragmentSignupThirdBinding.inflate(layoutInflater)
 
-        viewBinding.signupPhoneToolbar.toolbarWithTitleBackButton.setOnClickListener{
+        viewBinding.signupPhoneToolbar.toolbarWithoutTitleBackButton.setOnClickListener{
             SignupActivity!!.supportFragmentManager.beginTransaction().remove(this).commit();
             SignupActivity!!.supportFragmentManager.popBackStack();
         }

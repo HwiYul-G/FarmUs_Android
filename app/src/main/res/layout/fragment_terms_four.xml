@@ -7,7 +7,7 @@
 
     <include
         android:id="@+id/temrs_four_toolbar"
-        layout="@layout/toolbar_without_title"/>
+        layout="@layout/toolbar_for_terms"/>
 
     <TextView
         android:id="@+id/terms_specific_title"
