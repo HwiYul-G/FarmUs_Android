@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.MainActivity">
-
+  
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/example_text_field"
         style="@style/Body2Reg"
