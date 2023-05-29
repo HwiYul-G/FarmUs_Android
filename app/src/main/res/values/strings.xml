@@ -21,6 +21,9 @@
     <string name="apply">적용</string>
     <string name="all">전체</string>
 
+    <string name="sign_out_kr">탈퇴하기</string>
+    <string name="logout_kr">로그아웃</string>
+
     <string name="copy_my_id">아이디 복사하기</string>
     <string name="click_to_singup"><u>회원가입</u></string>
     <string name="terms_payment"> </string>
