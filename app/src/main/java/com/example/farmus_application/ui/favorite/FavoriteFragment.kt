@@ -1,6 +1,8 @@
 package com.example.farmus_application.ui.favorite
 
+import android.content.Context
 import android.os.Bundle
+import android.util.TypedValue
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +12,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.farmus_application.R
 import com.example.farmus_application.databinding.FragmentFavoriteBinding
 import com.example.farmus_application.ui.home.Adapter.FarmRVAdapter
+import com.example.farmus_application.ui.home.GridSpaceItemDecoration
 import com.example.farmus_application.ui.home.RVFarmDataModel
 
 // TODO: Rename parameter arguments, choose names that match
@@ -46,22 +49,39 @@ class FavoriteFragment : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_favorite, container, false)
 
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         //툴바 설정
         binding.toolBar.toolbarMainTitleText.text = "좋아요"
         binding.toolBar.toolbarMainTitleText.setTextColor(resources.getColor(R.color.text_2))
 
         val farmItems = mutableListOf<RVFarmDataModel>()
+
+        val dp = 16
+        val px = dpToPx(requireContext(), dp.toFloat())
+
         adapter = FarmRVAdapter()
         binding.rvFarm.adapter = adapter
         adapter.submitList(farmItems)
         binding.rvFarm.layoutManager = GridLayoutManager(requireActivity(), 2)
+        binding.rvFarm.addItemDecoration(GridSpaceItemDecoration(2,px.toInt()))
         farmItems.add(RVFarmDataModel(R.drawable.farm_image_example,"고덕 주말 농장","3평","150,000"))
         farmItems.add(RVFarmDataModel(R.drawable.farm_image_example,"고덕 주말 농장","3평","150,000"))
         farmItems.add(RVFarmDataModel(R.drawable.farm_image_example,"고덕 주말 농장","3평","150,000"))
         farmItems.add(RVFarmDataModel(R.drawable.farm_image_example,"고덕 주말 농장","3평","150,000"))
 
 
-        return binding.root
+    }
+    private fun dpToPx(context: Context, dp: Float): Float {
+        return TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP,
+            dp,
+            context.resources.displayMetrics
+        )
     }
 
     companion object {
