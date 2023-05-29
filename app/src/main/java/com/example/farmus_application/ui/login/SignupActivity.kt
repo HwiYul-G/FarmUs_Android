@@ -24,10 +24,8 @@ class SignupActivity : AppCompatActivity() {
         signupBinding = ActivitySignupFirstBinding.inflate(layoutInflater)
         setContentView(signupBinding.root)
 
-        signupBinding.signupIdToolbar.toolbarMainTitleText.text = "시작화면"
-
         // 시작화면으로 다시 이동
-        signupBinding.signupIdToolbar.toolbarWithTitleBackButton.setOnClickListener(){
+        signupBinding.signupIdToolbar.toolbarWithoutTitleBackButton.setOnClickListener(){
             BacktoTermsActivity()
         }
 

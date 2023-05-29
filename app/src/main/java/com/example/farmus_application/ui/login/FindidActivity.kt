@@ -26,7 +26,7 @@ class FindidActivity : AppCompatActivity() {
         val editTextVerify : EditText = findIdBinding.verifyNumberField
 
         // 추후 이전 화면에 따른 메인툴바의 설명 표시 변화 필요
-        findIdBinding.findidFirstToolbar.toolbarMainTitleText.text = "시작화면"
+        findIdBinding.findidFirstToolbar.toolbarMainTitleText.text = "아이디 찾기"
 
         // 추후 이전 화면에 따른 뒤로가기 연결 페이지 변화 필요
         // 뒤로가기

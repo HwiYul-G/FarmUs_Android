@@ -34,6 +34,9 @@ class FindIdResultFragment: Fragment(){
     ): View {
         viewBinding = FragmentFindIdResultBinding.inflate(inflater, container, false)
 
+        // 추후 이전 화면에 따른 메인툴바의 설명 표시 변화 필요
+        viewBinding.findidFirstToolbar.toolbarMainTitleText.text = "아이디 찾기"
+
         // 이용자 이름 연동하여 표시
         val nameText = arguments?.getString("nameText")
         viewBinding.userName.text = nameText

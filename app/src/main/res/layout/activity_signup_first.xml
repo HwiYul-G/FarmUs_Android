@@ -18,7 +18,7 @@
 
         <include
             android:id="@+id/signup_id_toolbar"
-            layout="@layout/toolbar_with_title" />
+            layout="@layout/toolbar_without_title" />
 
         <View
             android:layout_width="match_parent"
