@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <include
+        android:id="@+id/findid_first_toolbar"
+        layout="@layout/toolbar_with_title" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main_id_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/findid_first_toolbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="197dp" >
+
+        <TextView
+            android:id="@+id/user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/line_seed_kr_bd"
+            android:textStyle="bold"
+            android:textSize="22sp"
+            android:textColor="@color/text_first"
+            android:letterSpacing="-0.03"
+            android:lineSpacingExtra="11sp"
+            android:text="이용자"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.3"/>
+
+        <TextView
+            android:id="@+id/id_explain_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/line_seed_kr_bd"
+            android:textStyle="bold"
+            android:textSize="22sp"
+            android:textColor="@color/text_first"
+            android:letterSpacing="-0.03"
+            android:lineSpacingExtra="11sp"
+            android:text="님의 아이디는"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.7"/>
+
+        <TextView
+            android:id="@+id/id_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/line_seed_kr_bd"
+            android:textStyle="bold"
+            android:textSize="22sp"
+            android:textColor="@color/main_green"
+            android:letterSpacing="-0.03"
+            android:lineSpacingExtra="11sp"
+            android:text="abcdefghijklmnopqr@google.com"
+            app:layout_constraintTop_toBottomOf="@+id/id_explain_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="11dp"/>
+
+        <TextView
+            android:id="@+id/id_explain_text2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/line_seed_kr_bd"
+            android:textStyle="bold"
+            android:textSize="22sp"
+            android:textColor="@color/text_first"
+            android:letterSpacing="-0.03"
+            android:lineSpacingExtra="11sp"
+            android:text="입니다."
+            app:layout_constraintTop_toBottomOf="@+id/id_result"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="11dp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/copy_id_text"
+        style="@style/Body3Reg"
+        android:textColor="@color/text_second"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/copy_my_id"
+        app:layout_constraintTop_toBottomOf="@+id/main_id_layout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="44dp"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/back_to_login_button"
+        style="@style/Body1Med"
+        android:layout_width="328dp"
+        android:layout_height="48dp"
+        android:background="@drawable/button_fill_selector"
+        android:gravity="center"
+        android:shadowColor="#26222222"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="4"
+        android:textColor="@drawable/button_fill_text_selector"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="115dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:text="로그인 하기"
+        android:stateListAnimator="@null"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

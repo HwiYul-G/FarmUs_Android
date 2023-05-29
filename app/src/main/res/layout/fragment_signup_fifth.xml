@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <include
+        android:id="@+id/signup_role_toolbar"
+        layout="@layout/toolbar_without_title"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/gray_second"
+        app:layout_constraintTop_toBottomOf="@+id/signup_role_toolbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+    </View>
+
+    <View
+        android:layout_width="300dp"
+        android:layout_height="2dp"
+        android:background="@color/main_green"
+        app:layout_constraintTop_toBottomOf="@+id/signup_role_toolbar"
+        app:layout_constraintStart_toStartOf="parent">
+    </View>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/skip_to_login_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@+id/signup_role_toolbar"
+        app:layout_constraintBottom_toBottomOf="@+id/signup_role_toolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:fontFamily="@font/spoqa_han_sans_neo_medium"
+        android:textStyle="normal"
+        android:textSize="16sp"
+        android:textColor="#cccccc"
+        android:letterSpacing="-0.03"
+        android:text="건너뛰기"
+        android:stateListAnimator="@null"
+        android:background="@null"/>
+
+    <TextView
+        android:id="@+id/signup_role_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/line_seed_kr_rg"
+        android:textStyle="bold"
+        android:textSize="22sp"
+        android:textColor="@color/text_first"
+        android:letterSpacing="-0.03"
+        android:lineSpacingExtra="11sp"
+        android:text="이용하시는 목적이 궁금해요"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="100dp"
+        android:layout_marginStart="16dp"/>
+
+    <TextView
+        android:id="@+id/sub_title_role"
+        style="@style/Body2Reg"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="이용하시는 목적에 따라 파머스 이용 방법을 알려드릴게요"
+        android:textColor="@color/text_second"
+        app:layout_constraintTop_toBottomOf="@+id/signup_role_title"
+        app:layout_constraintStart_toStartOf="@+id/signup_role_title"
+        android:layout_marginTop="6dp"/>
+
+    <RadioGroup
+        style="@style/Body2Reg"
+        android:id="@+id/select_role_frame"
+        android:layout_width="328dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/text_first"
+        android:textSize="13sp"
+        app:layout_constraintTop_toBottomOf="@+id/sub_title_role"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="49dp"
+        android:orientation="horizontal"
+        android:gravity="fill_vertical"
+        >
+
+        <RadioButton
+            android:checked="false"
+            android:id="@+id/select_borrow_button"
+            android:layout_width="156dp"
+            android:layout_height="220dp"
+            android:background="@drawable/radio_button_selector"
+            android:drawableTop="@drawable/landlord_logo"
+            android:textColor="@drawable/radio_button_text_selector"
+            android:button="@null"
+            android:gravity="center"
+            android:fontFamily="@font/spoqa_han_sans_neo_regular"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:padding="15dp"
+            android:letterSpacing="-0.03"
+            android:text="세입희망자"/>
+
+        <RadioButton
+            android:id="@+id/select_lend_button"
+            android:layout_width="156dp"
+            android:layout_height="220dp"
+            android:background="@drawable/radio_button_selector"
+            android:drawableTop="@drawable/landlord_logo"
+            android:textColor="@drawable/radio_button_text_selector"
+            android:button="@null"
+            android:gravity="center"
+            android:fontFamily="@font/spoqa_han_sans_neo_regular"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:padding="15dp"
+            android:letterSpacing="-0.03"
+            android:text="농장주"
+            android:layout_marginLeft="16dp"/>
+
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/sub_explain_borrow"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="농장을 분양받고 싶어요"
+        android:fontFamily="@font/spoqa_han_sans_neo_regular"
+        android:textStyle="normal"
+        android:textSize="12sp"
+        android:textColor="@color/text_third"
+        android:letterSpacing="-0.03"
+        app:layout_constraintBottom_toBottomOf="@+id/select_role_frame"
+        app:layout_constraintStart_toStartOf="@+id/select_role_frame"
+        android:layout_marginStart="22dp"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:id="@+id/sub_explain_lend"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="농장을 분양하고 싶어요"
+        android:fontFamily="@font/spoqa_han_sans_neo_regular"
+        android:textStyle="normal"
+        android:textSize="12sp"
+        android:textColor="@color/text_third"
+        android:letterSpacing="-0.03"
+        app:layout_constraintBottom_toBottomOf="@+id/select_role_frame"
+        app:layout_constraintEnd_toEndOf="@+id/select_role_frame"
+        android:layout_marginEnd="22dp"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:id="@+id/sub_explain_optional"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="'건너뛰기'로 나중에 다시 선택할 수 있어요."
+        android:fontFamily="@font/spoqa_han_sans_neo_regular"
+        android:textStyle="normal"
+        android:textSize="12sp"
+        android:textColor="@color/text_third"
+        android:letterSpacing="-0.03"
+        app:layout_constraintTop_toBottomOf="@+id/select_role_frame"
+        app:layout_constraintStart_toStartOf="@+id/select_role_frame"
+        app:layout_constraintEnd_toEndOf="@+id/select_role_frame"
+        android:layout_marginTop="19dp"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/back_to_main_button"
+        style="@style/Body1Med"
+        android:layout_width="328dp"
+        android:layout_height="48dp"
+        android:background="@drawable/button_fill_selector_7radius"
+        android:enabled="false"
+        android:gravity="center"
+        android:shadowColor="#26222222"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="4"
+        android:textColor="@drawable/button_fill_text_selector"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="115dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:text="파머스 시작하기"
+        android:stateListAnimator="@null"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

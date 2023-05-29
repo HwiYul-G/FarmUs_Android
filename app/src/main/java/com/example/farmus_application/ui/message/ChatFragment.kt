@@ -5,7 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
+import androidx.databinding.DataBindingUtil
 import com.example.farmus_application.R
+import com.example.farmus_application.databinding.FragmentChatBinding
+import com.example.farmus_application.ui.message.adapter.ChatViewPagerAdapter
+import com.google.android.material.tabs.TabLayoutMediator
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -18,10 +23,17 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class ChatFragment : Fragment() {
+
+    private lateinit var chatFragmentBinding: FragmentChatBinding
+
+    private var tabTitleArray = arrayListOf<String>(
+        "분양 요청 목록",
+        "요청 온 목록"
+    )
+
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -35,7 +47,25 @@ class ChatFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_chat, container, false)
+        chatFragmentBinding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_chat, container, false)
+        val view = chatFragmentBinding
+
+        //툴바 백버튼 없애기
+        view.toolbar.toolbarWithTitleBackButton.isVisible = false
+        //툴바 타이틀 텍스트 설정
+        view.toolbar.toolbarMainTitleText.text = "알림"
+
+        val viewPager = view.viewPager
+        val tabLayout = view.tabLayout
+        //viewPagerAdapter
+        viewPager.adapter = ChatViewPagerAdapter(childFragmentManager, lifecycle)
+
+        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+            tab.text = tabTitleArray[position]
+        }.attach()
+
+        return view.root
     }
 
     companion object {

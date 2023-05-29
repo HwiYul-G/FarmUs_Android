@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <include
+        android:id="@+id/signup_info_toolbar"
+        layout="@layout/toolbar_without_title" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/gray_second"
+        app:layout_constraintTop_toBottomOf="@+id/signup_info_toolbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+    </View>
+
+    <View
+        android:layout_width="240dp"
+        android:layout_height="2dp"
+        android:background="@color/main_green"
+        app:layout_constraintTop_toBottomOf="@+id/signup_info_toolbar"
+        app:layout_constraintStart_toStartOf="parent">
+    </View>
+
+    <TextView
+        android:id="@+id/signup_info_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/line_seed_kr_rg"
+        android:textStyle="bold"
+        android:textSize="22sp"
+        android:textColor="@color/text_first"
+        android:letterSpacing="-0.03"
+        android:lineSpacingExtra="11sp"
+        android:text="상세정보를 입력해주세요"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="100dp"
+        android:layout_marginStart="16dp"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/input_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/signup_info_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="49dp">
+
+        <TextView
+            android:id="@+id/sub_title_name"
+            style="@style/Body2Reg"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="이름"
+            android:textColor="@color/text_second"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/name_text_field"
+            style="@style/Body2Reg"
+            android:layout_width="328dp"
+            android:layout_height="44dp"
+            android:background="@drawable/input_field_selector"
+            android:enabled="true"
+            android:hint="이름 입력"
+            android:inputType="textPersonName"
+            android:padding="12dp"
+            android:textColorHint="@color/gray_first"
+            app:layout_constraintTop_toBottomOf="@+id/sub_title_name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="6dp"/>
+
+        <TextView
+            android:id="@+id/sub_title_nick"
+            style="@style/Body2Reg"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="닉네임"
+            android:textColor="@color/text_second"
+            app:layout_constraintTop_toBottomOf="@+id/name_text_field"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="49dp"/>
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/nick_text_field"
+            style="@style/Body2Reg"
+            android:layout_width="328dp"
+            android:layout_height="44dp"
+            android:background="@drawable/input_field_selector"
+            android:enabled="true"
+            android:hint="닉네임 입력"
+            android:inputType="text"
+            android:padding="12dp"
+            android:textColorHint="@color/gray_first"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sub_title_nick"
+            android:layout_marginTop="6dp"/>
+
+        <TextView
+            android:id="@+id/sub_title_birth"
+            style="@style/Body2Reg"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="생년월일"
+            android:textColor="@color/text_second"
+            app:layout_constraintTop_toBottomOf="@+id/nick_text_field"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="38dp"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            style="@style/Body2Reg"
+            android:id="@+id/select_brith_dropdown"
+            android:drawableEnd="@drawable/arrow_down_vector"
+            android:paddingEnd="14dp"
+            android:layout_width="156dp"
+            android:layout_height="44dp"
+            android:background="@drawable/button_stroke_selector_7radius"
+            android:textColor="@color/text_first"
+            android:textSize="13sp"
+            app:layout_constraintTop_toBottomOf="@+id/sub_title_birth"
+            app:layout_constraintStart_toStartOf="@+id/sub_title_birth"
+            android:layout_marginTop="6dp"
+            android:text="2023  |  01  |  15"
+            android:stateListAnimator="@null" />
+
+        <TextView
+            android:id="@+id/sub_title_sex"
+            style="@style/Body2Reg"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="성별"
+            android:textColor="@color/text_second"
+            app:layout_constraintTop_toBottomOf="@+id/nick_text_field"
+            app:layout_constraintStart_toStartOf="@+id/select_sex_frame"
+            android:layout_marginTop="38dp"
+            android:layout_marginEnd="148dp"/>
+
+        <RadioGroup
+            style="@style/Body2Reg"
+            android:id="@+id/select_sex_frame"
+            android:layout_width="156dp"
+            android:layout_height="44dp"
+            android:background="@drawable/button_stroke_selector_7radius"
+            android:textColor="@color/text_first"
+            android:textSize="13sp"
+            app:layout_constraintTop_toBottomOf="@+id/sub_title_sex"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="6dp"
+            android:orientation="horizontal">
+
+            <RadioButton
+                style="@style/Body2Reg"
+                android:checked="false"
+                android:id="@+id/select_male_button"
+                android:layout_width="78dp"
+                android:layout_height="44dp"
+                android:background="@drawable/radio_button_selector"
+                android:textColor="@drawable/radio_button_text_selector"
+                android:button="@null"
+                android:textAlignment="center"
+                android:text="남자" />
+
+            <RadioButton
+                style="@style/Body2Reg"
+                android:checked="false"
+                android:id="@+id/select_female_button"
+                android:layout_width="78dp"
+                android:layout_height="44dp"
+                android:background="@drawable/radio_button_selector"
+                android:textColor="@drawable/radio_button_text_selector"
+                android:button="@null"
+                android:textAlignment="center"
+                android:text="여자" />
+        </RadioGroup>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/to_fifth_signup_button"
+        style="@style/Body1Med"
+        android:layout_width="328dp"
+        android:layout_height="48dp"
+        android:background="@drawable/button_fill_selector_7radius"
+        android:enabled="false"
+        android:gravity="center"
+        android:shadowColor="#26222222"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="4"
+        android:textColor="@drawable/button_fill_text_selector"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="115dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:text="다음"
+        android:stateListAnimator="@null"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
