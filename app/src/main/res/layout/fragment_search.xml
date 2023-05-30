@@ -4,69 +4,74 @@
     xmlns:tools="http://schemas.android.com/tools">
 
 
-    <ScrollView
-        android:id="@+id/scrollView"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
+        android:layout_height="match_parent">
 
-        <!--              전체 layout-->
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <include
+            android:id="@+id/home_search_title_bar"
+            layout="@layout/toolbar_with_title"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <ScrollView
+            android:id="@+id/scrollView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:context=".ui.home.HomeSearchActivity">
+            app:layout_constraintTop_toBottomOf="@id/home_search_title_bar">
 
-            <include
-                android:id="@+id/home_search_title_bar"
-                layout="@layout/toolbar_with_title"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/search_bar"
-                style="@style/Body2Reg"
+            <!--              전체 layout-->
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginHorizontal="16dp"
-                android:background="@drawable/search_bar_selector"
-                android:drawableStart="@drawable/search_vector_image_green"
-                android:hint="@string/search_bar_hint_text"
-                android:inputType="text"
-                android:padding="1dp"
-                android:textColorHint="@color/gray_first"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/home_search_title_bar" />
+                android:layout_height="wrap_content">
 
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/search_bar"
+                    style="@style/Body2Reg"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:background="@drawable/search_bar_selector"
+                    android:drawableStart="@drawable/search_vector_image_green"
+                    android:hint="@string/search_bar_hint_text"
+                    android:inputType="text"
+                    android:padding="1dp"
+                    android:textColorHint="@color/gray_first"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip_region_filter"
-                style="@style/CustomChipStyle_filter"
-                android:layout_width="wrap_content"
-                android:layout_height="31sp"
-                android:layout_marginTop="17dp"
-                android:checkable="true"
-                android:text="@string/filter_region"
-                android:textSize="12sp"
-                app:checkedIcon="@drawable/delete_vector_image"
-                app:checkedIconTint="@color/white"
-                app:chipCornerRadius="7dp"
-                app:chipIconSize="16dp"
-                app:chipMinHeight="50dp"
-                app:layout_constraintStart_toStartOf="@id/search_bar"
-                app:layout_constraintTop_toBottomOf="@id/search_bar" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_region_filter"
+                    style="@style/CustomChipStyle_filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="31sp"
+                    android:layout_marginTop="17dp"
+                    android:checkable="true"
+                    android:text="@string/filter_region"
+                    android:textSize="12sp"
+                    app:checkedIcon="@drawable/delete_vector_image"
+                    app:checkedIconTint="@color/white"
+                    app:chipCornerRadius="7dp"
+                    app:chipIconSize="16dp"
+                    app:chipMinHeight="50dp"
+                    app:layout_constraintStart_toStartOf="@id/search_bar"
+                    app:layout_constraintTop_toBottomOf="@id/search_bar" />
 
-            <!--        ScrollView 안에 RelativeLayout 안에 RecyclerView 를 넣어라??-->
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_home_search_farm"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="1dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/chip_region_filter"
-                tools:listitem="@layout/rv_local_farm" />
+                <!--        ScrollView 안에 RelativeLayout 안에 RecyclerView 를 넣어라??-->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_home_search_farm"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/chip_region_filter"
+                    tools:listitem="@layout/rv_local_farm" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </layout>

@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.farmus_application.R
 import com.example.farmus_application.databinding.FragmentFavoriteBinding
 import com.example.farmus_application.ui.home.Adapter.FarmRVAdapter
+import com.example.farmus_application.ui.home.Adapter.FavoriteRVAdapter
 import com.example.farmus_application.ui.home.GridSpaceItemDecoration
 import com.example.farmus_application.ui.home.RVFarmDataModel
 
@@ -29,7 +30,7 @@ class FavoriteFragment : Fragment() {
 
     private lateinit var binding : FragmentFavoriteBinding
 
-    private lateinit var adapter : FarmRVAdapter
+    private lateinit var adapter : FavoriteRVAdapter
 
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -64,7 +65,7 @@ class FavoriteFragment : Fragment() {
         val dp = 16
         val px = dpToPx(requireContext(), dp.toFloat())
 
-        adapter = FarmRVAdapter()
+        adapter = FavoriteRVAdapter()
         binding.rvFarm.adapter = adapter
         adapter.submitList(farmItems)
         binding.rvFarm.layoutManager = GridLayoutManager(requireActivity(), 2)

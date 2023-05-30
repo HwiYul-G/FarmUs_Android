@@ -55,7 +55,7 @@
             android:background="@drawable/area_dropdown_bg"
             android:hint="시/도"
             android:textColorHint="@color/text_3"
-            app:boxStrokeColor="@color/main"
+            app:boxStrokeColor="@color/gray_1"
             app:endIconDrawable="@drawable/next_down_vector_image"
             app:endIconTint="@color/gray_2"
             app:hintTextColor="@color/text_3">
@@ -95,7 +95,7 @@
             android:background="@drawable/area_dropdown_bg"
             android:hint="시/군/구"
             android:textColorHint="@color/text_3"
-            app:boxStrokeColor="@color/main"
+            app:boxStrokeColor="@color/gray_1"
             app:endIconDrawable="@drawable/next_down_vector_image"
             app:endIconTint="@color/gray_2"
             app:hintTextColor="@color/text_3">
