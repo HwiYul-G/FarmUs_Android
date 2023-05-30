@@ -30,5 +30,6 @@
     <string name="term_uses"> </string>
     <string name="terms_location"> </string>
     <string name="term_personal_info"> </string>
+    <string name="farm_rv_item_image">농장 이미지</string>
 
 </resources>

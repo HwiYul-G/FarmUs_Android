@@ -5,7 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.farmus_application.R
 import com.example.farmus_application.databinding.FragmentFarmTab2Binding
 
 // TODO: Rename parameter arguments, choose names that match
@@ -49,6 +51,11 @@ class FarmTab2Fragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         //보유중인 농장 리사이클러뷰
         val farmDataItems = mutableListOf<MyFarmDataModel>()
+        farmDataItems.add(MyFarmDataModel(R.drawable.farm_image_example, "위치", "농장 이름", "농장 크기"))
+        farmDataItems.add(MyFarmDataModel(R.drawable.farm_image_example, "위치", "농장 이름", "농장 크기"))
+        farmDataItems.add(MyFarmDataModel(R.drawable.farm_image_example, "위치", "농장 이름", "농장 크기"))
+        farmDataItems.add(MyFarmDataModel(R.drawable.farm_image_example, "위치", "농장 이름", "농장 크기"))
+
         adapter = MyFarmRVAdapter()
         adapter.submitList(farmDataItems)
         binding.rvTab2.adapter = adapter
