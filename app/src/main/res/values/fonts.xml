@@ -111,8 +111,9 @@
     <style name="Widget.BottomNavigationView" parent="Widget.Design.BottomNavigationView">
         <item name="android:fontFamily">@font/spoqa_han_sans_neo2</item>
         <item name="android:textStyle">normal</item>
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">10sp</item>
         <item name="android:letterSpacing">-0.03</item>
+        <item name="android:textColor">@color/text_3</item>
     </style>
 
 </resources>

@@ -1,14 +1,16 @@
 package com.example.farmus_application.ui.farm
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import com.example.farmus_application.R
 import com.example.farmus_application.databinding.FragmentFarmBinding
-import com.example.farmus_application.databinding.TabLayoutTwoCategoriesBinding
 import com.google.android.material.tabs.TabLayoutMediator
 
 // TODO: Rename parameter arguments, choose names that match
@@ -64,6 +66,7 @@ class FarmFragment : Fragment() {
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             tab.text = tabTitleArray[position]
         }.attach()
+
     }
 
     companion object {
