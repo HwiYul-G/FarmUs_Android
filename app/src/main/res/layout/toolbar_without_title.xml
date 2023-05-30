@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="56dp"
+    app:contentInsetStart="0dp"
     android:id="@+id/toolbar_without_title">
 
     <androidx.constraintlayout.widget.ConstraintLayout

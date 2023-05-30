@@ -8,6 +8,7 @@ data class FarmDataModel (
         )
 
 data class MyFarmDataModel (
+    val image : Int,
     val location : String,
     val title: String,
     val size : String

@@ -14,6 +14,7 @@ class MyFarmRVAdapter() : ListAdapter<MyFarmDataModel, MyFarmRVAdapter.ViewHolde
 
     inner class ViewHolder(binding : RvMyFarmItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item : MyFarmDataModel){
+            binding.ivItemImg.setImageResource(item.image)
             binding.tvLocation.text = item.location
             binding.tvFarmName.text = item.title
             binding.tvFarmSize.text = item.size
