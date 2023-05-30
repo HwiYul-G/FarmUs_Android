@@ -22,9 +22,14 @@ class GridSpaceItemDecoration(private val spanCount: Int, private val space: Int
         /** 마지막 열(column-N)에 있는 아이템인 경우 우측에 [space] 만큼의 여백을 추가한다 */
         if (column == spanCount){
             outRect.right = space
+            outRect.left = space/2
         }
-        /** 모든 아이템의 좌측과 하단에 [space] 만큼의 여백을 추가한다. */
-        outRect.left = space
+        if (column < spanCount) {
+            outRect.right = space/2
+            outRect.left = space
+        }
+            /** 모든 아이템의 좌측과 하단에 [space] 만큼의 여백을 추가한다. */
+
         outRect.bottom = space
 
     }
