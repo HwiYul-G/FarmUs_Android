@@ -3,5 +3,5 @@
 
     <item android:color="@color/main_hover" android:state_checked="true"/>
     <item android:color="@color/white" android:state_checked="false"/>
-
+    <item android:color="@color/main" android:state_pressed="true"/>
 </selector>

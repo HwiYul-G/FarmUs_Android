@@ -1,24 +1,20 @@
 package com.example.farmus_application.ui.home
 
+import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.DisplayMetrics
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.content.res.AppCompatResources.getDrawable
-import androidx.core.os.bundleOf
-import androidx.core.view.size
+import android.view.WindowManager
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.FragmentTransaction
-import androidx.fragment.app.setFragmentResult
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.farmus_application.R
-import com.example.farmus_application.databinding.ActivityMainBinding
 import com.example.farmus_application.databinding.FragmentHomeBinding
 import com.example.farmus_application.ui.MainActivity
-import com.example.farmus_application.ui.home.Adapter.LocalFarmRVAdapter
-import com.example.farmus_application.ui.home.Adapter.RecRVAdapter
+import com.example.farmus_application.ui.home.Adapter.FarmRVAdapter
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -27,7 +23,9 @@ private const val ARG_PARAM2 = "param2"
 
 class HomeFragment : Fragment() {
 
-    private lateinit var homeBinding : FragmentHomeBinding
+    private lateinit var binding: FragmentHomeBinding
+
+    private lateinit var adapter: FarmRVAdapter
 
     private var param1: String? = null
     private var param2: String? = null
@@ -46,33 +44,74 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        homeBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
-        val view = homeBinding
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
+
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        (activity as MainActivity).hideBottomNavigation(false)
 
         //검색바 누르면 HomeSearchFragment로 이동
-        homeBinding.searchBar.setOnClickListener{
-            (activity as MainActivity).changeFragment(HomeSearchFragment.newInstance("",""))
+        binding.searchBar.setOnClickListener {
+            (activity as MainActivity).changeFragment(HomeSearchFragment.newInstance("", ""))
+        }
+        //파머스 추천 농장으로 이동
+        binding.btnFarmUsRecommendFarm.setOnClickListener {
+            (activity as MainActivity).changeFragment(FarmusRecFarmFragment.newInstance("", ""))
         }
 
+        val dp = 16
+        val px = dpToPx(requireContext(), dp.toFloat())
+        adapter = FarmRVAdapter()
 //      우리 동네 농장 아이템
         val local_farm_items = mutableListOf<RVFarmDataModel>()
-        homeBinding.rvHomeFarm.adapter = LocalFarmRVAdapter(local_farm_items)
-        homeBinding.rvHomeFarm.layoutManager = GridLayoutManager(requireActivity(), 2)
-        local_farm_items.add(RVFarmDataModel(R.drawable.farm_image_example,"고덕 주말 농장","3평","150,000"))
-        local_farm_items.add(RVFarmDataModel(R.drawable.farm_image_example,"고덕 주말 농장","3평","150,000"))
-        local_farm_items.add(RVFarmDataModel(R.drawable.farm_image_example,"고덕 주말 농장","3평","150,000"))
-        local_farm_items.add(RVFarmDataModel(R.drawable.farm_image_example,"고덕 주말 농장","3평","150,000"))
+        binding.rvHomeFarm.adapter = adapter
+        adapter.submitList(local_farm_items)
+        binding.rvHomeFarm.addItemDecoration(GridSpaceItemDecoration(2, px.toInt()))
+        binding.rvHomeFarm.layoutManager = GridLayoutManager(requireActivity(), 2)
+        local_farm_items.add(
+            RVFarmDataModel(
+                R.drawable.farm_image_example,
+                "고덕 주말 농장",
+                "3평",
+                "150,000"
+            )
+        )
+        local_farm_items.add(
+            RVFarmDataModel(
+                R.drawable.farm_image_example,
+                "고덕 주말 농장",
+                "3평",
+                "150,000"
+            )
+        )
+        local_farm_items.add(
+            RVFarmDataModel(
+                R.drawable.farm_image_example,
+                "고덕 주말 농장",
+                "3평",
+                "150,000"
+            )
+        )
+        local_farm_items.add(
+            RVFarmDataModel(
+                R.drawable.farm_image_example,
+                "고덕 주말 농장",
+                "3평",
+                "150,000"
+            )
+        )
+    }
 
-//        // 농부를 위한 추천 콘텐츠 리사이클러뷰 아이템
-        val rec_contents_items = mutableListOf<RVRecDataModel>()
-        homeBinding.rvRecContents.adapter = RecRVAdapter(rec_contents_items)
-        homeBinding.rvRecContents.layoutManager = LinearLayoutManager(requireActivity())
-        rec_contents_items.add(RVRecDataModel(R.drawable.rec_image_example,"노동을 줄여주고 생산의 질을 높여주는 스마트팜","2023.02.01"))
-        rec_contents_items.add(RVRecDataModel(R.drawable.rec_image_example,"노동을 줄여주고 생산의 질을 높여주는 스마트팜","2023.02.01"))
-        rec_contents_items.add(RVRecDataModel(R.drawable.rec_image_example,"노동을 줄여주고 생산의 질을 높여주는 스마트팜","2023.02.01"))
-
-
-        return view.root
+    private fun dpToPx(context: Context, dp: Float): Float {
+        return TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP,
+            dp,
+            context.resources.displayMetrics
+        )
     }
 
     companion object {

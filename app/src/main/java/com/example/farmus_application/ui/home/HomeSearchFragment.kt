@@ -2,23 +2,18 @@ package com.example.farmus_application.ui.home
 
 import android.content.Context
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.content.res.AppCompatResources.getColorStateList
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.core.os.bundleOf
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.WindowInsetsControllerCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.setFragmentResult
 import com.example.farmus_application.R
-import com.example.farmus_application.databinding.FragmentHomeBinding
 import com.example.farmus_application.databinding.FragmentHomeSearchBinding
 import com.example.farmus_application.ui.MainActivity
 import com.google.android.material.chip.Chip
@@ -31,9 +26,10 @@ private const val ARG_PARAM2 = "param2"
 
 class HomeSearchFragment : Fragment() {
 
-    private lateinit var homeSearchBinding: FragmentHomeSearchBinding
+    private lateinit var binding: FragmentHomeSearchBinding
 
     private lateinit var callback: OnBackPressedCallback
+
 
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -52,26 +48,22 @@ class HomeSearchFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        homeSearchBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_home_search, container, false)
-        val view = homeSearchBinding
+        binding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_home_search, container, false)
+
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        (activity as MainActivity).hideBottomNavigation(true)
 
         //fragment 이동시 searchBar로 focus
-        homeSearchBinding.searchBar.requestFocus()
+        binding.searchBar.requestFocus()
 
         //수정해야됨
-        homeSearchBinding.searchBar.setOnClickListener {
-
-            val searchText = homeSearchBinding.searchBar.text.toString()
-
-            if(searchText != "") {
-
-                setFragmentResult("searchTextRequestKey", bundleOf("searchTextBundleKey" to searchText))
-                (activity as MainActivity).changeFragment(SearchFragment.newInstance("",""))
-                addChip(searchText)
-            } else {
-                (activity as MainActivity).changeFragment(SearchFragment.newInstance("",""))
-            }
-
+        binding.searchBar.setOnClickListener {
+            search()
         }
 
 
@@ -87,43 +79,65 @@ class HomeSearchFragment : Fragment() {
         chipItems.add("전라남도")
         chipItems.add("제주도")
 
-        //chip 동적 추가
-        if(chipItems.size > 0) {
-            for(i in chipItems) {
-                addChip(i)
-            }
+        //chip 전체 삭제
+        binding.btnDeleteAll.setOnClickListener {
+            clearChip()
         }
 
-        return view.root
+        //chip 동적 추가
+        if (chipItems.size > 0) {
+            for (i in chipItems) {
+                addChip(i)
+            }
+        } else {
+            clearChip()
+        }
     }
 
+    private fun search() {
+        val searchText = binding.searchBar.text.toString()
+
+        if (searchText != "") {
+            setFragmentResult(
+                "searchTextRequestKey",
+                bundleOf("searchTextBundleKey" to searchText)
+            )
+            (activity as MainActivity).changeFragment(SearchFragment.newInstance("", ""))
+            addChip(searchText)
+        }
+    }
     //chip 추가하는 함수
-    private fun addChip(searchText: String){
+    private fun addChip(searchText: String) {
         val chip = Chip(requireContext())
-        val radius : Float = 7.0f
+        val radius: Float = 7.0f
 
         chip.text = searchText
         chip.closeIcon = getDrawable(requireContext(), R.drawable.cancel_vector_image)
-        chip.chipStrokeColor = getColorStateList(requireContext(),R.color.gray_1)
+        chip.chipStrokeColor = getColorStateList(requireContext(), R.color.gray_1)
         chip.chipCornerRadius = radius
         chip.chipStrokeWidth = 0.5f
-        chip.chipBackgroundColor = getColorStateList(requireContext(),R.color.white)
+        chip.chipBackgroundColor = getColorStateList(requireContext(), R.color.white)
         chip.isCloseIconVisible = true
 
+        //삭제 버튼 누르면 chip 삭제
         chip.setOnCloseIconClickListener {
-            homeSearchBinding.recentSearchChipgroup.removeView(chip) //삭제 버튼 누르면 chip 삭제
+            binding.recentSearchChipgroup.removeView(chip)
         }
-
         //chip 버튼 클릭 이벤트
         chip.setOnClickListener {
             val chipText = chip.text.toString()
 
             setFragmentResult("selectTextRequestKey", bundleOf("bundleKey" to chipText))
             //SearchFragment로 이동
-            (activity as MainActivity).changeFragment(SearchFragment.newInstance("",""))
+            (activity as MainActivity).changeFragment(SearchFragment.newInstance("", ""))
         }
 
-        homeSearchBinding.recentSearchChipgroup.addView(chip)
+        binding.recentSearchChipgroup.addView(chip)
+    }
+
+    private fun clearChip() {
+        binding.recentSearchChipgroup.removeAllViews()
+
     }
 
     //뒤로가기 누르면 HomeSearchFragment로 이동
@@ -131,7 +145,7 @@ class HomeSearchFragment : Fragment() {
         super.onAttach(context)
         callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                (activity as MainActivity).changeFragment(HomeFragment.newInstance("",""))
+                (activity as MainActivity).changeFragment(HomeFragment.newInstance("", ""))
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(this, callback)

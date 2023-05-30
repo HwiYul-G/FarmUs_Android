@@ -19,7 +19,7 @@
 
         <include
             android:id="@+id/terms_main_toolbar"
-            layout="@layout/toolbar_with_title" />
+            layout="@layout/toolbar_without_title" />
 
         <TextView
             android:id="@+id/terms_main_title"

@@ -1,125 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
+    <data>
+
+        <variable
+            name="farmList"
+            type="com.example.farmus_application.model.FarmList" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginBottom="17dp"
-        android:background="@drawable/corner_rv_local_farm"
-        android:layout_marginEnd="16dp">
-
+        app:cardCornerRadius="7dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <ImageView
                 android:id="@+id/rv_farm_image"
-                android:layout_width="156dp"
-                android:layout_height="146dp"
-                android:background="@drawable/corner_rv_local_farm_top"
-                android:src="@drawable/farm_image_example"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:background="@color/gray_2"
                 android:scaleType="centerCrop"
+                app:layout_constraintDimensionRatio="0.9"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:layout_width="36dp"
-                android:layout_height="36dp"
+            <ImageButton
+                android:id="@+id/book_mark"
+                style="@style/CustomHeartBookMark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:layout_marginRight="6dp"
-                android:src="@drawable/bookmark_stroke_vector_image"
-                app:tint="@color/white"
+                android:layout_marginEnd="6dp"
+                android:background="@drawable/heart_selector"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintDimensionRatio="1.23"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rv_farm_image">
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-        <LinearLayout
-            android:layout_width="156dp"
-            android:layout_height="120dp"
-            android:orientation="vertical"
-            >
-
-            <TextView
-                android:id="@+id/rv_farm_name"
-                style="@style/Body1Bold"
-                android:layout_width="wrap_content"
-                android:layout_height="20sp"
-                android:layout_marginStart="9dp"
-                android:layout_marginTop="12dp"
-                tools:text="고덕 주말 농장"
-                android:textSize="16sp"
-                android:lineHeight="20.03sp"
-                android:letterSpacing="-0.03"
-                android:textColor="@color/text_1"/>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/rv_farm_name"
+                    style="@style/Body1Bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20sp"
+                    android:layout_marginStart="9dp"
+                    android:layout_marginTop="12dp"
+                    android:textColor="@color/text_1"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:text="농장 이름" />
 
                 <TextView
                     android:id="@+id/rv_farm_size"
                     style="@style/Body3Reg"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginTop="35dp"
-                    android:textColor="@color/text_2"
-                    android:textSize="12sp"
-                    tools:text="3평 (9.9㎡)" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:layout_marginTop="6dp"
-                android:layout_marginBottom="12dp"
-                android:orientation="horizontal">
+                    android:layout_marginBottom="4dp"
+                    tools:text="4.5평 (15㎡)"
+                    app:layout_constraintBottom_toTopOf="@id/rv_farm_price"
+                    app:layout_constraintStart_toStartOf="@id/rv_farm_name"/>
 
                 <TextView
                     android:id="@+id/rv_farm_price"
                     style="@style/Body1Bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="150,000"
-                    android:textSize="16sp"
-                    android:textColor="@color/main"/>
-
-                <TextView
-                    style="@style/Body1Bold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    tools:text="원"
-                    android:textSize="16sp"
-                    android:textColor="@color/main"/>
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="9dp"
+                    android:textColor="@color/main"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/rv_farm_name"
+                    tools:text="150,000원" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="/월"
-                    android:textSize="10sp"
+                    android:layout_gravity="bottom"
                     android:layout_marginStart="2dp"
+                    android:text="/월"
                     android:textColor="@color/text_3"
-                    android:layout_gravity="bottom"/>
+                    android:textSize="10sp"
+                    app:layout_constraintBaseline_toBaselineOf="@id/rv_farm_price"
+                    app:layout_constraintStart_toEndOf="@id/rv_farm_price" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-            </LinearLayout>
-
-
-
-        </LinearLayout>
-
-
-
-
-
-    </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
 
 </layout>

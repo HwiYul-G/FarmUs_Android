@@ -33,7 +33,7 @@ class SignupSecondFragment: Fragment(){
         viewBinding = FragmentSignupSecondBinding.inflate(inflater, container, false)
 
         // 뒤로가기 - 프래그먼트 교체
-        viewBinding.signupIdToolbar.toolbarWithTitleBackButton.setOnClickListener{
+        viewBinding.signupIdToolbar.toolbarWithoutTitleBackButton.setOnClickListener{
             SignupActivity!!.supportFragmentManager.beginTransaction().remove(this).commit();
             SignupActivity!!.supportFragmentManager.popBackStack();
             SignupActivity!!.activateMainLayout()

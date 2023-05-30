@@ -4,6 +4,8 @@
         <item name="chipBackgroundColor">@color/filter_chip_bg_color</item>
         <item name="android:textColor">@color/filter_chip_text_color</item>
         <item name="checkedIconTint">@color/white</item>
+        <item name="fontFamily">@font/spoqa_han_sans_neo2</item>
+        <item name="android:textSize">13sp</item>
     </style>
 
     <style name="CustomChipStyle_areaChoice" parent = "Widget.MaterialComponents.Chip.Choice">
@@ -37,6 +39,19 @@
     </style>
     <style name="CalendarWidgetHeader" parent="@style/Body1Bold">
         <item name="android:textColor">@color/text_1</item>
+    </style>
+
+    <style name="CustomHeartBookMark">
+        <item name="android:drawable">@drawable/heart_selector</item>
+    </style>
+
+    <style name="BottomSheetStyle" parent="Theme.Design.BottomSheetDialog">
+        <item name="background">@drawable/bottom_sheet_background</item>
+    </style>
+
+    <style name="BottomSheetDialogTheme" parent="Theme.Material3.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/BottomSheetStyle</item>
+        <item name="background">@android:color/transparent</item>
     </style>
 
 </resources>
