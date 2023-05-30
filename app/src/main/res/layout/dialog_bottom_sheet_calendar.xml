@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/dialog_bottom_sheet_calendar_background"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+        <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+            android:id="@+id/bottom_sheet_calendar"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@id/selected_date_constraint"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:mcv_dateTextAppearance="@style/CalenderViewDateCustomText"
+            app:mcv_headerTextAppearance="@style/CalendarWidgetHeader"
+            app:mcv_selectionColor="@color/main_hover_2"
+            app:mcv_selectionMode="range"
+            app:mcv_weekDayTextAppearance="@style/CalenderViewWeekCustomText" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/selected_date_constraint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            app:layout_constraintBottom_toTopOf="@id/applicationButton"
+            app:layout_constraintEnd_toEndOf="@id/bottom_sheet_calendar"
+            app:layout_constraintStart_toStartOf="@id/bottom_sheet_calendar"
+            app:layout_constraintTop_toBottomOf="@id/bottom_sheet_calendar">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/start_day_constraint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/calendar_date_selector_background"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/calendar_from"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/calendar_start_day_year"
+                    style="@style/Body2Med"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:textColor="@color/calendar_date_text_selector"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="2023" />
+
+                <View
+                    android:id="@+id/divider1"
+                    android:layout_width="1dp"
+                    android:layout_height="8dp"
+                    android:layout_marginStart="8dp"
+                    android:background="@color/gray_2"
+                    app:layout_constraintBottom_toBottomOf="@id/calendar_start_day_year"
+                    app:layout_constraintStart_toEndOf="@id/calendar_start_day_year"
+                    app:layout_constraintTop_toTopOf="@id/calendar_start_day_year" />
+
+                <TextView
+                    android:id="@+id/calendar_start_day_month"
+                    style="@style/Body2Med"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:textColor="@color/calendar_date_text_selector"
+                    app:layout_constraintBottom_toBottomOf="@id/calendar_start_day_year"
+                    app:layout_constraintStart_toEndOf="@id/divider1"
+                    app:layout_constraintTop_toTopOf="@id/calendar_start_day_year"
+                    tools:text="01" />
+
+                <View
+                    android:id="@+id/divider2"
+                    android:layout_width="1dp"
+                    android:layout_height="8dp"
+                    android:layout_marginStart="9dp"
+                    android:background="@color/gray_2"
+                    app:layout_constraintBottom_toBottomOf="@id/calendar_start_day_month"
+                    app:layout_constraintStart_toEndOf="@id/calendar_start_day_month"
+                    app:layout_constraintTop_toTopOf="@id/calendar_start_day_month" />
+
+                <TextView
+                    android:id="@+id/calendar_start_day_date"
+                    style="@style/Body2Med"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="10dp"
+                    android:textColor="@color/calendar_date_text_selector"
+                    app:layout_constraintBottom_toBottomOf="@id/calendar_start_day_year"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/divider2"
+                    app:layout_constraintTop_toTopOf="@id/calendar_start_day_year"
+                    tools:text="15" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/calendar_from"
+                style="@style/Body2Reg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="7dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/calendar_from"
+                android:textColor="@color/text_2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/last_day_constraint"
+                app:layout_constraintStart_toEndOf="@id/start_day_constraint"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/last_day_constraint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/calendar_date_selector_background"
+                app:layout_constraintBottom_toBottomOf="parent  "
+                app:layout_constraintEnd_toStartOf="@id/calendar_to"
+                app:layout_constraintStart_toEndOf="@id/calendar_from"
+                app:layout_constraintTop_toTopOf="parent">
+
+
+                <TextView
+                    android:id="@+id/calendar_last_day_year"
+                    style="@style/Body2Med"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:textColor="@color/calendar_date_text_selector"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="2023" />
+
+                <View
+                    android:id="@+id/divider3"
+                    android:layout_width="1dp"
+                    android:layout_height="8dp"
+                    android:layout_marginStart="8dp"
+                    android:background="@color/gray_2"
+                    app:layout_constraintBottom_toBottomOf="@id/calendar_last_day_year"
+                    app:layout_constraintStart_toEndOf="@id/calendar_last_day_year"
+                    app:layout_constraintTop_toTopOf="@id/calendar_last_day_year" />
+
+                <TextView
+                    android:id="@+id/calendar_last_day_month"
+                    style="@style/Body2Med"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:textColor="@color/calendar_date_text_selector"
+                    app:layout_constraintBottom_toBottomOf="@id/calendar_last_day_year"
+                    app:layout_constraintStart_toEndOf="@id/divider3"
+                    app:layout_constraintTop_toTopOf="@id/calendar_last_day_year"
+                    tools:text="01" />
+
+                <View
+                    android:id="@+id/divider4"
+                    android:layout_width="1dp"
+                    android:layout_height="8dp"
+                    android:layout_marginStart="9dp"
+                    android:background="@color/gray_2"
+                    app:layout_constraintBottom_toBottomOf="@id/calendar_last_day_month"
+                    app:layout_constraintStart_toEndOf="@id/calendar_last_day_month"
+                    app:layout_constraintTop_toTopOf="@id/calendar_last_day_month" />
+
+                <TextView
+                    android:id="@+id/calendar_last_day_date"
+                    style="@style/Body2Med"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="10dp"
+                    android:textColor="@color/calendar_date_text_selector"
+                    app:layout_constraintBottom_toBottomOf="@id/calendar_last_day_year"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/divider4"
+                    app:layout_constraintTop_toTopOf="@id/calendar_last_day_year"
+                    tools:text="15" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/calendar_to"
+                style="@style/Body2Reg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="7dp"
+                android:text="@string/calendar_to"
+                android:textColor="@color/text_2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/last_day_constraint"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/applicationButton"
+            style="@style/Body1Med"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="25dp"
+            android:background="@drawable/calendar_button_selector_background"
+            android:enabled="false"
+            android:paddingStart="134dp"
+            android:paddingTop="14dp"
+            android:paddingEnd="134dp"
+            android:paddingBottom="14dp"
+            android:text="@string/calendar_application_button"
+            android:textColor="@color/calendar_button_text_selector"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/bottom_sheet_calendar"
+            app:layout_constraintStart_toStartOf="@id/bottom_sheet_calendar" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

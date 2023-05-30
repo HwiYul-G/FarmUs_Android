@@ -1,0 +1,635 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/bottom_toolbar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <FrameLayout
+                    android:id="@+id/farm_detail_frame"
+                    android:layout_width="match_parent"
+                    android:layout_height="329dp"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/farm_detail_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="329dp"
+                        android:background="@color/gray_first"
+                        app:layout_constraintTop_toBottomOf="@+id/farm_detail_toolbar" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp">
+
+                        <androidx.appcompat.widget.AppCompatImageButton
+                            android:id="@+id/farm_detail_bookmark_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bookmark_stroke_vector_image"
+                            android:backgroundTint="@color/white"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@id/farm_detail_share_button"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.5" />
+
+                        <androidx.appcompat.widget.AppCompatImageButton
+                            android:id="@+id/farm_detail_share_button"
+                            android:layout_width="44dp"
+                            android:layout_height="44dp"
+                            android:layout_marginEnd="7dp"
+                            android:background="@drawable/sharing_second_vector_image"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.5" />
+
+                        <include
+                            android:id="@+id/farm_detail_toolbar"
+                            layout="@layout/toolbar_without_title"
+                            tools:layout_editor_absoluteX="-1dp"
+                            tools:layout_editor_absoluteY="0dp" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/farm_detail_address"
+                    style="@style/Body2Reg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="19dp"
+                    android:text="@string/example_address"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/farm_detail_frame" />
+
+                <TextView
+                    android:id="@+id/farm_detail_title"
+                    style="@style/Title2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/example_farm_title"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/farm_detail_address" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/farm_size_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="48dp"
+                    android:background="@drawable/layout_line_vector_image"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/farm_detail_title" />
+
+                <TextView
+                    android:id="@+id/farm_detail_size"
+                    style="@style/Body2Reg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginTop="48dp"
+                    android:text="@string/example_farm_size"
+                    app:layout_constraintStart_toEndOf="@id/farm_size_icon"
+                    app:layout_constraintTop_toBottomOf="@id/farm_detail_title" />
+
+                <TextView
+                    android:id="@+id/farm_detail_price"
+                    style="@style/Title2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/example_farm_price"
+                    android:textColor="@color/main_green"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/farm_size_icon" />
+
+                <TextView
+                    android:id="@+id/farm_detail_views"
+                    style="@style/Body2Reg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginTop="18dp"
+                    android:text="@string/example_farm_detail_views"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.92"
+                    app:layout_constraintStart_toEndOf="@id/farm_detail_price"
+                    app:layout_constraintTop_toBottomOf="@id/farm_detail_size" />
+
+                <View
+                    android:id="@+id/divider_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginTop="24.5dp"
+                    android:background="@color/gray_second"
+                    app:layout_constraintTop_toBottomOf="@id/farm_detail_price" />
+
+                <TextView
+                    android:id="@+id/farm_detail_description_title"
+                    style="@style/Title2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="25dp"
+                    android:text="@string/farm_detail_description_title"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/divider_1" />
+
+                <TextView
+                    android:id="@+id/farm_detail_description"
+                    style="@style/Body1Reg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="17dp"
+                    android:layout_marginEnd="16dp"
+                    android:text="@string/example_farm_description"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/farm_detail_description_title" />
+
+                <View
+                    android:id="@+id/divider_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginTop="24.5dp"
+                    android:background="@color/gray_second"
+                    app:layout_constraintTop_toBottomOf="@id/farm_detail_description" />
+
+                <TextView
+                    android:id="@+id/farm_detail_information_title"
+                    style="@style/Title2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="25dp"
+                    android:text="@string/farm_detail_information_title"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/divider_2" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/farm_detail_information_layout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="17dp"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/farm_detail_information_title">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/information_background"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/left_menu"
+                            android:layout_width="86dp"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/information_menu_background"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <TextView
+                                android:id="@+id/farm_detail_information_location"
+                                style="@style/Body2Reg"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="12dp"
+                                android:layout_marginTop="13dp"
+                                android:text="@string/farm_detail_information_location"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <View
+                                android:id="@+id/divider1"
+                                android:layout_width="0dp"
+                                android:layout_height="0.5dp"
+                                android:layout_marginTop="12dp"
+                                android:background="@color/gray_1"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/farm_detail_information_location" />
+
+                            <TextView
+                                android:id="@+id/farm_detail_information_farm_name"
+                                style="@style/Body2Reg"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="12dp"
+                                android:layout_marginTop="13dp"
+                                android:text="@string/farm_detail_information_farm_name"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/divider1" />
+
+                            <View
+                                android:id="@+id/divider2"
+                                android:layout_width="0dp"
+                                android:layout_height="0.5dp"
+                                android:layout_marginTop="12dp"
+                                android:background="@color/gray_1"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/farm_detail_information_farm_name" />
+
+                            <TextView
+                                android:id="@+id/farm_detail_information_owner"
+                                style="@style/Body2Reg"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="12dp"
+                                android:layout_marginTop="13dp"
+                                android:text="@string/farm_detail_information_owner"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/divider2" />
+
+                            <View
+                                android:id="@+id/divider3"
+                                android:layout_width="0dp"
+                                android:layout_height="0.5dp"
+                                android:layout_marginTop="12dp"
+                                android:background="@color/gray_1"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/farm_detail_information_owner" />
+
+                            <TextView
+                                android:id="@+id/farm_detail_information_phone"
+                                style="@style/Body2Reg"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="12dp"
+                                android:layout_marginTop="13dp"
+                                android:text="@string/farm_detail_information_phone"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/divider3" />
+
+                            <View
+                                android:id="@+id/divider4"
+                                android:layout_width="0dp"
+                                android:layout_height="0.5dp"
+                                android:layout_marginTop="12dp"
+                                android:background="@color/gray_1"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/farm_detail_information_phone" />
+
+                            <TextView
+                                android:id="@+id/farm_detail_information_total_width"
+                                style="@style/Body2Reg"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="12dp"
+                                android:layout_marginTop="13dp"
+                                android:text="@string/farm_detail_information_total_width"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/divider4" />
+
+                            <View
+                                android:id="@+id/divider5"
+                                android:layout_width="0dp"
+                                android:layout_height="0.5dp"
+                                android:layout_marginTop="12dp"
+                                android:background="@color/gray_1"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/farm_detail_information_total_width" />
+
+                            <TextView
+                                android:id="@+id/farm_detail_information_rental_width"
+                                style="@style/Body2Reg"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="12dp"
+                                android:layout_marginTop="13dp"
+                                android:text="@string/farm_detail_information_rental_width"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/divider5" />
+
+                            <View
+                                android:id="@+id/divider6"
+                                android:layout_width="0dp"
+                                android:layout_height="0.5dp"
+                                android:layout_marginTop="12dp"
+                                android:background="@color/gray_1"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/farm_detail_information_rental_width" />
+
+                            <TextView
+                                android:id="@+id/farm_detail_information_rental_price"
+                                style="@style/Body2Reg"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="12dp"
+                                android:layout_marginTop="13dp"
+                                android:layout_marginBottom="12.5dp"
+                                android:text="@string/farm_detail_information_rental_price"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/divider6" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/left_menu"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <TextView
+                                android:id="@+id/farm_detail_information_location_content"
+                                style="@style/Body2Reg"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="13dp"
+                                android:layout_marginTop="13dp"
+                                android:text="@string/farm_detail_information_location_content"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <View
+                                android:id="@+id/divider1_1"
+                                android:layout_width="0dp"
+                                android:layout_height="0.5dp"
+                                android:layout_marginTop="12dp"
+                                android:background="@color/gray_1"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/farm_detail_information_location_content" />
+
+                            <TextView
+                                android:id="@+id/farm_detail_information_farm_name_content"
+                                style="@style/Body2Reg"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="13dp"
+                                android:layout_marginTop="13dp"
+                                android:text="@string/farm_detail_information_farm_name_content"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/divider1_1" />
+
+                            <View
+                                android:id="@+id/divider2_1"
+                                android:layout_width="0dp"
+                                android:layout_height="0.5dp"
+                                android:layout_marginTop="12dp"
+                                android:background="@color/gray_1"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/farm_detail_information_farm_name_content" />
+
+                            <TextView
+                                android:id="@+id/farm_detail_information_owner_content"
+                                style="@style/Body2Reg"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="13dp"
+                                android:layout_marginTop="13dp"
+                                android:text="@string/farm_detail_information_owner_content"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/divider2_1" />
+
+                            <View
+                                android:id="@+id/divider3_1"
+                                android:layout_width="0dp"
+                                android:layout_height="0.5dp"
+                                android:layout_marginTop="12dp"
+                                android:background="@color/gray_1"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/farm_detail_information_owner_content" />
+
+                            <TextView
+                                android:id="@+id/farm_detail_information_phone_content"
+                                style="@style/Body2Reg"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="13dp"
+                                android:layout_marginTop="13dp"
+                                android:text="@string/farm_detail_information_phone_content"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/divider3_1" />
+
+                            <View
+                                android:id="@+id/divider4_1"
+                                android:layout_width="0dp"
+                                android:layout_height="0.5dp"
+                                android:layout_marginTop="12dp"
+                                android:background="@color/gray_1"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/farm_detail_information_phone_content" />
+
+                            <TextView
+                                android:id="@+id/farm_detail_information_total_width_content"
+                                style="@style/Body2Reg"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="13dp"
+                                android:layout_marginTop="13dp"
+                                android:text="@string/farm_detail_information_total_width_content"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/divider4_1" />
+
+                            <View
+                                android:id="@+id/divider5_1"
+                                android:layout_width="0dp"
+                                android:layout_height="0.5dp"
+                                android:layout_marginTop="12dp"
+                                android:background="@color/gray_1"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/farm_detail_information_total_width_content" />
+
+                            <TextView
+                                android:id="@+id/farm_detail_information_rental_width_content"
+                                style="@style/Body2Reg"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="13dp"
+                                android:layout_marginTop="13dp"
+                                android:text="@string/farm_detail_information_rental_width_content"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/divider5_1" />
+
+                            <View
+                                android:id="@+id/divider6_1"
+                                android:layout_width="0dp"
+                                android:layout_height="0.5dp"
+                                android:layout_marginTop="12dp"
+                                android:background="@color/gray_1"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/farm_detail_information_rental_width_content" />
+
+                            <TextView
+                                android:id="@+id/farm_detail_information_rental_price_content"
+                                style="@style/Body2Reg"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="13dp"
+                                android:layout_marginTop="13dp"
+                                android:text="@string/farm_detail_information_rental_price_content"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/divider6_1" />
+
+                            <View
+                                android:id="@+id/divider7_1"
+                                android:layout_width="0dp"
+                                android:layout_height="0.5dp"
+                                android:layout_marginTop="12dp"
+                                android:background="@color/gray_1"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/farm_detail_information_rental_price_content" />
+
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <View
+                    android:id="@+id/divider_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginTop="24.5dp"
+                    android:background="@color/gray_second"
+                    app:layout_constraintTop_toBottomOf="@id/farm_detail_information_layout" />
+
+                <TextView
+                    android:id="@+id/farm_detail_owner_title"
+                    style="@style/Title2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="25dp"
+                    android:text="@string/farm_detail_owner_title"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/divider_3" />
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/farm_detail_owner_image"
+                    style="@style/ShapeAppearanceOverlay_cornerSize50"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="17dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/farm_detail_owner_title" />
+
+                <TextView
+                    android:id="@+id/farm_detail_owner_nickname"
+                    style="@style/Body1Reg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:text="@string/farm_detail_owner_nickname"
+                    app:layout_constraintBottom_toBottomOf="@id/farm_detail_owner_image"
+                    app:layout_constraintStart_toEndOf="@id/farm_detail_owner_image"
+                    app:layout_constraintTop_toTopOf="@id/farm_detail_owner_image" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/farm_detail_more_request"
+                    style="@style/Body2Med"
+                    android:layout_width="84dp"
+                    android:layout_height="34dp"
+                    android:layout_marginEnd="16.5dp"
+                    android:background="@drawable/farm_detail_request_more_backgorund"
+                    android:text="@string/farm_detail_more_request"
+                    android:textColor="@color/text_third"
+                    app:layout_constraintBottom_toBottomOf="@id/farm_detail_owner_image"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/farm_detail_owner_image" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </ScrollView>
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/bottom_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="78dp"
+            android:background="@drawable/request_bar_background"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/farm_detail_request_message"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="@drawable/farm_detail_request_background"
+                    android:button="@null"
+                    android:src="@drawable/message_vector_image"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.05"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/farm_detail_request_calendar"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="@drawable/main_button_color_selector"
+                    android:button="@null"
+                    android:src="@drawable/calendar_vector_image"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.3"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/farm_detail_request"
+                    style="@style/Body1Med"
+                    android:layout_width="206dp"
+                    android:layout_height="48dp"
+                    android:background="@drawable/farm_detail_request_background"
+                    android:text="@string/request"
+                    android:textColor="@color/main_green"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.85"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.appcompat.widget.Toolbar>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -30,6 +30,8 @@
     <color name="gray_3">#f5f5f5</color>
 
     <color name="main">#43c28a</color>
-
+    <color name="main_hover_1">#E5F7F3</color>
+    <color name="main_hover_2">#4DC9AA</color>
 
 </resources>
+
