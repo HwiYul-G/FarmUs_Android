@@ -11,6 +11,7 @@ import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import com.example.farmus_application.R
 import com.example.farmus_application.databinding.FragmentFarmBinding
+import com.example.farmus_application.ui.MainActivity
 import com.google.android.material.tabs.TabLayoutMediator
 
 // TODO: Rename parameter arguments, choose names that match
@@ -55,8 +56,9 @@ class FarmFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //toolbar 이름 설정
-        binding.toolbar.toolbarMainTitleText.text = "내 농장"
-        binding.toolbar.toolbarMainTitleText.setTextColor(resources.getColor(R.color.text_first))
+        binding.toolbar.toolbarOnlyTitleText.text = "내 농장"
+        binding.toolbar.toolbarOnlyTitleText.setTextColor(resources.getColor(R.color.text_first))
+        (activity as MainActivity).hideBottomNavigation(false)
 
         val viewPager = binding.viewPager
         val tabLayout = binding.tabLayout

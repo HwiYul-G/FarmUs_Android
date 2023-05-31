@@ -9,6 +9,7 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.farmus_application.R
 import com.example.farmus_application.databinding.FragmentFarmTab2Binding
+import com.example.farmus_application.ui.MainActivity
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -60,6 +61,12 @@ class FarmTab2Fragment : Fragment() {
         adapter.submitList(farmDataItems)
         binding.rvTab2.adapter = adapter
         binding.rvTab2.layoutManager = LinearLayoutManager(requireContext())
+
+        binding.floatingActionButton.setOnClickListener {
+            (activity as MainActivity).changeFragment(FirstFarmRegistrationFragment())
+        }
+
+
     }
     companion object {
         /**
