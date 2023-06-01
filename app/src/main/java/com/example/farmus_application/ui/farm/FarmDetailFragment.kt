@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment
 import com.example.farmus_application.R
 import com.example.farmus_application.databinding.FragmentFarmDetailBinding
 import com.example.farmus_application.ui.MainActivity
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class FarmDetailFragment: Fragment() {
 
@@ -41,5 +40,7 @@ class FarmDetailFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
     }
 }
