@@ -57,7 +57,9 @@ class FarmTab2Fragment : Fragment() {
         farmDataItems.add(MyFarmDataModel(R.drawable.farm_image_example, "위치", "농장 이름", "농장 크기"))
         farmDataItems.add(MyFarmDataModel(R.drawable.farm_image_example, "위치", "농장 이름", "농장 크기"))
 
-        adapter = MyFarmRVAdapter()
+        adapter = MyFarmRVAdapter() {
+            (activity as MainActivity).changeFragment(FarmerFarmDetailFragment())
+        }
         adapter.submitList(farmDataItems)
         binding.rvTab2.adapter = adapter
         binding.rvTab2.layoutManager = LinearLayoutManager(requireContext())

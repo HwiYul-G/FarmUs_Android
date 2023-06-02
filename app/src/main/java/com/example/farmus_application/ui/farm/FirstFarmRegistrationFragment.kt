@@ -12,7 +12,7 @@ import com.example.farmus_application.ui.MainActivity
 
 class FirstFarmRegistrationFragment: Fragment() {
 
-    private lateinit var farmFirstRegistrationBinding: FragmentFarmFirstRegistrationBinding
+    private lateinit var binding: FragmentFarmFirstRegistrationBinding
 
 
     override fun onCreateView(
@@ -20,8 +20,8 @@ class FirstFarmRegistrationFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        farmFirstRegistrationBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_farm_first_registration, container, false)
-        val view = farmFirstRegistrationBinding
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_farm_first_registration, container, false)
+        val view = binding
 
         return view.root
     }
@@ -30,8 +30,13 @@ class FirstFarmRegistrationFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         (activity as MainActivity).hideBottomNavigation(true)
-        farmFirstRegistrationBinding.farmFirstRegistrationToolbar.toolbarWithoutTitleBackButton.setOnClickListener{
+        binding.farmFirstRegistrationToolbar.toolbarWithoutTitleBackButton.setOnClickListener{
             (activity as MainActivity).changeFragment(FarmFragment())
         }
+
+        binding.farmFirstRegistrationToolbarNextButton.setOnClickListener {
+            (activity as MainActivity).changeFragment(SecondFarmRegistrationFragment())
+        }
+
     }
 }

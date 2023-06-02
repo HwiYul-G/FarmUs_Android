@@ -20,7 +20,7 @@ import com.prolificinteractive.materialcalendarview.DayViewFacade
 
 class CalendarBottomSheetDialog: BottomSheetDialogFragment() {
 
-    private lateinit var bottomSheetDialogBinding: DialogBottomSheetCalendarBinding
+    private lateinit var binding: DialogBottomSheetCalendarBinding
     private lateinit var firstSelectedDay: CalendarDay
 
     override fun onCreateView(
@@ -29,12 +29,18 @@ class CalendarBottomSheetDialog: BottomSheetDialogFragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        bottomSheetDialogBinding = DataBindingUtil.inflate(inflater, R.layout.dialog_bottom_sheet_calendar, container, false)
-        val view = bottomSheetDialogBinding
+        binding = DataBindingUtil.inflate(inflater, R.layout.dialog_bottom_sheet_calendar, container, false)
+        val view = binding
+
+        return view.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         initCalendarDialog()
 
-        view.bottomSheetCalendar.setOnDateChangedListener { widget, date, _ ->
+        binding.bottomSheetCalendar.setOnDateChangedListener { widget, date, _ ->
             Log.e("setOnDateChangedListener","$date!")
             firstSelectedDay = date
             widget.removeDecorators()
@@ -44,7 +50,7 @@ class CalendarBottomSheetDialog: BottomSheetDialogFragment() {
             settingButtonSelect(false)
         }
 
-        view.bottomSheetCalendar.setOnRangeSelectedListener { widget, dates ->
+        binding.bottomSheetCalendar.setOnRangeSelectedListener { widget, dates ->
             Log.e("ErrorRange","${dates}")
             val dayList = mutableListOf<CalendarDay>().apply {
                 addAll(dates)
@@ -63,15 +69,13 @@ class CalendarBottomSheetDialog: BottomSheetDialogFragment() {
             settingCalendarLastText(dates[dates.size-1])
             settingButtonSelect(true)
         }
-
-        return view.root
     }
 
     private fun initCalendarDialog() {
         val today = CalendarDay.today()
         settingCalendarStartText(today)
         settingCalendarLastText(today)
-        bottomSheetDialogBinding.bottomSheetCalendar.apply {
+        binding.bottomSheetCalendar.apply {
             addDecorator(TodayDecorator(requireContext()))
             addDecorator(BeforeDayDecorator())
             setTitleFormatter { day -> "${day.month}월${day.year}년" }
@@ -81,7 +85,7 @@ class CalendarBottomSheetDialog: BottomSheetDialogFragment() {
     }
 
     private fun settingCalendarStartText(date: CalendarDay) {
-        bottomSheetDialogBinding.apply {
+        binding.apply {
             calendarStartDayYear.text = date.year.toString()
             calendarStartDayMonth.text = String.format("%02d",date.month)
             calendarStartDayDate.text = date.day.toString()
@@ -89,7 +93,7 @@ class CalendarBottomSheetDialog: BottomSheetDialogFragment() {
     }
 
     private fun settingCalendarLastText(date: CalendarDay) {
-        bottomSheetDialogBinding.apply {
+        binding.apply {
             calendarLastDayYear.text = date.year.toString()
             calendarLastDayMonth.text = String.format("%02d",date.month)
             calendarLastDayDate.text = date.day.toString()
@@ -98,13 +102,13 @@ class CalendarBottomSheetDialog: BottomSheetDialogFragment() {
 
     private fun settingButtonSelect(selected: Boolean) {
         if (selected) {
-            bottomSheetDialogBinding.apply {
+            binding.apply {
                 startDayConstraint.isSelected = false
                 lastDayConstraint.isSelected = true
                 applicationButton.isEnabled = true
             }
         } else {
-            bottomSheetDialogBinding.apply {
+            binding.apply {
                 startDayConstraint.isSelected = true
                 lastDayConstraint.isSelected = false
                 applicationButton.isEnabled = false

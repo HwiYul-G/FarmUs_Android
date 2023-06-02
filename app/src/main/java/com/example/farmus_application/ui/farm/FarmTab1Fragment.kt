@@ -58,12 +58,6 @@ class FarmTab1Fragment : Fragment() {
         binding.rvRecent.adapter = adapter
         binding.rvRecent.layoutManager = LinearLayoutManager(requireContext())
 
-        adapter.setOnClickListener(object: GetFarmRVAdapter.OnClickListener {
-            override fun onClick(view: View, data: FarmDataModel, pos: Int) {
-                (activity as MainActivity).changeFragment(FarmDetailFragment())
-            }
-        })
-
         rvRecentItems.add(FarmDataModel(R.drawable.farm_image_example, "고덕 농장 1구획","2022.12.25.","2023.01.07"))
         rvRecentItems.add(FarmDataModel(R.drawable.farm_image_example, "고덕 농장 1구획","2022.12.25.","2023.01.07"))
         rvRecentItems.add(FarmDataModel(R.drawable.farm_image_example, "고덕 농장 1구획","2022.12.25.","2023.01.07"))
@@ -79,6 +73,12 @@ class FarmTab1Fragment : Fragment() {
         rvPastItems.add(FarmDataModel(R.drawable.farm_image_example, "고덕 농장 1구획","2022.12.25.","2023.01.07"))
         rvPastItems.add(FarmDataModel(R.drawable.farm_image_example, "고덕 농장 1구획","2022.12.25.","2023.01.07"))
         rvPastItems.add(FarmDataModel(R.drawable.farm_image_example, "고덕 농장 1구획","2022.12.25.","2023.01.07"))
+
+        adapter.setOnClickListener(object: GetFarmRVAdapter.OnClickListener {
+            override fun onClick(view: View, data: FarmDataModel, pos: Int) {
+                (activity as MainActivity).changeFragment(FarmDetailFragment())
+            }
+        })
 
     }
 

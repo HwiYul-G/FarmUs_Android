@@ -101,7 +101,7 @@
             android:fontFamily="@font/spoqa_han_sans_neo_regular"
             android:gravity="top"
             android:hint="@string/farm_first_registration_farm_introduction_edit_hint"
-            android:inputType="text"
+            android:inputType="textMultiLine"
             android:maxLength="150"
             android:textColorHint="@color/gray_1"
             android:textSize="16sp"
