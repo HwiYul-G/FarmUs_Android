@@ -1,9 +1,7 @@
 package com.example.farmus_application.ui.farm
 
-import android.content.ContextWrapper
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -70,5 +68,18 @@ class FarmerFarmDetailFragment : Fragment() {
             }
             popUpMenu.show()
         }
+
+        binding.farmerFarmDetailRequestCalendar.setOnClickListener {
+            // 불가 날짜 bottomSheetFragment
+            val bottomSheetDialog = UnavailableBottomSheetDialog()
+            bottomSheetDialog.show(parentFragmentManager, "bottomSheetDialog")
+        }
+
+        binding.farmerFarmDetailRequestList.setOnClickListener {
+            // 요청온 목록 bottomSheetFragment
+            val bottomSheetDialog = RequestBottomSheetDialog()
+            bottomSheetDialog.show(parentFragmentManager, "bottomSheetDialog")
+        }
+
     }
 }

@@ -1,6 +1,8 @@
 package com.example.farmus_application.ui.farm
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,13 +23,14 @@ class FirstFarmRegistrationFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_farm_first_registration, container, false)
-        val view = binding
 
-        return view.root
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        checkNext()
 
         (activity as MainActivity).hideBottomNavigation(true)
         binding.farmFirstRegistrationToolbar.toolbarWithoutTitleBackButton.setOnClickListener{
@@ -38,5 +41,35 @@ class FirstFarmRegistrationFragment: Fragment() {
             (activity as MainActivity).changeFragment(SecondFarmRegistrationFragment())
         }
 
+    }
+
+    private fun checkNext() {
+        binding.farmFirstRegistrationFarmTitleEdit.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun afterTextChanged(p0: Editable?) {
+                val titleEdit = binding.farmFirstRegistrationFarmTitleEdit.text.toString()
+                val introductionEdit = binding.farmFirstRegistrationFarmIntroductionEdit.text.toString()
+                binding.farmFirstRegistrationToolbarNextButton.isEnabled = titleEdit.isNotEmpty() && introductionEdit.isNotEmpty()
+            }
+        })
+
+        binding.farmFirstRegistrationFarmIntroductionEdit.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                val introductionEdit = binding.farmFirstRegistrationFarmIntroductionEdit
+                val introductionLength = introductionEdit.text.toString().length
+                binding.introductionEditCount.text = introductionLength.toString()
+                if (introductionLength > 150) {
+                    introductionEdit.setText(introductionEdit.toString().substring(0, 150))
+                    introductionEdit.setSelection(introductionLength)
+                }
+            }
+            override fun afterTextChanged(p0: Editable?) {
+                val titleEdit = binding.farmFirstRegistrationFarmTitleEdit.text.toString()
+                val introductionEdit = binding.farmFirstRegistrationFarmIntroductionEdit.text.toString()
+                binding.farmFirstRegistrationToolbarNextButton.isEnabled = titleEdit.isNotEmpty() && introductionEdit.isNotEmpty()
+            }
+        })
     }
 }
