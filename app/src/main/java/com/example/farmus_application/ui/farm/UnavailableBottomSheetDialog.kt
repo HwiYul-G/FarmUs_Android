@@ -11,17 +11,15 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class UnavailableBottomSheetDialog: BottomSheetDialogFragment() {
 
-    private lateinit var bottomSheetUnavailableBinding: DialogBottomSheetUnavailableBinding
+    private lateinit var binding: DialogBottomSheetUnavailableBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        bottomSheetUnavailableBinding = DataBindingUtil.inflate(inflater, R.layout.dialog_bottom_sheet_unavailable, container, false)
-        val view = bottomSheetUnavailableBinding
+        binding = DataBindingUtil.inflate(inflater, R.layout.dialog_bottom_sheet_unavailable, container, false)
 
-
-        return view.root
+        return binding.root
     }
 }

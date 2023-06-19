@@ -100,7 +100,7 @@ class SignupActivity : AppCompatActivity() {
     }
     // 로그인 액티비티로 전환
     fun BacktoTermsActivity(){
-        val terms_intent = Intent(this, TermsActivity::class.java)
+//        val terms_intent = Intent(this, TermsActivity::class.java)
         if(!isFinishing) finish()
     }
 }
