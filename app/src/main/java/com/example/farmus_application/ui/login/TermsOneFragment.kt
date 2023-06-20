@@ -14,11 +14,11 @@ class TermsOneFragment: Fragment(){
 
     private lateinit var viewBinding : FragmentTermsOneBinding
 
-    var TermsActivity: TermsActivity? = null
+    private var termsActivity: TermsActivity? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        TermsActivity = context as TermsActivity
+        termsActivity = context as TermsActivity
     }
 
     override fun onCreateView(
@@ -31,12 +31,12 @@ class TermsOneFragment: Fragment(){
         // 클릭 시 프래그먼트 종료 후 메인 액티비티 다시 활성화
         viewBinding.temrsOneToolbar.toolbarDeleteButton.setOnClickListener {
             activity?.supportFragmentManager?.beginTransaction()?.remove(this)?.commit()
-            TermsActivity!!.activateMainLayout()
+            termsActivity!!.activateMainLayout()
         }
 
         //클릭 시 다음 프래그먼트로 스왑
         viewBinding.temrsOneToolbar.toolbarNextButton.setOnClickListener {
-            TermsActivity!!.replaceFragment(2)
+            termsActivity!!.replaceFragment(2)
         }
 
         return viewBinding.root

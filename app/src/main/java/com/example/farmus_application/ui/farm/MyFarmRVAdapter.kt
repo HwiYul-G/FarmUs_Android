@@ -8,9 +8,18 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.farmus_application.databinding.RvMyFarmItemBinding
 
-class MyFarmRVAdapter() : ListAdapter<MyFarmDataModel, MyFarmRVAdapter.ViewHolder>(diffUtil) {
+class MyFarmRVAdapter(val onClick: (MyFarmDataModel) -> Unit) : ListAdapter<MyFarmDataModel, MyFarmRVAdapter.ViewHolder>(diffUtil) {
 
     private lateinit var binding : RvMyFarmItemBinding
+//    private var listener: OnClickListener? = null
+//
+//    interface OnClickListener {
+//        fun onClick(view: View, data: MyFarmDataModel, pos: Int)
+//    }
+//
+//    fun setOnClickListener(listener: OnClickListener) {
+//        this.listener = listener
+//    }
 
     inner class ViewHolder(binding : RvMyFarmItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item : MyFarmDataModel){
@@ -18,6 +27,10 @@ class MyFarmRVAdapter() : ListAdapter<MyFarmDataModel, MyFarmRVAdapter.ViewHolde
             binding.tvLocation.text = item.location
             binding.tvFarmName.text = item.title
             binding.tvFarmSize.text = item.size
+
+            binding.root.setOnClickListener {
+                onClick(item)
+            }
         }
     }
 

@@ -17,11 +17,11 @@ class TermsThreeFragment: Fragment(){
     private lateinit var viewBinding : FragmentTermsThreeBinding
     lateinit var checkBox : CheckBox
 
-    var TermsActivity: TermsActivity? = null
+    private var termsActivity: TermsActivity? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        TermsActivity = context as TermsActivity
+        termsActivity = context as TermsActivity
     }
 
     override fun onCreateView(
@@ -34,12 +34,12 @@ class TermsThreeFragment: Fragment(){
         // 클릭 시 프래그먼트 종료 후 메인 액티비티 다시 활성화
         viewBinding.temrsThreeToolbar.toolbarDeleteButton.setOnClickListener {
             activity?.supportFragmentManager?.beginTransaction()?.remove(this)?.commit()
-            TermsActivity!!.activateMainLayout()
+            termsActivity!!.activateMainLayout()
         }
 
         //클릭 시 다음 프래그먼트로 스왑
         viewBinding.temrsThreeToolbar.toolbarNextButton.setOnClickListener {
-            TermsActivity!!.replaceFragment(4)
+            termsActivity!!.replaceFragment(4)
         }
 
         return viewBinding.root

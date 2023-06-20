@@ -1,5 +1,6 @@
 package com.example.farmus_application.ui
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -13,6 +14,16 @@ import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.user.UserApiClient
 
 class StartActivity : AppCompatActivity() {
+    init {
+        instance = this
+    }
+
+    companion object {
+        private var instance: StartActivity? = null
+        fun getInstance(): StartActivity? {
+            return instance
+        }
+    }
 
     private lateinit var startBinding: ActivityLoginStartBinding
 
@@ -21,17 +32,20 @@ class StartActivity : AppCompatActivity() {
         startBinding = ActivityLoginStartBinding.inflate(layoutInflater)
         setContentView(startBinding.root)
 
-
-        val login_intent = Intent(this, LoginActivity::class.java)
         startBinding.toLoginButton.setOnClickListener{
-            startActivity(login_intent)
-            if(!isFinishing) finish()
+            val loginIntent = Intent(this, LoginActivity::class.java)
+            startActivity(loginIntent)
+//            if(!isFinishing) finish()
         }
 
         val signup_intent = Intent(this, TermsActivity::class.java)
         startBinding.signupButton.setOnClickListener{
             startActivity(signup_intent)
-            if(!isFinishing) finish()
+//            if(!isFinishing) finish()
         }
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.e("StartActivityDestroy","StartActivityDestroy")
     }
 }

@@ -26,7 +26,7 @@ class TermsActivity : AppCompatActivity() {
 
         // 로그인 화면으로 다시 이동
         termsBinding.termsMainToolbar.toolbarWithoutTitleBackButton.setOnClickListener(){
-            BacktoLoginActivity()
+            backToLoginActivity()
         }
 
         //회원가입 두번째 화면(프래그먼트) 추가
@@ -47,6 +47,7 @@ class TermsActivity : AppCompatActivity() {
         val Singup_intent = Intent(this, SignupActivity::class.java)
         termsBinding.toSingupActivityButton.setOnClickListener{
             startActivity(Singup_intent)
+            finish()
         }
 
         // 이용약관 클릭 및 데이터 묶음 처리
@@ -87,8 +88,8 @@ class TermsActivity : AppCompatActivity() {
     }
 
     // 로그인 액티비티로 전환
-    fun BacktoLoginActivity(){
-        val login_intent = Intent(this, LoginActivity::class.java)
+    fun backToLoginActivity(){
+//        val login_intent = Intent(this, LoginActivity::class.java)
         if(!isFinishing) finish()
     }
 
@@ -112,7 +113,7 @@ class TermsActivity : AppCompatActivity() {
     }
 
     // 이용약관 동의 여부에 따른 다음 전환 버튼 활성화 여부
-    fun onCheckChanged(CheckBox: CheckBox) {
+    private fun onCheckChanged(CheckBox: CheckBox) {
         when(CheckBox.id) {
             R.id.checkbox_all -> {
                 if (checkAll.isChecked) {

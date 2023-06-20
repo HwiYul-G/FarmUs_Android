@@ -65,7 +65,8 @@ class LoginActivity : AppCompatActivity() {
 
         // 뒤로가기
         loginBinding.loginStartToolbar.toolbarWithTitleBackButton.setOnClickListener{
-            val back_intent = Intent(this,StartActivity::class.java)
+            val backIntent = Intent(this,StartActivity::class.java)
+//            startActivity(backIntent)
             if(!isFinishing) finish()
         }
 
@@ -115,8 +116,11 @@ class LoginActivity : AppCompatActivity() {
 
         //todo 로그인 API 통신 후에 메인 액티비티로 이동하도록
         loginBinding.loginButton.setOnClickListener{
-            val main_intent = Intent(this, MainActivity::class.java)
-            startActivity(main_intent)
+//            val main_intent = Intent(this, MainActivity::class.java)
+//            startActivity(main_intent)
+            val startActivity = StartActivity.getInstance()
+            startActivity?.let { it.finish() }
+            finish()
             toMainActivity()
         }
 

@@ -53,6 +53,15 @@
         <item name="bottomSheetStyle">@style/BottomSheetStyle</item>
         <item name="background">@android:color/transparent</item>
     </style>
+    
+    <style name="MyPopupMenu" parent="@style/Widget.AppCompat.PopupMenu">
+        <item name="android:popupBackground">@drawable/popup_menu_background</item>
+        <item name="fontFamily">@font/spoqa_han_sans_neo2</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:letterSpacing">-0.03</item>
+        <item name="android:textColor">@color/text_2</item>
+    </style>
 
 </resources>
 

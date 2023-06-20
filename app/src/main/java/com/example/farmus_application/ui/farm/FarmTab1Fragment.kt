@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.farmus_application.R
 import com.example.farmus_application.databinding.FragmentFarmTab1Binding
+import com.example.farmus_application.ui.MainActivity
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -72,6 +73,12 @@ class FarmTab1Fragment : Fragment() {
         rvPastItems.add(FarmDataModel(R.drawable.farm_image_example, "고덕 농장 1구획","2022.12.25.","2023.01.07"))
         rvPastItems.add(FarmDataModel(R.drawable.farm_image_example, "고덕 농장 1구획","2022.12.25.","2023.01.07"))
         rvPastItems.add(FarmDataModel(R.drawable.farm_image_example, "고덕 농장 1구획","2022.12.25.","2023.01.07"))
+
+        adapter.setOnClickListener(object: GetFarmRVAdapter.OnClickListener {
+            override fun onClick(view: View, data: FarmDataModel, pos: Int) {
+                (activity as MainActivity).changeFragment(FarmDetailFragment())
+            }
+        })
 
     }
 

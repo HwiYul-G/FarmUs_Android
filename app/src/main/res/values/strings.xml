@@ -424,5 +424,9 @@
     <string name="text_add">추가</string>
     <string name="dialog_unavailable_title">분양 불가 기간</string>
     <string name="text_remove">삭제</string>
+    <string name="farmer_farm_detail_request">요청 온 목록</string>
+    <string name="introduction_divider">/</string>
+    <string name="introduction_max">150</string>
+    <string name="introduction_zero">0</string>
 
 </resources>

@@ -20,7 +20,8 @@ import com.prolificinteractive.materialcalendarview.DayViewFacade
 
 class CalendarBottomSheetDialog: BottomSheetDialogFragment() {
 
-    private lateinit var bottomSheetDialogBinding: DialogBottomSheetCalendarBinding
+    private lateinit var binding: DialogBottomSheetCalendarBinding
+    private lateinit var firstSelectedDay: CalendarDay
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,63 +29,91 @@ class CalendarBottomSheetDialog: BottomSheetDialogFragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        bottomSheetDialogBinding = DataBindingUtil.inflate(inflater, R.layout.dialog_bottom_sheet_calendar, container, false)
-        val view = bottomSheetDialogBinding
+        binding = DataBindingUtil.inflate(inflater, R.layout.dialog_bottom_sheet_calendar, container, false)
+        val view = binding
 
-        view.bottomSheetCalendar.addDecorator(TodayDecorator(requireContext()))
-        view.bottomSheetCalendar.addDecorator(BeforeDayDecorator())
-        view.bottomSheetCalendar.setTitleFormatter { day -> "${day.month}월${day.year}년" }
-        view.bottomSheetCalendar.setLeftArrow(R.drawable.calendar_back_button_vector)
-        view.bottomSheetCalendar.setRightArrow(R.drawable.calendar_forward_button_vector)
+        return view.root
+    }
 
-        settingDateTextView()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
+        initCalendarDialog()
 
-        view.bottomSheetCalendar.setOnDateChangedListener { widget, date, _ ->
-            Log.e("setOnDateChangedListener","DateChangedClick!")
+        binding.bottomSheetCalendar.setOnDateChangedListener { widget, date, _ ->
+            Log.e("setOnDateChangedListener","$date!")
+            firstSelectedDay = date
             widget.removeDecorators()
-            widget.addDecorator(FirstDayDecorator(date))
+            widget.addDecorator(SelectedDecorator(date))
             widget.addDecorators(TodayDecorator(requireContext()), BeforeDayDecorator())
-            view.calendarStartDayYear.text = date.year.toString()
-            view.calendarStartDayMonth.text = String.format("%02d",date.month)
-            view.calendarStartDayDate.text = date.day.toString()
-            // month가 5월이면 05가 아닌 5로 나옴 -> 0을 붙혓 나오게 하던지 아니면 date변수의 string을 잘라서 사용
-            view.startDayConstraint.isSelected = true
-            view.lastDayConstraint.isSelected = false
-            view.applicationButton.isEnabled = false
+            settingCalendarStartText(date)
+            settingButtonSelect(false)
         }
 
-        view.bottomSheetCalendar.setOnRangeSelectedListener { widget, dates ->
+        binding.bottomSheetCalendar.setOnRangeSelectedListener { widget, dates ->
+            Log.e("ErrorRange","${dates}")
             val dayList = mutableListOf<CalendarDay>().apply {
                 addAll(dates)
                 removeAt(0)
                 removeAt(this.size -1)
             }
-            widget.addDecorator(LastDayDecorator(dates[dates.size -1]))
+            if (firstSelectedDay != dates[0]) {
+                widget.addDecorator(SelectedDecorator(dates[0]))
+                settingCalendarStartText(dates[0])
+            } else {
+                widget.addDecorator(SelectedDecorator(dates[dates.size -1]))
+            }
             if (dayList.size != 0) {
                 widget.addDecorator(RangeDayDecorator(dayList, requireContext()))
             }
-            view.calendarLastDayYear.text = dates[dates.size-1].year.toString()
-            view.calendarLastDayMonth.text = String.format("%02d",dates[dates.size-1].month)
-            view.calendarLastDayDate.text = dates[dates.size-1].day.toString()
-            Log.e("StartDay:","${dates[dates.size-1].year},${dates[dates.size-1].month},${dates[dates.size-1].day}")
-            view.startDayConstraint.isSelected = false
-            view.lastDayConstraint.isSelected = true
-            view.applicationButton.isEnabled = true
+            settingCalendarLastText(dates[dates.size-1])
+            settingButtonSelect(true)
         }
-
-
-        return view.root
     }
 
-    private fun settingDateTextView() {
+    private fun initCalendarDialog() {
         val today = CalendarDay.today()
-        bottomSheetDialogBinding.calendarStartDayYear.text = today.year.toString()
-        bottomSheetDialogBinding.calendarStartDayMonth.text = String.format("%02d",today.month)
-        bottomSheetDialogBinding.calendarStartDayDate.text = today.day.toString()
-        bottomSheetDialogBinding.calendarLastDayYear.text = today.year.toString()
-        bottomSheetDialogBinding.calendarLastDayMonth.text = String.format("%02d",today.month)
-        bottomSheetDialogBinding.calendarLastDayDate.text = today.day.toString()
+        settingCalendarStartText(today)
+        settingCalendarLastText(today)
+        binding.bottomSheetCalendar.apply {
+            addDecorator(TodayDecorator(requireContext()))
+            addDecorator(BeforeDayDecorator())
+            setTitleFormatter { day -> "${day.month}월${day.year}년" }
+            setLeftArrow(R.drawable.calendar_back_button_vector)
+            setRightArrow(R.drawable.calendar_forward_button_vector)
+        }
+    }
+
+    private fun settingCalendarStartText(date: CalendarDay) {
+        binding.apply {
+            calendarStartDayYear.text = date.year.toString()
+            calendarStartDayMonth.text = String.format("%02d",date.month)
+            calendarStartDayDate.text = date.day.toString()
+        }
+    }
+
+    private fun settingCalendarLastText(date: CalendarDay) {
+        binding.apply {
+            calendarLastDayYear.text = date.year.toString()
+            calendarLastDayMonth.text = String.format("%02d",date.month)
+            calendarLastDayDate.text = date.day.toString()
+        }
+    }
+
+    private fun settingButtonSelect(selected: Boolean) {
+        if (selected) {
+            binding.apply {
+                startDayConstraint.isSelected = false
+                lastDayConstraint.isSelected = true
+                applicationButton.isEnabled = true
+            }
+        } else {
+            binding.apply {
+                startDayConstraint.isSelected = true
+                lastDayConstraint.isSelected = false
+                applicationButton.isEnabled = false
+            }
+        }
     }
 
 }
@@ -121,16 +150,6 @@ class BeforeDayDecorator: DayViewDecorator {
     }
 }
 
-class FirstDayDecorator(private val firstDay: CalendarDay): DayViewDecorator {
-
-    override fun shouldDecorate(day: CalendarDay?): Boolean {
-        return day == firstDay
-    }
-
-    override fun decorate(view: DayViewFacade?) {
-        view?.addSpan(ForegroundColorSpan(Color.parseColor("#ffffff")))
-    }
-}
 class RangeDayDecorator(
     private val days: List<CalendarDay>,
     context: Context
@@ -143,12 +162,13 @@ class RangeDayDecorator(
 
     override fun decorate(view: DayViewFacade?) {
         view?.setSelectionDrawable(drawable)
+        view?.setDaysDisabled(true)
     }
 }
-class LastDayDecorator(private val lastDay: CalendarDay): DayViewDecorator {
 
+class SelectedDecorator(private val selectedDay: CalendarDay): DayViewDecorator {
     override fun shouldDecorate(day: CalendarDay?): Boolean {
-        return day == lastDay
+        return day == selectedDay
     }
 
     override fun decorate(view: DayViewFacade?) {

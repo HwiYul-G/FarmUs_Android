@@ -1,5 +1,6 @@
 package com.example.farmus_application.ui.farm
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.example.farmus_application.R
 import com.example.farmus_application.databinding.FragmentFarmDetailBinding
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.example.farmus_application.ui.MainActivity
 
 class FarmDetailFragment: Fragment() {
 
@@ -27,10 +28,19 @@ class FarmDetailFragment: Fragment() {
             bottomSheetDialog.show(parentFragmentManager, "bottomSheetDialog")
         }
 
+        farmDetailBinding.farmDetailToolbar.toolbarWithoutTitleBackButton.apply {
+            setBackgroundColor(Color.TRANSPARENT)
+            setImageResource(R.drawable.back_vector_image_white)
+            setOnClickListener { (activity as MainActivity).changeFragment(FarmFragment()) }
+        }
+
+
         return view.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
     }
 }

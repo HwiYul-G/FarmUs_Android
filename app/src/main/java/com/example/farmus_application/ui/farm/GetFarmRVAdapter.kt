@@ -1,6 +1,7 @@
 package com.example.farmus_application.ui.farm
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -11,6 +12,15 @@ import com.example.farmus_application.databinding.RvMyFarmItemBinding
 class GetFarmRVAdapter() : ListAdapter<FarmDataModel, GetFarmRVAdapter.ViewHolder>(diffUtil) {
 
     private lateinit var binding: RvGetFarmItemBinding
+
+    interface OnClickListener {
+        fun onClick(view: View, data: FarmDataModel, pos: Int)
+    }
+
+    private var listener: OnClickListener? = null
+    fun setOnClickListener(listener: OnClickListener) {
+        this.listener = listener
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) : GetFarmRVAdapter.ViewHolder {
         binding = RvGetFarmItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -29,6 +39,10 @@ class GetFarmRVAdapter() : ListAdapter<FarmDataModel, GetFarmRVAdapter.ViewHolde
             binding.rvItemTitle.text = item.title
             binding.rvItemStartDay.text = item.startDay
             binding.rvItemEndDay.text = item.endDay
+
+            binding.root.setOnClickListener {
+                listener?.onClick(binding.root, item, absoluteAdapterPosition)
+            }
         }
     }
     companion object{
