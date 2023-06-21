@@ -1,4 +1,4 @@
-package com.example.farmus_application.model.login
+package com.example.farmus_application.model.user
 
 data class SignUpRes(
     val code: Int,

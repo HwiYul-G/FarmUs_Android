@@ -1,16 +1,13 @@
 package com.example.farmus_application.network
 
-import com.example.farmus_application.model.FarmDetail
-import com.example.farmus_application.model.login.SignUpReq
-import com.example.farmus_application.model.login.SignUpRes
+import com.example.farmus_application.model.user.SignUpReq
+import com.example.farmus_application.model.user.SignUpRes
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
-import retrofit2.http.GET
 import retrofit2.http.POST
-import kotlin.math.log
 
 interface ApiClient {
 
