@@ -1,24 +1,18 @@
 package com.example.farmus_application.network
 
-import com.example.farmus_application.model.user.SignUpReq
-import com.example.farmus_application.model.user.SignUpRes
+import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
+import kotlinx.serialization.json.Json
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.Body
-import retrofit2.http.POST
 
-interface ApiClient {
-
-    // suspend 함수 작성
-    @POST("/user/signup")
-    suspend fun postSignUp(@Body params: SignUpReq) : SignUpRes
+interface BaseApiClient {
 
     companion object {
         private const val baseUrl = "http://101.101.218.107:3000/"
 
-        fun create(): ApiClient {
+        fun create(): Retrofit {
             val logger = HttpLoggingInterceptor().apply {
                 level = HttpLoggingInterceptor.Level.BASIC
             }
@@ -29,10 +23,10 @@ interface ApiClient {
 
             return Retrofit.Builder()
                 .baseUrl(baseUrl)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(Json{ ignoreUnknownKeys = true }
+                    .asConverterFactory("application/json".toMediaType()))
                 .client(client)
                 .build()
-                .create(ApiClient::class.java)
         }
     }
 
