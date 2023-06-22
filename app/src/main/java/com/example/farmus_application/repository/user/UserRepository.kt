@@ -19,5 +19,29 @@ class UserRepository(
         return userApiClient.postLogin(params = params)
     }
 
+    override suspend fun postUserSignupVerification(phoneNumber: String): String {
+        return userApiClient.postUserSignupVerification(phoneNumber = phoneNumber)
+    }
+
+    override suspend fun postUserVerification(verificationNumber: String): Boolean {
+        return userApiClient.postUserVerification(verificationNumber = verificationNumber)
+    }
+
+    override suspend fun getUserFindAccount(name: String, phoneNumber: String): String {
+        return userApiClient.getUserFindAccount(name = name, phoneNumber = phoneNumber)
+    }
+
+    override suspend fun getUserFindPassword(email: String): String {
+        return userApiClient.getUserFindPassword(email = email)
+    }
+
+    override suspend fun patchUserWithdrawal(email: String): Boolean {
+        return userApiClient.patchUserWithdrawal(email = email)
+    }
+
+    override suspend fun postUserStarFarmid(farmid: String): String {
+        return userApiClient.postUserStarFarmid(farmid = farmid)
+    }
+
 
 }
