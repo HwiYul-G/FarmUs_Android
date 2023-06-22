@@ -15,9 +15,11 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.example.farmus_application.databinding.ActivityLoginMainBinding
 import com.example.farmus_application.ui.MainActivity
 import com.example.farmus_application.ui.StartActivity
+import com.example.farmus_application.viewmodel.login.LoginViewModel
 import com.kakao.sdk.auth.AuthApiClient
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.ClientError
@@ -55,10 +57,12 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private lateinit var loginBinding: ActivityLoginMainBinding
+    private lateinit var viewModel: LoginViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         loginBinding = ActivityLoginMainBinding.inflate(layoutInflater)
+        viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
         setContentView(loginBinding.root)
 
         loginBinding.loginStartToolbar.toolbarMainTitleText.text = "시작화면"
@@ -118,6 +122,11 @@ class LoginActivity : AppCompatActivity() {
         loginBinding.loginButton.setOnClickListener{
 //            val main_intent = Intent(this, MainActivity::class.java)
 //            startActivity(main_intent)
+            viewModel.userLogin(
+                email = editTextID.text.toString(),
+                password = editTextPW.text.toString()
+            )
+
             val startActivity = StartActivity.getInstance()
             startActivity?.let { it.finish() }
             finish()
