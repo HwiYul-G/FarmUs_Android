@@ -1,4 +1,4 @@
-package com.example.farmus_application.model
+package com.example.farmus_application.model.farm
 
 //data class FarmDetail (
 //        val category: String,
