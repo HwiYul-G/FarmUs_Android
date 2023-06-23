@@ -1,11 +1,9 @@
 package com.example.farmus_application.network
 
-import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
-import kotlinx.serialization.json.Json
-import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 interface BaseApiClient {
 
@@ -23,8 +21,7 @@ interface BaseApiClient {
 
             return Retrofit.Builder()
                 .baseUrl(baseUrl)
-                .addConverterFactory(Json{ ignoreUnknownKeys = true }
-                    .asConverterFactory("application/json".toMediaType()))
+                .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build()
         }
