@@ -1,9 +1,6 @@
 package com.example.farmus_application.repository.user
 
-import com.example.farmus_application.model.user.LoginReq
-import com.example.farmus_application.model.user.LoginRes
-import com.example.farmus_application.model.user.SignUpReq
-import com.example.farmus_application.model.user.SignUpRes
+import com.example.farmus_application.model.user.*
 
 interface UserDataSource {
 
@@ -12,25 +9,21 @@ interface UserDataSource {
 
     suspend fun postUserLogin(params: LoginReq): LoginRes
 
-    // 휴대전화 번호를 입력받아서 그 번호로 인증번호를 보냄(인증결과를 String으로? or Int로)
-    suspend fun postUserSignupVerification(phoneNumber : String) : String
+    suspend fun postUserSignupVerification(params : SignUpVerificationReq) : SignUpVerificationRes
 
-    // 인증번호를 입력받아서 true인지 false인지 확인
-    suspend fun postUserVerification(verificationNumber : String) : Boolean
+    suspend fun postUserVerification(params : VerificationReq) : VerificationRes
 
-    // name과 phoneNumber로 아이디를 찾음
-    suspend fun getUserFindAccount(name : String, phoneNumber : String) : String
+    suspend fun getUserFindAccount(params : FindAccountReq) : FindAccountRes
 
-    // user email로 비밀번호 찾음
-    suspend fun getUserFindPassword(email : String) : String
+    suspend fun getUserFindPassword(params : FindPasswordReq) : FindPasswordRes
 
     // userEmail을 검색해서 회원 탈퇴
-    suspend fun patchUserWithdrawal(email : String) : Boolean
+    // suspend fun patchUserWithdrawal(params : WithdrawalReq) : ResResult
 
     // 농장 id를 입력받아서 해당 id를 post해야함
-    suspend fun postUserStarFarmid(farmid : String) : String
+    // suspend fun postUserStarFarmid(params : FarmidReq) : FarmidRes
 
-    // 사용자의 생년월일에 대한 data type이 아직 존재하지 않음
-    // suspend fun postUserBirth()
+    // user의 생일을 입력받아서 수정하는 함수
+    // suspend fun postUserBirth(params : BirthReq) : BirthRes
 
 }

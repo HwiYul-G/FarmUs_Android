@@ -1,10 +1,7 @@
 package com.example.farmus_application.repository.user
 
 import com.example.farmus_application.ServiceLocator
-import com.example.farmus_application.model.user.LoginReq
-import com.example.farmus_application.model.user.LoginRes
-import com.example.farmus_application.model.user.SignUpReq
-import com.example.farmus_application.model.user.SignUpRes
+import com.example.farmus_application.model.user.*
 import com.example.farmus_application.network.UserApiClient
 
 class UserRepository(
@@ -19,29 +16,36 @@ class UserRepository(
         return userApiClient.postLogin(params = params)
     }
 
-    override suspend fun postUserSignupVerification(phoneNumber: String): String {
-        return userApiClient.postUserSignupVerification(phoneNumber = phoneNumber)
+    override suspend fun postUserSignupVerification(params : SignUpVerificationReq): SignUpVerificationRes {
+        return userApiClient.postUserSignupVerification(params = params)
     }
 
-    override suspend fun postUserVerification(verificationNumber: String): Boolean {
+    override suspend fun postUserVerification(params : VerificationReq): VerificationRes {
         return userApiClient.postUserVerification(verificationNumber = verificationNumber)
     }
 
-    override suspend fun getUserFindAccount(name: String, phoneNumber: String): String {
-        return userApiClient.getUserFindAccount(name = name, phoneNumber = phoneNumber)
+    // == get과 patch에 대한
+    override suspend fun getUserFindAccount(params : FindAccountReq): FindAccountRes {
+        return userApiClient.getUserFindAccount(params = params)
     }
 
-    override suspend fun getUserFindPassword(email: String): String {
-        return userApiClient.getUserFindPassword(email = email)
+    override suspend fun getUserFindPassword(params : FindPasswordReq): FindPasswordRes {
+        return userApiClient.getUserFindPassword(params = params)
     }
 
-    override suspend fun patchUserWithdrawal(email: String): Boolean {
-        return userApiClient.patchUserWithdrawal(email = email)
-    }
+    // data class 이름 임시로 해놓았습니다.
+//    override suspend fun patchUserWithdrawal(params : WithdrawalReq): ResResult{
+//        return userApiClient.patchUserWithdrawal(params = params)
+//    }
 
-    override suspend fun postUserStarFarmid(farmid: String): String {
-        return userApiClient.postUserStarFarmid(farmid = farmid)
-    }
+//    override suspend fun postUserStarFarmid(params : StarFarmidReq): StarFarmidRes {
+//        return userApiClient.postUserStarFarmid(params = params)
+//    }
+
+
+//    override suspend fun postUserBirth(params : BirthReq): BirthRes {
+//        return userApiClient.postUserBirth(params = params)
+//    }
 
 
 }
