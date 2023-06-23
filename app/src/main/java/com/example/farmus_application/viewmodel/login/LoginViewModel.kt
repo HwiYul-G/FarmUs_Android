@@ -37,7 +37,7 @@ class LoginViewModel() : ViewModel(){
                 )
                 val response = userRepo.postUserLogin(loginReq)
 
-                Log.e("code : ", response.toString())
+                Log.e("code : ", response.body().toString())
             } catch (e: Exception) {
                 e.printStackTrace()
             }
