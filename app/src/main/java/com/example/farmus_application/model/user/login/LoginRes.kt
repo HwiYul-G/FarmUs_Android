@@ -6,5 +6,5 @@ data class LoginRes(
     @SerializedName("code") val code: Int,
     @SerializedName("isSuccess") val isSuccess: Boolean,
     @SerializedName("message") val message: String,
-    @SerializedName("result") val result: LoginResult
+    @SerializedName("result") val result: Boolean
 )
