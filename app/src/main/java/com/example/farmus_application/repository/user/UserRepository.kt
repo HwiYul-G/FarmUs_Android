@@ -17,43 +17,43 @@ import retrofit2.Response
 
 class UserRepository(
     private val userApiClient: UserApiClient = ServiceLocator.userApiClient
-): UserDataSource {
+) {
 
-    override suspend fun postUserSignup(params: SignUpReq): Response<SignUpRes> {
+    suspend fun postUserSignup(params: SignUpReq): Response<SignUpRes> {
         return userApiClient.postSignUp(params = params)
     }
 
-    override suspend fun postUserLogin(params: LoginReq): Response<LoginRes> {
+    suspend fun postUserLogin(params: LoginReq): Response<LoginRes> {
         return userApiClient.postLogin(params = params)
     }
 
-    override suspend fun postUserSignupVerification(params : SignUpVerificationReq): Response<SignUpVerificationRes> {
+    suspend fun postUserSignupVerification(params : SignUpVerificationReq): Response<SignUpVerificationRes> {
         return userApiClient.postUserSignupVerification(params = params)
     }
 
-    override suspend fun postUserVerification(params : VerificationReq): Response<VerificationRes> {
+    suspend fun postUserVerification(params : VerificationReq): Response<VerificationRes> {
         return userApiClient.postUserVerification(params = params)
     }
 
     // == get과 patch에 대한
-    override suspend fun getUserFindAccount(name : String, phoneNumber : String): Response<FindAccountRes> {
+    suspend fun getUserFindAccount(name : String, phoneNumber : String): Response<FindAccountRes> {
         return userApiClient.getUserFindAccount(name = name, phoneNumber = phoneNumber)
     }
 
-    override suspend fun getUserFindPassword(userEmail : String): Response<FindPasswordRes> {
+    suspend fun getUserFindPassword(userEmail : String): Response<FindPasswordRes> {
         return userApiClient.getUserFindPassword(userEmail = userEmail)
     }
 
-    override suspend fun patchUserWithdrawal(userEmail: String): Response<WithdrawalRes>{
+    suspend fun patchUserWithdrawal(userEmail: String): Response<WithdrawalRes>{
         return userApiClient.patchUserWithdrawal(userEmail = userEmail)
     }
 
-//    override suspend fun postUserStarFarmid(params : StarFarmidReq): StarFarmidRes {
+//    suspend fun postUserStarFarmid(params : StarFarmidReq): StarFarmidRes {
 //        return userApiClient.postUserStarFarmid(params = params)
 //    }
 
 
-//    override suspend fun postUserBirth(params : BirthReq): BirthRes {
+//    suspend fun postUserBirth(params : BirthReq): BirthRes {
 //        return userApiClient.postUserBirth(params = params)
 //    }
 
