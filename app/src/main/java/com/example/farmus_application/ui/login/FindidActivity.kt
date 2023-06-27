@@ -8,13 +8,16 @@ import android.text.TextWatcher
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.farmus_application.databinding.ActivityFindIdBinding
 import com.example.farmus_application.ui.StartActivity
+import com.example.farmus_application.viewmodel.findAccount.FindAccountViewModel
 
 class FindidActivity : AppCompatActivity() {
 
     private lateinit var findIdBinding: ActivityFindIdBinding
+    private val findAccountViewModel : FindAccountViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -107,6 +110,13 @@ class FindidActivity : AppCompatActivity() {
             findIdBinding.findidMainLayout.visibility = View.INVISIBLE
             findIdBinding.findidMainLayout.isClickable = false
             findIdBinding.findidMainLayout.isFocusable = false
+
+            // TODO : 아이디 찾기
+            // VM으로 받은 결과에는 result(true/false 여부)와 id가 들어있어야함.
+            // result가 true이면 id 값을 bundle로 넘기고
+            // result가 false이먄 id를 찾을 수 없다고 bundle로 넘기는 로직 처리 필요
+            findAccountViewModel.findAccount(editTextName.text.toString(), editTextNum.text.toString())
+
 
             val bundle = Bundle()
             bundle.putString("nameText", "${editTextName.text}")
