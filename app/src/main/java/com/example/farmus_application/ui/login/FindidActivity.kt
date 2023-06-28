@@ -11,6 +11,8 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.farmus_application.databinding.ActivityFindIdBinding
+import com.example.farmus_application.model.user.signup_verification.SignUpVerificationReq
+import com.example.farmus_application.model.user.verification.VerificationReq
 import com.example.farmus_application.ui.StartActivity
 import com.example.farmus_application.viewmodel.findAccount.FindAccountViewModel
 
@@ -27,6 +29,30 @@ class FindidActivity : AppCompatActivity() {
         val editTextName : EditText = findIdBinding.nameTextField
         val editTextNum : EditText = findIdBinding.phoneNumberField
         val editTextVerify : EditText = findIdBinding.verifyNumberField
+
+        // LiveData 객체에 observer 연결
+//        findAccountViewModel.authCodeResponse.observe(this, {result->
+//            // result는 SignUpVerificationRes 객체
+//            // 이를 통해 서버로부터 받은 인증 관리 응답을 처리 ( 데이터의 변경사항을 UI에 반영하는 로직)
+//            if(result.result){
+//                // 인증번호 발송 성공시 UI 로직
+//            }else{
+//                // 인증 번호 발송 실패했을 때 UI 로직
+//            }
+//
+//        })
+//        findAccountViewModel.verificationResponse.observe(this, {result->
+//            // result는 VerificationRes 객체
+//            if(result.result){
+//                // 아이디 찾기 성공시 UI 로직
+//            }else{
+//                // 아이디 찾기 실패시 UI 로직
+//            }
+////        })
+//        findAccountViewModel.findAccountResponse.observe(this, {result->
+//
+//        })
+
 
         // 추후 이전 화면에 따른 메인툴바의 설명 표시 변화 필요
         findIdBinding.findidFirstToolbar.toolbarMainTitleText.text = "아이디 찾기"
