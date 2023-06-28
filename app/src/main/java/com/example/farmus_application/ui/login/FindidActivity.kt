@@ -97,6 +97,11 @@ class FindidActivity : AppCompatActivity() {
             findIdBinding.resendVerifyButton.visibility = View.VISIBLE
             findIdBinding.timerLayout.visibility = View.VISIBLE
             findIdBinding.resendVerifyButton.isEnabled = true
+
+            // 인증번호 전송
+            val signUpVerificationReq = SignUpVerificationReq(editTextNum.text.toString())
+            findAccountViewModel.postUserSignupVerification(signUpVerificationReq)
+
             countDown.start()
         }
 
@@ -104,6 +109,11 @@ class FindidActivity : AppCompatActivity() {
         findIdBinding.resendVerifyButton.setOnClickListener {
             Toast.makeText(this, "인증번호가 재전송되었습니다.", Toast.LENGTH_LONG).show()
             countDown.cancel()
+
+            // 인증번호 전송
+            val signUpVerificationReq = SignUpVerificationReq(editTextNum.text.toString())
+            findAccountViewModel.postUserSignupVerification(signUpVerificationReq)
+
             countDown.start()
         }
 
@@ -141,8 +151,9 @@ class FindidActivity : AppCompatActivity() {
             // VM으로 받은 결과에는 result(true/false 여부)와 id가 들어있어야함.
             // result가 true이면 id 값을 bundle로 넘기고
             // result가 false이먄 id를 찾을 수 없다고 bundle로 넘기는 로직 처리 필요
-            findAccountViewModel.findAccount(editTextName.text.toString(), editTextNum.text.toString())
-
+            // findAccountViewModel.findAccount(editTextName.text.toString(), editTextNum.text.toString())
+            val verificationReq = VerificationReq(editTextNum.text.toString(), editTextVerify.text.toString(), editTextVerify.text.toString())
+            findAccountViewModel.postUserVerification(verificationReq)
 
             val bundle = Bundle()
             bundle.putString("nameText", "${editTextName.text}")
