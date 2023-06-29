@@ -28,7 +28,6 @@ class FindidActivity : AppCompatActivity() {
 
         val editTextName : EditText = findIdBinding.nameTextField
         val editTextNum : EditText = findIdBinding.phoneNumberField
-        val editTextVerify : EditText = findIdBinding.verifyNumberField
 
         // LiveData 객체에 observer 연결
 //        findAccountViewModel.authCodeResponse.observe(this, {result->
@@ -64,61 +63,21 @@ class FindidActivity : AppCompatActivity() {
             if(!isFinishing) finish()
         }
 
-        // 전화번호 입력 여부에 따라 인증 버튼 활성화/비활성화
-        editTextNum.addTextChangedListener(object : TextWatcher {
+
+        // 이름과 인증번호 입력 완료시에만 아이디 찾기 버튼 활성화/비활성화
+        editTextName.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             }
             override fun afterTextChanged(s: Editable?) {
-                if(s!=null && s.toString() != ""){
-                    findIdBinding.sendVerifyButton.isEnabled = true
-                } else {
-                    findIdBinding.sendVerifyButton.isEnabled = false
+                findIdBinding.findIdButton.isEnabled = false
+                if((s!=null && s.toString() != "") && (editTextNum.text.toString()!=null&&editTextNum.text.toString()!="")){
+                    findIdBinding.findIdButton.isEnabled = true
                 }
             }
         })
 
-        // 타이머 설정
-        val countDown = object : CountDownTimer(120000, 1000) {
-            override fun onTick(p0: Long) {
-                // countDownInterval 마다 호출 (여기선 1000ms)
-                findIdBinding.timerMinute.text = (p0 / (1000*60)).toString()
-                findIdBinding.timerSecond.text = ((p0 % (1000*60))/1000).toString()
-            }
-            override fun onFinish() {
-                // 타이머가 종료되면 호출
-            }
-        }
-
-        //인증 버튼 누를 경우 인증번호 입력 칸 및 버튼 표시
-        findIdBinding.sendVerifyButton.setOnClickListener{
-            findIdBinding.verifySentMessage.visibility = View.VISIBLE
-            editTextVerify.visibility = View.VISIBLE
-            findIdBinding.resendVerifyButton.visibility = View.VISIBLE
-            findIdBinding.timerLayout.visibility = View.VISIBLE
-            findIdBinding.resendVerifyButton.isEnabled = true
-
-            // 인증번호 전송
-            val signUpVerificationReq = SignUpVerificationReq(editTextNum.text.toString())
-            findAccountViewModel.postUserSignupVerification(signUpVerificationReq)
-
-            countDown.start()
-        }
-
-        //재전송 버튼 클릭 시 제한시간 초기화 및 안내 문구
-        findIdBinding.resendVerifyButton.setOnClickListener {
-            Toast.makeText(this, "인증번호가 재전송되었습니다.", Toast.LENGTH_LONG).show()
-            countDown.cancel()
-
-            // 인증번호 전송
-            val signUpVerificationReq = SignUpVerificationReq(editTextNum.text.toString())
-            findAccountViewModel.postUserSignupVerification(signUpVerificationReq)
-
-            countDown.start()
-        }
-
-        // 이름과 인증번호 입력 완료시에만 아이디 찾기 버튼 활성화/비활성화
-        editTextVerify.addTextChangedListener(object : TextWatcher {
+        editTextNum.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             }
@@ -129,17 +88,10 @@ class FindidActivity : AppCompatActivity() {
                 }
             }
         })
-        editTextName.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            }
-            override fun afterTextChanged(s: Editable?) {
-                findIdBinding.findIdButton.isEnabled = false
-                if((s!=null && s.toString() != "") && (editTextVerify.text.toString()!=null&&editTextVerify.text.toString()!="")){
-                    findIdBinding.findIdButton.isEnabled = true
-                }
-            }
-        })
+        
+        // clear 버튼(x버튼) 클릭시 name, phone number text field 클리어
+        findIdBinding.nameTextFieldClear.setOnClickListener { editTextName.setText("") }
+        findIdBinding.phoneNumberTextFieldClear.setOnClickListener { editTextNum.setText("") }
 
         // 아이디 찾기 화면(프래그먼트) 추가
         findIdBinding.findIdButton.setOnClickListener{
@@ -152,8 +104,6 @@ class FindidActivity : AppCompatActivity() {
             // result가 true이면 id 값을 bundle로 넘기고
             // result가 false이먄 id를 찾을 수 없다고 bundle로 넘기는 로직 처리 필요
             // findAccountViewModel.findAccount(editTextName.text.toString(), editTextNum.text.toString())
-            val verificationReq = VerificationReq(editTextNum.text.toString(), editTextVerify.text.toString(), editTextVerify.text.toString())
-            findAccountViewModel.postUserVerification(verificationReq)
 
             val bundle = Bundle()
             bundle.putString("nameText", "${editTextName.text}")
