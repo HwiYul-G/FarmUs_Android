@@ -22,6 +22,7 @@ class FindPasswordViewModel : ViewModel(){
                     responseBody?.let {
                         if(it.result){
                             // 비밀번호를 찾은 경우
+                            Log.d("FindPassword Success : ", response.body().toString())
                             findPasswordResponse.postValue(it)
                         }else{
                             // 비밀번호를 찾지 못한 경우
