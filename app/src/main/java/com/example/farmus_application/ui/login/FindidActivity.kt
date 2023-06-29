@@ -2,17 +2,13 @@ package com.example.farmus_application.ui.login
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.CountDownTimer
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.EditText
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.farmus_application.databinding.ActivityFindIdBinding
-import com.example.farmus_application.model.user.signup_verification.SignUpVerificationReq
-import com.example.farmus_application.model.user.verification.VerificationReq
 import com.example.farmus_application.ui.StartActivity
 import com.example.farmus_application.viewmodel.findAccount.FindAccountViewModel
 
