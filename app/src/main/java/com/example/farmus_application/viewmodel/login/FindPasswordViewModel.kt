@@ -1,4 +1,4 @@
-package com.example.farmus_application.viewmodel.findPW
+package com.example.farmus_application.viewmodel.login
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData

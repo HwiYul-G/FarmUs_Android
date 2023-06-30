@@ -10,7 +10,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.farmus_application.databinding.ActivityFindIdBinding
 import com.example.farmus_application.ui.StartActivity
-import com.example.farmus_application.viewmodel.findAccount.FindAccountViewModel
+import com.example.farmus_application.viewmodel.login.FindAccountViewModel
 
 class FindidActivity : AppCompatActivity() {
 
