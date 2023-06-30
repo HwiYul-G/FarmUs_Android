@@ -17,33 +17,34 @@ import retrofit2.Response
 
 class UserRepository(
     private val userApiClient: UserApiClient = ServiceLocator.userApiClient
-) {
+) : UserDataSourceInterface{
 
-    suspend fun postUserSignup(params: SignUpReq): Response<SignUpRes> {
+    override suspend fun postUserSignup(params: SignUpReq): Response<SignUpRes> {
         return userApiClient.postSignUp(params = params)
     }
 
-    suspend fun postUserLogin(params: LoginReq): Response<LoginRes> {
+    override suspend fun postUserLogin(params: LoginReq): Response<LoginRes> {
         return userApiClient.postLogin(params = params)
     }
 
-    suspend fun postUserSignupVerification(params : SignUpVerificationReq): Response<SignUpVerificationRes> {
+    override suspend fun postUserSignupVerification(params : SignUpVerificationReq): Response<SignUpVerificationRes> {
         return userApiClient.postUserSignupVerification(params = params)
     }
 
-    suspend fun postUserVerification(params : VerificationReq): Response<VerificationRes> {
+    override suspend fun postUserVerification(params : VerificationReq): Response<VerificationRes> {
         return userApiClient.postUserVerification(params = params)
     }
 
-    suspend fun getUserFindAccount(name : String, phoneNumber : String): Response<FindAccountRes> {
+    // == get과 patch에 대한
+    override suspend fun getUserFindAccount(name : String, phoneNumber : String): Response<FindAccountRes> {
         return userApiClient.getUserFindAccount(name = name, phoneNumber = phoneNumber)
     }
 
-    suspend fun getUserFindPassword(userEmail : String): Response<FindPasswordRes> {
+    override suspend fun getUserFindPassword(userEmail : String): Response<FindPasswordRes> {
         return userApiClient.getUserFindPassword(userEmail = userEmail)
     }
 
-    suspend fun patchUserWithdrawal(userEmail: String): Response<WithdrawalRes>{
+    override suspend fun patchUserWithdrawal(userEmail: String): Response<WithdrawalRes>{
         return userApiClient.patchUserWithdrawal(userEmail = userEmail)
     }
 
