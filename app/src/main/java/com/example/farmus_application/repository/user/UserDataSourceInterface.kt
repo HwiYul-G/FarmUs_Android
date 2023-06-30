@@ -13,7 +13,7 @@ import com.example.farmus_application.model.user.verification.VerificationRes
 import com.example.farmus_application.model.user.withdrawal.WithdrawalRes
 import retrofit2.Response
 
-interface UserDataSource {
+interface UserDataSourceInterface {
 
     // suspend 함수 구현
     suspend fun postUserSignup(params: SignUpReq): Response<SignUpRes>
@@ -28,10 +28,8 @@ interface UserDataSource {
 
     suspend fun getUserFindPassword(userEmail : String) : Response<FindPasswordRes>
 
-     suspend fun patchUserWithdrawal(userEmail: String) : Response<WithdrawalRes>
+    suspend fun patchUserWithdrawal(userEmail: String) : Response<WithdrawalRes>
 
-    // 농장 id를 입력받아서 해당 id를 post해야함
-    // suspend fun postUserStarFarmid(params : FarmidReq) : FarmidRes
 
     // user의 생일을 입력받아서 수정하는 함수
     // suspend fun postUserBirth(params : BirthReq) : BirthRes

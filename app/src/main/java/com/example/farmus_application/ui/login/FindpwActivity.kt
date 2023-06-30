@@ -11,13 +11,14 @@ import android.view.View
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import com.example.farmus_application.databinding.ActivityFindPwBinding
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
+import com.example.farmus_application.viewmodel.findPW.FindPasswordViewModel
 import java.util.regex.Pattern
 
 class FindpwActivity : AppCompatActivity() {
 
     private lateinit var signupBinding: ActivityFindPwBinding
+    private val findPasswordViewModel : FindPasswordViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,10 +53,22 @@ class FindpwActivity : AppCompatActivity() {
         })
 
         signupBinding.sendTempPwButton.setOnClickListener {
-            val returnIntent = Intent(this, LoginActivity::class.java).apply{
-                putExtra("PW_Resent", "임시 비밀번호가 이메일로 발송되었습니다.")
+
+            findPasswordViewModel.findPassword(editTextID.text.toString())
+            if (findPasswordViewModel.findPasswordResponse.value?.result == true){
+                val returnIntent = Intent(this, LoginActivity::class.java).apply{
+                    putExtra("PW_Resent", "임시 비밀번호가 이메일로 발송되었습니다.")
+                    Log.d("FindPWActivity", "임시 비밀번호 발송 성공")
+                }
+                setResult(RESULT_OK, returnIntent)
+            }else{
+                val returnIntent = Intent(this, LoginActivity::class.java).apply{
+                    putExtra("PW_Resent", "이메일이 존재하지 않습니다. 이메일을 다시 확인해주세요.")
+                    Log.d("FindPWActivity", "임시 비밀번호 발송 실패")
+                }
+                setResult(RESULT_OK, returnIntent)
             }
-            setResult(RESULT_OK, returnIntent)
+
             if(!isFinishing) finish()
         }
 
