@@ -29,7 +29,7 @@ interface UserApiClient {
     @POST("/user/signup/verification")
     suspend fun postUserSignupVerification(@Body params: SignUpVerificationReq): Response<SignUpVerificationRes>
 
-    @POST
+    @POST("/user/verification")
     suspend fun postUserVerification(@Body params: VerificationReq): Response<VerificationRes>
 
     @GET("/user/find-account")

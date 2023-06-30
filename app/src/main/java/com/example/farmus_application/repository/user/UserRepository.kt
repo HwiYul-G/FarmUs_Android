@@ -35,7 +35,6 @@ class UserRepository(
         return userApiClient.postUserVerification(params = params)
     }
 
-    // == get과 patch에 대한
     suspend fun getUserFindAccount(name : String, phoneNumber : String): Response<FindAccountRes> {
         return userApiClient.getUserFindAccount(name = name, phoneNumber = phoneNumber)
     }
