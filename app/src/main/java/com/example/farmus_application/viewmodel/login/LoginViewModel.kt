@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.farmus_application.model.user.login.LoginReq
 import com.example.farmus_application.model.user.login.LoginRes
+import com.example.farmus_application.model.user.login.LoginResult
 import com.example.farmus_application.repository.user.UserRepository
 import kotlinx.coroutines.launch
 
@@ -25,19 +26,28 @@ factory를 응용하여 훨씬 적은 수고로 구상 클래스별 팩토리를
 실제 사용시의 코드에서 정말 깔끔하게 클래스명만 넘기는 것으로 복잡한 별도의 factory객체를 전달하지 않아도 된다.
  **/
 class LoginViewModel() : ViewModel(){
-    private val userRepo = UserRepository()
-    val loginResponse: MutableLiveData<LoginRes> = MutableLiveData()
+    private val TAG = "LoginViewModel"
 
-    fun userLogin(email: String, password: String) {
+    private val userRepo = UserRepository()
+    val loginResponse: MutableLiveData<LoginResult?> = MutableLiveData()
+    val errorResponse: MutableLiveData<String> = MutableLiveData()
+
+    fun userLogin(params: LoginReq) {
         viewModelScope.launch {
             try{
-                val loginReq = LoginReq(
-                    email = email,
-                    password = password
-                )
-                val response = userRepo.postUserLogin(loginReq)
+                val response = userRepo.postUserLogin(params)
 
-                Log.e("code : ", response.body().toString())
+                if (response.isSuccessful) {
+                    response.body()?.let {
+                        if (it.isSuccess) {
+                            loginResponse.postValue(it.result)
+                        } else {
+                            errorResponse.postValue(it.message)
+                        }
+                    }
+                } else {
+                    Log.e(TAG, response.message())
+                }
             } catch (e: Exception) {
                 e.printStackTrace()
             }
