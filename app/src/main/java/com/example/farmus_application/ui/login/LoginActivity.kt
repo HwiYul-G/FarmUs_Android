@@ -15,8 +15,10 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.farmus_application.databinding.ActivityLoginMainBinding
+import com.example.farmus_application.model.user.login.LoginReq
 import com.example.farmus_application.ui.MainActivity
 import com.example.farmus_application.ui.StartActivity
 import com.example.farmus_application.viewmodel.login.LoginViewModel
@@ -118,20 +120,27 @@ class LoginActivity : AppCompatActivity() {
             }
         })
 
-        //todo 로그인 API 통신 후에 메인 액티비티로 이동하도록
         loginBinding.loginButton.setOnClickListener{
-//            val main_intent = Intent(this, MainActivity::class.java)
-//            startActivity(main_intent)
-            viewModel.userLogin(
+            val params = LoginReq(
                 email = editTextID.text.toString(),
                 password = editTextPW.text.toString()
             )
+
+            viewModel.userLogin(params)
+        }
+
+        viewModel.loginResponse.observe(this, Observer {
+            //todo : LoginResult의 토큰 저장 및 앱 초기실행시 토큰 검사를 통해 자동로그인 로직 작성
 
             val startActivity = StartActivity.getInstance()
             startActivity?.let { it.finish() }
             finish()
             toMainActivity()
-        }
+        })
+
+        viewModel.errorResponse.observe(this, Observer {
+            Toast.makeText(this, it,Toast.LENGTH_LONG).show()
+        })
 
         // 아이디 찾기 이동
         val findID_intent = Intent(this, FindidActivity::class.java)
