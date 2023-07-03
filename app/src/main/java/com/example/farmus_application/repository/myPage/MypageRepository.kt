@@ -1,10 +1,11 @@
 package com.example.farmus_application.repository.myPage
 
+import com.example.farmus_application.ServiceLocator
 import com.example.farmus_application.model.mypage.*
 import com.example.farmus_application.network.MyPageApiClient
 
 class MypageRepository (
-    private val myPageApiClient: MyPageApiClient
+    private val myPageApiClient: MyPageApiClient = ServiceLocator.myPageApiClient
 ) : MypageDataSourceInterface{
     override suspend fun patchEditInfoNicname(email: String, params : EditInfoNicknameReq){
         myPageApiClient.patchEditInfoNickname(email, params)
