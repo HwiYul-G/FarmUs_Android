@@ -1,6 +1,5 @@
 package com.example.farmus_application.ui.login
 
-import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -8,20 +7,21 @@ import android.util.Patterns
 import android.view.View
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.commit
-import com.example.farmus_application.databinding.ActivityMainBinding
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import com.example.farmus_application.databinding.ActivitySignupFirstBinding
-import com.example.farmus_application.ui.StartActivity
+import com.example.farmus_application.viewmodel.login.SignUpViewModel
 import java.util.regex.Pattern
 
 class SignupActivity : AppCompatActivity() {
 
     private lateinit var signupBinding: ActivitySignupFirstBinding
+    private lateinit var signUpViewModel: SignUpViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         signupBinding = ActivitySignupFirstBinding.inflate(layoutInflater)
+        signUpViewModel = ViewModelProvider(this)[SignUpViewModel::class.java]
         setContentView(signupBinding.root)
 
         // 시작화면으로 다시 이동
@@ -59,33 +59,40 @@ class SignupActivity : AppCompatActivity() {
             signupBinding.signupMainLayout.visibility = View.INVISIBLE
             signupBinding.signupMainLayout.isClickable = false
             signupBinding.signupMainLayout.isFocusable = false
-            replaceFragment(2)
+            val editTextId = signupBinding.idTextField.text.toString()
+            val bundle = Bundle().apply {
+                putString("idText",editTextId)
+            }
+            replaceFragment(2, bundle)
         }
 
     }
     // 프래그먼트 변화 클래스
-    fun replaceFragment(int: Int){
+    fun replaceFragment(int: Int, bundle: Bundle){
         val transaction = supportFragmentManager.beginTransaction()
         when(int){
             2 -> {
-                val editTextID : EditText = signupBinding.idTextField
-                val bundle = Bundle()
-                bundle.putString("idText", "${editTextID.text}")
-                val S2Fragment = SignupSecondFragment()
-                S2Fragment.arguments = bundle
-                transaction.replace(signupBinding.signupFrameLayout.id, S2Fragment)
+                val signUpSecondFragment = SignupSecondFragment()
+                signUpSecondFragment.arguments = bundle
+                transaction.replace(signupBinding.signupFrameLayout.id, signUpSecondFragment)
                 transaction.addToBackStack("second")
             }
             3 -> {
-                transaction.replace(signupBinding.signupFrameLayout.id, SignupThirdFragment())
+                val signupThirdFragment = SignupThirdFragment()
+                signupThirdFragment.arguments = bundle
+                transaction.replace(signupBinding.signupFrameLayout.id, signupThirdFragment)
                 transaction.addToBackStack("third")
             }
             4 -> {
-                transaction.replace(signupBinding.signupFrameLayout.id, SignupFourthFragment())
+                val signupFourthFragment = SignupFourthFragment()
+                signupFourthFragment.arguments = bundle
+                transaction.replace(signupBinding.signupFrameLayout.id, signupFourthFragment)
                 transaction.addToBackStack("fourth")
             }
             5 -> {
-                transaction.replace(signupBinding.signupFrameLayout.id, SignupFifthFragment())
+                val signupFifthFragment = SignupFifthFragment()
+                signupFifthFragment.arguments = bundle
+                transaction.replace(signupBinding.signupFrameLayout.id, signupFifthFragment)
                 transaction.addToBackStack("fifth")
             }
         }

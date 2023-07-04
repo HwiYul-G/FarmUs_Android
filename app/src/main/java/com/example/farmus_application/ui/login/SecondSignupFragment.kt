@@ -4,7 +4,6 @@ import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,11 +17,12 @@ class SignupSecondFragment: Fragment(){
 
     private lateinit var viewBinding : FragmentSignupSecondBinding
 
-    var SignupActivity: SignupActivity? = null
+    private var signupActivity: SignupActivity? = null
+    private var pwcCheck: Boolean = false
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        SignupActivity = context as SignupActivity
+        signupActivity = context as SignupActivity
     }
 
     override fun onCreateView(
@@ -34,17 +34,36 @@ class SignupSecondFragment: Fragment(){
 
         // 뒤로가기 - 프래그먼트 교체
         viewBinding.signupIdToolbar.toolbarWithoutTitleBackButton.setOnClickListener{
-            SignupActivity!!.supportFragmentManager.beginTransaction().remove(this).commit();
-            SignupActivity!!.supportFragmentManager.popBackStack();
-            SignupActivity!!.activateMainLayout()
+            signupActivity!!.supportFragmentManager.beginTransaction().remove(this).commit()
+            signupActivity!!.supportFragmentManager.popBackStack()
+            signupActivity!!.activateMainLayout()
         }
 
-        val idText = arguments?.getString("idText")
-        viewBinding.idTextField.setText("$idText")
+        val editTextId = arguments?.getString("idText").toString()
+        viewBinding.idTextField.setText(editTextId)
 
         // 입력칸 관련 value 설정
-        val editTextPW : EditText = viewBinding.pwTextField
-        val editTextPwCheck : EditText = viewBinding.pwCheckTextField
+        val editTextPw = viewBinding.pwTextField
+        val editTextPwCheck = viewBinding.pwCheckTextField
+
+        // 비밀번호 자릿수에 따른 제한
+        editTextPw.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun afterTextChanged(s: Editable?) {
+                if (s != null && s.toString() != "") {
+                    if (s.length in 6..20) {
+                        viewBinding.pwErrorText.visibility = View.INVISIBLE
+                        pwcCheck = true
+                    } else {
+                        viewBinding.pwErrorText.visibility = View.VISIBLE
+                        pwcCheck = false
+                    }
+                } else {
+                    viewBinding.pwErrorText.visibility = View.INVISIBLE
+                }
+            }
+        })
 
         // 비밀번호 일치 확인 후 주의 메세지 여부 및 다음 버튼 활성화 여부
         editTextPwCheck.addTextChangedListener(object : TextWatcher {
@@ -53,12 +72,14 @@ class SignupSecondFragment: Fragment(){
             }
             override fun afterTextChanged(s: Editable?) {
                 if(s!=null && s.toString() != ""){
-                    if (s.toString() != editTextPW.text.toString()) {
+                    if (s.toString() != editTextPw.text.toString()) {
                         viewBinding.pwCheckWarningMessage.visibility = View.VISIBLE
                         viewBinding.toThirdSignupButton.isEnabled = false
                     } else {
                         viewBinding.pwCheckWarningMessage.visibility = View.INVISIBLE
-                        viewBinding.toThirdSignupButton.isEnabled = true
+                        if (pwcCheck) {
+                            viewBinding.toThirdSignupButton.isEnabled = true
+                        }
                     }
                 } else {
                     viewBinding.pwCheckWarningMessage.visibility = View.INVISIBLE
@@ -69,7 +90,11 @@ class SignupSecondFragment: Fragment(){
 
         //클릭 시 프래그먼트를 3번으로 스왑
         viewBinding.toThirdSignupButton.setOnClickListener {
-            SignupActivity!!.replaceFragment(3)
+            val bundle = Bundle().apply {
+                putString("idText",editTextId)
+                putString("pwText",editTextPw.text.toString())
+            }
+            signupActivity!!.replaceFragment(3,bundle)
         }
 
         return viewBinding.root
