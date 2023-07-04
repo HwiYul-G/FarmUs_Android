@@ -43,14 +43,18 @@ class SignupFourthFragment: Fragment(){
             signupActivity!!.supportFragmentManager.popBackStack()
         }
 
-        // 입력칸 관련 value 설정
-//        val editTextName : EditText = viewBinding.nameTextField
-//        val editTextNick : EditText = viewBinding.nickTextField
-        viewBinding.nameTextField.tag = "Name"
-        viewBinding.nickTextField.tag = "NickName"
+        val editTextId = arguments?.getString("idText").toString()
+        val editTextPw = arguments?.getString("pwText").toString()
+        val editTextPhone = arguments?.getString("phoneText").toString()
 
-        checkEditText(viewBinding.nameTextField)
-        checkEditText(viewBinding.nickTextField)
+        // 입력칸 관련 value 설정
+        val editTextName = viewBinding.nameTextField
+        val editTextNick = viewBinding.nickTextField
+        editTextName.tag = "Name"
+        editTextNick.tag = "NickName"
+
+        checkEditText(editTextName)
+        checkEditText(editTextNick)
         val datePickerDialog = datePickerDialog()
 
         viewBinding.selectBrithDropdown.setOnClickListener{
@@ -62,7 +66,14 @@ class SignupFourthFragment: Fragment(){
 
         // 클릭 시 프래그먼트를 5번으로 스왑
         viewBinding.toFifthSignupButton.setOnClickListener {
-            signupActivity!!.replaceFragment(5)
+            val bundle = Bundle().apply {
+                putString("idText",editTextId)
+                putString("pwText",editTextPw)
+                putString("phoneText",editTextPhone)
+                putString("nameText", editTextName.text.toString())
+                putString("nickNameText", editTextNick.text.toString())
+            }
+            signupActivity!!.replaceFragment(5, bundle)
         }
 
         return viewBinding.root
