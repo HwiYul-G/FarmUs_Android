@@ -31,7 +31,7 @@
             android:text="이용자"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/id_explain_text"
             app:layout_constraintHorizontal_bias="0.3"/>
 
         <TextView
@@ -46,7 +46,7 @@
             android:lineSpacingExtra="11sp"
             android:text="님의 아이디는"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/user_name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.7"/>
 
@@ -70,6 +70,7 @@
             android:id="@+id/id_explain_text2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textAlignment="center"
             android:fontFamily="@font/line_seed_kr_bd"
             android:textStyle="bold"
             android:textSize="22sp"
