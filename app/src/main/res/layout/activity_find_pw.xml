@@ -72,9 +72,9 @@
             style="@style/Body2Reg"
             android:layout_width="48dp"
             android:layout_height="44dp"
-            android:background="@color/white"
+            android:background="@drawable/button_fill_selector"
             android:gravity="center"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="13sp"
             app:layout_constraintTop_toTopOf="@+id/email_text_field"
             app:layout_constraintBottom_toBottomOf="@+id/email_text_field"
@@ -82,6 +82,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginStart="13dp"
             android:text="확인"
+            android:enabled="false"
             android:stateListAnimator="@null"/>
 
 

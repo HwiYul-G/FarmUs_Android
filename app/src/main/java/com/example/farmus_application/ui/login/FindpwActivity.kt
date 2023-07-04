@@ -43,7 +43,8 @@ class FindpwActivity : AppCompatActivity() {
                         signupBinding.sendTempPwButton.isEnabled = false
                     } else {
                         signupBinding.idWarningMessage.visibility = View.INVISIBLE
-                        signupBinding.sendTempPwButton.isEnabled = true
+                        signupBinding.sendTempPwButton.isEnabled = false
+                        signupBinding.idCheckButton.isEnabled = true
                     }
                 } else {
                     signupBinding.idWarningMessage.visibility = View.INVISIBLE
@@ -52,6 +53,27 @@ class FindpwActivity : AppCompatActivity() {
             }
         })
 
+        signupBinding.nameTextFieldClear.setOnClickListener {
+            editTextID.setText("")
+        }
+
+        signupBinding.idCheckButton.setOnClickListener {
+            if(signupBinding.idCheckButton.text == "확인"){
+                signupBinding.idCheckButton.text = "변경"
+                signupBinding.nameTextFieldClear.visibility = View.INVISIBLE
+                signupBinding.emailTextField.isEnabled = false
+                signupBinding.sendTempPwButton.isEnabled = true
+
+            }else if(signupBinding.idCheckButton.text == "변경"){
+                signupBinding.idCheckButton.text = "확인"
+                signupBinding.nameTextFieldClear.visibility = View.VISIBLE
+                signupBinding.emailTextField.isEnabled = true
+                signupBinding.sendTempPwButton.isEnabled = false
+            }
+
+        }
+
+        // TODO : result 화면이 생기는지 여부에 따라서 다시 할 필요 있음.
         signupBinding.sendTempPwButton.setOnClickListener {
 
             findPasswordViewModel.findPassword(editTextID.text.toString())
