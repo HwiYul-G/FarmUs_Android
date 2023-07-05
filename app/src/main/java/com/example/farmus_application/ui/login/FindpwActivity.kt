@@ -30,6 +30,12 @@ class FindpwActivity : AppCompatActivity() {
         // 추후 이전 화면에 따른 메인툴바의 설명 표시 변화 필요
         signupBinding.findpwFirstToolbar.toolbarMainTitleText.text = "비밀번호 찾기"
 
+        signupBinding.findpwFirstToolbar.toolbarWithTitleBackButton.setOnClickListener {
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
         editTextID.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
