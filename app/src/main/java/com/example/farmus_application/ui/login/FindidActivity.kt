@@ -104,16 +104,6 @@ class FindidActivity : AppCompatActivity() {
             // 아래의 코드를 수행하면 livedata로 observe
             findAccountViewModel.findAccount(editTextName.text.toString(), editTextNum.text.toString())
 
-//            val bundle = Bundle()
-//            bundle.putString("nameText", "${editTextName.text}")
-//
-//
-//            val findIdResultFragment = FindIdResultFragment()
-//            findIdResultFragment.arguments = bundle
-//
-//            val transaction = supportFragmentManager.beginTransaction()
-//                .replace(findIdBinding.findidFrameLayout.id, findIdResultFragment)
-//            transaction.commit()
         }
 
     }
