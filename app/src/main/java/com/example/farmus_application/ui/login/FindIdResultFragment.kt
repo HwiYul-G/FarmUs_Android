@@ -4,13 +4,10 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.Toast
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import com.example.farmus_application.databinding.FragmentFindIdResultBinding
 
@@ -37,13 +34,32 @@ class FindIdResultFragment: Fragment(){
         // 추후 이전 화면에 따른 메인툴바의 설명 표시 변화 필요
         viewBinding.findidFirstToolbar.toolbarMainTitleText.text = "아이디 찾기"
 
-        // 이용자 이름 연동하여 표시
-        val nameText = arguments?.getString("nameText")
-        viewBinding.userName.text = nameText
+        val code = arguments?.getInt("code", -1) // 기본값으로 -1 설정
+        when (code) {
+            0 -> {
+                val name = arguments?.getString("name")
+                val email = arguments?.getString("email")
+                viewBinding.userName.text = name
+                viewBinding.idResult.text = email
+            }
+            6004 -> {
+                val nameText = arguments?.getString("nameText")
+                val errorMessage = arguments?.getString("email")
+                viewBinding.userName.text = nameText
+                viewBinding.idExplainText.text = "님 죄송합니다."
+                viewBinding.idResult.visibility =  View.GONE
+                viewBinding.idExplainText2.text = errorMessage
+                viewBinding.copyIdText.visibility = View.GONE
 
-        // 이용자 아이디 연동하여 표시
-//        val IDText = arguments?.getString("IDText")
-//        viewBinding.idResult.text = IDText
+            }
+            else -> {
+                val nameText = arguments?.getString("nameText")
+                viewBinding.idExplainText.text = "님 죄송합니다."
+                viewBinding.idResult.visibility =  View.GONE
+                viewBinding.idExplainText2.text = "알 수 없는 문제가 발생했습니다."
+                viewBinding.copyIdText.visibility = View.GONE
+            }
+        }
 
         // 연동되어 표시된 아이디 클립보드에 복사하기
         viewBinding.copyIdText.setOnClickListener{

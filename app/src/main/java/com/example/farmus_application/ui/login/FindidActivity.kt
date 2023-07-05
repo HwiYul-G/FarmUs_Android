@@ -26,27 +26,32 @@ class FindidActivity : AppCompatActivity() {
         val editTextNum : EditText = findIdBinding.phoneNumberField
 
         // LiveData 객체에 observer 연결
-//        findAccountViewModel.authCodeResponse.observe(this, {result->
-//            // result는 SignUpVerificationRes 객체
-//            // 이를 통해 서버로부터 받은 인증 관리 응답을 처리 ( 데이터의 변경사항을 UI에 반영하는 로직)
-//            if(result.result){
-//                // 인증번호 발송 성공시 UI 로직
-//            }else{
-//                // 인증 번호 발송 실패했을 때 UI 로직
-//            }
-//
-//        })
-//        findAccountViewModel.verificationResponse.observe(this, {result->
-//            // result는 VerificationRes 객체
-//            if(result.result){
-//                // 아이디 찾기 성공시 UI 로직
-//            }else{
-//                // 아이디 찾기 실패시 UI 로직
-//            }
-////        })
-//        findAccountViewModel.findAccountResponse.observe(this, {result->
-//
-//        })
+        findAccountViewModel.findAccountRes.observe(this) {findAccountRes->
+            val bundle = Bundle()
+            when (findAccountRes.code) {
+                0 -> {
+                    bundle.putInt("code", findAccountRes.code)
+                    bundle.putString("name", "${editTextName.text}")
+                    bundle.putString("email", findAccountRes.email)
+                }
+                6004 -> {
+                    bundle.putInt("code", findAccountRes.code)
+                    bundle.putString("nameText", "${editTextName.text}")
+                    bundle.putString("email", "해당 정보로 가입한 회원이 존재하지 않습니다.")
+                }
+                else -> {
+                    bundle.putInt("code", findAccountRes.code)
+                    bundle.putString("nameText", "${editTextName.text}")
+                }
+            }
+            val findIdResultFragment = FindIdResultFragment()
+            findIdResultFragment.arguments = bundle
+
+            val transaction = supportFragmentManager.beginTransaction()
+                .replace(findIdBinding.findidFrameLayout.id, findIdResultFragment)
+            transaction.commit()
+
+        }
 
 
         // 추후 이전 화면에 따른 메인툴바의 설명 표시 변화 필요
@@ -67,7 +72,7 @@ class FindidActivity : AppCompatActivity() {
             }
             override fun afterTextChanged(s: Editable?) {
                 findIdBinding.findIdButton.isEnabled = false
-                if((s!=null && s.toString() != "") && (editTextNum.text.toString()!=null&&editTextNum.text.toString()!="")){
+                if((s!=null && s.toString() != "") && (editTextNum.text.toString()!="")){
                     findIdBinding.findIdButton.isEnabled = true
                 }
             }
@@ -79,7 +84,7 @@ class FindidActivity : AppCompatActivity() {
             }
             override fun afterTextChanged(s: Editable?) {
                 findIdBinding.findIdButton.isEnabled = false
-                if((s!=null && s.toString() != "") && (editTextName.text.toString()!=null&&editTextName.text.toString()!="")){
+                if((s!=null && s.toString() != "") && (editTextName.text.toString()!="")){
                     findIdBinding.findIdButton.isEnabled = true
                 }
             }
@@ -95,21 +100,10 @@ class FindidActivity : AppCompatActivity() {
             findIdBinding.findidMainLayout.isClickable = false
             findIdBinding.findidMainLayout.isFocusable = false
 
-            // TODO : 아이디 찾기
-            // VM으로 받은 결과에는 result(true/false 여부)와 id가 들어있어야함.
-            // result가 true이면 id 값을 bundle로 넘기고
-            // result가 false이먄 id를 찾을 수 없다고 bundle로 넘기는 로직 처리 필요
-            // findAccountViewModel.findAccount(editTextName.text.toString(), editTextNum.text.toString())
 
-            val bundle = Bundle()
-            bundle.putString("nameText", "${editTextName.text}")
+            // 아래의 코드를 수행하면 livedata로 observe
+            findAccountViewModel.findAccount(editTextName.text.toString(), editTextNum.text.toString())
 
-            val findIdResultFragment = FindIdResultFragment()
-            findIdResultFragment.arguments = bundle
-
-            val transaction = supportFragmentManager.beginTransaction()
-                .replace(findIdBinding.findidFrameLayout.id, findIdResultFragment)
-            transaction.commit()
         }
 
     }
