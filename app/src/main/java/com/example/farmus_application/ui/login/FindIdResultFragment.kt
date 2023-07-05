@@ -70,6 +70,10 @@ class FindIdResultFragment: Fragment(){
             Toast.makeText(requireActivity(), "아이디가 복사되었습니다.", Toast.LENGTH_LONG).show()
         }
 
+        viewBinding.findidFirstToolbar.toolbarWithTitleBackButton.setOnClickListener {
+            FindidActivity!!.BacktoLoginActivity()
+        }
+
         // 클릭 시 프래그먼트를 메인 로그인 페이지로 스왑
         viewBinding.backToLoginButton.setOnClickListener {
             FindidActivity!!.BacktoLoginActivity()
