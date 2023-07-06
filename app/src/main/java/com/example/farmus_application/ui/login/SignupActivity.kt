@@ -1,10 +1,18 @@
 package com.example.farmus_application.ui.login
 
+import android.content.Context
+import android.hardware.input.InputManager
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.util.Patterns
+import android.view.KeyEvent
+import android.view.MotionEvent
 import android.view.View
+import android.view.View.OnTouchListener
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModel
@@ -12,6 +20,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.farmus_application.databinding.ActivitySignupFirstBinding
 import com.example.farmus_application.viewmodel.login.SignUpViewModel
 import java.util.regex.Pattern
+import kotlin.math.sign
 
 class SignupActivity : AppCompatActivity() {
 
@@ -30,27 +39,52 @@ class SignupActivity : AppCompatActivity() {
         }
 
         // 입력칸 관련 value 설정
-        val editTextID : EditText = signupBinding.idTextField
+        val editTextID = signupBinding.idTextField
+
+        editTextID.setOnEditorActionListener { view, actionId, keyEvent ->
+            var handled = false
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                // keyBoard 내리기
+                val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow(editTextID.windowToken, 0)
+
+                val editEmail = signupBinding.idTextField.text.toString()
+                val pattern = Patterns.EMAIL_ADDRESS
+                if (!pattern.matcher(editEmail).matches()) {
+                    signupBinding.idWarningMessage.text = "이메일 형식에 맞게 입력해주세요"
+                } else {
+                    // 아이디 중복체크 API 실행
+
+                }
+                handled = true
+            }
+            handled
+        }
 
         // 아이디 이메일 형식 정규식 확인 후 주의 메세지 여부 및 다음 버튼 활성화 여부
         editTextID.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                if(s!=null && s.toString() != "") {
+                    signupBinding.idTextFieldClear.visibility = View.VISIBLE
+                } else {
+                    signupBinding.idTextFieldClear.visibility = View.INVISIBLE
+                }
             }
             override fun afterTextChanged(s: Editable?) {
-                if(s!=null && s.toString() != ""){
-                    val pattern: Pattern = Patterns.EMAIL_ADDRESS
-                    if (!pattern.matcher(s).matches()) {
-                        signupBinding.idWarningMessage.visibility = View.VISIBLE
-                        signupBinding.toSecondSignupButton.isEnabled = false
-                    } else {
-                        signupBinding.idWarningMessage.visibility = View.INVISIBLE
-                        signupBinding.toSecondSignupButton.isEnabled = true
-                    }
-                } else {
-                    signupBinding.idWarningMessage.visibility = View.INVISIBLE
-                    signupBinding.toSecondSignupButton.isEnabled = false
-                }
+//                if(s!=null && s.toString() != ""){
+//                    val pattern: Pattern = Patterns.EMAIL_ADDRESS
+//                    if (!pattern.matcher(s).matches()) {
+//                        signupBinding.idWarningMessage.visibility = View.VISIBLE
+//                        signupBinding.toSecondSignupButton.isEnabled = false
+//                    } else {
+//                        signupBinding.idWarningMessage.visibility = View.INVISIBLE
+//                        signupBinding.toSecondSignupButton.isEnabled = true
+//                    }
+//                } else {
+//                    signupBinding.idWarningMessage.visibility = View.INVISIBLE
+//                    signupBinding.toSecondSignupButton.isEnabled = false
+//                }
             }
         })
 
