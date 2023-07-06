@@ -17,11 +17,11 @@ class FindIdResultFragment: Fragment(){
 
     private lateinit var viewBinding : FragmentFindIdResultBinding
 
-    var FindidActivity: FindidActivity? = null
+    private var findidActivity: FindidActivity? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        FindidActivity = context as FindidActivity
+        findidActivity = context as FindidActivity
     }
 
     override fun onCreateView(
@@ -65,7 +65,7 @@ class FindIdResultFragment: Fragment(){
 
         // 연동되어 표시된 아이디 클립보드에 복사하기
         viewBinding.copyIdText.setOnClickListener{
-            val clipboardManager = FindidActivity?.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val clipboardManager = findidActivity?.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
             val hex = viewBinding.idResult.text
             val clip : ClipData = ClipData.newPlainText("pick color", hex)
             clipboardManager.setPrimaryClip(clip)
@@ -73,12 +73,12 @@ class FindIdResultFragment: Fragment(){
         }
 
         viewBinding.findidFirstToolbar.toolbarWithTitleBackButton.setOnClickListener {
-            FindidActivity!!.BacktoLoginActivity()
+            findidActivity!!.backtoLoginActivity()
         }
 
         // 클릭 시 프래그먼트를 메인 로그인 페이지로 스왑
         viewBinding.backToLoginButton.setOnClickListener {
-            FindidActivity!!.BacktoLoginActivity()
+            findidActivity!!.backtoLoginActivity()
         }
 
         return viewBinding.root
