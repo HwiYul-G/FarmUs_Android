@@ -41,8 +41,7 @@ class FindIdResultFragment: Fragment(){
             viewBinding.userName.text = name
             viewBinding.idResult.text = email
         }else{
-            val code = arguments?.getInt("code")
-            when (code) {
+            when (arguments?.getInt("code")) {
                 6004 -> {
                     val nameText = arguments?.getString("nameText")
                     viewBinding.userName.text = nameText
@@ -54,6 +53,7 @@ class FindIdResultFragment: Fragment(){
                 }
                 else -> {
                     val nameText = arguments?.getString("nameText")
+                    viewBinding.userName.text = nameText
                     viewBinding.idExplainText.text = "님 죄송합니다."
                     viewBinding.idResult.visibility =  View.GONE
                     viewBinding.idExplainText2.text = "알 수 없는 문제가 발생했습니다."
@@ -65,7 +65,7 @@ class FindIdResultFragment: Fragment(){
 
         // 연동되어 표시된 아이디 클립보드에 복사하기
         viewBinding.copyIdText.setOnClickListener{
-            var clipboardManager = FindidActivity?.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val clipboardManager = FindidActivity?.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
             val hex = viewBinding.idResult.text
             val clip : ClipData = ClipData.newPlainText("pick color", hex)
             clipboardManager.setPrimaryClip(clip)
