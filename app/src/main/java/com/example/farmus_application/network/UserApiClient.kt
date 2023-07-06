@@ -17,6 +17,7 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.PATCH
 import retrofit2.http.POST
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface UserApiClient {
@@ -25,6 +26,9 @@ interface UserApiClient {
 
     @POST("/user/login")
     suspend fun postLogin(@Body params: LoginReq): Response<LoginRes>
+
+    @GET("/user/email/verification/{email}")
+    suspend fun getUserEmailVerification(@Path(value = "email") params: String) : Response<LoginRes>
 
     @POST("/user/signup/verification")
     suspend fun postUserSignupVerification(@Body params: SignUpVerificationReq): Response<SignUpVerificationRes>

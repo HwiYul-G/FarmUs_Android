@@ -18,6 +18,8 @@ class SignUpViewModel(): ViewModel() {
     var isVerificationSuccess: LiveData<Boolean> = _isVerificationSuccess
     private var _isUserSignUpSuccess = MutableLiveData<Boolean>()
     var isUserSignUpSuccess: LiveData<Boolean> = _isUserSignUpSuccess
+    private var _isEmailVerificationSuccess = MutableLiveData<Boolean>()
+    var isEmailVerificationSuccess: LiveData<Boolean> = _isEmailVerificationSuccess
 
     fun userSignUp(signUpReq: SignUpReq) {
         viewModelScope.launch {
@@ -36,6 +38,21 @@ class SignUpViewModel(): ViewModel() {
         }
     }
 
+    fun emailVerification(email: String) {
+        viewModelScope.launch {
+            try {
+                val response = userRepo.getUserEmailVerification(email)
+                if (response.isSuccessful) {
+                    Log.e("EmailVerification","${response.body()}")
+                    val result = response.body()?.isSuccess ?: false
+                    _isEmailVerificationSuccess.postValue(result)
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+
     fun signUpVerification(signUpVerificationReq: SignUpVerificationReq) {
         viewModelScope.launch {
             try {
@@ -45,6 +62,7 @@ class SignUpViewModel(): ViewModel() {
 //                    response.body()?.let {
 //                        signUpRes = it.result
 //                    }
+                    // 인증번호가 발송되었습니다 이런거 띄워주는 용도?
                 } else {
                     Log.e("SignUpVerificationCode", response.body().toString())
                 }

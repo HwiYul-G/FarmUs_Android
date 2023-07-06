@@ -20,6 +20,8 @@ interface UserDataSourceInterface {
 
     suspend fun postUserLogin(params: LoginReq): Response<LoginRes>
 
+    suspend fun getUserEmailVerification(params: String) : Response<LoginRes>
+
     suspend fun postUserSignupVerification(params : SignUpVerificationReq) : Response<SignUpVerificationRes>
 
     suspend fun postUserVerification(params : VerificationReq) : Response<VerificationRes>

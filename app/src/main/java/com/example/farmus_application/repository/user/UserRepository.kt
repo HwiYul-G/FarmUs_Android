@@ -27,6 +27,10 @@ class UserRepository(
         return userApiClient.postLogin(params = params)
     }
 
+    override suspend fun getUserEmailVerification(params: String): Response<LoginRes> {
+        return userApiClient.getUserEmailVerification(params)
+    }
+
     override suspend fun postUserSignupVerification(params : SignUpVerificationReq): Response<SignUpVerificationRes> {
         return userApiClient.postUserSignupVerification(params = params)
     }
