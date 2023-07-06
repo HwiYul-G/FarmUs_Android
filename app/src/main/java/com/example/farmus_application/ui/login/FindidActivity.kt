@@ -30,22 +30,17 @@ class FindidActivity : AppCompatActivity() {
         // LiveData 객체에 observer 연결
         findAccountViewModel.findAccountRes.observe(this) {findAccountRes->
             val bundle = Bundle()
-            when (findAccountRes.code) {
-                0 -> {
-                    bundle.putInt("code", findAccountRes.code)
-                    bundle.putString("name", "${editTextName.text}")
-                    bundle.putString("email", findAccountRes.email)
-                }
-                6004 -> {
-                    bundle.putInt("code", findAccountRes.code)
-                    bundle.putString("nameText", "${editTextName.text}")
-                    bundle.putString("email", "해당 정보로 가입한 회원이 존재하지 않습니다.")
-                }
-                else -> {
-                    bundle.putInt("code", findAccountRes.code)
-                    bundle.putString("nameText", "${editTextName.text}")
-                }
+            if(findAccountRes.result){
+                bundle.putBoolean("result", findAccountRes.result)
+                bundle.putString("name", "${editTextName.text}")
+                bundle.putString("email", findAccountRes.email)
+
+            }else{
+                bundle.putInt("code", findAccountRes.code)
+                bundle.putString("nameText", "${editTextName.text}")
+
             }
+
             val findIdResultFragment = FindIdResultFragment()
             findIdResultFragment.arguments = bundle
 
