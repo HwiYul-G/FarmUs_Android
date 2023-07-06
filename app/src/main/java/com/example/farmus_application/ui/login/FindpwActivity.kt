@@ -27,6 +27,25 @@ class FindpwActivity : AppCompatActivity() {
         // 입력칸 관련 value 설정
         val editTextID : EditText = findPwBinding.emailTextField
 
+        findPasswordViewModel.findPasswordResponse.observe(this){
+            val bundle = Bundle()
+
+            if (it.result){
+                bundle.putBoolean("PW_Resent", true)
+                bundle.putString("email", editTextID.text.toString())
+            }else{
+                bundle.putBoolean("PW_Resent", false)
+                bundle.putString("email", editTextID.text.toString())
+            }
+
+            val findPwResultFragment = FindPwResultFragment()
+            findPwResultFragment.arguments = bundle
+
+            val transaction = supportFragmentManager.beginTransaction()
+                .replace(findPwBinding.findpwFrameLayout.id, findPwResultFragment)
+            transaction.commit()
+        }
+
         // 추후 이전 화면에 따른 메인툴바의 설명 표시 변화 필요
         findPwBinding.findpwFirstToolbar.toolbarMainTitleText.text = "비밀번호 찾기"
 
@@ -78,36 +97,19 @@ class FindpwActivity : AppCompatActivity() {
 
         }
 
-        // TODO : result 화면이 생기는지 여부에 따라서 다시 할 필요 있음.
         findPwBinding.sendTempPwButton.setOnClickListener {
-            val bundle = Bundle()
+            findPwBinding.findpwMainLayout.visibility = View.INVISIBLE
+            findPwBinding.findpwMainLayout.isClickable = false
+            findPwBinding.findpwMainLayout.isFocusable = false
 
             findPasswordViewModel.findPassword(editTextID.text.toString())
-            if (findPasswordViewModel.findPasswordResponse.value?.result == true){
-                val returnIntent = Intent(this, LoginActivity::class.java).apply{
-                    bundle.putBoolean("PW_Resent", true)
-                    bundle.putString("email", editTextID.text.toString())
-                }
-            }else{
-                val returnIntent = Intent(this, LoginActivity::class.java).apply{
-                    bundle.putBoolean("PW_Resent", false)
-                    bundle.putString("email", editTextID.text.toString())
-                }
-            }
-
-            val findPwResultFragment = FindPwResultFragment()
-            findPwResultFragment.arguments = bundle
-
-            val transaction = supportFragmentManager.beginTransaction()
-                .replace(findPwBinding.findpwFrameLayout.id, findPwResultFragment)
-            transaction.commit()
         }
 
     }
 
     fun backtoLoginActivity(){
-        val login_intent = Intent(this, LoginActivity::class.java)
-        startActivity(login_intent)
+        val intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
         if(!isFinishing) finish()
     }
 }

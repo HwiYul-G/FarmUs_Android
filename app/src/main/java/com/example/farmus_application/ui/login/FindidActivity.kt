@@ -104,8 +104,8 @@ class FindidActivity : AppCompatActivity() {
     }
     // 로그인 액티비티로 회귀
     fun backtoLoginActivity(){
-        val login_intent = Intent(this, LoginActivity::class.java)
-        startActivity(login_intent)
+        val intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
         if(!isFinishing) finish()
     }
 }
