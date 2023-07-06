@@ -100,11 +100,11 @@ class SearchFragment : Fragment() {
             clickBottomSheetApply()
         }
 
-        //검색 결과 아이템
+        // RV data calss 수정 (Image타입이 INT에서 String?으로 변경됨)에 따른 임시로 넣어둔 데이터 일괄 수정
         val resultFarmItems = mutableListOf<RVFarmDataModel>()
         resultFarmItems.add(
             RVFarmDataModel(
-                R.drawable.farm_image_example,
+                "",
                 "고덕 주말 농장",
                 "4.5평",
                 "150,000"
@@ -112,7 +112,7 @@ class SearchFragment : Fragment() {
         )
         resultFarmItems.add(
             RVFarmDataModel(
-                R.drawable.farm_image_example,
+                "",
                 "고덕 주말 농장",
                 "4.5평",
                 "150,000"
@@ -120,7 +120,7 @@ class SearchFragment : Fragment() {
         )
         resultFarmItems.add(
             RVFarmDataModel(
-                R.drawable.farm_image_example,
+                "",
                 "고덕 주말 농장",
                 "4.5평",
                 "150,000"
@@ -128,7 +128,7 @@ class SearchFragment : Fragment() {
         )
         resultFarmItems.add(
             RVFarmDataModel(
-                R.drawable.farm_image_example,
+                "",
                 "고덕 주말 농장",
                 "4.5평",
                 "150,000"
