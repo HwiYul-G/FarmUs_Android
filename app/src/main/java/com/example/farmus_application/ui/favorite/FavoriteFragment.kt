@@ -11,7 +11,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.farmus_application.R
 import com.example.farmus_application.databinding.FragmentFavoriteBinding
-import com.example.farmus_application.ui.home.Adapter.FarmRVAdapter
 import com.example.farmus_application.ui.home.Adapter.FavoriteRVAdapter
 import com.example.farmus_application.ui.home.GridSpaceItemDecoration
 import com.example.farmus_application.ui.home.RVFarmDataModel
@@ -70,10 +69,11 @@ class FavoriteFragment : Fragment() {
         adapter.submitList(farmItems)
         binding.rvFarm.layoutManager = GridLayoutManager(requireActivity(), 2)
         binding.rvFarm.addItemDecoration(GridSpaceItemDecoration(2,px.toInt()))
-        farmItems.add(RVFarmDataModel(R.drawable.farm_image_example,"고덕 주말 농장","3평","150,000"))
-        farmItems.add(RVFarmDataModel(R.drawable.farm_image_example,"고덕 주말 농장","3평","150,000"))
-        farmItems.add(RVFarmDataModel(R.drawable.farm_image_example,"고덕 주말 농장","3평","150,000"))
-        farmItems.add(RVFarmDataModel(R.drawable.farm_image_example,"고덕 주말 농장","3평","150,000"))
+        // RV 데이터 클래스 변경에 따라서 임시 데이터 형식도 수정
+        farmItems.add(RVFarmDataModel("","고덕 주말 농장","3평","150,000"))
+        farmItems.add(RVFarmDataModel("","고덕 주말 농장","3평","150,000"))
+        farmItems.add(RVFarmDataModel("","고덕 주말 농장","3평","150,000"))
+        farmItems.add(RVFarmDataModel("","고덕 주말 농장","3평","150,000"))
 
 
     }

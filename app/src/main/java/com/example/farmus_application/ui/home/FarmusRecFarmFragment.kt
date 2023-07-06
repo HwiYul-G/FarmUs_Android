@@ -15,20 +15,17 @@ import com.example.farmus_application.ui.MainActivity
 import com.example.farmus_application.ui.home.Adapter.FarmRVAdapter
 
 // TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [FarmusRecFarmFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+
 class FarmusRecFarmFragment : Fragment() {
 
     private lateinit var binding: FragmentFarmusRecFarmBinding
 
     private lateinit var adapter: FarmRVAdapter
+
+
 
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -68,17 +65,18 @@ class FarmusRecFarmFragment : Fragment() {
         val px = dpToPx(requireContext(), dp.toFloat())
 
         adapter = FarmRVAdapter()
-        val local_farm_items = mutableListOf<RVFarmDataModel>()
-        adapter.submitList(local_farm_items)
+         val local_farm_items = mutableListOf<RVFarmDataModel>()
+         adapter.submitList(local_farm_items)
 
         binding.rvFarm.adapter = adapter
         binding.rvFarm.layoutManager = GridLayoutManager(requireContext(), 2)
         binding.rvFarm.addItemDecoration(GridSpaceItemDecoration(2, px.toInt()))
 
-        local_farm_items.add(RVFarmDataModel(R.drawable.farm_image_example,"고덕 주말 농장","3평","150,000"))
-        local_farm_items.add(RVFarmDataModel(R.drawable.farm_image_example,"고덕 주말 농장","3평","150,000"))
-        local_farm_items.add(RVFarmDataModel(R.drawable.farm_image_example,"고덕 주말 농장","3평","150,000"))
-        local_farm_items.add(RVFarmDataModel(R.drawable.farm_image_example,"고덕 주말 농장","3평","150,000"))
+        // RV에 들어가는 데이터 클래스 수정에 따른 변경
+        local_farm_items.add(RVFarmDataModel("","고덕 주말 농장","3평","150,000"))
+        local_farm_items.add(RVFarmDataModel("","고덕 주말 농장","3평","150,000"))
+        local_farm_items.add(RVFarmDataModel("","고덕 주말 농장","3평","150,000"))
+        local_farm_items.add(RVFarmDataModel("","고덕 주말 농장","3평","150,000"))
     }
 
     private fun dpToPx(context: Context, dp: Float): Float {
