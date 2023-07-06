@@ -18,7 +18,7 @@
                 android:id="@+id/rv_farm_image"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:background="@color/gray_1"
+                android:background="@drawable/farm_image_example"
                 android:scaleType="centerCrop"
                 app:layout_constraintDimensionRatio="0.9"
                 app:layout_constraintEnd_toEndOf="parent"
