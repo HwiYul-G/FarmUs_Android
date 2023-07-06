@@ -30,8 +30,8 @@ class FindidActivity : AppCompatActivity() {
         // LiveData 객체에 observer 연결
         findAccountViewModel.findAccountRes.observe(this) {findAccountRes->
             val bundle = Bundle()
+            bundle.putBoolean("result", findAccountRes.result)
             if(findAccountRes.result){
-                bundle.putBoolean("result", findAccountRes.result)
                 bundle.putString("name", "${editTextName.text}")
                 bundle.putString("email", findAccountRes.email)
 
