@@ -2,19 +2,19 @@ package com.example.farmus_application.ui.home
 
 import android.content.Context
 import android.os.Bundle
-import android.util.DisplayMetrics
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.farmus_application.R
 import com.example.farmus_application.databinding.FragmentHomeBinding
 import com.example.farmus_application.ui.MainActivity
 import com.example.farmus_application.ui.home.Adapter.FarmRVAdapter
+import com.example.farmus_application.viewmodel.home.HomeViewModel
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,6 +26,8 @@ class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
 
     private lateinit var adapter: FarmRVAdapter
+
+    private val farmViewModel : HomeViewModel by viewModels()
 
     private var param1: String? = null
     private var param2: String? = null
@@ -66,44 +68,17 @@ class HomeFragment : Fragment() {
         val dp = 16
         val px = dpToPx(requireContext(), dp.toFloat())
         adapter = FarmRVAdapter()
-//      우리 동네 농장 아이템
-        val local_farm_items = mutableListOf<RVFarmDataModel>()
+
+        farmViewModel.getFarmList()
+
         binding.rvHomeFarm.adapter = adapter
-        adapter.submitList(local_farm_items)
         binding.rvHomeFarm.addItemDecoration(GridSpaceItemDecoration(2, px.toInt()))
         binding.rvHomeFarm.layoutManager = GridLayoutManager(requireActivity(), 2)
-        local_farm_items.add(
-            RVFarmDataModel(
-                R.drawable.farm_image_example,
-                "고덕 주말 농장",
-                "3평",
-                "150,000"
-            )
-        )
-        local_farm_items.add(
-            RVFarmDataModel(
-                R.drawable.farm_image_example,
-                "고덕 주말 농장",
-                "3평",
-                "150,000"
-            )
-        )
-        local_farm_items.add(
-            RVFarmDataModel(
-                R.drawable.farm_image_example,
-                "고덕 주말 농장",
-                "3평",
-                "150,000"
-            )
-        )
-        local_farm_items.add(
-            RVFarmDataModel(
-                R.drawable.farm_image_example,
-                "고덕 주말 농장",
-                "3평",
-                "150,000"
-            )
-        )
+
+        farmViewModel.farmListResponse.observe(viewLifecycleOwner) {
+            adapter.submitList(it)
+        }
+
     }
 
     private fun dpToPx(context: Context, dp: Float): Float {
