@@ -14,7 +14,7 @@ class FavoriteRVAdapter: ListAdapter<RVFarmDataModel, FavoriteRVAdapter.ViewHold
     inner class ViewHolder(private val binding: RvLocalFarmBinding): RecyclerView.ViewHolder(binding.root){
 
         fun bind(item : RVFarmDataModel){
-            binding.rvFarmImage.setImageResource(item.farm_image)
+            //binding.rvFarmImage.setImageResource(item.farm_image)
             binding.rvFarmName.text = item.farm_name
             binding.rvFarmSize.text = item.farm_size
             binding.rvFarmPrice.text = item.farm_price

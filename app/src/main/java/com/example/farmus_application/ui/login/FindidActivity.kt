@@ -9,7 +9,9 @@ import android.widget.EditText
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.farmus_application.databinding.ActivityFindIdBinding
+import com.example.farmus_application.ui.MainActivity
 import com.example.farmus_application.ui.StartActivity
+import com.example.farmus_application.ui.home.HomeFragment
 import com.example.farmus_application.viewmodel.login.FindAccountViewModel
 
 class FindidActivity : AppCompatActivity() {
@@ -28,22 +30,17 @@ class FindidActivity : AppCompatActivity() {
         // LiveData 객체에 observer 연결
         findAccountViewModel.findAccountRes.observe(this) {findAccountRes->
             val bundle = Bundle()
-            when (findAccountRes.code) {
-                0 -> {
-                    bundle.putInt("code", findAccountRes.code)
-                    bundle.putString("name", "${editTextName.text}")
-                    bundle.putString("email", findAccountRes.email)
-                }
-                6004 -> {
-                    bundle.putInt("code", findAccountRes.code)
-                    bundle.putString("nameText", "${editTextName.text}")
-                    bundle.putString("email", "해당 정보로 가입한 회원이 존재하지 않습니다.")
-                }
-                else -> {
-                    bundle.putInt("code", findAccountRes.code)
-                    bundle.putString("nameText", "${editTextName.text}")
-                }
+            if(findAccountRes.result){
+                bundle.putBoolean("result", findAccountRes.result)
+                bundle.putString("name", "${editTextName.text}")
+                bundle.putString("email", findAccountRes.email)
+
+            }else{
+                bundle.putInt("code", findAccountRes.code)
+                bundle.putString("nameText", "${editTextName.text}")
+
             }
+
             val findIdResultFragment = FindIdResultFragment()
             findIdResultFragment.arguments = bundle
 
@@ -60,8 +57,9 @@ class FindidActivity : AppCompatActivity() {
         // 추후 이전 화면에 따른 뒤로가기 연결 페이지 변화 필요
         // 뒤로가기
         findIdBinding.findidFirstToolbar.toolbarWithTitleBackButton.setOnClickListener(){
-            val back_intent = Intent(this,StartActivity::class.java)
-            if(!isFinishing) finish()
+            val intent = Intent(this,LoginActivity::class.java)
+            startActivity(intent)
+            finish()
         }
 
 
@@ -110,6 +108,7 @@ class FindidActivity : AppCompatActivity() {
     // 로그인 액티비티로 회귀
     fun BacktoLoginActivity(){
         val login_intent = Intent(this, LoginActivity::class.java)
+        startActivity(login_intent)
         if(!isFinishing) finish()
     }
 }
