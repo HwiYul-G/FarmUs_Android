@@ -9,9 +9,6 @@ import android.widget.EditText
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.farmus_application.databinding.ActivityFindIdBinding
-import com.example.farmus_application.ui.MainActivity
-import com.example.farmus_application.ui.StartActivity
-import com.example.farmus_application.ui.home.HomeFragment
 import com.example.farmus_application.viewmodel.login.FindAccountViewModel
 
 class FindidActivity : AppCompatActivity() {
@@ -56,7 +53,7 @@ class FindidActivity : AppCompatActivity() {
 
         // 추후 이전 화면에 따른 뒤로가기 연결 페이지 변화 필요
         // 뒤로가기
-        findIdBinding.findidFirstToolbar.toolbarWithTitleBackButton.setOnClickListener(){
+        findIdBinding.findidFirstToolbar.toolbarWithTitleBackButton.setOnClickListener{
             val intent = Intent(this,LoginActivity::class.java)
             startActivity(intent)
             finish()
@@ -106,7 +103,7 @@ class FindidActivity : AppCompatActivity() {
 
     }
     // 로그인 액티비티로 회귀
-    fun BacktoLoginActivity(){
+    fun backtoLoginActivity(){
         val login_intent = Intent(this, LoginActivity::class.java)
         startActivity(login_intent)
         if(!isFinishing) finish()
