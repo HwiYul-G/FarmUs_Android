@@ -13,7 +13,8 @@ class FarmRVAdapter: ListAdapter<RVFarmDataModel, FarmRVAdapter.ViewHolder>(diff
     inner class ViewHolder(private val binding: RvLocalFarmBinding): RecyclerView.ViewHolder(binding.root){
 
         fun bind(item : RVFarmDataModel){
-            binding.rvFarmImage.setImageResource(item.farm_image)
+            // img는 glide로 처리할 것
+            // binding.rvFarmImage.setImageResource(item.farm_image)
             binding.rvFarmName.text = item.farm_name
             binding.rvFarmSize.text = item.farm_size
             binding.rvFarmPrice.text = item.farm_price
