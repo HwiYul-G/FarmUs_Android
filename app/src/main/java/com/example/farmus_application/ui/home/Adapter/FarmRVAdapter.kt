@@ -7,20 +7,28 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.farmus_application.databinding.RvLocalFarmBinding
-import com.example.farmus_application.ui.home.RVFarmDataModel
+import com.example.farmus_application.model.farm.list.ListResult
 
-class FarmRVAdapter: ListAdapter<RVFarmDataModel, FarmRVAdapter.ViewHolder>(diffUtil) {
 
-    inner class ViewHolder(private val binding: RvLocalFarmBinding): RecyclerView.ViewHolder(binding.root){
+class FarmRVAdapter : ListAdapter<ListResult, FarmRVAdapter.ViewHolder>(diffUtil) {
 
-        fun bind(item : RVFarmDataModel){
+    inner class ViewHolder(private val binding: RvLocalFarmBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(item: ListResult) {
             // img는 glide로 처리할 것
             Glide.with(binding.root.context)
-                .load(item.farm_image)
+                .load(item.Pictures[0].PictureUrl)
                 .into(binding.rvFarmImage)
-            binding.rvFarmName.text = item.farm_name
-            binding.rvFarmSize.text = item.farm_size
-            binding.rvFarmPrice.text = item.farm_price
+            binding.rvFarmName.text = item.Name
+
+            val squaredMeter = item.SquaredMeters
+            val squaredFeet = squaredMeter * 0.3025
+            val itemSize = squaredFeet.toString() + "평 (" + squaredMeter + "㎡)"
+
+            binding.rvFarmSize.text = itemSize
+            binding.rvFarmPrice.text = item.Price.toString()
+
             binding.bookMark.setOnClickListener {
                 binding.bookMark.isSelected = !binding.bookMark.isSelected
             }
@@ -29,7 +37,13 @@ class FarmRVAdapter: ListAdapter<RVFarmDataModel, FarmRVAdapter.ViewHolder>(diff
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FarmRVAdapter.ViewHolder {
 
-        return ViewHolder(RvLocalFarmBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        return ViewHolder(
+            RvLocalFarmBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
+        )
     }
 
     override fun onBindViewHolder(holder: FarmRVAdapter.ViewHolder, position: Int) {
@@ -38,18 +52,18 @@ class FarmRVAdapter: ListAdapter<RVFarmDataModel, FarmRVAdapter.ViewHolder>(diff
 
     }
 
-    companion object{
-        val diffUtil = object: DiffUtil.ItemCallback<RVFarmDataModel>(){
+    companion object {
+        val diffUtil = object : DiffUtil.ItemCallback<ListResult>() {
             override fun areItemsTheSame(
-                oldItem: RVFarmDataModel,
-                newItem: RVFarmDataModel
+                oldItem: ListResult,
+                newItem: ListResult
             ): Boolean {
-               return oldItem == newItem
+                return oldItem == newItem
             }
 
             override fun areContentsTheSame(
-                oldItem: RVFarmDataModel,
-                newItem: RVFarmDataModel
+                oldItem: ListResult,
+                newItem: ListResult
             ): Boolean {
                 return oldItem == newItem
             }

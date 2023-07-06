@@ -26,7 +26,6 @@ class FarmusRecFarmFragment : Fragment() {
     private lateinit var adapter: FarmRVAdapter
 
 
-
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -44,7 +43,8 @@ class FarmusRecFarmFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_farmus_rec_farm, container, false)
+        binding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_farmus_rec_farm, container, false)
         return binding.root
     }
 
@@ -58,25 +58,25 @@ class FarmusRecFarmFragment : Fragment() {
 
         //툴바 백버튼 누르면 홈
         binding.toolBar.toolbarWithTitleBackButton.setOnClickListener {
-            (activity as MainActivity).changeFragment(HomeFragment.newInstance("",""))
+            (activity as MainActivity).changeFragment(HomeFragment.newInstance("", ""))
         }
 
         val dp = 16
         val px = dpToPx(requireContext(), dp.toFloat())
 
         adapter = FarmRVAdapter()
-         val local_farm_items = mutableListOf<RVFarmDataModel>()
-         adapter.submitList(local_farm_items)
+//        val local_farm_items = mutableListOf<RVFarmDataModel>()
+//        adapter.submitList(local_farm_items)
 
         binding.rvFarm.adapter = adapter
         binding.rvFarm.layoutManager = GridLayoutManager(requireContext(), 2)
         binding.rvFarm.addItemDecoration(GridSpaceItemDecoration(2, px.toInt()))
 
         // RV에 들어가는 데이터 클래스 수정에 따른 변경
-        local_farm_items.add(RVFarmDataModel("","고덕 주말 농장","3평","150,000"))
-        local_farm_items.add(RVFarmDataModel("","고덕 주말 농장","3평","150,000"))
-        local_farm_items.add(RVFarmDataModel("","고덕 주말 농장","3평","150,000"))
-        local_farm_items.add(RVFarmDataModel("","고덕 주말 농장","3평","150,000"))
+//        local_farm_items.add(RVFarmDataModel("", "고덕 주말 농장", "3평", "150,000"))
+//        local_farm_items.add(RVFarmDataModel("", "고덕 주말 농장", "3평", "150,000"))
+//        local_farm_items.add(RVFarmDataModel("", "고덕 주말 농장", "3평", "150,000"))
+//        local_farm_items.add(RVFarmDataModel("", "고덕 주말 농장", "3평", "150,000"))
     }
 
     private fun dpToPx(context: Context, dp: Float): Float {

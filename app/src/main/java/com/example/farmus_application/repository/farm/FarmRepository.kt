@@ -12,8 +12,8 @@ class FarmRepository(
     private val farmApiClient: FarmApiClient = ServiceLocator.farmApiClient
 ) : FarmDataSourceInterface {
 
-    override suspend fun getFarmList(): Response<ListRes> {
-        return farmApiClient.getFarmList()
+    override suspend fun getFarmList(email : String): Response<ListRes> {
+        return farmApiClient.getFarmList(email)
     }
 
     override suspend fun postFarmPostings(params: PostingsReq): Response<PostingsRes> {

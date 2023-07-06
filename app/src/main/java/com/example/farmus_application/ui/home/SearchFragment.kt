@@ -101,46 +101,46 @@ class SearchFragment : Fragment() {
         }
 
         // RV data calss 수정 (Image타입이 INT에서 String?으로 변경됨)에 따른 임시로 넣어둔 데이터 일괄 수정
-        val resultFarmItems = mutableListOf<RVFarmDataModel>()
-        resultFarmItems.add(
-            RVFarmDataModel(
-                "",
-                "고덕 주말 농장",
-                "4.5평",
-                "150,000"
-            )
-        )
-        resultFarmItems.add(
-            RVFarmDataModel(
-                "",
-                "고덕 주말 농장",
-                "4.5평",
-                "150,000"
-            )
-        )
-        resultFarmItems.add(
-            RVFarmDataModel(
-                "",
-                "고덕 주말 농장",
-                "4.5평",
-                "150,000"
-            )
-        )
-        resultFarmItems.add(
-            RVFarmDataModel(
-                "",
-                "고덕 주말 농장",
-                "4.5평",
-                "150,000"
-            )
-        )
+//        val resultFarmItems = mutableListOf<RVFarmDataModel>()
+//        resultFarmItems.add(
+//            RVFarmDataModel(
+//                "",
+//                "고덕 주말 농장",
+//                "4.5평",
+//                "150,000"
+//            )
+//        )
+//        resultFarmItems.add(
+//            RVFarmDataModel(
+//                "",
+//                "고덕 주말 농장",
+//                "4.5평",
+//                "150,000"
+//            )
+//        )
+//        resultFarmItems.add(
+//            RVFarmDataModel(
+//                "",
+//                "고덕 주말 농장",
+//                "4.5평",
+//                "150,000"
+//            )
+//        )
+//        resultFarmItems.add(
+//            RVFarmDataModel(
+//                "",
+//                "고덕 주말 농장",
+//                "4.5평",
+//                "150,000"
+//            )
+//        )
 
 
         val dp = 16
         val px = dpToPx(requireContext(), dp.toFloat())
         //검색 결과 농장 리사이클러뷰
         adapter = FarmRVAdapter()
-        adapter.submitList(resultFarmItems)
+//        adapter.submitList(resultFarmItems)
         binding.rvHomeSearchFarm.adapter = adapter
         binding.rvHomeSearchFarm.layoutManager = GridLayoutManager(requireContext(), 2)
         binding.rvHomeSearchFarm.addItemDecoration(GridSpaceItemDecoration(2, px.toInt()))
