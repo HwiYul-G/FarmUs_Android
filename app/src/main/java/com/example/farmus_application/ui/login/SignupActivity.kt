@@ -10,13 +10,15 @@ import android.util.Patterns
 import android.view.KeyEvent
 import android.view.MotionEvent
 import android.view.View
-import android.view.View.OnTouchListener
+import android.view.View.*
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.farmus_application.R
 import com.example.farmus_application.databinding.ActivitySignupFirstBinding
 import com.example.farmus_application.viewmodel.login.SignUpViewModel
 import java.util.regex.Pattern
@@ -38,6 +40,19 @@ class SignupActivity : AppCompatActivity() {
             BacktoTermsActivity()
         }
 
+        signUpViewModel.isEmailVerificationSuccess.observe(this) { isSuccess ->
+            if (isSuccess) {
+                signupBinding.idWarningMessage.visibility = VISIBLE
+                signupBinding.idWarningMessage.text = "사용가능한 이메일 입니다."
+                signupBinding.idWarningMessage.setTextColor(ContextCompat.getColor(this, R.color.main))
+                signupBinding.toSecondSignupButton.isEnabled = true
+            } else {
+                signupBinding.idWarningMessage.visibility = VISIBLE
+                signupBinding.idWarningMessage.text = "중복된 이메일 입니다."
+                signupBinding.toSecondSignupButton.isEnabled = false
+            }
+        }
+
         // 입력칸 관련 value 설정
         val editTextID = signupBinding.idTextField
 
@@ -51,10 +66,11 @@ class SignupActivity : AppCompatActivity() {
                 val editEmail = signupBinding.idTextField.text.toString()
                 val pattern = Patterns.EMAIL_ADDRESS
                 if (!pattern.matcher(editEmail).matches()) {
+                    signupBinding.idWarningMessage.visibility = VISIBLE
                     signupBinding.idWarningMessage.text = "이메일 형식에 맞게 입력해주세요"
                 } else {
                     // 아이디 중복체크 API 실행
-
+                    signUpViewModel.emailVerification(editEmail)
                 }
                 handled = true
             }
@@ -66,9 +82,10 @@ class SignupActivity : AppCompatActivity() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 if(s!=null && s.toString() != "") {
-                    signupBinding.idTextFieldClear.visibility = View.VISIBLE
+                    signupBinding.idTextFieldClear.visibility = VISIBLE
                 } else {
-                    signupBinding.idTextFieldClear.visibility = View.INVISIBLE
+                    signupBinding.idTextFieldClear.visibility = INVISIBLE
+                    signupBinding.idWarningMessage.visibility = INVISIBLE
                 }
             }
             override fun afterTextChanged(s: Editable?) {
