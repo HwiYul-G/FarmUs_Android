@@ -70,7 +70,7 @@ class HomeFragment : Fragment() {
         adapter = FarmRVAdapter()
 
         // TODO: 사용자 이메일 Preference에서 가져와서 넣어야함!!
-        homeViewModel.getFarmList("")
+        homeViewModel.getFarmList("mungich@naver.com")
 
         binding.rvHomeFarm.adapter = adapter
         binding.rvHomeFarm.addItemDecoration(GridSpaceItemDecoration(2, px.toInt()))
