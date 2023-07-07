@@ -75,12 +75,16 @@ class FindidActivity : AppCompatActivity() {
 
         editTextNum.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
             override fun afterTextChanged(s: Editable?) {
                 findIdBinding.findIdButton.isEnabled = false
-                if((s!=null && s.toString() != "") && (editTextName.text.toString()!="")){
-                    findIdBinding.findIdButton.isEnabled = true
+                if(isPhoneNumberValid(editTextNum.text.toString())){
+                    findIdBinding.phoneNumberWarningMessage.visibility = View.INVISIBLE
+                    if((s!=null && s.toString() != "") && (editTextName.text.toString()!="")){
+                        findIdBinding.findIdButton.isEnabled = true
+                    }
+                }else{
+                    findIdBinding.phoneNumberWarningMessage.visibility = View.VISIBLE
                 }
             }
         })
@@ -107,5 +111,11 @@ class FindidActivity : AppCompatActivity() {
         val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
         if(!isFinishing) finish()
+    }
+
+    private fun isPhoneNumberValid(phoneNumber : String) : Boolean{
+        val regex = Regex("^01(?:0|1|[6-9])(?:\\d{3}|\\d{4})\\d{4}$")
+        if(regex.matches(phoneNumber)) return true
+        return false
     }
 }
