@@ -70,6 +70,7 @@
             android:background="@drawable/input_field_selector"
             android:enabled="true"
             android:hint="휴대폰 번호 입력"
+            android:maxLength="11"
             android:inputType="number"
             android:padding="12dp"
             android:textColorHint="@color/gray_first"
@@ -94,6 +95,18 @@
             android:layout_marginStart="13dp"
             android:text="인증"
             android:stateListAnimator="@null"/>
+
+        <TextView
+            android:id="@+id/phone_number_warning_message"
+            style="@style/Body3Reg"
+            android:visibility="invisible"
+            android:textColor="@color/sub_red"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="전화번호 형식을 확인해 주세요."
+            app:layout_constraintTop_toBottomOf="@+id/phone_number_field"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="6dp"/>
 
         <TextView
             android:id="@+id/verify_sent_message"

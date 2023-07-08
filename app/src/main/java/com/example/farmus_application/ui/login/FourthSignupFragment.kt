@@ -117,13 +117,58 @@ class SignupFourthFragment: Fragment(){
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun afterTextChanged(e: Editable?) {
                 if (EditText.tag == "Name") {
-                    checkName = e.toString() != ""
+                    val name = e.toString()
+                    checkName = name.isNotEmpty()
+                    // TODO : 이름에 대한 확인도 필요할지도?
+                    // 이름은 비어있지만 않으면 괜찮게 처리
+                    viewBinding.toFifthSignupButton.isEnabled = checkNickName
                 }
                 if (EditText.tag == "NickName") {
-                    checkNickName = e.toString() != ""
+                    val nickname = e.toString()
+                    checkNickName = nickname.isNotEmpty()
+
+                    if(checkNickName){
+                        val nicknameStatus = checkNickname(nickname)
+                        val errorMessage = when (nicknameStatus) {
+                            NicknameStatus.SPECIAL_CHARACTERS -> "특수 문자를 포함할 수 없습니다."
+                            NicknameStatus.SPACE -> "띄어쓰기를 사용할 수 없습니다."
+                            NicknameStatus.BAD_WORDS -> "비속어를 포함할 수 없습니다."
+                            else -> null
+                        }
+
+                        if(errorMessage != null){
+                            viewBinding.nickNameWarningMessage.text = errorMessage
+                            viewBinding.toFifthSignupButton.isEnabled = false
+                        } else{
+                            // TODO : 사용가능한 닉네임인경우 -> Button으로 닉네임 중복 체크 이벤트 발생시 UI 변경 로직
+                            // 우선 임시 처리
+                            viewBinding.nickNameWarningMessage.text = null
+                            viewBinding.toFifthSignupButton.isEnabled = true
+                        }
+                    }
                 }
-                viewBinding.toFifthSignupButton.isEnabled = checkName && checkNickName
             }
         })
     }
+
+    enum class NicknameStatus(val value: Int) {
+        VALID(0),
+        SPECIAL_CHARACTERS(1),
+        SPACE(2),
+        BAD_WORDS(3)
+    }
+    fun checkNickname(nickname: String): NicknameStatus {
+        val pattern = Regex("^[a-zA-Z0-9가-힣]+$")
+        val specialCharCheck = !pattern.matches(nickname)
+        val spaceCheck = nickname.contains(" ")
+        val badWords = listOf("바보", "멍청이", "병신", "Fuck", "Fucking") // 욕설, 비속어, 금지단어 목록
+
+        return when {
+            specialCharCheck -> NicknameStatus.SPECIAL_CHARACTERS
+            spaceCheck -> NicknameStatus.SPACE
+            badWords.any { nickname.contains(it) } -> NicknameStatus.BAD_WORDS
+            else -> NicknameStatus.VALID
+        }
+    }
 }
+
