@@ -7,8 +7,8 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import androidx.fragment.app.Fragment
+import com.example.farmus_application.ValidationCheckUtil
 import com.example.farmus_application.databinding.FragmentSignupSecondBinding
 
 
@@ -52,7 +52,7 @@ class SignupSecondFragment: Fragment(){
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun afterTextChanged(s: Editable?) {
                 if (s != null && s.toString() != "") {
-                    if (checkPassword(s.toString())) {
+                    if (ValidationCheckUtil.checkPassword(s.toString())) {
                         viewBinding.pwErrorText.visibility = View.INVISIBLE
                         pwcCheck = true
                     } else {
@@ -99,9 +99,5 @@ class SignupSecondFragment: Fragment(){
         return viewBinding.root
     }
 
-    private fun checkPassword(password: String): Boolean {
-        val pattern = Regex("^[a-zA-Z0-9]+$")
-        val lengthCheck = password.length in 6..20
-        return pattern.matches(password) && lengthCheck
-    }
+
 }
