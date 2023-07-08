@@ -4,16 +4,15 @@ import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Patterns
 import android.view.View.*
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.example.farmus_application.R
+import com.example.farmus_application.ValidationCheckUtil
 import com.example.farmus_application.databinding.ActivitySignupFirstBinding
 import com.example.farmus_application.viewmodel.login.SignUpViewModel
-import java.util.regex.Pattern
 
 class SignupActivity : AppCompatActivity() {
 
@@ -63,7 +62,7 @@ class SignupActivity : AppCompatActivity() {
             override fun afterTextChanged(s: Editable?) {
                 if(s!=null && s.toString() != "") {
                     signupBinding.idTextFieldClear.visibility = VISIBLE
-                    if(isEmailValid(s.toString())){
+                    if(ValidationCheckUtil.isEmailValid(s.toString())){
                         signupBinding.idWarningMessage.visibility = INVISIBLE
                         signupBinding.sendVerifyButton.isEnabled = true
                         signupBinding.toSecondSignupButton.isEnabled = false
@@ -164,9 +163,5 @@ class SignupActivity : AppCompatActivity() {
         if(!isFinishing) finish()
     }
 
-    private fun isEmailValid(email: String): Boolean {
-        val emailPattern : Pattern = Patterns.EMAIL_ADDRESS
-        return emailPattern.matcher(email).matches()
-    }
 
 }

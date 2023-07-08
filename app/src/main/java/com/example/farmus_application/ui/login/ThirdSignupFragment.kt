@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +12,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.farmus_application.ValidationCheckUtil
 import com.example.farmus_application.databinding.FragmentSignupThirdBinding
 import com.example.farmus_application.model.user.signup_verification.SignUpVerificationReq
 import com.example.farmus_application.model.user.verification.VerificationReq
@@ -75,7 +75,7 @@ class SignupThirdFragment: Fragment(){
             override fun afterTextChanged(s: Editable?) {
                 viewBinding.sendVerifyButton.isEnabled = false
                 if(s!=null && s.toString() != ""){
-                    if(isPhoneNumberValid(s.toString())){
+                    if(ValidationCheckUtil.isPhoneNumberValid(s.toString())){
                         viewBinding.sendVerifyButton.isEnabled = true
                         viewBinding.phoneNumberWarningMessage.visibility = View.INVISIBLE
                     }else{
@@ -144,10 +144,5 @@ class SignupThirdFragment: Fragment(){
         return viewBinding.root
     }
 
-    private fun isPhoneNumberValid(phoneNumber : String) : Boolean{
-        val regex = Regex("^01(?:0|1|[6-9])(?:\\d{3}|\\d{4})\\d{4}$")
-        if(regex.matches(phoneNumber)) return true
-        return false
-    }
 
 }

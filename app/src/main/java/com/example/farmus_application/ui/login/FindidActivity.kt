@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.EditText
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.example.farmus_application.ValidationCheckUtil
 import com.example.farmus_application.databinding.ActivityFindIdBinding
 import com.example.farmus_application.viewmodel.login.FindAccountViewModel
 
@@ -78,7 +79,7 @@ class FindidActivity : AppCompatActivity() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
             override fun afterTextChanged(s: Editable?) {
                 findIdBinding.findIdButton.isEnabled = false
-                if(isPhoneNumberValid(editTextNum.text.toString())){
+                if(ValidationCheckUtil.isPhoneNumberValid(editTextNum.text.toString())){
                     findIdBinding.phoneNumberWarningMessage.visibility = View.INVISIBLE
                     if((s!=null && s.toString() != "") && (editTextName.text.toString()!="")){
                         findIdBinding.findIdButton.isEnabled = true
@@ -113,9 +114,5 @@ class FindidActivity : AppCompatActivity() {
         if(!isFinishing) finish()
     }
 
-    private fun isPhoneNumberValid(phoneNumber : String) : Boolean{
-        val regex = Regex("^01(?:0|1|[6-9])(?:\\d{3}|\\d{4})\\d{4}$")
-        if(regex.matches(phoneNumber)) return true
-        return false
-    }
+
 }
