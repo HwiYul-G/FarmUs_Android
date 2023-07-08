@@ -56,6 +56,7 @@
             android:background="@drawable/input_field_selector"
             android:enabled="true"
             android:hint="이름 입력"
+            android:maxLength="17"
             android:inputType="text"
             android:padding="12dp"
             android:textColorHint="@color/gray_first"
@@ -100,6 +101,7 @@
                 android:background="@drawable/input_field_selector"
                 android:enabled="true"
                 android:hint="휴대폰 번호 입력"
+                android:maxLength="11"
                 android:inputType="number"
                 android:padding="12dp"
                 android:textColorHint="@color/gray_first"
@@ -116,6 +118,17 @@
                 app:layout_constraintTop_toTopOf="@+id/phone_number_field"
                 app:layout_constraintBottom_toBottomOf="@+id/phone_number_field"/>
 
+            <TextView
+                android:id="@+id/phone_number_warning_message"
+                style="@style/Body3Reg"
+                android:visibility="invisible"
+                android:textColor="@color/sub_red"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="휴대폰 번호 형식이 맞지 않습니다."
+                app:layout_constraintTop_toBottomOf="@+id/phone_number_field"
+                app:layout_constraintStart_toStartOf="@+id/phone_number_field"
+                android:layout_marginTop="6dp"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

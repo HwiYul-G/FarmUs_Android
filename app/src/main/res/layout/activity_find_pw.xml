@@ -104,7 +104,7 @@
             android:textColor="@color/sub_red"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="중복된 아이디(이메일)입니다."
+            android:text="이메일 형식을 확인해 주세요."
             app:layout_constraintTop_toBottomOf="@+id/email_text_field"
             app:layout_constraintStart_toStartOf="@+id/email_text_field"
             android:layout_marginTop="6dp"/>

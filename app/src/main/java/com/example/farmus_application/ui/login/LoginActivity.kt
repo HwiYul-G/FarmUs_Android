@@ -1,7 +1,5 @@
 package com.example.farmus_application.ui.login
 
-import android.app.Activity
-import android.app.Instrumentation
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
@@ -9,10 +7,9 @@ import android.text.TextWatcher
 import android.util.Log
 import android.util.Patterns
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
-import androidx.activity.result.ActivityResult
-import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -83,23 +80,17 @@ class LoginActivity : AppCompatActivity() {
         // 아이디 이메일 형식 정규식 확인 후 주의 메세지 여부
         editTextID.addTextChangedListener(object : TextWatcher{
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
             override fun afterTextChanged(s: Editable?) {
-                if(s!=null && s.toString() != ""){
-                    val pattern: Pattern = Patterns.EMAIL_ADDRESS
-                    if (!pattern.matcher(s).matches()) {
-                        loginBinding.idWarningMessage.visibility = View.VISIBLE
-                        loginBinding.loginButton.isEnabled = false
-                    } else if (pattern.matcher(s).matches()) {
-                        loginBinding.idWarningMessage.visibility = View.INVISIBLE
-                        loginBinding.loginButton.isEnabled = true
-                    } else if (editTextPW.text!=null && editTextPW.text.toString() != ""){
-                        loginBinding.idWarningMessage.visibility = View.INVISIBLE
+                if(isEmailValid(s.toString())){
+                    loginBinding.idWarningMessage.visibility = View.INVISIBLE
+                    loginBinding.loginButton.isEnabled = false
+                    if(editTextPW.text!=null && editTextPW.text.toString() != ""){
                         loginBinding.loginButton.isEnabled = true
                     }
-                } else {
-                    loginBinding.idWarningMessage.visibility = View.INVISIBLE
+                }else{
+                    loginBinding.idWarningMessage.visibility = View.VISIBLE
+                    loginBinding.loginButton.isEnabled = false
                 }
             }
         })
@@ -107,8 +98,7 @@ class LoginActivity : AppCompatActivity() {
         // 두 입력칸에 내용이 있을 경우에만 로그인 버튼 활성화
         editTextPW.addTextChangedListener(object : TextWatcher{
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
             override fun afterTextChanged(s: Editable?) {
                 if(s!=null && s.toString() != ""){
                     if(loginBinding.idWarningMessage.visibility == View.INVISIBLE){
@@ -139,7 +129,13 @@ class LoginActivity : AppCompatActivity() {
         })
 
         viewModel.errorResponse.observe(this, Observer {
+            // 키보드 숨기기를 하면 토스트 메시지가 더 잘 보일 것 같아서 추가.
+            val inputMethodManager = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+            inputMethodManager.hideSoftInputFromWindow(this.currentFocus?.windowToken,0)
+
             Toast.makeText(this, it,Toast.LENGTH_LONG).show()
+
+            editTextPW.text.clear()
         })
 
         // 아이디 찾기 이동
@@ -263,4 +259,10 @@ class LoginActivity : AppCompatActivity() {
         val main_intent = Intent(this, MainActivity::class.java)
         startActivity(main_intent)
     }
+
+    private fun isEmailValid(email: String): Boolean {
+        val emailPattern : Pattern = Patterns.EMAIL_ADDRESS
+        return emailPattern.matcher(email).matches()
+    }
+
 }
