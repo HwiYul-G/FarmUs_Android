@@ -6,12 +6,12 @@ import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import androidx.fragment.app.Fragment
+import com.example.farmus_application.ValidationCheckUtil
 import com.example.farmus_application.databinding.FragmentSignupFourthBinding
 import java.text.SimpleDateFormat
 import java.time.LocalDate
@@ -128,11 +128,11 @@ class SignupFourthFragment: Fragment(){
                     checkNickName = nickname.isNotEmpty()
 
                     if(checkNickName){
-                        val nicknameStatus = checkNickname(nickname)
+                        val nicknameStatus = ValidationCheckUtil.checkNickname(nickname)
                         val errorMessage = when (nicknameStatus) {
-                            NicknameStatus.SPECIAL_CHARACTERS -> "특수 문자를 포함할 수 없습니다."
-                            NicknameStatus.SPACE -> "띄어쓰기를 사용할 수 없습니다."
-                            NicknameStatus.BAD_WORDS -> "비속어를 포함할 수 없습니다."
+                            ValidationCheckUtil.NicknameStatus.SPECIAL_CHARACTERS -> "특수 문자를 포함할 수 없습니다."
+                            ValidationCheckUtil.NicknameStatus.SPACE -> "띄어쓰기를 사용할 수 없습니다."
+                            ValidationCheckUtil.NicknameStatus.BAD_WORDS -> "비속어를 포함할 수 없습니다."
                             else -> null
                         }
 
@@ -151,24 +151,5 @@ class SignupFourthFragment: Fragment(){
         })
     }
 
-    enum class NicknameStatus(val value: Int) {
-        VALID(0),
-        SPECIAL_CHARACTERS(1),
-        SPACE(2),
-        BAD_WORDS(3)
-    }
-    fun checkNickname(nickname: String): NicknameStatus {
-        val pattern = Regex("^[a-zA-Z0-9가-힣]+$")
-        val specialCharCheck = !pattern.matches(nickname)
-        val spaceCheck = nickname.contains(" ")
-        val badWords = listOf("바보", "멍청이", "병신", "Fuck", "Fucking") // 욕설, 비속어, 금지단어 목록
-
-        return when {
-            specialCharCheck -> NicknameStatus.SPECIAL_CHARACTERS
-            spaceCheck -> NicknameStatus.SPACE
-            badWords.any { nickname.contains(it) } -> NicknameStatus.BAD_WORDS
-            else -> NicknameStatus.VALID
-        }
-    }
 }
 

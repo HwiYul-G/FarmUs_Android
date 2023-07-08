@@ -4,15 +4,14 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Patterns
 import android.view.View
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import com.example.farmus_application.databinding.ActivityFindPwBinding
 import androidx.activity.viewModels
 import com.example.farmus_application.FindPwResultFragment
+import com.example.farmus_application.ValidationCheckUtil
 import com.example.farmus_application.viewmodel.login.FindPasswordViewModel
-import java.util.regex.Pattern
 
 class FindpwActivity : AppCompatActivity() {
 
@@ -57,11 +56,10 @@ class FindpwActivity : AppCompatActivity() {
 
         editTextID.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
             override fun afterTextChanged(s: Editable?) {
                 if(s!=null && s.toString() != ""){
-                    if (!isEmailValid(s.toString())) {
+                    if (!ValidationCheckUtil.isEmailValid(s.toString())) {
                         findPwBinding.idWarningMessage.visibility = View.VISIBLE
                         findPwBinding.sendTempPwButton.isEnabled = false
                         findPwBinding.idCheckButton.isEnabled = false
@@ -113,8 +111,5 @@ class FindpwActivity : AppCompatActivity() {
         if(!isFinishing) finish()
     }
 
-    private fun isEmailValid(email: String): Boolean {
-        val emailPattern : Pattern = Patterns.EMAIL_ADDRESS
-        return emailPattern.matcher(email).matches()
-    }
+
 }
