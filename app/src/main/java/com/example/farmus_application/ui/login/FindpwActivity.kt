@@ -61,10 +61,10 @@ class FindpwActivity : AppCompatActivity() {
             }
             override fun afterTextChanged(s: Editable?) {
                 if(s!=null && s.toString() != ""){
-                    val pattern: Pattern = Patterns.EMAIL_ADDRESS
-                    if (!pattern.matcher(s).matches()) {
+                    if (!isEmailValid(s.toString())) {
                         findPwBinding.idWarningMessage.visibility = View.VISIBLE
                         findPwBinding.sendTempPwButton.isEnabled = false
+                        findPwBinding.idCheckButton.isEnabled = false
                     } else {
                         findPwBinding.idWarningMessage.visibility = View.INVISIBLE
                         findPwBinding.sendTempPwButton.isEnabled = false
@@ -111,5 +111,10 @@ class FindpwActivity : AppCompatActivity() {
         val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
         if(!isFinishing) finish()
+    }
+
+    private fun isEmailValid(email: String): Boolean {
+        val emailPattern : Pattern = Patterns.EMAIL_ADDRESS
+        return emailPattern.matcher(email).matches()
     }
 }

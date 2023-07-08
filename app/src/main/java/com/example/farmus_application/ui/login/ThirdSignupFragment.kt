@@ -71,12 +71,16 @@ class SignupThirdFragment: Fragment(){
         // 전화번호 입력 여부에 따라 인증 버튼 활성화/비활성화
         editTextPhone.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
             override fun afterTextChanged(s: Editable?) {
                 viewBinding.sendVerifyButton.isEnabled = false
                 if(s!=null && s.toString() != ""){
-                    viewBinding.sendVerifyButton.isEnabled = true
+                    if(isPhoneNumberValid(s.toString())){
+                        viewBinding.sendVerifyButton.isEnabled = true
+                        viewBinding.phoneNumberWarningMessage.visibility = View.INVISIBLE
+                    }else{
+                        viewBinding.phoneNumberWarningMessage.visibility = View.VISIBLE
+                    }
                 }
             }
         })
@@ -95,6 +99,8 @@ class SignupThirdFragment: Fragment(){
 
         //인증 버튼 누를 경우 인증번호 입력 칸 및 버튼 표시
         viewBinding.sendVerifyButton.setOnClickListener{
+            viewBinding.phoneNumberField.isEnabled = false
+
             val signUpVerificationReq = SignUpVerificationReq(editTextPhone.text.toString())
             signUpViewModel.signUpVerification(signUpVerificationReq)
 
@@ -109,8 +115,7 @@ class SignupThirdFragment: Fragment(){
         // 인증번호 입력 여부에 따라 다음 버튼 활성화/비활성화
         editTextVerify.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
             override fun afterTextChanged(s: Editable?) {
                 viewBinding.toFourthButton.isEnabled = false
                 if(s!=null && s.toString() != ""){
@@ -137,6 +142,12 @@ class SignupThirdFragment: Fragment(){
         }
 
         return viewBinding.root
+    }
+
+    private fun isPhoneNumberValid(phoneNumber : String) : Boolean{
+        val regex = Regex("^01(?:0|1|[6-9])(?:\\d{3}|\\d{4})\\d{4}$")
+        if(regex.matches(phoneNumber)) return true
+        return false
     }
 
 }

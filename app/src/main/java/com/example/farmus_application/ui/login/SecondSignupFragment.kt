@@ -52,7 +52,7 @@ class SignupSecondFragment: Fragment(){
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
             override fun afterTextChanged(s: Editable?) {
                 if (s != null && s.toString() != "") {
-                    if (s.length in 6..20) {
+                    if (checkPassword(s.toString())) {
                         viewBinding.pwErrorText.visibility = View.INVISIBLE
                         pwcCheck = true
                     } else {
@@ -68,8 +68,7 @@ class SignupSecondFragment: Fragment(){
         // 비밀번호 일치 확인 후 주의 메세지 여부 및 다음 버튼 활성화 여부
         editTextPwCheck.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
             override fun afterTextChanged(s: Editable?) {
                 if(s!=null && s.toString() != ""){
                     if (s.toString() != editTextPw.text.toString()) {
@@ -98,5 +97,11 @@ class SignupSecondFragment: Fragment(){
         }
 
         return viewBinding.root
+    }
+
+    private fun checkPassword(password: String): Boolean {
+        val pattern = Regex("^[a-zA-Z0-9]+$")
+        val lengthCheck = password.length in 6..20
+        return pattern.matches(password) && lengthCheck
     }
 }
