@@ -4,41 +4,50 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.farmus_application.model.farm.list.ListResult
 import com.example.farmus_application.repository.farm.FarmRepository
-import com.example.farmus_application.ui.home.RVFarmDataModel
 import kotlinx.coroutines.launch
 
 class HomeViewModel() : ViewModel() {
 
     private val farmRepo = FarmRepository()
-    val farmListResponse : MutableLiveData<List<RVFarmDataModel>> = MutableLiveData()
+    val farmListResponse: MutableLiveData<List<ListResult>> = MutableLiveData()
 
-    fun getFarmList(){
+    fun getFarmList(email: String) {
         viewModelScope.launch {
-            try{
-                val response = farmRepo.getFarmList()
-                if(response.isSuccessful){
-                    response.body()?.let{
-                        if(it.isSuccess){
+            try {
+                val response = farmRepo.getFarmList(email)
+                if (response.isSuccessful) {
+                    response.body()?.let {
+                        if (it.isSuccess) {
                             Log.d("FarmList Success : ", response.body().toString())
-                            val farmList = mutableListOf<RVFarmDataModel>()
-                            for(item in it.result){
-                                // item의 면적이 제곱으로 날라오므로 미리 평수 면적 처리
-                                val squaredMeter = item.SquaredMeters
-                                val squaredFeet = squaredMeter * 0.3025
-                                val itemSize = squaredFeet.toString() + "평 ("+squaredMeter+"㎡)"
-                                farmList.add(RVFarmDataModel(item.Picture_url, item.Name, itemSize, item.Price.toString()))
+                            val farmList = mutableListOf<ListResult>()
+                            for (item in it.result) {
+                                farmList.add(
+                                    ListResult(
+                                        item.FarmID,
+                                        item.Name,
+                                        item.Price,
+                                        item.SquaredMeters,
+                                        item.Views,
+                                        item.Star,
+                                        item.Likes,
+                                        item.Status,
+                                        item.Pictures,
+                                        item.Liked
+                                    )
+                                )
                             }
                             farmListResponse.postValue(farmList)
-                        }else{
+                        } else {
                             Log.d("FarmList Success : ", response.body().toString())
                         }
                     }
-                }else{
+                } else {
                     Log.d("FarmList Failed : ", response.body().toString())
                 }
 
-            }catch(e: Exception){
+            } catch (e: Exception) {
                 e.printStackTrace()
             }
         }

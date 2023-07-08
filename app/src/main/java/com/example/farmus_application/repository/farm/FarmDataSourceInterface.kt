@@ -8,7 +8,7 @@ import retrofit2.Response
 
 interface FarmDataSourceInterface {
 
-    suspend fun getFarmList(): Response<ListRes>
+    suspend fun getFarmList(email : String): Response<ListRes>
 
     suspend fun postFarmPostings(params: PostingsReq): Response<PostingsRes>
 

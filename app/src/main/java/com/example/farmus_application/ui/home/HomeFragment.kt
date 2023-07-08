@@ -27,7 +27,7 @@ class HomeFragment : Fragment() {
 
     private lateinit var adapter: FarmRVAdapter
 
-    private val farmViewModel : HomeViewModel by viewModels()
+    private val homeViewModel : HomeViewModel by viewModels()
 
     private var param1: String? = null
     private var param2: String? = null
@@ -69,13 +69,14 @@ class HomeFragment : Fragment() {
         val px = dpToPx(requireContext(), dp.toFloat())
         adapter = FarmRVAdapter()
 
-        farmViewModel.getFarmList()
+        // TODO: 사용자 이메일 Preference에서 가져와서 넣어야함!!
+        homeViewModel.getFarmList("mungich@naver.com")
 
         binding.rvHomeFarm.adapter = adapter
         binding.rvHomeFarm.addItemDecoration(GridSpaceItemDecoration(2, px.toInt()))
         binding.rvHomeFarm.layoutManager = GridLayoutManager(requireActivity(), 2)
 
-        farmViewModel.farmListResponse.observe(viewLifecycleOwner) {
+        homeViewModel.farmListResponse.observe(viewLifecycleOwner) {
             adapter.submitList(it)
         }
 
