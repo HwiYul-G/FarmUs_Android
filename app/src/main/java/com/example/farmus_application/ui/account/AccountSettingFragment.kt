@@ -1,15 +1,20 @@
 package com.example.farmus_application.ui.account
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.lifecycle.ViewModelProvider
 import com.example.farmus_application.R
 import com.example.farmus_application.databinding.FragmentAccountSettingBinding
+import com.example.farmus_application.repository.UserPrefsStorage
 import com.example.farmus_application.ui.MainActivity
+import com.example.farmus_application.ui.StartActivity
+import com.example.farmus_application.viewmodel.account.AccountSettingViewModel
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,6 +31,7 @@ class AccountSettingFragment : Fragment() {
     private lateinit var binding : FragmentAccountSettingBinding
     //뒤로가기 기능 구현
     private lateinit var callback: OnBackPressedCallback
+    private lateinit var viewModel: AccountSettingViewModel
 
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -50,6 +56,7 @@ class AccountSettingFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel = ViewModelProvider(this).get(AccountSettingViewModel::class.java)
 
         binding.toolbar.toolbarMainTitleText.apply {
             text = "설정"
@@ -57,6 +64,16 @@ class AccountSettingFragment : Fragment() {
         //툴바 백터튼 누르면 MyPageFragment로 이동
         binding.toolbar.toolbarWithTitleBackButton.setOnClickListener {
             (activity as MainActivity).changeFragment(MyPageFragment.newInstance("",""))
+        }
+
+        //로그아웃 버튼
+        binding.layerLogout.setOnClickListener{
+            //Datastore(로그인 유저정보) 비우기
+            viewModel.clearUserData()
+
+            val intent = Intent(requireContext(), StartActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
         }
     }
 
