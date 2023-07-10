@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import android.util.Patterns
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
@@ -14,6 +13,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.example.farmus_application.ValidationCheckUtil
 import com.example.farmus_application.databinding.ActivityLoginMainBinding
 import com.example.farmus_application.model.user.login.LoginReq
 import com.example.farmus_application.repository.UserPrefsStorage
@@ -26,8 +26,8 @@ import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
 import com.kakao.sdk.common.model.KakaoSdkError
 import com.kakao.sdk.user.UserApiClient
-import java.security.AccessController.getContext
-import java.util.regex.Pattern
+
+
 
 class LoginActivity : AppCompatActivity() {
 
@@ -84,7 +84,7 @@ class LoginActivity : AppCompatActivity() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
             override fun afterTextChanged(s: Editable?) {
-                if(isEmailValid(s.toString())){
+                if(ValidationCheckUtil.isEmailValid(s.toString())){
                     loginBinding.idWarningMessage.visibility = View.INVISIBLE
                     loginBinding.loginButton.isEnabled = false
                     if(editTextPW.text!=null && editTextPW.text.toString() != ""){
@@ -263,9 +263,5 @@ class LoginActivity : AppCompatActivity() {
         startActivity(main_intent)
     }
 
-    private fun isEmailValid(email: String): Boolean {
-        val emailPattern : Pattern = Patterns.EMAIL_ADDRESS
-        return emailPattern.matcher(email).matches()
-    }
 
 }
