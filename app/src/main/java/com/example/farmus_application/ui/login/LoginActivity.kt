@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.farmus_application.ValidationCheckUtil
 import com.example.farmus_application.databinding.ActivityLoginMainBinding
 import com.example.farmus_application.model.user.login.LoginReq
+import com.example.farmus_application.repository.UserPrefsStorage
 import com.example.farmus_application.ui.MainActivity
 import com.example.farmus_application.ui.StartActivity
 import com.example.farmus_application.viewmodel.login.LoginViewModel
@@ -25,6 +26,8 @@ import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
 import com.kakao.sdk.common.model.KakaoSdkError
 import com.kakao.sdk.user.UserApiClient
+import java.security.AccessController.getContext
+import java.util.regex.Pattern
 
 
 class LoginActivity : AppCompatActivity() {
@@ -115,12 +118,13 @@ class LoginActivity : AppCompatActivity() {
                 email = editTextID.text.toString(),
                 password = editTextPW.text.toString()
             )
+            viewModel.setUserData(null)
 
             viewModel.userLogin(params)
         }
 
         viewModel.loginResponse.observe(this, Observer {
-            //todo : LoginResult의 토큰 저장 및 앱 초기실행시 토큰 검사를 통해 자동로그인 로직 작성
+            viewModel.setUserData(it)
 
             val startActivity = StartActivity.getInstance()
             startActivity?.let { it.finish() }

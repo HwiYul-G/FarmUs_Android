@@ -7,7 +7,10 @@ import androidx.lifecycle.viewModelScope
 import com.example.farmus_application.model.user.login.LoginReq
 import com.example.farmus_application.model.user.login.LoginRes
 import com.example.farmus_application.model.user.login.LoginResult
+import com.example.farmus_application.repository.UserPrefsStorage
 import com.example.farmus_application.repository.user.UserRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 /**
@@ -50,6 +53,29 @@ class LoginViewModel() : ViewModel(){
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
+            }
+        }
+    }
+
+    fun setUserData(params: LoginResult?) {
+        viewModelScope.launch(Dispatchers.IO) {
+            UserPrefsStorage.let {
+                it.accessToken = params?.accesstoken
+                it.refreshToken = null
+                it.name = params?.name
+                it.nickName = params?.nickName
+                it.email = params?.email
+                it.role = params?.role
+
+                // 이 구조로 데이터 삽입시 정상 삽입이 안됨.
+//                UserPrefsStorage.setUserData(
+//                    accessToken = it.accesstoken,
+//                    refreshToken = null,
+//                    name = it.name,
+//                    nickName = it.nickName,
+//                    email = it.email,
+//                    role = it.role
+//                )
             }
         }
     }
