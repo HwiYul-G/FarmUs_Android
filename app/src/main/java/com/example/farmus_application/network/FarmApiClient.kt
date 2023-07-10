@@ -1,5 +1,6 @@
 package com.example.farmus_application.network
 
+import com.example.farmus_application.model.farm.detail.DetailRes
 import com.example.farmus_application.model.farm.list.ListRes
 import com.example.farmus_application.model.farm.postings.PostingsReq
 import com.example.farmus_application.model.farm.postings.PostingsRes
@@ -16,4 +17,7 @@ interface FarmApiClient {
 
     @PATCH("/farm/register")
     suspend fun patchFarmRegister(): Response<RegisterRes>
+
+    @GET("/farm/detail/{farmid}")
+    suspend fun getFarmDetail(@Path(value="farmid") farmid : Int): Response<DetailRes>
 }

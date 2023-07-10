@@ -1,6 +1,7 @@
 package com.example.farmus_application.repository.farm
 
 import com.example.farmus_application.ServiceLocator
+import com.example.farmus_application.model.farm.detail.DetailRes
 import com.example.farmus_application.model.farm.list.ListRes
 import com.example.farmus_application.model.farm.postings.PostingsReq
 import com.example.farmus_application.model.farm.postings.PostingsRes
@@ -22,5 +23,9 @@ class FarmRepository(
 
     override suspend fun patchFarmRegister(): Response<RegisterRes> {
         return farmApiClient.patchFarmRegister()
+    }
+
+    override suspend fun getFarmDetail(farmid: Int): Response<DetailRes> {
+        return farmApiClient.getFarmDetail(farmid)
     }
 }
