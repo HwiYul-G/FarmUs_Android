@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.farmus_application.R
 import com.example.farmus_application.databinding.RvLocalFarmBinding
 import com.example.farmus_application.model.farm.list.ListResult
 
@@ -18,7 +19,10 @@ class FarmRVAdapter : ListAdapter<ListResult, FarmRVAdapter.ViewHolder>(diffUtil
         fun bind(item: ListResult) {
             // img는 glide로 처리할 것
             Glide.with(binding.root.context)
-                .load(item.Pictures[0].PictureUrl)
+                .load(
+                    if (item.Pictures.isNotEmpty()) item.Pictures[0].PictureUrl
+                    else R.drawable.farm_image_example
+                )
                 .into(binding.rvFarmImage)
             binding.rvFarmName.text = item.Name
 
