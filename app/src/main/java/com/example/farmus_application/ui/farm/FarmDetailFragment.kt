@@ -2,6 +2,7 @@ package com.example.farmus_application.ui.farm
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.farmus_application.R
 import com.example.farmus_application.databinding.FragmentFarmDetailBinding
+import com.example.farmus_application.model.farm.detail.DetailResult
 import com.example.farmus_application.ui.MainActivity
 import com.example.farmus_application.viewmodel.farm.FarmDetailViewModel
 
@@ -43,7 +45,8 @@ class FarmDetailFragment: Fragment() {
 
         farmDetailViewModel.farmDetail.observe(viewLifecycleOwner) { detailRes ->
             val result = detailRes.result
-            // 값 할당을 xml에서 해주는 방식으로 진행
+            binding.farmDetail = result
+            Log.e("FarmDetailResult","$result")
         }
 
         return binding.root
@@ -54,4 +57,5 @@ class FarmDetailFragment: Fragment() {
 
 
     }
+
 }
