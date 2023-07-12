@@ -28,6 +28,8 @@ class FarmDetailFragment: Fragment() {
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_farm_detail, container, false)
         farmDetailViewModel = ViewModelProvider(this)[FarmDetailViewModel::class.java]
+        val farmImageAdapter = FarmImageAdapter()
+        binding.farmDetailImage.adapter = farmImageAdapter
         val farmId = arguments?.getInt("farmId") ?: 0
 
         farmDetailViewModel.getFarmDetail(farmId)
@@ -46,6 +48,7 @@ class FarmDetailFragment: Fragment() {
         farmDetailViewModel.farmDetail.observe(viewLifecycleOwner) { detailRes ->
             val result = detailRes.result
             binding.farmDetail = result
+            farmImageAdapter.setData(result)
             Log.e("FarmDetailResult","$result")
         }
 
