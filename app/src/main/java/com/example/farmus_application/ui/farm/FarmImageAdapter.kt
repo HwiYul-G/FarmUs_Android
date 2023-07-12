@@ -1,5 +1,6 @@
 package com.example.farmus_application.ui.farm
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -12,6 +13,7 @@ import com.example.farmus_application.model.farm.list.Pictures
 
 class FarmImageAdapter: RecyclerView.Adapter<FarmImageAdapter.FarmImageViewHolder>() {
 
+
     private lateinit var binding: ItemFarmDetailImageBinding
     private var data = mutableListOf<Pictures>()
 
@@ -21,11 +23,15 @@ class FarmImageAdapter: RecyclerView.Adapter<FarmImageAdapter.FarmImageViewHolde
     }
 
     override fun onBindViewHolder(holder: FarmImageViewHolder, position: Int) {
-        holder.bind(data[position])
+        if (data.size != 0) {
+            holder.bind(data[position])
+        } else {
+            holder.emptyPicture()
+        }
     }
 
     override fun getItemCount(): Int {
-        return data.size
+        return if (data.size != 0) data.size else 1
     }
 
     fun setData(data: DetailResult) {
@@ -37,8 +43,14 @@ class FarmImageAdapter: RecyclerView.Adapter<FarmImageAdapter.FarmImageViewHolde
 
     inner class FarmImageViewHolder(private val binding: ItemFarmDetailImageBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Pictures) {
+            Log.e("FarmImageViewHolderBind","FarmImageViewHolderBind")
             Glide.with(binding.root)
                 .load(item.PictureUrl)
+                .into(binding.farmImage)
+        }
+        fun emptyPicture() {
+            Glide.with(binding.root)
+                .load(R.drawable.farm_image_example)
                 .into(binding.farmImage)
         }
     }
