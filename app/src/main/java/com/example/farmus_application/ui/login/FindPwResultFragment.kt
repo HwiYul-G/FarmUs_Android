@@ -1,4 +1,4 @@
-package com.example.farmus_application
+package com.example.farmus_application.ui.login
 
 import android.content.Context
 import android.os.Bundle
