@@ -11,7 +11,6 @@ import kotlinx.coroutines.launch
 class HomeSearchViewModel : ViewModel() {
 
     private val farmRepo = FarmRepository()
-    val searchedResultBoolean : MutableLiveData<Boolean> = MutableLiveData()
     val searchedFarmResponse : MutableLiveData<List<SearchedFarm>> = MutableLiveData()
 
 
@@ -39,10 +38,8 @@ class HomeSearchViewModel : ViewModel() {
                                 )
                             }
                             searchedFarmResponse.postValue(serachedFarmList)
-                            searchedResultBoolean.postValue(true)
                         }else{
                             Log.d("FarmSearch Success : ", response.body().toString())
-                            searchedResultBoolean.postValue(false)
                         }
                     }
                 }else{

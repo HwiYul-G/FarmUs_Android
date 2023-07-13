@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.farmus_application.R
-import com.example.farmus_application.ServiceLocator
 import com.example.farmus_application.databinding.FragmentHomeBinding
 import com.example.farmus_application.repository.UserPrefsStorage
 import com.example.farmus_application.ui.MainActivity
@@ -78,6 +77,8 @@ class HomeFragment : Fragment() {
         binding.rvHomeFarm.layoutManager = GridLayoutManager(requireActivity(), 2)
 
         homeViewModel.farmListResponse.observe(viewLifecycleOwner) {
+            // 매번 새롭게 리스트를 처리하기 위함
+            adapter.submitList(null)
             adapter.submitList(it)
         }
 

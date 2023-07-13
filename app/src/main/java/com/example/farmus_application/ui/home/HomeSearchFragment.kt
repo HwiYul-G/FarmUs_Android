@@ -27,7 +27,6 @@ private const val ARG_PARAM2 = "param2"
 class HomeSearchFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeSearchBinding
-    // private val homeSearchViewModel: HomeSearchViewModel by viewModels()
 
     private lateinit var callback: OnBackPressedCallback
 
@@ -61,14 +60,15 @@ class HomeSearchFragment : Fragment() {
         //fragment 이동시 searchBar로 focus
         binding.searchBar.requestFocus()
 
-        // TODO : 검색 기능 구현 필요 (검색어를 받아서 검색 결과를 보여주는 Searchfragment로 이동)
+        // 검색바 클릭 이벤트
         binding.searchBar.setOnClickListener {
             search()
         }
 
-
+        // TODO : 검색한 것을 chip으로 담는데 UI가 여러번 updated 되어도 chip에 최대 5개씩 담고있게 해야함.
         //chip 아이템 임의로 설정 (원래는 검색된 단어로 설정)
         val chipItems = mutableListOf<String>() //chip 에 들어갈 list
+
 
         chipItems.add("경기도")
         chipItems.add("강원도")
@@ -109,6 +109,7 @@ class HomeSearchFragment : Fragment() {
     }
     //chip 추가하는 함수
     private fun addChip(searchText: String) {
+
         val chip = Chip(requireContext())
         val radius: Float = 7.0f
 
@@ -138,7 +139,6 @@ class HomeSearchFragment : Fragment() {
 
     private fun clearChip() {
         binding.recentSearchChipgroup.removeAllViews()
-
     }
 
     //뒤로가기 누르면 HomeSearchFragment로 이동
@@ -159,15 +159,6 @@ class HomeSearchFragment : Fragment() {
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment HomeSearchFragment.
-         */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             HomeSearchFragment().apply {
