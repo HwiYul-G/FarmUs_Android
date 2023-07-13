@@ -13,6 +13,15 @@ import com.example.farmus_application.model.farm.list.ListResult
 
 class FarmRVAdapter : ListAdapter<ListResult, FarmRVAdapter.ViewHolder>(diffUtil) {
 
+    private var listener: OnItemClickListener? = null
+    interface OnItemClickListener {
+        fun itemClick(farmId: Int)
+    }
+
+    fun setOnItemClick(listener: OnItemClickListener) {
+        this.listener = listener
+    }
+
     inner class ViewHolder(private val binding: RvLocalFarmBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
@@ -35,6 +44,10 @@ class FarmRVAdapter : ListAdapter<ListResult, FarmRVAdapter.ViewHolder>(diffUtil
 
             binding.bookMark.setOnClickListener {
                 binding.bookMark.isSelected = !binding.bookMark.isSelected
+            }
+
+            binding.root.setOnClickListener {
+                listener?.itemClick(item.FarmID)
             }
         }
     }

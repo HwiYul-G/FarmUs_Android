@@ -429,4 +429,8 @@
     <string name="introduction_max">150</string>
     <string name="introduction_zero">0</string>
 
+    <string name="price_format">%s원</string>
+    <string name="squareMeter">%dm^2</string>
+    <string name="change_squareMeter">%s평 (%dm^2)</string>
+
 </resources>
