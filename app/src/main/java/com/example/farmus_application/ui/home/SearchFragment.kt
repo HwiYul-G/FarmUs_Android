@@ -166,8 +166,11 @@ class SearchFragment : Fragment() {
         binding.chipRegionFilter.isChecked = true
         if (town == "전체") {
             binding.chipRegionFilter.text = city
+            homeSearchViewModel.getFarmSearchKeyword(city)
         } else {
+            // TODO : city(시/도)와 town(시/군/구)가 동시에 들어왔을 때 처리필요
             binding.chipRegionFilter.text = "$city $town"
+            homeSearchViewModel.getFarmSearchKeyword("$city$town")
         }
     }
 
