@@ -27,6 +27,7 @@ private const val ARG_PARAM2 = "param2"
 class HomeSearchFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeSearchBinding
+    // private val homeSearchViewModel: HomeSearchViewModel by viewModels()
 
     private lateinit var callback: OnBackPressedCallback
 
@@ -50,7 +51,6 @@ class HomeSearchFragment : Fragment() {
         // Inflate the layout for this fragment
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_home_search, container, false)
-
         return binding.root
     }
 
@@ -61,7 +61,7 @@ class HomeSearchFragment : Fragment() {
         //fragment 이동시 searchBar로 focus
         binding.searchBar.requestFocus()
 
-        //수정해야됨
+        // TODO : 검색 기능 구현 필요 (검색어를 받아서 검색 결과를 보여주는 Searchfragment로 이동)
         binding.searchBar.setOnClickListener {
             search()
         }
@@ -102,7 +102,8 @@ class HomeSearchFragment : Fragment() {
                 "searchTextRequestKey",
                 bundleOf("searchTextBundleKey" to searchText)
             )
-            (activity as MainActivity).changeFragment(SearchFragment.newInstance("", ""))
+            (activity as MainActivity).changeFragment(SearchFragment())
+            // TODO : 현재 검색된 것이 chip에 기록되게 해야함. (chip은 전체적으로 기록되고 지워지도록 수정이 필요함)
             addChip(searchText)
         }
     }
@@ -129,7 +130,7 @@ class HomeSearchFragment : Fragment() {
 
             setFragmentResult("selectTextRequestKey", bundleOf("bundleKey" to chipText))
             //SearchFragment로 이동
-            (activity as MainActivity).changeFragment(SearchFragment.newInstance("", ""))
+            (activity as MainActivity).changeFragment(SearchFragment())
         }
 
         binding.recentSearchChipgroup.addView(chip)
@@ -145,7 +146,7 @@ class HomeSearchFragment : Fragment() {
         super.onAttach(context)
         callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                (activity as MainActivity).changeFragment(HomeFragment.newInstance("", ""))
+                (activity as MainActivity).changeFragment(HomeFragment())
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(this, callback)

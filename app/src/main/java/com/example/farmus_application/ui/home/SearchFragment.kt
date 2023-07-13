@@ -3,21 +3,24 @@ package com.example.farmus_application.ui.home
 import android.content.Context
 import android.os.Bundle
 import android.util.TypedValue
+import android.view.KeyEvent
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
 import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.setFragmentResultListener
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.farmus_application.R
 import com.example.farmus_application.databinding.BottomSheetFilterRegionBinding
 import com.example.farmus_application.databinding.FragmentSearchBinding
 import com.example.farmus_application.ui.MainActivity
-import com.example.farmus_application.ui.home.Adapter.FarmRVAdapter
+import com.example.farmus_application.ui.home.Adapter.SearchedFarmRVAdapter
+import com.example.farmus_application.viewmodel.home.HomeSearchViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
 // TODO: Rename parameter arguments, choose names that match
@@ -30,12 +33,13 @@ class SearchFragment : Fragment() {
 
     private lateinit var binding: FragmentSearchBinding
     private lateinit var bottomSheetRegionBinding: BottomSheetFilterRegionBinding
+    private val homeSearchViewModel: HomeSearchViewModel by viewModels()
 
     private var city = "전체"
     private var town = "전체"
     private lateinit var bottomSheetDialog: BottomSheetDialog
 
-    private lateinit var adapter : FarmRVAdapter
+    private lateinit var adapter : SearchedFarmRVAdapter
 
     //뒤로 가기 기능
     private lateinit var callback: OnBackPressedCallback
@@ -56,12 +60,16 @@ class SearchFragment : Fragment() {
         setFragmentResultListener("searchTextRequestKey") { key, bundle ->
             searchText = bundle.getString("searchTextBundleKey")
             binding.searchBar.setText(searchText)
+            homeSearchViewModel.getFarmSearchKeyword(searchText!!)
         }
+
         //최근 검색어 선택한 경우
         setFragmentResultListener("selectTextRequestKey") { key, bundle ->
             searchText = bundle.getString("bundleKey")
             binding.searchBar.setText(searchText)
+            homeSearchViewModel.getFarmSearchKeyword(searchText!!)
         }
+
     }
 
     override fun onCreateView(
@@ -100,54 +108,38 @@ class SearchFragment : Fragment() {
             clickBottomSheetApply()
         }
 
-        // RV data calss 수정 (Image타입이 INT에서 String?으로 변경됨)에 따른 임시로 넣어둔 데이터 일괄 수정
-//        val resultFarmItems = mutableListOf<RVFarmDataModel>()
-//        resultFarmItems.add(
-//            RVFarmDataModel(
-//                "",
-//                "고덕 주말 농장",
-//                "4.5평",
-//                "150,000"
-//            )
-//        )
-//        resultFarmItems.add(
-//            RVFarmDataModel(
-//                "",
-//                "고덕 주말 농장",
-//                "4.5평",
-//                "150,000"
-//            )
-//        )
-//        resultFarmItems.add(
-//            RVFarmDataModel(
-//                "",
-//                "고덕 주말 농장",
-//                "4.5평",
-//                "150,000"
-//            )
-//        )
-//        resultFarmItems.add(
-//            RVFarmDataModel(
-//                "",
-//                "고덕 주말 농장",
-//                "4.5평",
-//                "150,000"
-//            )
-//        )
+        // searchBar에 검색 후 이벤트
+        binding.searchBar.setOnEditorActionListener { textView, i, keyEvent ->
+            if(i == EditorInfo.IME_ACTION_DONE || i == EditorInfo.IME_ACTION_NEXT
+                || (keyEvent?.keyCode == KeyEvent.KEYCODE_ENTER && keyEvent.action == KeyEvent.ACTION_DOWN)){
+                homeSearchViewModel.getFarmSearchKeyword(textView.text.toString())
+                true
+            }
+            false
+        }
 
 
         val dp = 16
         val px = dpToPx(requireContext(), dp.toFloat())
         //검색 결과 농장 리사이클러뷰
-        adapter = FarmRVAdapter()
-//        adapter.submitList(resultFarmItems)
+        adapter = SearchedFarmRVAdapter()
         binding.rvHomeSearchFarm.adapter = adapter
         binding.rvHomeSearchFarm.layoutManager = GridLayoutManager(requireContext(), 2)
         binding.rvHomeSearchFarm.addItemDecoration(GridSpaceItemDecoration(2, px.toInt()))
 
+        homeSearchViewModel.searchedFarmResponse.observe(viewLifecycleOwner) { searchedFarmList ->
+            // TODO : 검색 결과의 수가 0인 경우에 처리 필요
+            adapter.submitList(searchedFarmList)
+        }
+
+        homeSearchViewModel.searchedResultBoolean.observe(viewLifecycleOwner) {
+            // TODO : false인 경우에만 화면에 대한 처리가 필요함. (검색 결과 없음)
+        }
+
+
         //툴바의 백버튼 누르면 HomeSearchFragment로 이동
         binding.homeSearchTitleBar.toolbarWithTitleBackButton.setOnClickListener {
-            (activity as MainActivity).changeFragment(HomeSearchFragment.newInstance("", ""))
+            (activity as MainActivity).changeFragment(HomeSearchFragment())
         }
 
     }
@@ -234,7 +226,7 @@ class SearchFragment : Fragment() {
         super.onAttach(context)
         callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                (activity as MainActivity).changeFragment(HomeSearchFragment.newInstance("", ""))
+                (activity as MainActivity).changeFragment(HomeSearchFragment())
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(this, callback)
