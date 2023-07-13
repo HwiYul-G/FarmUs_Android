@@ -19,6 +19,7 @@ import com.example.farmus_application.R
 import com.example.farmus_application.databinding.BottomSheetFilterRegionBinding
 import com.example.farmus_application.databinding.FragmentSearchBinding
 import com.example.farmus_application.ui.MainActivity
+import com.example.farmus_application.ui.home.Adapter.EmptyDataObserve
 import com.example.farmus_application.ui.home.Adapter.SearchedFarmRVAdapter
 import com.example.farmus_application.viewmodel.home.HomeSearchViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -127,14 +128,20 @@ class SearchFragment : Fragment() {
         binding.rvHomeSearchFarm.layoutManager = GridLayoutManager(requireContext(), 2)
         binding.rvHomeSearchFarm.addItemDecoration(GridSpaceItemDecoration(2, px.toInt()))
 
+        val emptyDataObserver = EmptyDataObserve(binding.rvHomeSearchFarm, binding.emptyDataParent.root)
+        adapter.registerAdapterDataObserver(emptyDataObserver)
+
         homeSearchViewModel.searchedFarmResponse.observe(viewLifecycleOwner) { searchedFarmList ->
-            // TODO : 검색 결과의 수가 0인 경우에 처리 필요
+            // adapter에게 기존 데이터를 지우고 새 데이터가 추가됨을 알림
+            adapter.submitList(null)
             adapter.submitList(searchedFarmList)
+            
+            // 검색된 데이터가 없는 경우 처리
+            if(searchedFarmList.isEmpty()){
+                binding.emptyDataParent.emptyItemTextview.text = "검색 결과가 없습니다."
+            }
         }
 
-        homeSearchViewModel.searchedResultBoolean.observe(viewLifecycleOwner) {
-            // TODO : false인 경우에만 화면에 대한 처리가 필요함. (검색 결과 없음)
-        }
 
 
         //툴바의 백버튼 누르면 HomeSearchFragment로 이동

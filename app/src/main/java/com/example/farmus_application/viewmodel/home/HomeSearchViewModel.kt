@@ -22,6 +22,7 @@ class HomeSearchViewModel : ViewModel() {
                 if(response.isSuccessful){
                     response.body()?.let {
                         if(it.result){
+                            Log.d("FarmSearch Success : ", response.body().toString())
                             val serachedFarmList = mutableListOf<SearchedFarm>()
                             for(farm in it.farms){
                                 serachedFarmList.add(
