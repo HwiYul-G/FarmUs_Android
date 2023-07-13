@@ -1,6 +1,8 @@
 package com.example.farmus_application.ui.farm
 
+import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,7 +13,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.farmus_application.R
 import com.example.farmus_application.databinding.FragmentFarmDetailBinding
-import com.example.farmus_application.model.farm.detail.DetailResult
 import com.example.farmus_application.ui.MainActivity
 import com.example.farmus_application.viewmodel.farm.FarmDetailViewModel
 
@@ -19,6 +20,7 @@ class FarmDetailFragment: Fragment() {
 
     private lateinit var binding: FragmentFarmDetailBinding
     private lateinit var farmDetailViewModel: FarmDetailViewModel
+    private lateinit var phoneNumber: String
 
 
     override fun onCreateView(
@@ -49,6 +51,7 @@ class FarmDetailFragment: Fragment() {
             val result = detailRes.result
             binding.farmDetail = result
             farmImageAdapter.setData(result)
+            phoneNumber = result.farmer.PhoneNumber
             Log.e("FarmDetailResult","$result")
         }
 
@@ -58,6 +61,11 @@ class FarmDetailFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.farmDetailRequestApplication.setOnClickListener {
+            val uri = Uri.parse("sms:$phoneNumber")
+            val intent = Intent(Intent.ACTION_SENDTO, uri)
+            startActivity(intent)
+        }
 
     }
 
