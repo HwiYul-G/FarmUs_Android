@@ -28,4 +28,8 @@ class FarmRepository(
     override suspend fun getFarmSearchKeyword(keyword: String): Response<SearchedRes> {
         return farmApiClient.getFarmSearchKeyword(keyword)
     }
+
+    override suspend fun getFarmSearchByFilter(locationBig : String, locationMid : String): Response<SearchedRes> {
+        return farmApiClient.getFarmSearchByFilter(locationBig, locationMid)
+    }
 }

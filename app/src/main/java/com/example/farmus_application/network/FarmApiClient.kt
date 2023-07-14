@@ -20,4 +20,8 @@ interface FarmApiClient {
 
     @GET("/farm/search")
     suspend fun getFarmSearchKeyword(@Query("keyword") keyword: String) : Response<SearchedRes>
+
+    @GET("/farm")
+    suspend fun getFarmSearchByFilter(@Query("locationBig") locationBig : String,
+                                      @Query("locationMid") locationMid : String) : Response<SearchedRes>
 }

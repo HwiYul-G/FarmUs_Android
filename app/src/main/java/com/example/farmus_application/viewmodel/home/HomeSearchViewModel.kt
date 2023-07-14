@@ -51,4 +51,41 @@ class HomeSearchViewModel : ViewModel() {
         }
     }
 
+    fun getFarmSearchByFilter(locationBig : String, locationMid : String){
+        viewModelScope.launch {
+            try {
+                val response = farmRepo.getFarmSearchByFilter(locationBig, locationMid)
+                if(response.isSuccessful){
+                    response.body()?.let {
+                        if(it.result){
+                            Log.d("FarmSearch Success : ", response.body().toString())
+                            val serachedFarmList = mutableListOf<SearchedFarm>()
+                            for(farm in it.farms){
+                                serachedFarmList.add(
+                                    SearchedFarm(
+                                        farm.FarmID,
+                                        farm.Name,
+                                        farm.Price,
+                                        farm.SquaredMeters,
+                                        farm.LocationBig,
+                                        farm.LocationMid,
+                                        farm.LocationSmall,
+                                        farm.Likes,
+                                        farm.Picture_url)
+                                )
+                            }
+                            searchedFarmResponse.postValue(serachedFarmList)
+                        }else{
+                            Log.d("FarmSearch Success : ", response.body().toString())
+                        }
+                    }
+                }else{
+                    Log.d("FarmSearch Failed : ", response.body().toString())
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+
 }

@@ -24,8 +24,7 @@ import com.example.farmus_application.ui.home.Adapter.SearchedFarmRVAdapter
 import com.example.farmus_application.viewmodel.home.HomeSearchViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
@@ -128,6 +127,7 @@ class SearchFragment : Fragment() {
         binding.rvHomeSearchFarm.layoutManager = GridLayoutManager(requireContext(), 2)
         binding.rvHomeSearchFarm.addItemDecoration(GridSpaceItemDecoration(2, px.toInt()))
 
+        // recyclerview의 결과 data가 비어있을 때 UI 처리
         val emptyDataObserver = EmptyDataObserve(binding.rvHomeSearchFarm, binding.emptyDataParent.root)
         adapter.registerAdapterDataObserver(emptyDataObserver)
 
@@ -166,11 +166,11 @@ class SearchFragment : Fragment() {
         binding.chipRegionFilter.isChecked = true
         if (town == "전체") {
             binding.chipRegionFilter.text = city
+            // filter를 사용하지 않고 keyword 검색을 이용
             homeSearchViewModel.getFarmSearchKeyword(city)
         } else {
-            // TODO : city(시/도)와 town(시/군/구)가 동시에 들어왔을 때 처리필요
             binding.chipRegionFilter.text = "$city $town"
-            homeSearchViewModel.getFarmSearchKeyword("$city$town")
+            homeSearchViewModel.getFarmSearchByFilter(city, town)
         }
     }
 
@@ -248,15 +248,7 @@ class SearchFragment : Fragment() {
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment SearchFragment.
-         */
-        // TODO: Rename and change types and number of parameters
+
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             SearchFragment().apply {

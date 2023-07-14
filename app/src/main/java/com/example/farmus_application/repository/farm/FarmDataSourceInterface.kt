@@ -17,5 +17,6 @@ interface FarmDataSourceInterface {
 
     suspend fun getFarmSearchKeyword(keyword: String): Response<SearchedRes>
 
+    suspend fun getFarmSearchByFilter(locationBig : String, locationMid : String): Response<SearchedRes>
 
 }
