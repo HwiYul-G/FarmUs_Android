@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="farmDetail"
             type="com.example.farmus_application.model.farm.detail.DetailResult" />
@@ -77,16 +78,16 @@
                 <TextView
                     android:id="@+id/farm_detail_address"
                     style="@style/Body2Reg"
+                    locationBig="@{farmDetail.locationBig}"
+                    locationMid="@{farmDetail.locationMid}"
+                    locationSmall="@{farmDetail.locationSmall}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="19dp"
-                    locationBig="@{farmDetail.locationBig}"
-                    locationMid="@{farmDetail.locationMid}"
-                    locationSmall="@{farmDetail.locationSmall}"
-                    tools:text="경기도 화성시 진안동"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/farm_detail_frame" />
+                    app:layout_constraintTop_toBottomOf="@id/farm_detail_frame"
+                    tools:text="경기도 화성시 진안동" />
 
                 <TextView
                     android:id="@+id/farm_detail_title"
@@ -96,9 +97,9 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:text="@{farmDetail.name}"
-                    tools:text="진안 주말 농장"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/farm_detail_address" />
+                    app:layout_constraintTop_toBottomOf="@id/farm_detail_address"
+                    tools:text="진안 주말 농장" />
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/farm_size_icon"
@@ -113,27 +114,27 @@
                 <TextView
                     android:id="@+id/farm_detail_size"
                     style="@style/Body2Reg"
+                    squareMeters="@{farmDetail.squaredMeters}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="3dp"
                     android:layout_marginTop="48dp"
-                    tools:text="@string/example_farm_size"
-                    squareMeters="@{farmDetail.squaredMeters}"
                     app:layout_constraintStart_toEndOf="@id/farm_size_icon"
-                    app:layout_constraintTop_toBottomOf="@id/farm_detail_title" />
+                    app:layout_constraintTop_toBottomOf="@id/farm_detail_title"
+                    tools:text="@string/example_farm_size" />
 
                 <TextView
                     android:id="@+id/farm_detail_price"
                     style="@style/Title2"
+                    priceFormat="@{farmDetail.price}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
-                    tools:text="@string/example_farm_price"
-                    priceFormat="@{farmDetail.price}"
                     android:textColor="@color/main_green"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/farm_size_icon" />
+                    app:layout_constraintTop_toBottomOf="@id/farm_size_icon"
+                    tools:text="@string/example_farm_price" />
 
                 <TextView
                     android:id="@+id/farm_detail_views"
@@ -175,11 +176,11 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="17dp"
                     android:layout_marginEnd="16dp"
-                    tools:text="@string/example_farm_description"
                     android:text="@{farmDetail.description}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/farm_detail_description_title" />
+                    app:layout_constraintTop_toBottomOf="@id/farm_detail_description_title"
+                    tools:text="@string/example_farm_description" />
 
                 <View
                     android:id="@+id/divider_2"
@@ -290,26 +291,26 @@
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@id/farm_detail_information_owner" />
 
-<!--                            <TextView-->
-<!--                                android:id="@+id/farm_detail_information_phone"-->
-<!--                                style="@style/Body2Reg"-->
-<!--                                android:layout_width="wrap_content"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:layout_marginStart="12dp"-->
-<!--                                android:layout_marginTop="13dp"-->
-<!--                                android:text="@string/farm_detail_information_phone"-->
-<!--                                app:layout_constraintStart_toStartOf="parent"-->
-<!--                                app:layout_constraintTop_toBottomOf="@id/divider3" />-->
+                            <!--                            <TextView-->
+                            <!--                                android:id="@+id/farm_detail_information_phone"-->
+                            <!--                                style="@style/Body2Reg"-->
+                            <!--                                android:layout_width="wrap_content"-->
+                            <!--                                android:layout_height="wrap_content"-->
+                            <!--                                android:layout_marginStart="12dp"-->
+                            <!--                                android:layout_marginTop="13dp"-->
+                            <!--                                android:text="@string/farm_detail_information_phone"-->
+                            <!--                                app:layout_constraintStart_toStartOf="parent"-->
+                            <!--                                app:layout_constraintTop_toBottomOf="@id/divider3" />-->
 
-<!--                            <View-->
-<!--                                android:id="@+id/divider4"-->
-<!--                                android:layout_width="0dp"-->
-<!--                                android:layout_height="0.5dp"-->
-<!--                                android:layout_marginTop="12dp"-->
-<!--                                android:background="@color/gray_1"-->
-<!--                                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                                app:layout_constraintStart_toStartOf="parent"-->
-<!--                                app:layout_constraintTop_toBottomOf="@id/farm_detail_information_phone" />-->
+                            <!--                            <View-->
+                            <!--                                android:id="@+id/divider4"-->
+                            <!--                                android:layout_width="0dp"-->
+                            <!--                                android:layout_height="0.5dp"-->
+                            <!--                                android:layout_marginTop="12dp"-->
+                            <!--                                android:background="@color/gray_1"-->
+                            <!--                                app:layout_constraintEnd_toEndOf="parent"-->
+                            <!--                                app:layout_constraintStart_toStartOf="parent"-->
+                            <!--                                app:layout_constraintTop_toBottomOf="@id/farm_detail_information_phone" />-->
 
                             <TextView
                                 android:id="@+id/farm_detail_information_total_width"
@@ -382,10 +383,10 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="13dp"
                                 android:layout_marginTop="13dp"
-                                tools:text="@string/farm_detail_information_location_content"
                                 android:text="@{farmDetail.locationMid}"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
+                                app:layout_constraintTop_toTopOf="parent"
+                                tools:text="@string/farm_detail_information_location_content" />
 
                             <View
                                 android:id="@+id/divider1_1"
@@ -404,10 +405,10 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="13dp"
                                 android:layout_marginTop="13dp"
-                                tools:text="@string/farm_detail_information_farm_name_content"
                                 android:text="@{farmDetail.name}"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@id/divider1_1" />
+                                app:layout_constraintTop_toBottomOf="@id/divider1_1"
+                                tools:text="@string/farm_detail_information_farm_name_content" />
 
                             <View
                                 android:id="@+id/divider2_1"
@@ -426,10 +427,10 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="13dp"
                                 android:layout_marginTop="13dp"
-                                tools:text="@string/farm_detail_information_owner_content"
                                 android:text="@{farmDetail.farmer.name}"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@id/divider2_1" />
+                                app:layout_constraintTop_toBottomOf="@id/divider2_1"
+                                tools:text="@string/farm_detail_information_owner_content" />
 
                             <View
                                 android:id="@+id/divider3_1"
@@ -441,27 +442,27 @@
                                 app:layout_constraintStart_toStartOf="parent"
                                 app:layout_constraintTop_toBottomOf="@+id/farm_detail_information_owner_content" />
 
-<!--                            <TextView-->
-<!--                                android:id="@+id/farm_detail_information_phone_content"-->
-<!--                                style="@style/Body2Reg"-->
-<!--                                android:layout_width="wrap_content"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:layout_marginStart="13dp"-->
-<!--                                android:layout_marginTop="13dp"-->
-<!--                                tools:text="@string/farm_detail_information_phone_content"-->
-<!--                                android:text="@{farmDetail.farmer.phoneNumber}"-->
-<!--                                app:layout_constraintStart_toStartOf="parent"-->
-<!--                                app:layout_constraintTop_toBottomOf="@id/divider3_1" />-->
+                            <!--                            <TextView-->
+                            <!--                                android:id="@+id/farm_detail_information_phone_content"-->
+                            <!--                                style="@style/Body2Reg"-->
+                            <!--                                android:layout_width="wrap_content"-->
+                            <!--                                android:layout_height="wrap_content"-->
+                            <!--                                android:layout_marginStart="13dp"-->
+                            <!--                                android:layout_marginTop="13dp"-->
+                            <!--                                tools:text="@string/farm_detail_information_phone_content"-->
+                            <!--                                android:text="@{farmDetail.farmer.phoneNumber}"-->
+                            <!--                                app:layout_constraintStart_toStartOf="parent"-->
+                            <!--                                app:layout_constraintTop_toBottomOf="@id/divider3_1" />-->
 
-<!--                            <View-->
-<!--                                android:id="@+id/divider4_1"-->
-<!--                                android:layout_width="0dp"-->
-<!--                                android:layout_height="0.5dp"-->
-<!--                                android:layout_marginTop="12dp"-->
-<!--                                android:background="@color/gray_1"-->
-<!--                                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                                app:layout_constraintStart_toStartOf="parent"-->
-<!--                                app:layout_constraintTop_toBottomOf="@+id/farm_detail_information_phone_content" />-->
+                            <!--                            <View-->
+                            <!--                                android:id="@+id/divider4_1"-->
+                            <!--                                android:layout_width="0dp"-->
+                            <!--                                android:layout_height="0.5dp"-->
+                            <!--                                android:layout_marginTop="12dp"-->
+                            <!--                                android:background="@color/gray_1"-->
+                            <!--                                app:layout_constraintEnd_toEndOf="parent"-->
+                            <!--                                app:layout_constraintStart_toStartOf="parent"-->
+                            <!--                                app:layout_constraintTop_toBottomOf="@+id/farm_detail_information_phone_content" />-->
 
                             <TextView
                                 android:id="@+id/farm_detail_information_total_width_content"
@@ -470,10 +471,10 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="13dp"
                                 android:layout_marginTop="13dp"
-                                tools:text="@string/farm_detail_information_total_width_content"
                                 android:text="@{@string/squareMeter(farmDetail.squaredMeters)}"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@id/divider3_1" />
+                                app:layout_constraintTop_toBottomOf="@id/divider3_1"
+                                tools:text="@string/farm_detail_information_total_width_content" />
 
                             <View
                                 android:id="@+id/divider4_1"
@@ -488,14 +489,14 @@
                             <TextView
                                 android:id="@+id/farm_detail_information_rental_width_content"
                                 style="@style/Body2Reg"
+                                squareMeters="@{farmDetail.squaredMeters}"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="13dp"
                                 android:layout_marginTop="13dp"
-                                tools:text="@string/farm_detail_information_rental_width_content"
-                                squareMeters="@{farmDetail.squaredMeters}"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@id/divider4_1" />
+                                app:layout_constraintTop_toBottomOf="@id/divider4_1"
+                                tools:text="@string/farm_detail_information_rental_width_content" />
 
                             <View
                                 android:id="@+id/divider5_1"
@@ -510,14 +511,14 @@
                             <TextView
                                 android:id="@+id/farm_detail_information_rental_price_content"
                                 style="@style/Body2Reg"
+                                priceFormat="@{farmDetail.price}"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="13dp"
                                 android:layout_marginTop="13dp"
-                                tools:text="@string/farm_detail_information_rental_price_content"
-                                priceFormat="@{farmDetail.price}"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toBottomOf="@id/divider5_1" />
+                                app:layout_constraintTop_toBottomOf="@id/divider5_1"
+                                tools:text="@string/farm_detail_information_rental_price_content" />
 
                             <View
                                 android:id="@+id/divider7_1"
@@ -571,11 +572,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="12dp"
-                    tools:text="@string/farm_detail_owner_nickname"
                     android:text="@{farmDetail.farmer.name}"
                     app:layout_constraintBottom_toBottomOf="@id/farm_detail_owner_image"
                     app:layout_constraintStart_toEndOf="@id/farm_detail_owner_image"
-                    app:layout_constraintTop_toTopOf="@id/farm_detail_owner_image" />
+                    app:layout_constraintTop_toTopOf="@id/farm_detail_owner_image"
+                    tools:text="@string/farm_detail_owner_nickname" />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/farm_detail_more_request"
@@ -603,45 +604,23 @@
             android:background="@drawable/request_bar_background"
             app:layout_constraintBottom_toBottomOf="parent">
 
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/farm_detail_request_message"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:background="@drawable/farm_detail_request_background"
-                android:src="@drawable/chat_green_vector_image"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="13dp"
-                android:layout_marginBottom="17dp" />
-
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:id="@+id/farm_detail_request_calendar"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:background="@drawable/farm_detail_request_background"
-                android:src="@drawable/calendar_green_vector_image"
-                app:layout_constraintStart_toEndOf="@id/farm_detail_request_message"
-                app:layout_constraintTop_toTopOf="@id/farm_detail_request_message"
-                app:layout_constraintBottom_toBottomOf="@id/farm_detail_request_message"
-                android:layout_marginStart="13dp"/>
-
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/farm_detail_request_application"
+                style="@style/Body1Med"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
                 android:background="@drawable/farm_detail_request_background"
-                android:text="@string/request"
-                app:layout_constraintStart_toEndOf="@id/farm_detail_request_calendar"
-                app:layout_constraintTop_toTopOf="@id/farm_detail_request_message"
-                app:layout_constraintBottom_toBottomOf="@id/farm_detail_request_message"
-                android:layout_marginStart="13dp"
-                style="@style/Body1Med"
-                android:textColor="@color/main_green"
                 android:outlineProvider="none"
+                android:text="@string/request"
+                android:layout_marginTop="13dp"
+                android:layout_marginBottom="17dp"
+                android:textColor="@color/main_green"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginEnd="16dp" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
