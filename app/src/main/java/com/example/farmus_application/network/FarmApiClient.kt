@@ -1,5 +1,6 @@
 package com.example.farmus_application.network
 
+import com.example.farmus_application.model.farm.detail.DetailRes
 import com.example.farmus_application.model.farm.list.ListRes
 import com.example.farmus_application.model.farm.postings.PostingsReq
 import com.example.farmus_application.model.farm.postings.PostingsRes
@@ -18,10 +19,15 @@ interface FarmApiClient {
     @PATCH("/farm/register")
     suspend fun patchFarmRegister(): Response<RegisterRes>
 
+
     @GET("/farm/search")
     suspend fun getFarmSearchKeyword(@Query("keyword") keyword: String) : Response<SearchedRes>
 
     @GET("/farm")
     suspend fun getFarmSearchByFilter(@Query("locationBig") locationBig : String,
                                       @Query("locationMid") locationMid : String) : Response<SearchedRes>
+
+    @GET("/farm/detail/{farmid}")
+    suspend fun getFarmDetail(@Path(value="farmid") farmid : Int): Response<DetailRes>
+
 }

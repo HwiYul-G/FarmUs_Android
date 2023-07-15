@@ -1,5 +1,6 @@
 package com.example.farmus_application.repository.farm
 
+import com.example.farmus_application.model.farm.detail.DetailRes
 import com.example.farmus_application.model.farm.list.ListRes
 import com.example.farmus_application.model.farm.postings.PostingsReq
 import com.example.farmus_application.model.farm.postings.PostingsRes
@@ -18,5 +19,7 @@ interface FarmDataSourceInterface {
     suspend fun getFarmSearchKeyword(keyword: String): Response<SearchedRes>
 
     suspend fun getFarmSearchByFilter(locationBig : String, locationMid : String): Response<SearchedRes>
+
+    suspend fun getFarmDetail(farmid: Int): Response<DetailRes>
 
 }

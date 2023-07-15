@@ -14,6 +14,7 @@ import com.example.farmus_application.R
 import com.example.farmus_application.databinding.FragmentHomeBinding
 import com.example.farmus_application.repository.UserPrefsStorage
 import com.example.farmus_application.ui.MainActivity
+import com.example.farmus_application.ui.farm.FarmDetailFragment
 import com.example.farmus_application.ui.home.Adapter.FarmRVAdapter
 import com.example.farmus_application.viewmodel.home.HomeViewModel
 
@@ -72,6 +73,16 @@ class HomeFragment : Fragment() {
 
         homeViewModel.getFarmList(UserPrefsStorage.email.toString())
 
+        adapter.setOnItemClick(object : FarmRVAdapter.OnItemClickListener {
+            override fun itemClick(farmId: Int) {
+                val farmDetailFragment = FarmDetailFragment()
+                val bundle = Bundle().apply {
+                    putInt("farmId", farmId)
+                }
+                farmDetailFragment.arguments = bundle
+                (activity as MainActivity).changeFragment(farmDetailFragment)
+            }
+        })
         binding.rvHomeFarm.adapter = adapter
         binding.rvHomeFarm.addItemDecoration(GridSpaceItemDecoration(2, px.toInt()))
         binding.rvHomeFarm.layoutManager = GridLayoutManager(requireActivity(), 2)
