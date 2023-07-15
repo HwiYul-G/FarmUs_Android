@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.content.res.AppCompatResources.getColorStateList
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
@@ -65,7 +64,8 @@ class HomeSearchFragment : Fragment() {
             search()
         }
 
-        // TODO : 검색한 것을 chip으로 담는데 UI가 여러번 updated 되어도 chip에 최대 5개씩 담고있게 해야함.
+        // TODO : 검색한 것을 chip으로 담는데 UI가 updated될 때 chip도 update 필요
+        // TODO : 즉, datastore preference에 저장된 chipItems를 불러와서 chip에 넣어주어야함.
         //chip 아이템 임의로 설정 (원래는 검색된 단어로 설정)
         val chipItems = mutableListOf<String>() //chip 에 들어갈 list
 
@@ -121,9 +121,12 @@ class HomeSearchFragment : Fragment() {
         chip.chipBackgroundColor = getColorStateList(requireContext(), R.color.white)
         chip.isCloseIconVisible = true
 
+        // TODO : chip이 추가될 때 데이터스토어 프리퍼런스에 저장되어야함.
+
         //삭제 버튼 누르면 chip 삭제
         chip.setOnCloseIconClickListener {
             binding.recentSearchChipgroup.removeView(chip)
+            // TODO : 데이터 스토어에 해당 chip이 삭제되게 해야함
         }
         //chip 버튼 클릭 이벤트
         chip.setOnClickListener {
@@ -139,6 +142,7 @@ class HomeSearchFragment : Fragment() {
 
     private fun clearChip() {
         binding.recentSearchChipgroup.removeAllViews()
+        // TODO: 데이터스토어 프리퍼런스에 저장된 기록들도 모두 삭제
     }
 
     //뒤로가기 누르면 HomeSearchFragment로 이동
