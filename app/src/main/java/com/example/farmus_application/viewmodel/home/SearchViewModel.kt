@@ -8,7 +8,7 @@ import com.example.farmus_application.model.farm.search.SearchedFarm
 import com.example.farmus_application.repository.farm.FarmRepository
 import kotlinx.coroutines.launch
 
-class HomeSearchViewModel : ViewModel() {
+class SearchViewModel : ViewModel() {
 
     private val farmRepo = FarmRepository()
     val searchedFarmResponse : MutableLiveData<List<SearchedFarm>> = MutableLiveData()

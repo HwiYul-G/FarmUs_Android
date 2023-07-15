@@ -21,7 +21,7 @@ import com.example.farmus_application.databinding.FragmentSearchBinding
 import com.example.farmus_application.ui.MainActivity
 import com.example.farmus_application.ui.home.Adapter.EmptyDataObserve
 import com.example.farmus_application.ui.home.Adapter.SearchedFarmRVAdapter
-import com.example.farmus_application.viewmodel.home.HomeSearchViewModel
+import com.example.farmus_application.viewmodel.home.SearchViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
 
@@ -33,7 +33,7 @@ class SearchFragment : Fragment() {
 
     private lateinit var binding: FragmentSearchBinding
     private lateinit var bottomSheetRegionBinding: BottomSheetFilterRegionBinding
-    private val homeSearchViewModel: HomeSearchViewModel by viewModels()
+    private val searchViewModel: SearchViewModel by viewModels()
 
     private var city = "전체"
     private var town = "전체"
@@ -60,14 +60,14 @@ class SearchFragment : Fragment() {
         setFragmentResultListener("searchTextRequestKey") { key, bundle ->
             searchText = bundle.getString("searchTextBundleKey")
             binding.searchBar.setText(searchText)
-            homeSearchViewModel.getFarmSearchKeyword(searchText!!)
+            searchViewModel.getFarmSearchKeyword(searchText!!)
         }
 
         //최근 검색어 선택한 경우
         setFragmentResultListener("selectTextRequestKey") { key, bundle ->
             searchText = bundle.getString("bundleKey")
             binding.searchBar.setText(searchText)
-            homeSearchViewModel.getFarmSearchKeyword(searchText!!)
+            searchViewModel.getFarmSearchKeyword(searchText!!)
         }
 
     }
@@ -112,7 +112,7 @@ class SearchFragment : Fragment() {
         binding.searchBar.setOnEditorActionListener { textView, i, keyEvent ->
             if(i == EditorInfo.IME_ACTION_DONE || i == EditorInfo.IME_ACTION_NEXT
                 || (keyEvent?.keyCode == KeyEvent.KEYCODE_ENTER && keyEvent.action == KeyEvent.ACTION_DOWN)){
-                homeSearchViewModel.getFarmSearchKeyword(textView.text.toString())
+                searchViewModel.getFarmSearchKeyword(textView.text.toString())
                 true
             }
             false
@@ -131,7 +131,7 @@ class SearchFragment : Fragment() {
         val emptyDataObserver = EmptyDataObserve(binding.rvHomeSearchFarm, binding.emptyDataParent.root)
         adapter.registerAdapterDataObserver(emptyDataObserver)
 
-        homeSearchViewModel.searchedFarmResponse.observe(viewLifecycleOwner) { searchedFarmList ->
+        searchViewModel.searchedFarmResponse.observe(viewLifecycleOwner) { searchedFarmList ->
             // adapter에게 기존 데이터를 지우고 새 데이터가 추가됨을 알림
             adapter.submitList(null)
             adapter.submitList(searchedFarmList)
@@ -167,10 +167,10 @@ class SearchFragment : Fragment() {
         if (town == "전체") {
             binding.chipRegionFilter.text = city
             // filter를 사용하지 않고 keyword 검색을 이용
-            homeSearchViewModel.getFarmSearchKeyword(city)
+            searchViewModel.getFarmSearchKeyword(city)
         } else {
             binding.chipRegionFilter.text = "$city $town"
-            homeSearchViewModel.getFarmSearchByFilter(city, town)
+            searchViewModel.getFarmSearchByFilter(city, town)
         }
     }
 
