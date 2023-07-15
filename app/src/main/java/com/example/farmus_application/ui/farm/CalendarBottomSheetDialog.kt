@@ -22,6 +22,12 @@ class CalendarBottomSheetDialog: BottomSheetDialogFragment() {
 
     private lateinit var binding: DialogBottomSheetCalendarBinding
     private lateinit var firstSelectedDay: CalendarDay
+    private lateinit var lastSelectedDay: CalendarDay
+    private var listener: OnButtonClickListener? = null
+
+    interface OnButtonClickListener {
+        fun buttonClick(firstDay: CalendarDay, lastDay: CalendarDay)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,9 +46,12 @@ class CalendarBottomSheetDialog: BottomSheetDialogFragment() {
 
         initCalendarDialog()
 
+        binding.applicationButton.setOnClickListener {
+            listener?.buttonClick(firstSelectedDay, lastSelectedDay)
+        }
+
         binding.bottomSheetCalendar.setOnDateChangedListener { widget, date, _ ->
-            Log.e("setOnDateChangedListener","$date!")
-            firstSelectedDay = date
+//            firstSelectedDay = date
             widget.removeDecorators()
             widget.addDecorator(SelectedDecorator(date))
             widget.addDecorators(TodayDecorator(requireContext()), BeforeDayDecorator())
@@ -51,7 +60,6 @@ class CalendarBottomSheetDialog: BottomSheetDialogFragment() {
         }
 
         binding.bottomSheetCalendar.setOnRangeSelectedListener { widget, dates ->
-            Log.e("ErrorRange","${dates}")
             val dayList = mutableListOf<CalendarDay>().apply {
                 addAll(dates)
                 removeAt(0)
@@ -69,6 +77,10 @@ class CalendarBottomSheetDialog: BottomSheetDialogFragment() {
             settingCalendarLastText(dates[dates.size-1])
             settingButtonSelect(true)
         }
+    }
+
+    fun setOnButtonClick(listener: OnButtonClickListener) {
+        this.listener = listener
     }
 
     private fun initCalendarDialog() {
@@ -90,6 +102,7 @@ class CalendarBottomSheetDialog: BottomSheetDialogFragment() {
             calendarStartDayMonth.text = String.format("%02d",date.month)
             calendarStartDayDate.text = date.day.toString()
         }
+        firstSelectedDay = date
     }
 
     private fun settingCalendarLastText(date: CalendarDay) {
@@ -98,6 +111,7 @@ class CalendarBottomSheetDialog: BottomSheetDialogFragment() {
             calendarLastDayMonth.text = String.format("%02d",date.month)
             calendarLastDayDate.text = date.day.toString()
         }
+        lastSelectedDay = date
     }
 
     private fun settingButtonSelect(selected: Boolean) {

@@ -6,15 +6,21 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.farmus_application.model.farm.detail.DetailRes
+import com.example.farmus_application.model.reserve.request.ReserveRequestReq
+import com.example.farmus_application.model.reserve.request.ReserveRequestRes
 import com.example.farmus_application.repository.farm.FarmRepository
+import com.example.farmus_application.repository.reserve.ReserveRepository
 import kotlinx.coroutines.launch
 
 class FarmDetailViewModel(): ViewModel() {
 
     private val farmRepo = FarmRepository()
+    private val reserveRepo = ReserveRepository()
 
     private var _farmDetail = MutableLiveData<DetailRes>()
     var farmDetail: LiveData<DetailRes> = _farmDetail
+    private var _isSuccessReserve = MutableLiveData<ReserveRequestRes>()
+    var isSuccessReserve: LiveData<ReserveRequestRes> = _isSuccessReserve
 
     fun getFarmDetail(farmId: Int) {
         viewModelScope.launch {
@@ -26,6 +32,23 @@ class FarmDetailViewModel(): ViewModel() {
                     }
                 } else {
                     Log.e("getFarmDetailResponseCode:", response.body().toString())
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    fun postReserveRequest(reserveRequestReq: ReserveRequestReq) {
+        viewModelScope.launch {
+            try {
+                val response = reserveRepo.postReserveRequest(reserveRequestReq)
+                if (response.isSuccessful) {
+                    response.body()?.let {
+                        _isSuccessReserve.postValue(it)
+                    }
+                } else {
+                    Log.e("postReserveRequestResponseCode",response.body().toString())
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
