@@ -12,6 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.farmus_application.R
 import com.example.farmus_application.databinding.FragmentHomeBinding
+import com.example.farmus_application.repository.UserPrefsStorage
 import com.example.farmus_application.ui.MainActivity
 import com.example.farmus_application.ui.farm.FarmDetailFragment
 import com.example.farmus_application.ui.home.Adapter.FarmRVAdapter
@@ -70,8 +71,7 @@ class HomeFragment : Fragment() {
         val px = dpToPx(requireContext(), dp.toFloat())
         adapter = FarmRVAdapter()
 
-        // TODO: 사용자 이메일 Preference에서 가져와서 넣어야함!!
-        homeViewModel.getFarmList("mungich@naver.com")
+        homeViewModel.getFarmList(UserPrefsStorage.email.toString())
 
         adapter.setOnItemClick(object : FarmRVAdapter.OnItemClickListener {
             override fun itemClick(farmId: Int) {
@@ -88,6 +88,8 @@ class HomeFragment : Fragment() {
         binding.rvHomeFarm.layoutManager = GridLayoutManager(requireActivity(), 2)
 
         homeViewModel.farmListResponse.observe(viewLifecycleOwner) {
+            // 매번 새롭게 리스트를 처리하기 위함
+            adapter.submitList(null)
             adapter.submitList(it)
         }
 

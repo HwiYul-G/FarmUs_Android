@@ -64,19 +64,14 @@ class FarmusRecFarmFragment : Fragment() {
         val dp = 16
         val px = dpToPx(requireContext(), dp.toFloat())
 
+        // TODO : 날라오는 데이터의 값에 따라 어뎁터 변경 필요
         adapter = FarmRVAdapter()
-//        val local_farm_items = mutableListOf<RVFarmDataModel>()
-//        adapter.submitList(local_farm_items)
 
         binding.rvFarm.adapter = adapter
         binding.rvFarm.layoutManager = GridLayoutManager(requireContext(), 2)
         binding.rvFarm.addItemDecoration(GridSpaceItemDecoration(2, px.toInt()))
 
-        // RV에 들어가는 데이터 클래스 수정에 따른 변경
-//        local_farm_items.add(RVFarmDataModel("", "고덕 주말 농장", "3평", "150,000"))
-//        local_farm_items.add(RVFarmDataModel("", "고덕 주말 농장", "3평", "150,000"))
-//        local_farm_items.add(RVFarmDataModel("", "고덕 주말 농장", "3평", "150,000"))
-//        local_farm_items.add(RVFarmDataModel("", "고덕 주말 농장", "3평", "150,000"))
+        // TODO : viewModel에서 observe로 데이터 관찰후 받아오는 것 작성
     }
 
     private fun dpToPx(context: Context, dp: Float): Float {

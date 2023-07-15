@@ -3,25 +3,28 @@ package com.example.farmus_application.ui.home
 import android.content.Context
 import android.os.Bundle
 import android.util.TypedValue
+import android.view.KeyEvent
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
 import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.setFragmentResultListener
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.farmus_application.R
 import com.example.farmus_application.databinding.BottomSheetFilterRegionBinding
 import com.example.farmus_application.databinding.FragmentSearchBinding
 import com.example.farmus_application.ui.MainActivity
-import com.example.farmus_application.ui.home.Adapter.FarmRVAdapter
+import com.example.farmus_application.ui.home.Adapter.EmptyDataObserve
+import com.example.farmus_application.ui.home.Adapter.SearchedFarmRVAdapter
+import com.example.farmus_application.viewmodel.home.SearchViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
@@ -30,12 +33,13 @@ class SearchFragment : Fragment() {
 
     private lateinit var binding: FragmentSearchBinding
     private lateinit var bottomSheetRegionBinding: BottomSheetFilterRegionBinding
+    private val searchViewModel: SearchViewModel by viewModels()
 
     private var city = "전체"
     private var town = "전체"
     private lateinit var bottomSheetDialog: BottomSheetDialog
 
-    private lateinit var adapter : FarmRVAdapter
+    private lateinit var adapter : SearchedFarmRVAdapter
 
     //뒤로 가기 기능
     private lateinit var callback: OnBackPressedCallback
@@ -56,12 +60,16 @@ class SearchFragment : Fragment() {
         setFragmentResultListener("searchTextRequestKey") { key, bundle ->
             searchText = bundle.getString("searchTextBundleKey")
             binding.searchBar.setText(searchText)
+            searchViewModel.getFarmSearchKeyword(searchText!!)
         }
+
         //최근 검색어 선택한 경우
         setFragmentResultListener("selectTextRequestKey") { key, bundle ->
             searchText = bundle.getString("bundleKey")
             binding.searchBar.setText(searchText)
+            searchViewModel.getFarmSearchKeyword(searchText!!)
         }
+
     }
 
     override fun onCreateView(
@@ -100,54 +108,45 @@ class SearchFragment : Fragment() {
             clickBottomSheetApply()
         }
 
-        // RV data calss 수정 (Image타입이 INT에서 String?으로 변경됨)에 따른 임시로 넣어둔 데이터 일괄 수정
-//        val resultFarmItems = mutableListOf<RVFarmDataModel>()
-//        resultFarmItems.add(
-//            RVFarmDataModel(
-//                "",
-//                "고덕 주말 농장",
-//                "4.5평",
-//                "150,000"
-//            )
-//        )
-//        resultFarmItems.add(
-//            RVFarmDataModel(
-//                "",
-//                "고덕 주말 농장",
-//                "4.5평",
-//                "150,000"
-//            )
-//        )
-//        resultFarmItems.add(
-//            RVFarmDataModel(
-//                "",
-//                "고덕 주말 농장",
-//                "4.5평",
-//                "150,000"
-//            )
-//        )
-//        resultFarmItems.add(
-//            RVFarmDataModel(
-//                "",
-//                "고덕 주말 농장",
-//                "4.5평",
-//                "150,000"
-//            )
-//        )
+        // searchBar에 검색 후 이벤트
+        binding.searchBar.setOnEditorActionListener { textView, i, keyEvent ->
+            if(i == EditorInfo.IME_ACTION_DONE || i == EditorInfo.IME_ACTION_NEXT
+                || (keyEvent?.keyCode == KeyEvent.KEYCODE_ENTER && keyEvent.action == KeyEvent.ACTION_DOWN)){
+                searchViewModel.getFarmSearchKeyword(textView.text.toString())
+                true
+            }
+            false
+        }
 
 
         val dp = 16
         val px = dpToPx(requireContext(), dp.toFloat())
         //검색 결과 농장 리사이클러뷰
-        adapter = FarmRVAdapter()
-//        adapter.submitList(resultFarmItems)
+        adapter = SearchedFarmRVAdapter()
         binding.rvHomeSearchFarm.adapter = adapter
         binding.rvHomeSearchFarm.layoutManager = GridLayoutManager(requireContext(), 2)
         binding.rvHomeSearchFarm.addItemDecoration(GridSpaceItemDecoration(2, px.toInt()))
 
+        // recyclerview의 결과 data가 비어있을 때 UI 처리
+        val emptyDataObserver = EmptyDataObserve(binding.rvHomeSearchFarm, binding.emptyDataParent.root)
+        adapter.registerAdapterDataObserver(emptyDataObserver)
+
+        searchViewModel.searchedFarmResponse.observe(viewLifecycleOwner) { searchedFarmList ->
+            // adapter에게 기존 데이터를 지우고 새 데이터가 추가됨을 알림
+            adapter.submitList(null)
+            adapter.submitList(searchedFarmList)
+            
+            // 검색된 데이터가 없는 경우 처리
+            if(searchedFarmList.isEmpty()){
+                binding.emptyDataParent.emptyItemTextview.text = "검색 결과가 없습니다."
+            }
+        }
+
+
+
         //툴바의 백버튼 누르면 HomeSearchFragment로 이동
         binding.homeSearchTitleBar.toolbarWithTitleBackButton.setOnClickListener {
-            (activity as MainActivity).changeFragment(HomeSearchFragment.newInstance("", ""))
+            (activity as MainActivity).changeFragment(HomeSearchFragment())
         }
 
     }
@@ -167,8 +166,11 @@ class SearchFragment : Fragment() {
         binding.chipRegionFilter.isChecked = true
         if (town == "전체") {
             binding.chipRegionFilter.text = city
+            // filter를 사용하지 않고 keyword 검색을 이용
+            searchViewModel.getFarmSearchKeyword(city)
         } else {
             binding.chipRegionFilter.text = "$city $town"
+            searchViewModel.getFarmSearchByFilter(city, town)
         }
     }
 
@@ -234,7 +236,7 @@ class SearchFragment : Fragment() {
         super.onAttach(context)
         callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                (activity as MainActivity).changeFragment(HomeSearchFragment.newInstance("", ""))
+                (activity as MainActivity).changeFragment(HomeSearchFragment())
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(this, callback)
@@ -246,15 +248,7 @@ class SearchFragment : Fragment() {
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment SearchFragment.
-         */
-        // TODO: Rename and change types and number of parameters
+
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
             SearchFragment().apply {

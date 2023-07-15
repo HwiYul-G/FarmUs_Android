@@ -69,8 +69,22 @@
                     app:layout_constraintTop_toBottomOf="@id/chip_region_filter"
                     tools:listitem="@layout/rv_local_farm" />
 
+
+                <!-- layout_height 부분 확인 필요!!-->
+                <include
+                    android:id="@+id/empty_data_parent"
+                    layout="@layout/item_empty_datset"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/chip_region_filter" />
+
+
+
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
