@@ -92,6 +92,11 @@ class HomeSearchFragment : Fragment() {
         } else {
             clearChip()
         }
+
+        //툴바의 백버튼 누르면 HomeFragment로 이동
+        binding.homeSearchTitleBar.toolbarWithoutTitleBackButton.setOnClickListener {
+            (activity as MainActivity).changeFragment(HomeFragment())
+        }
     }
 
     private fun search() {
