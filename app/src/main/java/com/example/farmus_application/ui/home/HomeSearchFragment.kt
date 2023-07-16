@@ -12,12 +12,10 @@ import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.setFragmentResult
-import androidx.lifecycle.ViewModelProvider
 import com.example.farmus_application.R
 import com.example.farmus_application.databinding.FragmentHomeSearchBinding
-import com.example.farmus_application.model.home.Entity.SearchedKeyword
+import com.example.farmus_application.repository.UserPrefsStorage
 import com.example.farmus_application.ui.MainActivity
-import com.example.farmus_application.viewmodel.home.HomeSearchViewModel
 import com.google.android.material.chip.Chip
 
 // TODO: Rename parameter arguments, choose names that match
@@ -30,7 +28,7 @@ class HomeSearchFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeSearchBinding
     private lateinit var callback: OnBackPressedCallback
-    private lateinit var homeSearchViewModel: HomeSearchViewModel
+
 
 
     // TODO: Rename and change types of parameters
@@ -59,10 +57,6 @@ class HomeSearchFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         (activity as MainActivity).hideBottomNavigation(true)
 
-        homeSearchViewModel = ViewModelProvider(
-            this,
-            ViewModelProvider.AndroidViewModelFactory.getInstance(application = requireActivity().application)
-        )[HomeSearchViewModel::class.java]
 
 
         //fragment 이동시 searchBar로 focus
@@ -74,11 +68,10 @@ class HomeSearchFragment : Fragment() {
         }
 
 
-        homeSearchViewModel.allSearchedKeyword.observe(viewLifecycleOwner) {keywordList->
-            binding.recentSearchChipgroup.removeAllViews()
-            keywordList.forEach { keyword->
-                addChip(keyword.keyword)
-            }
+        // TODO : homeSearchHistory를 자동으로 updated하는 부분
+        binding.recentSearchChipgroup.removeAllViews()
+        UserPrefsStorage.recentSearches.forEach {keyword->
+            addChip(keyword)
         }
 
         //chip 전체 삭제
@@ -103,8 +96,7 @@ class HomeSearchFragment : Fragment() {
             )
             (activity as MainActivity).changeFragment(SearchFragment())
             // VM을 통한 DB에 저장
-            val currentDate = homeSearchViewModel.getDate()
-            homeSearchViewModel.insertSearchedKeyword(SearchedKeyword(searchText, currentDate))
+            UserPrefsStorage.addRecentSearch(searchText)
         }
     }
 
@@ -125,7 +117,7 @@ class HomeSearchFragment : Fragment() {
         //삭제 버튼 누르면 chip 삭제
         chip.setOnCloseIconClickListener {
             binding.recentSearchChipgroup.removeView(chip)
-            homeSearchViewModel.deleteSearchedKeyword(searchText)
+            UserPrefsStorage.removeRecentSearch(searchText)
         }
         //chip 버튼 클릭 이벤트
         chip.setOnClickListener {
@@ -141,7 +133,7 @@ class HomeSearchFragment : Fragment() {
 
     private fun clearChip() {
         binding.recentSearchChipgroup.removeAllViews()
-        homeSearchViewModel.deleteAllSearchedKeyword()
+        UserPrefsStorage.clearRecentSearches()
     }
 
     //뒤로가기 누르면 HomeSearchFragment로 이동

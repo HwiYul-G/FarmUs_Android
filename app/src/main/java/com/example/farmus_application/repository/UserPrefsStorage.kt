@@ -1,6 +1,7 @@
 package com.example.farmus_application.repository
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.util.Log
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
@@ -8,6 +9,9 @@ import kotlinx.coroutines.delay
 
 object UserPrefsStorage {
     private lateinit var prefs: EncryptedSharedPreferences
+
+    private const val SEEARCHED_HISTORY_PREFS_NAME = "searched_history_prefs"
+    private lateinit var searchedHistoryPrefs: SharedPreferences
 
     fun init(context: Context) {
         val masterKey = MasterKey.Builder(context)
@@ -21,6 +25,9 @@ object UserPrefsStorage {
             EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
             EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
         ) as EncryptedSharedPreferences
+
+        searchedHistoryPrefs =
+            context.getSharedPreferences(SEEARCHED_HISTORY_PREFS_NAME, Context.MODE_PRIVATE)
     }
 
     var accessToken: String?
@@ -66,4 +73,27 @@ object UserPrefsStorage {
 //        this.email = email
 //        this.role = role
 //    }
+
+    // HomeSearchFragment에서 사용할 최근 검색 기록 저장 chip 관련
+    var recentSearches: Set<String>
+        get() = searchedHistoryPrefs.getStringSet("recent_searches", emptySet()) ?: emptySet()
+        set(value) = searchedHistoryPrefs.edit().putStringSet("recent_searches", value).apply()
+
+    fun addRecentSearch(searchText : String){
+        val searches = recentSearches.toMutableSet()
+        searches.add(searchText)
+        recentSearches = searches
+    }
+
+    fun removeRecentSearch(searchText : String){
+        val searches = recentSearches.toMutableSet()
+        searches.remove(searchText)
+        recentSearches = searches
+    }
+
+    fun clearRecentSearches(){
+        recentSearches = emptySet()
+    }
+
+
 }
