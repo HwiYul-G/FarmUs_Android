@@ -15,12 +15,9 @@ import kotlinx.coroutines.launch
 class FarmDetailViewModel(): ViewModel() {
 
     private val farmRepo = FarmRepository()
-    private val reserveRepo = ReserveRepository()
 
     private var _farmDetail = MutableLiveData<DetailRes>()
     var farmDetail: LiveData<DetailRes> = _farmDetail
-    private var _isSuccessReserve = MutableLiveData<ReserveRequestRes>()
-    var isSuccessReserve: LiveData<ReserveRequestRes> = _isSuccessReserve
 
     fun getFarmDetail(farmId: Int) {
         viewModelScope.launch {
@@ -38,22 +35,4 @@ class FarmDetailViewModel(): ViewModel() {
             }
         }
     }
-
-    fun postReserveRequest(reserveRequestReq: ReserveRequestReq) {
-        viewModelScope.launch {
-            try {
-                val response = reserveRepo.postReserveRequest(reserveRequestReq)
-                if (response.isSuccessful) {
-                    response.body()?.let {
-                        _isSuccessReserve.postValue(it)
-                    }
-                } else {
-                    Log.e("postReserveRequestResponseCode",response.body().toString())
-                }
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-        }
-    }
-
 }
