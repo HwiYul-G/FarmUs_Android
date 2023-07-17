@@ -26,8 +26,7 @@ class FarmDetailFragment: Fragment() {
     private lateinit var binding: FragmentFarmDetailBinding
     private lateinit var farmDetailViewModel: FarmDetailViewModel
     private lateinit var bottomSheetDialog: CalendarBottomSheetDialog
-    private var farmId: Int = 0
-    private lateinit var phoneNumber: String
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,10 +35,9 @@ class FarmDetailFragment: Fragment() {
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_farm_detail, container, false)
         farmDetailViewModel = ViewModelProvider(this)[FarmDetailViewModel::class.java]
-        bottomSheetDialog = CalendarBottomSheetDialog()
         val farmImageAdapter = FarmImageAdapter()
         binding.farmDetailImage.adapter = farmImageAdapter
-        farmId = arguments?.getInt("farmId") ?: 0
+        val farmId = arguments?.getInt("farmId") ?: 0
 
         farmDetailViewModel.getFarmDetail(farmId)
 
@@ -53,20 +51,10 @@ class FarmDetailFragment: Fragment() {
             val result = detailRes.result
             binding.farmDetail = result
             farmImageAdapter.setData(result)
-            phoneNumber = result.farmer.PhoneNumber
+            bottomSheetDialog = CalendarBottomSheetDialog(result)
             Log.e("FarmDetailResult","$result")
         }
 
-        farmDetailViewModel.isSuccessReserve.observe(viewLifecycleOwner) { result ->
-            if (result.isSuccess) {
-                Toast.makeText(requireContext(), result.message, Toast.LENGTH_SHORT).show()
-                val uri = Uri.parse("sms:$phoneNumber")
-                val intent = Intent(Intent.ACTION_SENDTO, uri)
-                startActivity(intent)
-            } else {
-                Toast.makeText(requireContext(), result.message, Toast.LENGTH_SHORT).show()
-            }
-        }
         return binding.root
     }
 
@@ -77,20 +65,6 @@ class FarmDetailFragment: Fragment() {
             bottomSheetDialog.show(parentFragmentManager, "bottomSheetDialog")
         }
 
-        bottomSheetDialog.setOnButtonClick(object : CalendarBottomSheetDialog.OnButtonClickListener {
-            override fun buttonClick(firstDay: CalendarDay, lastDay: CalendarDay) {
-                val email = UserPrefsStorage.email ?: ""
-                Log.e("ButtonClick","$email,$farmId,${firstDay.date},${lastDay.date}")
-                farmId
-                val reserveRequestReq = ReserveRequestReq(
-                    email = email,
-                    farmId = farmId.toString(),
-                    startDate = firstDay.date.toString(),
-                    endDate = lastDay.date.toString()
-                )
-                farmDetailViewModel.postReserveRequest(reserveRequestReq)
-            }
-        })
 
     }
 

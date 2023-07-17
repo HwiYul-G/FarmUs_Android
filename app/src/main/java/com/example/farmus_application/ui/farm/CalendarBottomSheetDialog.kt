@@ -1,33 +1,37 @@
 package com.example.farmus_application.ui.farm
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.os.Bundle
 import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import com.example.farmus_application.R
 import com.example.farmus_application.databinding.DialogBottomSheetCalendarBinding
+import com.example.farmus_application.model.farm.detail.DetailResult
+import com.example.farmus_application.model.reserve.request.ReserveRequestReq
+import com.example.farmus_application.repository.UserPrefsStorage
+import com.example.farmus_application.viewmodel.calendar.CalendarBottomSheetViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.DayViewDecorator
 import com.prolificinteractive.materialcalendarview.DayViewFacade
 
-class CalendarBottomSheetDialog: BottomSheetDialogFragment() {
+class CalendarBottomSheetDialog(private val farmDetail: DetailResult): BottomSheetDialogFragment() {
 
     private lateinit var binding: DialogBottomSheetCalendarBinding
+    private lateinit var calendarViewModel: CalendarBottomSheetViewModel
     private lateinit var firstSelectedDay: CalendarDay
     private lateinit var lastSelectedDay: CalendarDay
-    private var listener: OnButtonClickListener? = null
-
-    interface OnButtonClickListener {
-        fun buttonClick(firstDay: CalendarDay, lastDay: CalendarDay)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,9 +40,9 @@ class CalendarBottomSheetDialog: BottomSheetDialogFragment() {
     ): View {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.dialog_bottom_sheet_calendar, container, false)
-        val view = binding
+        calendarViewModel = ViewModelProvider(this)[CalendarBottomSheetViewModel::class.java]
 
-        return view.root
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -46,12 +50,18 @@ class CalendarBottomSheetDialog: BottomSheetDialogFragment() {
 
         initCalendarDialog()
 
-        binding.applicationButton.setOnClickListener {
-            listener?.buttonClick(firstSelectedDay, lastSelectedDay)
+        calendarViewModel.isSuccessReserve.observe(viewLifecycleOwner) { result ->
+            if (result.isSuccess) {
+                Toast.makeText(requireContext(), result.message, Toast.LENGTH_SHORT).show()
+                val uri = Uri.parse("sms:${farmDetail.farmer.PhoneNumber}")
+                val intent = Intent(Intent.ACTION_SENDTO, uri)
+                startActivity(intent)
+            } else {
+                Toast.makeText(requireContext(), result.message, Toast.LENGTH_SHORT).show()
+            }
         }
 
         binding.bottomSheetCalendar.setOnDateChangedListener { widget, date, _ ->
-//            firstSelectedDay = date
             widget.removeDecorators()
             widget.addDecorator(SelectedDecorator(date))
             widget.addDecorators(TodayDecorator(requireContext()), BeforeDayDecorator())
@@ -77,10 +87,17 @@ class CalendarBottomSheetDialog: BottomSheetDialogFragment() {
             settingCalendarLastText(dates[dates.size-1])
             settingButtonSelect(true)
         }
-    }
 
-    fun setOnButtonClick(listener: OnButtonClickListener) {
-        this.listener = listener
+        binding.applicationButton.setOnClickListener {
+            val email = UserPrefsStorage.email ?: ""
+            val reserveRequestReq = ReserveRequestReq(
+                email = email,
+                farmId = farmDetail.FarmID.toString(),
+                startDate = firstSelectedDay.date.toString(),
+                endDate = lastSelectedDay.date.toString()
+            )
+            calendarViewModel.postReserveRequest(reserveRequestReq)
+        }
     }
 
     private fun initCalendarDialog() {
@@ -154,6 +171,19 @@ class BeforeDayDecorator: DayViewDecorator {
 
     override fun shouldDecorate(day: CalendarDay?): Boolean {
         return day?.isBefore(CalendarDay.today()) ?: false
+    }
+
+    override fun decorate(view: DayViewFacade?) {
+        view?.let {
+            it.addSpan(ForegroundColorSpan(Color.parseColor("#cccccc")))
+            it.setDaysDisabled(true)
+        }
+    }
+}
+
+class UnBookableDayDecorator(private val days: List<CalendarDay>): DayViewDecorator {
+    override fun shouldDecorate(day: CalendarDay): Boolean {
+        return days.contains(day)
     }
 
     override fun decorate(view: DayViewFacade?) {
