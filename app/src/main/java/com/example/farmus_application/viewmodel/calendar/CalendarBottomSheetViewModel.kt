@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.farmus_application.model.reserve.request.ReserveRequestReq
 import com.example.farmus_application.model.reserve.request.ReserveRequestRes
+import com.example.farmus_application.model.unbookable.ReserveUnBookableRes
 import com.example.farmus_application.repository.reserve.ReserveRepository
 import kotlinx.coroutines.launch
 
@@ -16,6 +17,8 @@ class CalendarBottomSheetViewModel: ViewModel() {
 
     private var _isSuccessReserve = MutableLiveData<ReserveRequestRes>()
     var isSuccessReserve: LiveData<ReserveRequestRes> = _isSuccessReserve
+    private var _unBookable = MutableLiveData<ReserveUnBookableRes>()
+    var unBookable: LiveData<ReserveUnBookableRes> = _unBookable
 
 
     fun postReserveRequest(reserveRequestReq: ReserveRequestReq) {
@@ -34,4 +37,21 @@ class CalendarBottomSheetViewModel: ViewModel() {
             }
         }
     }
+    fun getReserveUnBookable(farmId: String) {
+        viewModelScope.launch {
+            try {
+                val response = reserveRepo.getReserveUnBookable(farmId)
+                if (response.isSuccessful) {
+                    response.body()?.let { result ->
+                        _unBookable.postValue(result)
+                    }
+                } else {
+                    Log.e("getReserveUnBookableMessage:","${response.body()?.message}")
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+
 }

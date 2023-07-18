@@ -7,7 +7,6 @@ import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.text.style.ForegroundColorSpan
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,12 +18,17 @@ import com.example.farmus_application.R
 import com.example.farmus_application.databinding.DialogBottomSheetCalendarBinding
 import com.example.farmus_application.model.farm.detail.DetailResult
 import com.example.farmus_application.model.reserve.request.ReserveRequestReq
+import com.example.farmus_application.model.unbookable.ReserveUnBookableRes
 import com.example.farmus_application.repository.UserPrefsStorage
 import com.example.farmus_application.viewmodel.calendar.CalendarBottomSheetViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.DayViewDecorator
 import com.prolificinteractive.materialcalendarview.DayViewFacade
+import java.time.*
+import java.time.temporal.ChronoUnit
+import java.util.stream.Collectors
+import java.util.stream.Stream
 
 class CalendarBottomSheetDialog(private val farmDetail: DetailResult): BottomSheetDialogFragment() {
 
@@ -56,6 +60,14 @@ class CalendarBottomSheetDialog(private val farmDetail: DetailResult): BottomShe
                 val uri = Uri.parse("sms:${farmDetail.farmer.PhoneNumber}")
                 val intent = Intent(Intent.ACTION_SENDTO, uri)
                 startActivity(intent)
+            } else {
+                Toast.makeText(requireContext(), result.message, Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        calendarViewModel.unBookable.observe(viewLifecycleOwner) { result ->
+            if (result.isSuccess) {
+                binding.bottomSheetCalendar.addDecorator(UnBookableDayDecorator(result))
             } else {
                 Toast.makeText(requireContext(), result.message, Toast.LENGTH_SHORT).show()
             }
@@ -104,6 +116,7 @@ class CalendarBottomSheetDialog(private val farmDetail: DetailResult): BottomShe
         val today = CalendarDay.today()
         settingCalendarStartText(today)
         settingCalendarLastText(today)
+        calendarViewModel.getReserveUnBookable(farmDetail.FarmID.toString())
         binding.bottomSheetCalendar.apply {
             addDecorator(TodayDecorator(requireContext()))
             addDecorator(BeforeDayDecorator())
@@ -181,9 +194,9 @@ class BeforeDayDecorator: DayViewDecorator {
     }
 }
 
-class UnBookableDayDecorator(private val days: List<CalendarDay>): DayViewDecorator {
+class UnBookableDayDecorator(private val unBookableDays: ReserveUnBookableRes): DayViewDecorator {
     override fun shouldDecorate(day: CalendarDay): Boolean {
-        return days.contains(day)
+        return convertCalendarDay().contains(day)
     }
 
     override fun decorate(view: DayViewFacade?) {
@@ -192,6 +205,22 @@ class UnBookableDayDecorator(private val days: List<CalendarDay>): DayViewDecora
             it.setDaysDisabled(true)
         }
     }
+
+    private fun convertCalendarDay(): MutableList<CalendarDay> {
+        val unBookDays = mutableListOf<CalendarDay>()
+        for (unBookDay in unBookableDays.result) {
+            val stDay = LocalDate.parse(unBookDay.startAt.substring(0 until 10))
+            val endDay = LocalDate.parse(unBookDay.endAt.substring(0 until 10))
+            val numOfBetween = ChronoUnit.DAYS.between(stDay, endDay)
+            val unBookableList = Stream.iterate(stDay) {date -> date.plusDays(1) }
+                .limit(numOfBetween + 1)
+                .collect(Collectors.toList())
+            unBookDays.addAll(unBookableList.toMutableList().map {
+                CalendarDay.from(it.year, it.monthValue, it.dayOfMonth)
+            })
+        }
+        return unBookDays
+        }
 }
 
 class RangeDayDecorator(
