@@ -5,6 +5,7 @@ import com.example.farmus_application.model.reserve.client_list.ReserveClientLis
 import com.example.farmus_application.model.reserve.farm_list.ReserveFarmListRes
 import com.example.farmus_application.model.reserve.request.ReserveRequestReq
 import com.example.farmus_application.model.reserve.request.ReserveRequestRes
+import com.example.farmus_application.model.reserve.reserve_list.ReserveListRes
 import com.example.farmus_application.model.reserve.status.ReserveStatusRes
 import com.example.farmus_application.model.reserve.unbookable.ReserveUnBookableRes
 import retrofit2.Response
@@ -25,4 +26,9 @@ interface ReserveDataSourceInterface {
     suspend fun putReserveStatus(status: Status, reserveId: String): Response<ReserveStatusRes>
 
     suspend fun getReserveUnBookable(farmId: String): Response<ReserveUnBookableRes>
+
+    suspend fun getCurrentList(email: String): Response<ReserveListRes>
+
+    suspend fun getPastList(email: String): Response<ReserveListRes>
+
 }

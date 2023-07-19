@@ -6,6 +6,7 @@ import com.example.farmus_application.model.reserve.client_list.ReserveClientLis
 import com.example.farmus_application.model.reserve.farm_list.ReserveFarmListRes
 import com.example.farmus_application.model.reserve.request.ReserveRequestReq
 import com.example.farmus_application.model.reserve.request.ReserveRequestRes
+import com.example.farmus_application.model.reserve.reserve_list.ReserveListRes
 import com.example.farmus_application.model.reserve.status.ReserveStatusRes
 import com.example.farmus_application.model.reserve.unbookable.ReserveUnBookableRes
 import com.example.farmus_application.network.ReserveApiClient
@@ -39,5 +40,13 @@ class ReserveRepository(
 
     override suspend fun getReserveUnBookable(farmId: String): Response<ReserveUnBookableRes> {
         return reserveApiClient.getReserveUnBookable(farmId)
+    }
+
+    override suspend fun getCurrentList(email: String): Response<ReserveListRes> {
+        return reserveApiClient.getCurrentList(email)
+    }
+
+    override suspend fun getPastList(email: String): Response<ReserveListRes> {
+        return reserveApiClient.getPastList(email)
     }
 }
