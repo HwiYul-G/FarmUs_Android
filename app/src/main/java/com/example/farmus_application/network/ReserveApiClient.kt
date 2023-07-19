@@ -6,8 +6,8 @@ import com.example.farmus_application.model.reserve.farm_list.ReserveFarmListRes
 import com.example.farmus_application.model.reserve.request.ReserveRequestReq
 import com.example.farmus_application.model.reserve.request.ReserveRequestRes
 import com.example.farmus_application.model.reserve.status.ReserveStatusRes
-import com.example.farmus_application.model.unbookable.ReserveUnBookableRes
-import com.example.farmus_application.model.unbookable.UnBookableResult
+import com.example.farmus_application.model.reserve.unbookable.ReserveUnBookableRes
+import com.example.farmus_application.model.reserve.unbookable.UnBookableResult
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET

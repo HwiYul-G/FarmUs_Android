@@ -18,7 +18,7 @@ import com.example.farmus_application.R
 import com.example.farmus_application.databinding.DialogBottomSheetCalendarBinding
 import com.example.farmus_application.model.farm.detail.DetailResult
 import com.example.farmus_application.model.reserve.request.ReserveRequestReq
-import com.example.farmus_application.model.unbookable.ReserveUnBookableRes
+import com.example.farmus_application.model.reserve.unbookable.ReserveUnBookableRes
 import com.example.farmus_application.repository.UserPrefsStorage
 import com.example.farmus_application.viewmodel.calendar.CalendarBottomSheetViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment

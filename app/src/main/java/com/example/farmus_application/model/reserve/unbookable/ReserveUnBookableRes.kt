@@ -1,4 +1,4 @@
-package com.example.farmus_application.model.unbookable
+package com.example.farmus_application.model.reserve.unbookable
 
 data class ReserveUnBookableRes(
     val code: Int,

@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.farmus_application.model.reserve.request.ReserveRequestReq
 import com.example.farmus_application.model.reserve.request.ReserveRequestRes
-import com.example.farmus_application.model.unbookable.ReserveUnBookableRes
+import com.example.farmus_application.model.reserve.unbookable.ReserveUnBookableRes
 import com.example.farmus_application.repository.reserve.ReserveRepository
 import kotlinx.coroutines.launch
 
