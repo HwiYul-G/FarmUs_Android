@@ -6,6 +6,7 @@ import com.example.farmus_application.model.reserve.farm_list.ReserveFarmListRes
 import com.example.farmus_application.model.reserve.request.ReserveRequestReq
 import com.example.farmus_application.model.reserve.request.ReserveRequestRes
 import com.example.farmus_application.model.reserve.status.ReserveStatusRes
+import com.example.farmus_application.model.unbookable.ReserveUnBookableRes
 import retrofit2.Response
 
 interface ReserveDataSourceInterface {
@@ -22,4 +23,6 @@ interface ReserveDataSourceInterface {
     suspend fun putReserveCancel(reserveId: String): Response<ReserveCancelRes>
 
     suspend fun putReserveStatus(status: Status, reserveId: String): Response<ReserveStatusRes>
+
+    suspend fun getReserveUnBookable(farmId: String): Response<ReserveUnBookableRes>
 }
