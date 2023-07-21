@@ -5,6 +5,7 @@ import com.example.farmus_application.model.farm.list.ListRes
 import com.example.farmus_application.model.farm.postings.PostingsReq
 import com.example.farmus_application.model.farm.postings.PostingsRes
 import com.example.farmus_application.model.farm.register.RegisterRes
+import com.example.farmus_application.model.farm.search.SearchedRes
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -18,6 +19,15 @@ interface FarmApiClient {
     @PATCH("/farm/register")
     suspend fun patchFarmRegister(): Response<RegisterRes>
 
+
+    @GET("/farm/search")
+    suspend fun getFarmSearchKeyword(@Query("keyword") keyword: String) : Response<SearchedRes>
+
+    @GET("/farm")
+    suspend fun getFarmSearchByFilter(@Query("locationBig") locationBig : String,
+                                      @Query("locationMid") locationMid : String) : Response<SearchedRes>
+
     @GET("/farm/detail/{farmid}")
     suspend fun getFarmDetail(@Path(value="farmid") farmid : Int): Response<DetailRes>
+
 }

@@ -1,24 +1,31 @@
 package com.example.farmus_application.ui.farm
 
+import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.farmus_application.R
 import com.example.farmus_application.databinding.FragmentFarmDetailBinding
-import com.example.farmus_application.model.farm.detail.DetailResult
+import com.example.farmus_application.model.reserve.request.ReserveRequestReq
+import com.example.farmus_application.repository.UserPrefsStorage
 import com.example.farmus_application.ui.MainActivity
 import com.example.farmus_application.viewmodel.farm.FarmDetailViewModel
+import com.google.gson.annotations.SerializedName
+import com.prolificinteractive.materialcalendarview.CalendarDay
 
 class FarmDetailFragment: Fragment() {
 
     private lateinit var binding: FragmentFarmDetailBinding
     private lateinit var farmDetailViewModel: FarmDetailViewModel
+    private lateinit var bottomSheetDialog: CalendarBottomSheetDialog
 
 
     override fun onCreateView(
@@ -34,11 +41,6 @@ class FarmDetailFragment: Fragment() {
 
         farmDetailViewModel.getFarmDetail(farmId)
 
-        binding.farmDetailRequestCalendar.setOnClickListener {
-            val bottomSheetDialog = CalendarBottomSheetDialog()
-            bottomSheetDialog.show(parentFragmentManager, "bottomSheetDialog")
-        }
-
         binding.farmDetailToolbar.toolbarWithoutTitleBackButton.apply {
             setBackgroundColor(Color.TRANSPARENT)
             setImageResource(R.drawable.back_vector_image_white)
@@ -49,6 +51,7 @@ class FarmDetailFragment: Fragment() {
             val result = detailRes.result
             binding.farmDetail = result
             farmImageAdapter.setData(result)
+            bottomSheetDialog = CalendarBottomSheetDialog(result)
             Log.e("FarmDetailResult","$result")
         }
 
@@ -57,6 +60,10 @@ class FarmDetailFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.farmDetailRequestApplication.setOnClickListener {
+            bottomSheetDialog.show(parentFragmentManager, "bottomSheetDialog")
+        }
 
 
     }

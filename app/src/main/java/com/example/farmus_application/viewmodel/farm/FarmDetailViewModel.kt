@@ -6,7 +6,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.farmus_application.model.farm.detail.DetailRes
+import com.example.farmus_application.model.reserve.request.ReserveRequestReq
+import com.example.farmus_application.model.reserve.request.ReserveRequestRes
 import com.example.farmus_application.repository.farm.FarmRepository
+import com.example.farmus_application.repository.reserve.ReserveRepository
 import kotlinx.coroutines.launch
 
 class FarmDetailViewModel(): ViewModel() {
@@ -32,5 +35,4 @@ class FarmDetailViewModel(): ViewModel() {
             }
         }
     }
-
 }

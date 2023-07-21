@@ -12,6 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.farmus_application.R
 import com.example.farmus_application.databinding.FragmentHomeBinding
+import com.example.farmus_application.repository.UserPrefsStorage
 import com.example.farmus_application.ui.MainActivity
 import com.example.farmus_application.ui.farm.FarmDetailFragment
 import com.example.farmus_application.ui.home.Adapter.FarmRVAdapter
@@ -63,15 +64,15 @@ class HomeFragment : Fragment() {
         }
         //파머스 추천 농장으로 이동
         binding.btnFarmUsRecommendFarm.setOnClickListener {
-            (activity as MainActivity).changeFragment(FarmusRecFarmFragment.newInstance("", ""))
+            // TODO : 23년 7월 20일 _ farmus 추천 농장 부분은 beta 버전으로 넘기면서 임시로 막음
+            // (activity as MainActivity).changeFragment(FarmusRecFarmFragment.newInstance("", ""))
         }
 
         val dp = 16
         val px = dpToPx(requireContext(), dp.toFloat())
         adapter = FarmRVAdapter()
 
-        // TODO: 사용자 이메일 Preference에서 가져와서 넣어야함!!
-        homeViewModel.getFarmList("mungich@naver.com")
+        homeViewModel.getFarmList(UserPrefsStorage.email.toString())
 
         adapter.setOnItemClick(object : FarmRVAdapter.OnItemClickListener {
             override fun itemClick(farmId: Int) {
@@ -88,6 +89,8 @@ class HomeFragment : Fragment() {
         binding.rvHomeFarm.layoutManager = GridLayoutManager(requireActivity(), 2)
 
         homeViewModel.farmListResponse.observe(viewLifecycleOwner) {
+            // 매번 새롭게 리스트를 처리하기 위함
+            adapter.submitList(null)
             adapter.submitList(it)
         }
 
