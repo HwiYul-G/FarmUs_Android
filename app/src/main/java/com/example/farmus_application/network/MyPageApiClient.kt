@@ -2,37 +2,44 @@ package com.example.farmus_application.network
 
 import com.example.farmus_application.model.mypage.*
 import com.example.farmus_application.model.user.*
-import okhttp3.RequestBody
+import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.Multipart
 import retrofit2.http.PATCH
+import retrofit2.http.Part
 import retrofit2.http.Query
 
 interface MyPageApiClient {
-    @PATCH("/mypage/editInfo/nickname?{email}")
+    @PATCH("/mypage/editInfo/nickname")
     suspend fun patchEditInfoNickname(
         @Query("email") email: String,
-        @Body params : EditInfoNicknameReq
-        ): Response<MyPageRes>
+        @Body params: EditInfoNicknameReq
+    ): Response<MyPageRes>
 
-    @PATCH("/mypage/editInfo/name?{email}")
+    @PATCH("/mypage/editInfo/name")
     suspend fun patchEditInfoName(
         @Query("email") email: String,
-        @Body params : EditInfoNameReq): Response<MyPageRes>
+        @Body params: EditInfoNameReq
+    ): Response<MyPageRes>
 
-    @PATCH("/mypage/editInfo/password?{email}")
+    @PATCH("/mypage/editInfo/password")
     suspend fun patchEditInfoPassword(
         @Query("email") email: String,
-        @Body params : EditInfoPasswordReq): Response<MyPageRes>
+        @Body params: EditInfoPasswordReq
+    ): Response<MyPagePasswordRes>
 
-    @PATCH("/mypage/eidtInfo/phoneNumber?{email}")
+    @PATCH("/mypage/editInfo/phoneNumber")
     suspend fun patchEditInfoPhoneNumber(
         @Query("email") email: String,
-        @Body params : EditInfoPhoneNumberReq): Response<MyPageRes>
+        @Body params: EditInfoPhoneNumberReq
+    ): Response<MyPagePhoneNumberRes>
 
-    @PATCH("/mypage/eidtInfo/profileImg?{email}")
+    @Multipart
+    @PATCH("/mypage/editInfo/profileImg")
     suspend fun patchEditInfoProfileImg(
         @Query("email") email: String,
-        @Body params : EditInfoProfileImgReq): Response<MyPageRes>
+        @Part file: MultipartBody.Part
+    ): Response<MyPageProfileImageRes>
 
 }
