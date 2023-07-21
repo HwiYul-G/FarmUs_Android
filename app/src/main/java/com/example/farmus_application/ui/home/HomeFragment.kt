@@ -64,7 +64,8 @@ class HomeFragment : Fragment() {
         }
         //파머스 추천 농장으로 이동
         binding.btnFarmUsRecommendFarm.setOnClickListener {
-            (activity as MainActivity).changeFragment(FarmusRecFarmFragment.newInstance("", ""))
+            // TODO : 23년 7월 20일 _ farmus 추천 농장 부분은 beta 버전으로 넘기면서 임시로 막음
+            // (activity as MainActivity).changeFragment(FarmusRecFarmFragment.newInstance("", ""))
         }
 
         val dp = 16
