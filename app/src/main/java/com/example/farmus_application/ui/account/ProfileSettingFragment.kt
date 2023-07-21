@@ -1,13 +1,21 @@
 package com.example.farmus_application.ui.account
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.ImageDecoder
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import com.example.farmus_application.R
@@ -33,7 +41,6 @@ class ProfileSettingFragment : Fragment() {
 
     //뒤로가기 기능 구현
     private lateinit var callback: OnBackPressedCallback
-
 
     private var param1: String? = null
     private var param2: String? = null
@@ -82,7 +89,7 @@ class ProfileSettingFragment : Fragment() {
 
         // 1) 닉네임 + 편집 불가
         binding.edittextNickname.isEnabled = false
-        binding.edittextNickname.setText(userNickname ?: "닉네임을 만들어 보세요")
+        binding.edittextNickname.setText(userNickname)
         // nickname 변경 or 완료 버튼 클릭 이벤트
         binding.btnChangeNickname.setOnClickListener {
             // 변경 버튼 클릭시 편집 가능 + 버튼 text '완료'로 변경 + focus
@@ -91,7 +98,7 @@ class ProfileSettingFragment : Fragment() {
                 binding.btnChangeNickname.text = "완료"
                 // edittextNickname에 foucs + 색상 변경
                 binding.edittextNickname.requestFocus()
-                if(UserPrefsStorage.nickName.toString() != "") {
+                if (UserPrefsStorage.nickName.toString() != "") {
                     binding.edittextNickname.setSelection(binding.edittextNickname.text!!.length) // 커서 위치를 마지막 글자 뒤로 이동
                 }
                 binding.edittextNickname.background = ResourcesCompat.getDrawable(
@@ -275,7 +282,7 @@ class ProfileSettingFragment : Fragment() {
                 binding.edittextPassword.requestFocus()
                 // TODO : 커서 위치 처리
                 val passwordText = binding.edittextPassword.text.toString()
-                val cursorPosition = if(passwordText.isEmpty()) 6 else passwordText.length
+                val cursorPosition = if (passwordText.isEmpty()) 6 else passwordText.length
                 binding.edittextPassword.setSelection(cursorPosition)
                 binding.edittextPassword.background = ResourcesCompat.getDrawable(
                     resources,
@@ -299,8 +306,8 @@ class ProfileSettingFragment : Fragment() {
             }
         }
         // 비밀번호 변경 observe
-        profileSettingViewModel.editInfoPasswordResponse.observe(viewLifecycleOwner){response->
-            if(response) {
+        profileSettingViewModel.editInfoPasswordResponse.observe(viewLifecycleOwner) { response ->
+            if (response) {
                 // TODO : UserPrefStorage에서 password 저장
                 binding.edittextPassword.isEnabled = false
                 binding.btnChangePassword.text = "변경"
@@ -311,7 +318,7 @@ class ProfileSettingFragment : Fragment() {
                 )
                 val toast = Toast.makeText(context, "비밀번호가 변경되었습니다.", Toast.LENGTH_SHORT)
                 toast.show()
-            }else{
+            } else {
                 // 실패
                 val toast = Toast.makeText(context, "비밀번호 변경에 실패했습니다.", Toast.LENGTH_SHORT)
                 toast.show()
@@ -322,7 +329,7 @@ class ProfileSettingFragment : Fragment() {
         // TODO : login시 backend에서 따로 전화번호를 보내주지 않음
         binding.edittextPhoneNumber.isEnabled = false
         binding.btnChangePhoneNumber.setOnClickListener {
-            if(binding.btnChangePhoneNumber.text == "변경") {
+            if (binding.btnChangePhoneNumber.text == "변경") {
                 binding.edittextPhoneNumber.isEnabled = true
                 binding.btnChangePhoneNumber.text = "완료"
                 binding.edittextPhoneNumber.requestFocus()
@@ -331,24 +338,24 @@ class ProfileSettingFragment : Fragment() {
                     R.drawable.longer_text_field__focus_vector_image,
                     null
                 )
-            }else{
+            } else {
                 // 완료 버튼 클릭
-                if(ValidationCheckUtil.isPhoneNumberValid(binding.edittextPhoneNumber.text.toString())) {
+                if (ValidationCheckUtil.isPhoneNumberValid(binding.edittextPhoneNumber.text.toString())) {
                     val newPhoneNumber: String = binding.edittextPhoneNumber.text.toString()
                     // viewModel을 통해 API 처리 -> observe data에서 다음 로직 진행
                     profileSettingViewModel.patchEditInfoPhoneNumber(
                         userEmail,
                         EditInfoPhoneNumberReq(newPhoneNumber)
                     )
-                }else{
+                } else {
                     bundle.putString("errorMessage", "전화번호 형식이 올바르지 않습니다.")
                     fragment.arguments = bundle
                     fragment.show(parentFragmentManager, "profile_setting_validation_dialog")
                 }
             }
         }
-        profileSettingViewModel.editInfoPhoneNumberResponse.observe(viewLifecycleOwner){response->
-            if(response){
+        profileSettingViewModel.editInfoPhoneNumberResponse.observe(viewLifecycleOwner) { response ->
+            if (response) {
                 // TODO : UserPrefStorage에서 phoneNumber 저장
                 binding.edittextPhoneNumber.isEnabled = false
                 binding.btnChangePhoneNumber.text = "변경"
@@ -359,14 +366,63 @@ class ProfileSettingFragment : Fragment() {
                 )
                 val toast = Toast.makeText(context, "전화번호가 변경되었습니다.", Toast.LENGTH_SHORT)
                 toast.show()
-            }else{
+            } else {
                 // 실패
                 val toast = Toast.makeText(context, "전화번호 변경에 실패했습니다.", Toast.LENGTH_SHORT)
                 toast.show()
             }
+        }
 
+        // 6) 프로필 이미지
+        binding.btnProfileImageSetting.setOnClickListener {
+            val galleryIntent =
+                Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
+            changeProfileImage.launch(galleryIntent)
+        }
+
+        profileSettingViewModel.editInfoProfileImageResponse.observe(viewLifecycleOwner) { response ->
+            if (response) {
+                // TODO : UserPref에 이미지 저장 & 이미지 변경 처리 필요
+                // binding.profileImage.setImageURI(selectedImage)
+                val toast = Toast.makeText(context, "프로필 이미지가 변경되었습니다.", Toast.LENGTH_SHORT)
+                toast.show()
+            } else {
+                // 실패
+                val toast = Toast.makeText(context, "프로필 이미지 변경에 실패했습니다.", Toast.LENGTH_SHORT)
+                toast.show()
+            }
+        }
+
+
+    }
+
+    private val changeProfileImage = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) {
+        if (it.resultCode == Activity.RESULT_OK) {
+            val data = it.data
+            val selectedImageUri = data?.data
+            // 임시적으로 이미지가 변경된 척하는 코드
+            binding.profileImage.setImageURI(selectedImageUri)
+
+            val bitmap = getBitmapFromUri(selectedImageUri!!)
+            profileSettingViewModel.patchEditInfoProfileImg(
+                UserPrefsStorage.email.toString(),
+                bitmap!!
+            )
         }
     }
+
+    private fun getBitmapFromUri(uri: Uri): Bitmap? {
+        val context = context ?: return null
+        if (Build.VERSION.SDK_INT >= 28) {
+            val src = ImageDecoder.createSource(context.contentResolver, uri)
+            return ImageDecoder.decodeBitmap(src)
+        } else {
+            return MediaStore.Images.Media.getBitmap(context.contentResolver, uri)
+        }
+    }
+
 
     //뒤로가기 누르면 MyPageFragment로 이동
     override fun onAttach(context: Context) {
