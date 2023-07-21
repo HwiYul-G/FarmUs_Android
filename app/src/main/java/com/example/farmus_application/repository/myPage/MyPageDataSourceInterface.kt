@@ -1,6 +1,7 @@
 package com.example.farmus_application.repository.myPage
 
 import com.example.farmus_application.model.mypage.*
+import okhttp3.MultipartBody
 import retrofit2.Response
 
 interface MyPageDataSourceInterface {
@@ -22,6 +23,6 @@ interface MyPageDataSourceInterface {
 
     suspend fun patchEditInfoProfileImg(
         email: String,
-        params: EditInfoProfileImgReq
-    ): Response<MyPageRes>
+        file: MultipartBody.Part
+    ): Response<MyPageProfileImageRes>
 }

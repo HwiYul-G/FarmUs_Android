@@ -16,5 +16,10 @@ data class MyPagePasswordRes(
 )
 
 data class MyPagePhoneNumberRes(
-    @SerializedName("result") val result : Boolean,
+    @SerializedName("result") val result: Boolean,
 )
+
+data class MyPageProfileImageRes(
+    @SerializedName("result") val result: Boolean,
+)
+

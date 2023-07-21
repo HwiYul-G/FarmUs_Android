@@ -3,6 +3,7 @@ package com.example.farmus_application.repository.myPage
 import com.example.farmus_application.ServiceLocator
 import com.example.farmus_application.model.mypage.*
 import com.example.farmus_application.network.MyPageApiClient
+import okhttp3.MultipartBody
 import retrofit2.Response
 
 class MyPageRepository(
@@ -38,9 +39,9 @@ class MyPageRepository(
 
     override suspend fun patchEditInfoProfileImg(
         email: String,
-        params: EditInfoProfileImgReq
-    ): Response<MyPageRes> {
-        return myPageApiClient.patchEditInfoProfileImg(email, params)
+        file: MultipartBody.Part
+    ): Response<MyPageProfileImageRes> {
+        return myPageApiClient.patchEditInfoProfileImg(email, file)
     }
 
 }

@@ -2,9 +2,12 @@ package com.example.farmus_application.network
 
 import com.example.farmus_application.model.mypage.*
 import com.example.farmus_application.model.user.*
+import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.Multipart
 import retrofit2.http.PATCH
+import retrofit2.http.Part
 import retrofit2.http.Query
 
 interface MyPageApiClient {
@@ -32,10 +35,11 @@ interface MyPageApiClient {
         @Body params: EditInfoPhoneNumberReq
     ): Response<MyPagePhoneNumberRes>
 
+    @Multipart
     @PATCH("/mypage/editInfo/profileImg")
     suspend fun patchEditInfoProfileImg(
         @Query("email") email: String,
-        @Body params: EditInfoProfileImgReq
-    ): Response<MyPageRes>
+        @Part file: MultipartBody.Part
+    ): Response<MyPageProfileImageRes>
 
 }
