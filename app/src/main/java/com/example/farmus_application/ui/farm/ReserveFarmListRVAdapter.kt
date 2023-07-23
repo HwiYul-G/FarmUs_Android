@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.farmus_application.databinding.RvGetFarmItemBinding
 import com.example.farmus_application.model.reserve.reserve_list.ReserveListResult
 import java.time.LocalDate
@@ -36,8 +37,12 @@ class ReserveFarmListRVAdapter() : ListAdapter<ReserveListResult, ReserveFarmLis
     inner class ViewHolder( binding: RvGetFarmItemBinding) :RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item : ReserveListResult) {
-//            binding.rvItemImg.setImageResource(item.image)
-            binding.rvItemTitle.text = item.OwnerEmail
+            // TODO: 추후에 databinding으로 수정
+            Glide.with(binding.rvItemImg)
+                .load(item.Picture_url)
+                .centerCrop()
+                .into(binding.rvItemImg)
+            binding.rvItemTitle.text = item.Name
             binding.rvItemStartDay.text = LocalDate.parse(item.startAt.substring(0 until  10)).toString()
             binding.rvItemEndDay.text = LocalDate.parse(item.endAt.substring(0 until  10)).toString()
 
