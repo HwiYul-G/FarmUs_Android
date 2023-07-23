@@ -6,5 +6,7 @@ data class ReserveListResult(
     val Reserveid: Int,
     val UserEmail: String,
     val endAt: String,
-    val startAt: String
+    val startAt: String,
+    val Name: String,
+    val Picture_url: String
 )
