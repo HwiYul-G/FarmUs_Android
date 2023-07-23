@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
 import android.text.style.ForegroundColorSpan
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +20,7 @@ import com.example.farmus_application.databinding.DialogBottomSheetCalendarBindi
 import com.example.farmus_application.model.farm.detail.DetailResult
 import com.example.farmus_application.model.reserve.request.ReserveRequestReq
 import com.example.farmus_application.model.reserve.unbookable.ReserveUnBookableRes
+import com.example.farmus_application.model.reserve.unbookable.UnBookableResult
 import com.example.farmus_application.repository.UserPrefsStorage
 import com.example.farmus_application.viewmodel.calendar.CalendarBottomSheetViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -36,6 +38,7 @@ class CalendarBottomSheetDialog(private val farmDetail: DetailResult): BottomShe
     private lateinit var calendarViewModel: CalendarBottomSheetViewModel
     private lateinit var firstSelectedDay: CalendarDay
     private lateinit var lastSelectedDay: CalendarDay
+    private lateinit var unBookDayList: List<UnBookableResult>
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -61,13 +64,16 @@ class CalendarBottomSheetDialog(private val farmDetail: DetailResult): BottomShe
                 val intent = Intent(Intent.ACTION_SENDTO, uri)
                 startActivity(intent)
             } else {
-                Toast.makeText(requireContext(), result.message, Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), result.toString(), Toast.LENGTH_SHORT).show()
             }
         }
 
         calendarViewModel.unBookable.observe(viewLifecycleOwner) { result ->
             if (result.isSuccess) {
-                binding.bottomSheetCalendar.addDecorator(UnBookableDayDecorator(result))
+                result.result?.let {
+                    binding.bottomSheetCalendar.addDecorator(UnBookableDayDecorator(it))
+                    unBookDayList = it
+                }
             } else {
                 Toast.makeText(requireContext(), result.message, Toast.LENGTH_SHORT).show()
             }
@@ -77,6 +83,7 @@ class CalendarBottomSheetDialog(private val farmDetail: DetailResult): BottomShe
             widget.removeDecorators()
             widget.addDecorator(SelectedDecorator(date))
             widget.addDecorators(TodayDecorator(requireContext()), BeforeDayDecorator())
+            widget.addDecorator(UnBookableDayDecorator(unBookDayList))
             settingCalendarStartText(date)
             settingButtonSelect(false)
         }
@@ -194,7 +201,7 @@ class BeforeDayDecorator: DayViewDecorator {
     }
 }
 
-class UnBookableDayDecorator(private val unBookableDays: ReserveUnBookableRes): DayViewDecorator {
+class UnBookableDayDecorator(private val unBookableDays: List<UnBookableResult>): DayViewDecorator {
     override fun shouldDecorate(day: CalendarDay): Boolean {
         return convertCalendarDay().contains(day)
     }
@@ -208,7 +215,7 @@ class UnBookableDayDecorator(private val unBookableDays: ReserveUnBookableRes): 
 
     private fun convertCalendarDay(): MutableList<CalendarDay> {
         val unBookDays = mutableListOf<CalendarDay>()
-        for (unBookDay in unBookableDays.result) {
+        for (unBookDay in unBookableDays) {
             val stDay = LocalDate.parse(unBookDay.startAt.substring(0 until 10))
             val endDay = LocalDate.parse(unBookDay.endAt.substring(0 until 10))
             val numOfBetween = ChronoUnit.DAYS.between(stDay, endDay)
