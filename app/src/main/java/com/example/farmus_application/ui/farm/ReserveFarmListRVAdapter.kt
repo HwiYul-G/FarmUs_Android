@@ -7,14 +7,15 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.farmus_application.databinding.RvGetFarmItemBinding
-import com.example.farmus_application.databinding.RvMyFarmItemBinding
+import com.example.farmus_application.model.reserve.reserve_list.ReserveListResult
+import java.time.LocalDate
 
-class GetFarmRVAdapter() : ListAdapter<FarmDataModel, GetFarmRVAdapter.ViewHolder>(diffUtil) {
+class ReserveFarmListRVAdapter() : ListAdapter<ReserveListResult, ReserveFarmListRVAdapter.ViewHolder>(diffUtil) {
 
     private lateinit var binding: RvGetFarmItemBinding
 
     interface OnClickListener {
-        fun onClick(view: View, data: FarmDataModel, pos: Int)
+        fun onClick(view: View, data: ReserveListResult, pos: Int)
     }
 
     private var listener: OnClickListener? = null
@@ -22,7 +23,7 @@ class GetFarmRVAdapter() : ListAdapter<FarmDataModel, GetFarmRVAdapter.ViewHolde
         this.listener = listener
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) : GetFarmRVAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) : ReserveFarmListRVAdapter.ViewHolder {
         binding = RvGetFarmItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         binding.rvItemImg.clipToOutline = true
         return ViewHolder(binding)
@@ -34,11 +35,11 @@ class GetFarmRVAdapter() : ListAdapter<FarmDataModel, GetFarmRVAdapter.ViewHolde
 
     inner class ViewHolder( binding: RvGetFarmItemBinding) :RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item : FarmDataModel) {
-            binding.rvItemImg.setImageResource(item.image)
-            binding.rvItemTitle.text = item.title
-            binding.rvItemStartDay.text = item.startDay
-            binding.rvItemEndDay.text = item.endDay
+        fun bind(item : ReserveListResult) {
+//            binding.rvItemImg.setImageResource(item.image)
+            binding.rvItemTitle.text = item.OwnerEmail
+            binding.rvItemStartDay.text = LocalDate.parse(item.startAt.substring(0 until  10)).toString()
+            binding.rvItemEndDay.text = LocalDate.parse(item.endAt.substring(0 until  10)).toString()
 
             binding.root.setOnClickListener {
                 listener?.onClick(binding.root, item, absoluteAdapterPosition)
@@ -46,17 +47,17 @@ class GetFarmRVAdapter() : ListAdapter<FarmDataModel, GetFarmRVAdapter.ViewHolde
         }
     }
     companion object{
-        val diffUtil = object: DiffUtil.ItemCallback<FarmDataModel>(){
+        val diffUtil = object: DiffUtil.ItemCallback<ReserveListResult>(){
             override fun areItemsTheSame(
-                oldItem: FarmDataModel,
-                newItem: FarmDataModel
+                oldItem: ReserveListResult,
+                newItem: ReserveListResult
             ): Boolean {
-                return oldItem == newItem
+                return oldItem.Farmid == newItem.Farmid
             }
 
             override fun areContentsTheSame(
-                oldItem: FarmDataModel,
-                newItem: FarmDataModel
+                oldItem: ReserveListResult,
+                newItem: ReserveListResult
             ): Boolean {
                 return oldItem == newItem
             }
@@ -64,3 +65,4 @@ class GetFarmRVAdapter() : ListAdapter<FarmDataModel, GetFarmRVAdapter.ViewHolde
         }
     }
 }
+
