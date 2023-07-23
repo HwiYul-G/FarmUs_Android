@@ -4,5 +4,5 @@ data class ReserveUnBookableRes(
     val code: Int,
     val isSuccess: Boolean,
     val message: String,
-    val result: List<UnBookableResult>
+    val result: List<UnBookableResult>?
 )
