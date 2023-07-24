@@ -1,6 +1,7 @@
 package com.example.farmus_application.ui.farm
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -48,7 +49,7 @@ class ReserveFarmListFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = FragmentFarmTab1Binding.inflate(layoutInflater, container, false)
         farmListViewModel = ViewModelProvider(this)[FarmListViewModel::class.java]
@@ -72,7 +73,7 @@ class ReserveFarmListFragment : Fragment() {
         val recentAdapter = ReserveFarmListRVAdapter().apply {
             setOnClickListener(object : ReserveFarmListRVAdapter.OnClickListener {
                 override fun onClick(view: View, data: ReserveListResult, pos: Int) {
-                    // itme click시 해당 farm의 farmId를 가지고 상세정보 페이지로 이동
+                    moveToFarmDetail(data.Farmid)
                 }
             })
         }
@@ -91,7 +92,7 @@ class ReserveFarmListFragment : Fragment() {
         val pastAdapter = ReserveFarmListRVAdapter().apply {
             setOnClickListener(object : ReserveFarmListRVAdapter.OnClickListener {
                 override fun onClick(view: View, data: ReserveListResult, pos: Int) {
-                    // itme click시 해당 farm의 farmId를 가지고 상세정보 페이지로 이동
+                    moveToFarmDetail(data.Farmid)
                 }
             })
         }
@@ -103,6 +104,15 @@ class ReserveFarmListFragment : Fragment() {
         farmListViewModel.pastFarmList.observe(viewLifecycleOwner) {
             pastAdapter.submitList(it.result)
         }
+    }
+
+    private fun moveToFarmDetail(farmId: Int) {
+        val farmDetailFragment = FarmDetailFragment()
+        val bundle = Bundle().apply {
+            putInt("farmId",farmId)
+        }
+        farmDetailFragment.arguments = bundle
+        (activity as MainActivity).changeFragment(farmDetailFragment)
     }
 
     companion object {

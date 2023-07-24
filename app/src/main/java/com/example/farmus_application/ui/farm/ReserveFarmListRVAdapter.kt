@@ -1,5 +1,6 @@
 package com.example.farmus_application.ui.farm
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,12 +15,11 @@ import java.time.LocalDate
 class ReserveFarmListRVAdapter() : ListAdapter<ReserveListResult, ReserveFarmListRVAdapter.ViewHolder>(diffUtil) {
 
     private lateinit var binding: RvGetFarmItemBinding
+    private var listener: OnClickListener? = null
 
     interface OnClickListener {
         fun onClick(view: View, data: ReserveListResult, pos: Int)
     }
-
-    private var listener: OnClickListener? = null
     fun setOnClickListener(listener: OnClickListener) {
         this.listener = listener
     }
