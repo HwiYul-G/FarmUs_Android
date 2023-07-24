@@ -38,7 +38,7 @@ class CalendarBottomSheetDialog(private val farmDetail: DetailResult): BottomShe
     private lateinit var calendarViewModel: CalendarBottomSheetViewModel
     private lateinit var firstSelectedDay: CalendarDay
     private lateinit var lastSelectedDay: CalendarDay
-    private lateinit var unBookDayList: List<UnBookableResult>
+    private var unBookDayList: List<UnBookableResult> = listOf()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -68,6 +68,13 @@ class CalendarBottomSheetDialog(private val farmDetail: DetailResult): BottomShe
 
         calendarViewModel.unBookable.observe(viewLifecycleOwner) { result ->
             if (result.isSuccess) {
+//                val resultList = result.result
+//                unBookDayList = if (resultList.isNullOrEmpty()) {
+//                    listOf()
+//                } else {
+//                    binding.bottomSheetCalendar.addDecorator(UnBookableDayDecorator(resultList))
+//                    resultList
+//                }
                 result.result?.let {
                     binding.bottomSheetCalendar.addDecorator(UnBookableDayDecorator(it))
                     unBookDayList = it
@@ -84,10 +91,12 @@ class CalendarBottomSheetDialog(private val farmDetail: DetailResult): BottomShe
         }
 
         binding.bottomSheetCalendar.setOnDateChangedListener { widget, date, _ ->
-            widget.removeDecorators()
-            widget.addDecorator(SelectedDecorator(date))
-            widget.addDecorators(TodayDecorator(requireContext()), BeforeDayDecorator())
-            widget.addDecorator(UnBookableDayDecorator(unBookDayList))
+            widget.apply {
+                removeDecorators()
+                addDecorator(SelectedDecorator(date))
+                addDecorators(TodayDecorator(requireContext()), BeforeDayDecorator(),SelectedDecorator(date))
+                addDecorator(UnBookableDayDecorator(unBookDayList))
+            }
             settingCalendarStartText(date)
             settingButtonSelect(false)
         }
