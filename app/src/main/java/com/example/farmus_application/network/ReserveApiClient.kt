@@ -5,9 +5,10 @@ import com.example.farmus_application.model.reserve.client_list.ReserveClientLis
 import com.example.farmus_application.model.reserve.farm_list.ReserveFarmListRes
 import com.example.farmus_application.model.reserve.request.ReserveRequestReq
 import com.example.farmus_application.model.reserve.request.ReserveRequestRes
+import com.example.farmus_application.model.reserve.reserve_list.ReserveListRes
 import com.example.farmus_application.model.reserve.status.ReserveStatusRes
-import com.example.farmus_application.model.unbookable.ReserveUnBookableRes
-import com.example.farmus_application.model.unbookable.UnBookableResult
+import com.example.farmus_application.model.reserve.unbookable.ReserveUnBookableRes
+import com.example.farmus_application.model.reserve.unbookable.UnBookableResult
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -36,4 +37,12 @@ interface ReserveApiClient {
 
     @GET("/reserve/unbookable/{farmid}")
     suspend fun getReserveUnBookable(@Path("farmid") farmId: String): Response<ReserveUnBookableRes>
+
+    @GET("/reserve/current/list/{email}")
+    suspend fun getCurrentList(@Path("email") email: String): Response<ReserveListRes>
+
+    @GET("/reserve/past/list/{email}")
+    suspend fun getPastList(@Path("email") email: String): Response<ReserveListRes>
+
+
 }

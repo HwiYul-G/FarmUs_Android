@@ -16,9 +16,9 @@ class ViewPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) :
 
     override fun createFragment(position: Int): Fragment {
         when(position){
-            0 -> return FarmTab1Fragment()
+            0 -> return ReserveFarmListFragment()
             1 -> return FarmTab2Fragment()
         }
-        return FarmTab1Fragment()
+        return ReserveFarmListFragment()
     }
 }
