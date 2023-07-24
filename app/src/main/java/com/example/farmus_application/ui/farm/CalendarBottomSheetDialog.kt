@@ -60,9 +60,7 @@ class CalendarBottomSheetDialog(private val farmDetail: DetailResult): BottomShe
         calendarViewModel.isSuccessReserve.observe(viewLifecycleOwner) { result ->
             if (result.isSuccess) {
                 Toast.makeText(requireContext(), result.message, Toast.LENGTH_SHORT).show()
-                val uri = Uri.parse("sms:${farmDetail.farmer.PhoneNumber}")
-                val intent = Intent(Intent.ACTION_SENDTO, uri)
-                startActivity(intent)
+                calendarViewModel.getFarmerPhoneNumber(farmDetail.FarmID)
             } else {
                 Toast.makeText(requireContext(), result.toString(), Toast.LENGTH_SHORT).show()
             }
@@ -77,6 +75,12 @@ class CalendarBottomSheetDialog(private val farmDetail: DetailResult): BottomShe
             } else {
                 Toast.makeText(requireContext(), result.message, Toast.LENGTH_SHORT).show()
             }
+        }
+
+        calendarViewModel.farmerPhoneNumber.observe(viewLifecycleOwner) { result ->
+            val uri = Uri.parse("sms:${result.PhoneNumber}")
+            val intent = Intent(Intent.ACTION_SENDTO, uri)
+            startActivity(intent)
         }
 
         binding.bottomSheetCalendar.setOnDateChangedListener { widget, date, _ ->
