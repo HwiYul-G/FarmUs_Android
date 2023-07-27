@@ -18,6 +18,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
+import com.bumptech.glide.Glide
 import com.example.farmus_application.R
 import com.example.farmus_application.utilities.ValidationCheckUtil
 import com.example.farmus_application.databinding.FragmentProfileSettingBinding
@@ -325,7 +326,7 @@ class ProfileSettingFragment : Fragment() {
         }
 
         // 5) 전화번호
-        // TODO : login시 backend에서 따로 전화번호를 보내주지 않음
+        binding.edittextPhoneNumber.setText(userPhoneNumber)
         binding.edittextPhoneNumber.isEnabled = false
         binding.btnChangePhoneNumber.setOnClickListener {
             if (binding.btnChangePhoneNumber.text == "변경") {
@@ -380,9 +381,9 @@ class ProfileSettingFragment : Fragment() {
         }
 
         profileSettingViewModel.editInfoProfileImageResponse.observe(viewLifecycleOwner) { response ->
-            if (response) {
-                // TODO : UserPref에 이미지 저장 & 이미지 변경 처리 필요
-                // binding.profileImage.setImageURI(selectedImage)
+            if (response.result) {
+                // Glide로 img update
+                Glide.with(this).load(response.photoUrl).into(binding.profileImage)
                 val toast = Toast.makeText(context, "프로필 이미지가 변경되었습니다.", Toast.LENGTH_SHORT)
                 toast.show()
             } else {
@@ -405,10 +406,10 @@ class ProfileSettingFragment : Fragment() {
             binding.profileImage.setImageURI(selectedImageUri)
 
             val bitmap = getBitmapFromUri(selectedImageUri!!)
-//            profileSettingViewModel.patchEditInfoProfileImg(
-//                UserPrefsStorage.email.toString(),
-//                bitmap!!
-//            )
+            profileSettingViewModel.patchEditInfoProfileImg(
+                tokenBody.email,
+                bitmap!!
+            )
         }
     }
 

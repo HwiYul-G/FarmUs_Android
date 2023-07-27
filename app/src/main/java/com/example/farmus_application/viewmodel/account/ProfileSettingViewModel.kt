@@ -2,6 +2,7 @@ package com.example.farmus_application.viewmodel.account
 
 import android.graphics.Bitmap
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -19,11 +20,17 @@ class ProfileSettingViewModel : ViewModel() {
 
     private val myPageRepository = MyPageRepository()
 
-    var editInfoNicknameResponse = MutableLiveData<Boolean>()
-    var editInfoNameResponse = MutableLiveData<Boolean>()
-    var editInfoPasswordResponse = MutableLiveData<Boolean>()
-    var editInfoPhoneNumberResponse = MutableLiveData<Boolean>()
-    var editInfoProfileImageResponse = MutableLiveData<Boolean>()
+    // LiveData
+    private var _editInfoNicknameResponse = MutableLiveData<Boolean>()
+    val editInfoNicknameResponse : LiveData<Boolean> get() = _editInfoNicknameResponse
+    private var _editInfoNameResponse = MutableLiveData<Boolean>()
+    val editInfoNameResponse : LiveData<Boolean> get() = _editInfoNameResponse
+    private var _editInfoPasswordResponse = MutableLiveData<Boolean>()
+    val editInfoPasswordResponse : LiveData<Boolean> get() = _editInfoPasswordResponse
+    private var _editInfoPhoneNumberResponse = MutableLiveData<Boolean>()
+    val editInfoPhoneNumberResponse : LiveData<Boolean> get() = _editInfoPhoneNumberResponse
+    private var _editInfoProfileImageResponse = MutableLiveData<MyPageProfileImageRes>()
+    val editInfoProfileImageResponse : LiveData<MyPageProfileImageRes> get() = _editInfoProfileImageResponse
 
     // TODO : 아이디 변경 관련 API 존재하지 않음.
 
@@ -35,7 +42,7 @@ class ProfileSettingViewModel : ViewModel() {
                     response.body()?.let {
                         // UserPrefsStorage의 accessToken 업데이트
                         UserPrefsStorage.accessToken = it.accesstoken
-                        editInfoNicknameResponse.postValue(it.result)
+                        _editInfoNicknameResponse.postValue(it.result)
                         if (!it.result) {
                             Log.d("닉네임 변경 false : ", response.body().toString())
                         }
@@ -57,7 +64,7 @@ class ProfileSettingViewModel : ViewModel() {
                     response.body()?.let {
                         // UserPrefsStorage의 accessToken 업데이트
                         UserPrefsStorage.accessToken = it.accesstoken
-                        editInfoNameResponse.postValue(it.result)
+                        _editInfoNameResponse.postValue(it.result)
                     }
                 } else {
                     Log.e("이름 변경 false : ", response.body().toString())
@@ -74,7 +81,7 @@ class ProfileSettingViewModel : ViewModel() {
                 val response = myPageRepository.patchEditInfoPassword(email, params)
                 if (response.isSuccessful) {
                     response.body()?.let {
-                        editInfoPasswordResponse.postValue(it.isSuccess)
+                        _editInfoPasswordResponse.postValue(it.isSuccess)
                         Log.d("비밀번호 변경 success: ", response.body().toString())
                     }
                 } else {
@@ -94,7 +101,7 @@ class ProfileSettingViewModel : ViewModel() {
                     response.body()?.let {
                         // UserPrefsStorage의 accessToken 업데이트
                         UserPrefsStorage.accessToken = it.accesstoken
-                        editInfoPhoneNumberResponse.postValue(it.result)
+                        _editInfoPhoneNumberResponse.postValue(it.result)
                     }
                 } else {
                     Log.e("전화번호 변경 false: ", response.body().toString())
@@ -115,7 +122,8 @@ class ProfileSettingViewModel : ViewModel() {
                         // UserPrefsStorage의 accessToken 업데이트
                         UserPrefsStorage.accessToken = it.accesstoken
                         UserPrefsStorage.profileImgUrl = it.photoUrl
-                        editInfoProfileImageResponse.postValue(it.result)
+                        // result : boolean과 imgaUrl : string만 넣고 싶음
+                        _editInfoProfileImageResponse.postValue(it)
                     }
                 } else {
                     Log.e("이미지 변경 false: ", response.body().toString())
