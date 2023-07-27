@@ -22,6 +22,7 @@ import com.example.farmus_application.model.reserve.request.ReserveRequestReq
 import com.example.farmus_application.model.reserve.unbookable.ReserveUnBookableRes
 import com.example.farmus_application.model.reserve.unbookable.UnBookableResult
 import com.example.farmus_application.repository.UserPrefsStorage
+import com.example.farmus_application.utilities.JWTUtils
 import com.example.farmus_application.viewmodel.calendar.CalendarBottomSheetViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.prolificinteractive.materialcalendarview.CalendarDay
@@ -39,6 +40,8 @@ class CalendarBottomSheetDialog(private val farmDetail: DetailResult): BottomShe
     private lateinit var firstSelectedDay: CalendarDay
     private lateinit var lastSelectedDay: CalendarDay
     private var unBookDayList: List<UnBookableResult> = listOf()
+
+    private val tokenBody = JWTUtils.decoded(UserPrefsStorage.accessToken.toString())!!.tokenBody
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -121,7 +124,7 @@ class CalendarBottomSheetDialog(private val farmDetail: DetailResult): BottomShe
         }
 
         binding.applicationButton.setOnClickListener {
-            val email = UserPrefsStorage.email ?: ""
+            val email = tokenBody.email ?: ""
             val reserveRequestReq = ReserveRequestReq(
                 email = email,
                 farmId = farmDetail.FarmID.toString(),
