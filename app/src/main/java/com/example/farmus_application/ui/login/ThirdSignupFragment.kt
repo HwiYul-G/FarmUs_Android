@@ -12,7 +12,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.farmus_application.ValidationCheckUtil
+import com.example.farmus_application.utilities.ValidationCheckUtil
 import com.example.farmus_application.databinding.FragmentSignupThirdBinding
 import com.example.farmus_application.model.user.signup_verification.SignUpVerificationReq
 import com.example.farmus_application.model.user.verification.VerificationReq

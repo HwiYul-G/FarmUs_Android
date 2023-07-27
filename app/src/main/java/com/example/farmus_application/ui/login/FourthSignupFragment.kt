@@ -11,7 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import androidx.fragment.app.Fragment
-import com.example.farmus_application.ValidationCheckUtil
+import com.example.farmus_application.utilities.ValidationCheckUtil
 import com.example.farmus_application.databinding.FragmentSignupFourthBinding
 import java.text.SimpleDateFormat
 import java.time.LocalDate

@@ -13,10 +13,9 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.example.farmus_application.ValidationCheckUtil
+import com.example.farmus_application.utilities.ValidationCheckUtil
 import com.example.farmus_application.databinding.ActivityLoginMainBinding
 import com.example.farmus_application.model.user.login.LoginReq
-import com.example.farmus_application.repository.UserPrefsStorage
 import com.example.farmus_application.ui.MainActivity
 import com.example.farmus_application.ui.StartActivity
 import com.example.farmus_application.viewmodel.login.LoginViewModel

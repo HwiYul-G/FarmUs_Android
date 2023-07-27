@@ -10,7 +10,7 @@ import kotlinx.coroutines.delay
 object UserPrefsStorage {
     private lateinit var prefs: EncryptedSharedPreferences
 
-    private const val SEEARCHED_HISTORY_PREFS_NAME = "searched_history_prefs"
+    private const val SEARCHED_HISTORY_PREFS_NAME = "searched_history_prefs"
     private lateinit var searchedHistoryPrefs: SharedPreferences
 
     fun init(context: Context) {
@@ -27,7 +27,7 @@ object UserPrefsStorage {
         ) as EncryptedSharedPreferences
 
         searchedHistoryPrefs =
-            context.getSharedPreferences(SEEARCHED_HISTORY_PREFS_NAME, Context.MODE_PRIVATE)
+            context.getSharedPreferences(SEARCHED_HISTORY_PREFS_NAME, Context.MODE_PRIVATE)
     }
 
     var accessToken: String?
@@ -38,21 +38,26 @@ object UserPrefsStorage {
         get() = prefs.getString("refresh_token", null)
         set(value) = prefs.edit().putString("refresh_token", value).apply()
 
-    var name: String?
-        get() = prefs.getString("user_name", null)
-        set(value) = prefs.edit().putString("user_name", value).apply()
+    var profileImgUrl : String?
+        get() = prefs.getString("profile_image_url", null)
+        set(value) = prefs.edit().putString("profile_image_url", value).apply()
 
-    var nickName: String?
-        get() = prefs.getString("user_nickName", null)
-        set(value) = prefs.edit().putString("user_nickName", value).apply()
-
-    var email: String?
-        get() = prefs.getString("user_email", null)
-        set(value) = prefs.edit().putString("user_email", value).apply()
-
-    var role: String?
-        get() = prefs.getString("user_role", null)
-        set(value) = prefs.edit().putString("user_role", value).apply()
+    // token 내부에 있는 정보를 추출해 사용하기로 해서 주석 처리.
+//    var name: String?
+//        get() = prefs.getString("user_name", null)
+//        set(value) = prefs.edit().putString("user_name", value).apply()
+//
+//    var nickName: String?
+//        get() = prefs.getString("user_nickName", null)
+//        set(value) = prefs.edit().putString("user_nickName", value).apply()
+//
+//    var email: String?
+//        get() = prefs.getString("user_email", null)
+//        set(value) = prefs.edit().putString("user_email", value).apply()
+//
+//    var role: String?
+//        get() = prefs.getString("user_role", null)
+//        set(value) = prefs.edit().putString("user_role", value).apply()
 
     suspend fun clearStorage() {
         prefs.edit().clear().apply()

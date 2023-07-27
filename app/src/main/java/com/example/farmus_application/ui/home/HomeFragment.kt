@@ -16,6 +16,7 @@ import com.example.farmus_application.repository.UserPrefsStorage
 import com.example.farmus_application.ui.MainActivity
 import com.example.farmus_application.ui.farm.FarmDetailFragment
 import com.example.farmus_application.ui.home.Adapter.FarmRVAdapter
+import com.example.farmus_application.utilities.JWTUtils
 import com.example.farmus_application.viewmodel.home.HomeViewModel
 
 // TODO: Rename parameter arguments, choose names that match
@@ -58,6 +59,10 @@ class HomeFragment : Fragment() {
 
         (activity as MainActivity).hideBottomNavigation(false)
 
+        val jwtToken = UserPrefsStorage.accessToken
+        val email = JWTUtils.decoded(jwtToken.toString())?.tokenBody?.email
+
+
         //검색바 누르면 HomeSearchFragment로 이동
         binding.searchBar.setOnClickListener {
             (activity as MainActivity).changeFragment(HomeSearchFragment.newInstance("", ""))
@@ -71,8 +76,7 @@ class HomeFragment : Fragment() {
         val dp = 16
         val px = dpToPx(requireContext(), dp.toFloat())
         adapter = FarmRVAdapter()
-
-        homeViewModel.getFarmList(UserPrefsStorage.email.toString())
+        homeViewModel.getFarmList(email.toString())
 
         adapter.setOnItemClick(object : FarmRVAdapter.OnItemClickListener {
             override fun itemClick(farmId: Int) {

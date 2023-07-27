@@ -9,7 +9,7 @@ import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import com.example.farmus_application.databinding.ActivityFindPwBinding
 import androidx.activity.viewModels
-import com.example.farmus_application.ValidationCheckUtil
+import com.example.farmus_application.utilities.ValidationCheckUtil
 import com.example.farmus_application.viewmodel.login.FindPasswordViewModel
 
 class FindpwActivity : AppCompatActivity() {

@@ -8,7 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.farmus_application.ValidationCheckUtil
+import com.example.farmus_application.utilities.ValidationCheckUtil
 import com.example.farmus_application.databinding.FragmentSignupSecondBinding
 
 

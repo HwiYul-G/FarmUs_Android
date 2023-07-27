@@ -5,10 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import com.bumptech.glide.Glide
 import com.example.farmus_application.R
 import com.example.farmus_application.databinding.FragmentMyPageBinding
 import com.example.farmus_application.repository.UserPrefsStorage
 import com.example.farmus_application.ui.MainActivity
+import com.example.farmus_application.utilities.JWTUtils
 
 
 private const val ARG_PARAM1 = "param1"
@@ -17,6 +19,7 @@ private const val ARG_PARAM2 = "param2"
 class MyPageFragment : Fragment() {
 
     private lateinit var myPageBinding: FragmentMyPageBinding
+    private val tokenBody = JWTUtils.decoded(UserPrefsStorage.accessToken.toString())!!.tokenBody
 
     private var param1: String? = null
     private var param2: String? = null
@@ -51,9 +54,11 @@ class MyPageFragment : Fragment() {
             (activity as MainActivity).changeFragment(EnrollFarmerFragment.newInstance("",""))
         }
 
-        view.profileName.text = UserPrefsStorage.name.toString()
-        view.profileMail.text = UserPrefsStorage.email.toString()
-        // TODO : 프로필 사진 불러오기
+        view.profileName.text = tokenBody.name
+        view.profileMail.text = tokenBody.email
+        if(tokenBody.profile != null)
+            Glide.with(this).load(tokenBody.profile).into(view.myPageProfileImage)
+
 
         return view.root
     }

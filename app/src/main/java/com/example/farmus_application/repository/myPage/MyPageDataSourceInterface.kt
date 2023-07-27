@@ -8,9 +8,9 @@ interface MyPageDataSourceInterface {
     suspend fun patchEditInfoNickname(
         email: String,
         params: EditInfoNicknameReq
-    ): Response<MyPageRes>
+    ): Response<MyPageNickNameRes>
 
-    suspend fun patchEditInfoName(email: String, params: EditInfoNameReq): Response<MyPageRes>
+    suspend fun patchEditInfoName(email: String, params: EditInfoNameReq): Response<MyPageNameRes>
     suspend fun patchEditInfoPassword(
         email: String,
         params: EditInfoPasswordReq

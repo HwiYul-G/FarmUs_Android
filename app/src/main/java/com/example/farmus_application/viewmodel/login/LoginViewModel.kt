@@ -62,11 +62,7 @@ class LoginViewModel() : ViewModel(){
             UserPrefsStorage.let {
                 it.accessToken = params?.accesstoken
                 it.refreshToken = null
-                it.name = params?.name
-                it.nickName = params?.nickName
-                it.email = params?.email
-                it.role = params?.role
-
+                it.profileImgUrl = params?.profile
                 // 이 구조로 데이터 삽입시 정상 삽입이 안됨.
 //                UserPrefsStorage.setUserData(
 //                    accessToken = it.accesstoken,

@@ -19,7 +19,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import com.example.farmus_application.R
-import com.example.farmus_application.ValidationCheckUtil
+import com.example.farmus_application.utilities.ValidationCheckUtil
 import com.example.farmus_application.databinding.FragmentProfileSettingBinding
 import com.example.farmus_application.model.mypage.EditInfoNameReq
 import com.example.farmus_application.model.mypage.EditInfoNicknameReq
@@ -27,6 +27,7 @@ import com.example.farmus_application.model.mypage.EditInfoPasswordReq
 import com.example.farmus_application.model.mypage.EditInfoPhoneNumberReq
 import com.example.farmus_application.repository.UserPrefsStorage
 import com.example.farmus_application.ui.MainActivity
+import com.example.farmus_application.utilities.JWTUtils
 import com.example.farmus_application.viewmodel.account.ProfileSettingViewModel
 
 
@@ -37,6 +38,7 @@ private const val ARG_PARAM2 = "param2"
 class ProfileSettingFragment : Fragment() {
 
     private lateinit var binding: FragmentProfileSettingBinding
+    private val tokenBody = JWTUtils.decoded(UserPrefsStorage.accessToken.toString())!!.tokenBody
     private val profileSettingViewModel: ProfileSettingViewModel by viewModels()
 
     //뒤로가기 기능 구현
@@ -78,11 +80,10 @@ class ProfileSettingFragment : Fragment() {
             (activity as MainActivity).changeFragment(MyPageFragment.newInstance("", ""))
         }
 
-        val userEmail = UserPrefsStorage.email.toString()
-        val userNickname = UserPrefsStorage.nickName.toString()
-        val userName = UserPrefsStorage.name.toString()
-        // TODO : 핸드폰 번호 바꾸기. 아직 backend의 API가 없음.
-        // val userPhoneNumber
+        val userEmail = tokenBody.email
+        val userNickname = tokenBody.nickname
+        val userName = tokenBody.name
+        val userPhoneNumber = tokenBody.phoneNumber
 
         val fragment = ProfileSettingValidationDialogFragment()
         val bundle = Bundle()
@@ -98,7 +99,7 @@ class ProfileSettingFragment : Fragment() {
                 binding.btnChangeNickname.text = "완료"
                 // edittextNickname에 foucs + 색상 변경
                 binding.edittextNickname.requestFocus()
-                if (UserPrefsStorage.nickName.toString() != "") {
+                if (userNickname != "") {
                     binding.edittextNickname.setSelection(binding.edittextNickname.text!!.length) // 커서 위치를 마지막 글자 뒤로 이동
                 }
                 binding.edittextNickname.background = ResourcesCompat.getDrawable(
@@ -163,8 +164,6 @@ class ProfileSettingFragment : Fragment() {
         // nickname 변경 observe
         profileSettingViewModel.editInfoNicknameResponse.observe(viewLifecycleOwner) { response ->
             if (response) {
-                // UserPrefsStorage의 이름 변경
-                UserPrefsStorage.nickName = binding.edittextNickname.text.toString()
                 // 편집 불가 + 버튼 text '변경'으로 변경 + 색상 변경
                 binding.edittextNickname.isEnabled = false
                 binding.btnChangeNickname.text = "변경"
@@ -189,7 +188,7 @@ class ProfileSettingFragment : Fragment() {
 
         // 3) 이름
         binding.edittextName.isEnabled = false
-        binding.edittextName.setText(UserPrefsStorage.name)
+        //binding.edittextName.setText(UserPrefsStorage.name)
         binding.btnChangeName.setOnClickListener {
             if (binding.btnChangeName.text == "변경") {
                 binding.edittextName.isEnabled = true
@@ -252,7 +251,7 @@ class ProfileSettingFragment : Fragment() {
         // 이름 변경 observe
         profileSettingViewModel.editInfoNameResponse.observe(viewLifecycleOwner) { response ->
             if (response) {
-                UserPrefsStorage.name = binding.edittextName.text.toString()
+                //UserPrefsStorage.name = binding.edittextName.text.toString()
                 binding.edittextName.isEnabled = false
                 binding.btnChangeName.text = "변경"
                 binding.edittextName.background = ResourcesCompat.getDrawable(
@@ -406,10 +405,10 @@ class ProfileSettingFragment : Fragment() {
             binding.profileImage.setImageURI(selectedImageUri)
 
             val bitmap = getBitmapFromUri(selectedImageUri!!)
-            profileSettingViewModel.patchEditInfoProfileImg(
-                UserPrefsStorage.email.toString(),
-                bitmap!!
-            )
+//            profileSettingViewModel.patchEditInfoProfileImg(
+//                UserPrefsStorage.email.toString(),
+//                bitmap!!
+//            )
         }
     }
 
