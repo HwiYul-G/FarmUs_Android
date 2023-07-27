@@ -12,6 +12,7 @@ import com.example.farmus_application.databinding.FragmentFarmTab1Binding
 import com.example.farmus_application.model.reserve.reserve_list.ReserveListResult
 import com.example.farmus_application.repository.UserPrefsStorage
 import com.example.farmus_application.ui.MainActivity
+import com.example.farmus_application.utilities.JWTUtils
 import com.example.farmus_application.viewmodel.farm.FarmListViewModel
 import com.kakao.sdk.user.model.User
 
@@ -33,7 +34,8 @@ class ReserveFarmListFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-    private val email = UserPrefsStorage.email ?: ""
+    private val jwtToken = UserPrefsStorage.accessToken
+    private val email = JWTUtils.decoded(jwtToken.toString())?.tokenBody?.email?: ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -1,4 +1,4 @@
-package com.example.farmus_application
+package com.example.farmus_application.utilities
 
 import android.util.Patterns
 import java.util.regex.Pattern
