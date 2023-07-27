@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.farmus_application.model.mypage.*
 import com.example.farmus_application.repository.UserPrefsStorage
 import com.example.farmus_application.repository.myPage.MyPageRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -23,12 +24,16 @@ class ProfileSettingViewModel : ViewModel() {
     // LiveData
     private var _editInfoNicknameResponse = MutableLiveData<Boolean>()
     val editInfoNicknameResponse : LiveData<Boolean> get() = _editInfoNicknameResponse
+
     private var _editInfoNameResponse = MutableLiveData<Boolean>()
     val editInfoNameResponse : LiveData<Boolean> get() = _editInfoNameResponse
+
     private var _editInfoPasswordResponse = MutableLiveData<Boolean>()
     val editInfoPasswordResponse : LiveData<Boolean> get() = _editInfoPasswordResponse
+
     private var _editInfoPhoneNumberResponse = MutableLiveData<Boolean>()
     val editInfoPhoneNumberResponse : LiveData<Boolean> get() = _editInfoPhoneNumberResponse
+
     private var _editInfoProfileImageResponse = MutableLiveData<MyPageProfileImageRes>()
     val editInfoProfileImageResponse : LiveData<MyPageProfileImageRes> get() = _editInfoProfileImageResponse
 
@@ -134,6 +139,12 @@ class ProfileSettingViewModel : ViewModel() {
         }
     }
 
+    fun clearUserData() {
+        viewModelScope.launch(Dispatchers.IO) {
+            UserPrefsStorage.clearStorage()
+        }
+    }
+
     private fun bitmapToMultiPart(bitmap: Bitmap): MultipartBody.Part {
         val byteArrayOutputStream = ByteArrayOutputStream()
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream)
@@ -145,5 +156,6 @@ class ProfileSettingViewModel : ViewModel() {
             requestBody
         )
     }
+
 
 }
