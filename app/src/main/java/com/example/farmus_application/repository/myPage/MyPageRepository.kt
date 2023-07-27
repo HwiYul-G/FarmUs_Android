@@ -12,14 +12,14 @@ class MyPageRepository(
     override suspend fun patchEditInfoNickname(
         email: String,
         params: EditInfoNicknameReq
-    ): Response<MyPageRes> {
+    ): Response<MyPageNickNameRes> {
         return myPageApiClient.patchEditInfoNickname(email, params)
     }
 
     override suspend fun patchEditInfoName(
         email: String,
         params: EditInfoNameReq
-    ): Response<MyPageRes> {
+    ): Response<MyPageNameRes> {
         return myPageApiClient.patchEditInfoName(email, params)
     }
 

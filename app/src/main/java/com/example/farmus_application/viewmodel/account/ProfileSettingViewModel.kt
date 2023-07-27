@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.farmus_application.model.mypage.*
+import com.example.farmus_application.repository.UserPrefsStorage
 import com.example.farmus_application.repository.myPage.MyPageRepository
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -32,6 +33,8 @@ class ProfileSettingViewModel : ViewModel() {
                 val response = myPageRepository.patchEditInfoNickname(email, params)
                 if (response.isSuccessful) {
                     response.body()?.let {
+                        // UserPrefsStorage의 accessToken 업데이트
+                        UserPrefsStorage.accessToken = it.accesstoken
                         editInfoNicknameResponse.postValue(it.result)
                         if (!it.result) {
                             Log.d("닉네임 변경 false : ", response.body().toString())
@@ -52,6 +55,8 @@ class ProfileSettingViewModel : ViewModel() {
                 val response = myPageRepository.patchEditInfoName(email, params)
                 if (response.isSuccessful) {
                     response.body()?.let {
+                        // UserPrefsStorage의 accessToken 업데이트
+                        UserPrefsStorage.accessToken = it.accesstoken
                         editInfoNameResponse.postValue(it.result)
                     }
                 } else {
@@ -87,6 +92,8 @@ class ProfileSettingViewModel : ViewModel() {
                 val response = myPageRepository.patchEditInfoPhoneNumber(email, params)
                 if (response.isSuccessful) {
                     response.body()?.let {
+                        // UserPrefsStorage의 accessToken 업데이트
+                        UserPrefsStorage.accessToken = it.accesstoken
                         editInfoPhoneNumberResponse.postValue(it.result)
                     }
                 } else {
@@ -105,9 +112,10 @@ class ProfileSettingViewModel : ViewModel() {
                 val response = myPageRepository.patchEditInfoProfileImg(email, multipartFile)
                 if (response.isSuccessful) {
                     response.body()?.let {
+                        // UserPrefsStorage의 accessToken 업데이트
+                        UserPrefsStorage.accessToken = it.accesstoken
+                        UserPrefsStorage.profileImgUrl = it.photoUrl
                         editInfoProfileImageResponse.postValue(it.result)
-                        // TODO : UserPreference에도 저장할 필요가 있을까? 흠!
-
                     }
                 } else {
                     Log.e("이미지 변경 false: ", response.body().toString())
