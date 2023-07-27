@@ -1,5 +1,6 @@
 package com.example.farmus_application.ui.farm
 
+import android.content.ClipData.Item
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -8,13 +9,13 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.farmus_application.databinding.ItemEmptyFarmListBinding
 import com.example.farmus_application.databinding.RvGetFarmItemBinding
 import com.example.farmus_application.model.reserve.reserve_list.ReserveListResult
 import java.time.LocalDate
 
-class ReserveFarmListRVAdapter() : ListAdapter<ReserveListResult, ReserveFarmListRVAdapter.ViewHolder>(diffUtil) {
+class ReserveFarmListRVAdapter() : ListAdapter<ReserveListResult, RecyclerView.ViewHolder>(diffUtil) {
 
-    private lateinit var binding: RvGetFarmItemBinding
     private var listener: OnClickListener? = null
 
     interface OnClickListener {
@@ -24,18 +25,30 @@ class ReserveFarmListRVAdapter() : ListAdapter<ReserveListResult, ReserveFarmLis
         this.listener = listener
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) : ReserveFarmListRVAdapter.ViewHolder {
-        binding = RvGetFarmItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        binding.rvItemImg.clipToOutline = true
-        return ViewHolder(binding)
-    }
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = currentList[position]
-        holder.bind(item)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) : RecyclerView.ViewHolder {
+        return if (viewType == ITEM) {
+            ItemViewHolder(RvGetFarmItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        } else {
+            EmptyViewHolder(ItemEmptyFarmListBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        }
     }
 
-    inner class ViewHolder( binding: RvGetFarmItemBinding) :RecyclerView.ViewHolder(binding.root) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        if (getItemViewType(position) == ITEM) {
+            (holder as ItemViewHolder).bind(currentList[position])
+        } else {
+            (holder as EmptyViewHolder)
+        }
+    }
 
+    override fun getItemViewType(position: Int): Int {
+        return if (currentList.isNotEmpty()) ITEM else EMPTY
+    }
+
+    override fun getItemCount(): Int {
+        return if (currentList.isNotEmpty()) currentList.size else 1
+    }
+    inner class ItemViewHolder(private val binding: RvGetFarmItemBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(item : ReserveListResult) {
             // TODO: 추후에 databinding으로 수정
             Glide.with(binding.rvItemImg)
@@ -51,7 +64,15 @@ class ReserveFarmListRVAdapter() : ListAdapter<ReserveListResult, ReserveFarmLis
             }
         }
     }
+
+    inner class EmptyViewHolder(binding: ItemEmptyFarmListBinding): RecyclerView.ViewHolder(binding.root) {}
+
+
     companion object{
+
+        private const val ITEM = 1
+        private const val EMPTY = 0
+
         val diffUtil = object: DiffUtil.ItemCallback<ReserveListResult>(){
             override fun areItemsTheSame(
                 oldItem: ReserveListResult,
