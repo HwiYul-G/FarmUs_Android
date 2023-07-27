@@ -15,13 +15,13 @@ interface MyPageApiClient {
     suspend fun patchEditInfoNickname(
         @Query("email") email: String,
         @Body params: EditInfoNicknameReq
-    ): Response<MyPageRes>
+    ): Response<MyPageNickNameRes>
 
     @PATCH("/mypage/editInfo/name")
     suspend fun patchEditInfoName(
         @Query("email") email: String,
         @Body params: EditInfoNameReq
-    ): Response<MyPageRes>
+    ): Response<MyPageNameRes>
 
     @PATCH("/mypage/editInfo/password")
     suspend fun patchEditInfoPassword(
