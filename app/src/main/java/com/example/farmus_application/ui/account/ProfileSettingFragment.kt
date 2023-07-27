@@ -28,6 +28,7 @@ import com.example.farmus_application.model.mypage.EditInfoPasswordReq
 import com.example.farmus_application.model.mypage.EditInfoPhoneNumberReq
 import com.example.farmus_application.repository.UserPrefsStorage
 import com.example.farmus_application.ui.MainActivity
+import com.example.farmus_application.ui.StartActivity
 import com.example.farmus_application.utilities.JWTUtils
 import com.example.farmus_application.viewmodel.account.ProfileSettingViewModel
 
@@ -81,8 +82,8 @@ class ProfileSettingFragment : Fragment() {
             (activity as MainActivity).changeFragment(MyPageFragment.newInstance("", ""))
         }
 
-        val userEmail = tokenBody.email
-        val userNickname = tokenBody.nickname
+        val userEmail : String = tokenBody.email
+        val userNickname = tokenBody.nickName
         val userName = tokenBody.name
         val userPhoneNumber = tokenBody.phoneNumber
 
@@ -91,7 +92,7 @@ class ProfileSettingFragment : Fragment() {
 
         // 1) 닉네임 + 편집 불가
         binding.edittextNickname.isEnabled = false
-        binding.edittextNickname.setText(userNickname)
+        binding.edittextNickname.setText(userNickname) // 왜 자꾸 null이 날라오지?
         // nickname 변경 or 완료 버튼 클릭 이벤트
         binding.btnChangeNickname.setOnClickListener {
             // 변경 버튼 클릭시 편집 가능 + 버튼 text '완료'로 변경 + focus
@@ -189,7 +190,7 @@ class ProfileSettingFragment : Fragment() {
 
         // 3) 이름
         binding.edittextName.isEnabled = false
-        //binding.edittextName.setText(UserPrefsStorage.name)
+        binding.edittextName.setText(userName)
         binding.btnChangeName.setOnClickListener {
             if (binding.btnChangeName.text == "변경") {
                 binding.edittextName.isEnabled = true
@@ -277,10 +278,17 @@ class ProfileSettingFragment : Fragment() {
         binding.edittextPassword.isEnabled = false
         binding.btnChangePassword.setOnClickListener {
             if (binding.btnChangePassword.text == "변경") {
+                bundle.putString("errorMessage", "비밀번호 변경 완료시 로그아웃됩니다.")
+                fragment.arguments = bundle
+                fragment.show(
+                    parentFragmentManager,
+                    "profile_setting_validation_dialog"
+                )
+
                 binding.edittextPassword.isEnabled = true
                 binding.btnChangePassword.text = "완료"
                 binding.edittextPassword.requestFocus()
-                // TODO : 커서 위치 처리
+                binding.edittextPassword.setSelection(binding.edittextPassword.text!!.length)
                 val passwordText = binding.edittextPassword.text.toString()
                 val cursorPosition = if (passwordText.isEmpty()) 6 else passwordText.length
                 binding.edittextPassword.setSelection(cursorPosition)
@@ -308,16 +316,12 @@ class ProfileSettingFragment : Fragment() {
         // 비밀번호 변경 observe
         profileSettingViewModel.editInfoPasswordResponse.observe(viewLifecycleOwner) { response ->
             if (response) {
-                // TODO : UserPrefStorage에서 password 저장
-                binding.edittextPassword.isEnabled = false
-                binding.btnChangePassword.text = "변경"
-                binding.edittextPassword.background = ResourcesCompat.getDrawable(
-                    resources,
-                    R.drawable.longer_text_field__disabled_vector_image,
-                    null
-                )
-                val toast = Toast.makeText(context, "비밀번호가 변경되었습니다.", Toast.LENGTH_SHORT)
-                toast.show()
+                // 로그인 변경 성공시 로그아웃 처리.
+                profileSettingViewModel.clearUserData() // 로그인시 유저 정보 비우기
+                val intent = Intent(requireContext(), StartActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(intent)
+
             } else {
                 // 실패
                 val toast = Toast.makeText(context, "비밀번호 변경에 실패했습니다.", Toast.LENGTH_SHORT)
@@ -333,6 +337,7 @@ class ProfileSettingFragment : Fragment() {
                 binding.edittextPhoneNumber.isEnabled = true
                 binding.btnChangePhoneNumber.text = "완료"
                 binding.edittextPhoneNumber.requestFocus()
+                binding.edittextPhoneNumber.setSelection(binding.edittextPhoneNumber.text!!.length)
                 binding.edittextPhoneNumber.background = ResourcesCompat.getDrawable(
                     resources,
                     R.drawable.longer_text_field__focus_vector_image,
@@ -374,6 +379,9 @@ class ProfileSettingFragment : Fragment() {
         }
 
         // 6) 프로필 이미지
+        if(tokenBody.profile != null) {
+            Glide.with(this).load(tokenBody.profile).into(binding.profileImage)
+        }
         binding.btnProfileImageSetting.setOnClickListener {
             val galleryIntent =
                 Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)

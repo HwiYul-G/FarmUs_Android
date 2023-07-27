@@ -2,7 +2,7 @@ package com.example.farmus_application.model.token
 
 data class TokenBody(
     val name : String,
-    val nickname : String?,
+    val nickName : String?,
     val email : String,
     val role : String,
     val phoneNumber : String,
