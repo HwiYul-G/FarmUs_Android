@@ -13,6 +13,7 @@ import com.example.farmus_application.databinding.FragmentFarmTab1Binding
 import com.example.farmus_application.model.reserve.reserve_list.ReserveListResult
 import com.example.farmus_application.repository.UserPrefsStorage
 import com.example.farmus_application.ui.MainActivity
+import com.example.farmus_application.ui.home.Adapter.EmptyDataObserve
 import com.example.farmus_application.utilities.JWTUtils
 import com.example.farmus_application.viewmodel.farm.FarmListViewModel
 import com.kakao.sdk.user.model.User
@@ -77,10 +78,14 @@ class ReserveFarmListFragment : Fragment() {
                 }
             })
         }
+
         binding.rvRecent.apply {
             adapter = recentAdapter
             layoutManager = LinearLayoutManager(requireContext())
         }
+
+        val emptyDataObserve = EmptyDataObserve(binding.rvRecent, binding.emptyCurrentDataParent.root)
+        recentAdapter.registerAdapterDataObserver(emptyDataObserve)
 
         farmListViewModel.currentFarmList.observe(viewLifecycleOwner) {
             recentAdapter.submitList(it.result)
@@ -100,6 +105,9 @@ class ReserveFarmListFragment : Fragment() {
             adapter = pastAdapter
             layoutManager = LinearLayoutManager(requireContext())
         }
+
+        val emptyDataObserve = EmptyDataObserve(binding.rvPast, binding.emptyPastDataParent.root)
+        pastAdapter.registerAdapterDataObserver(emptyDataObserve)
 
         farmListViewModel.pastFarmList.observe(viewLifecycleOwner) {
             pastAdapter.submitList(it.result)
