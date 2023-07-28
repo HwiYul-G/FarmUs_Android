@@ -1,7 +1,5 @@
 package com.example.farmus_application.ui.farm
 
-import android.content.ClipData.Item
-import android.provider.ContactsContract.Data
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +10,6 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.farmus_application.R
-import com.example.farmus_application.databinding.ItemEmptyFarmListBinding
 import com.example.farmus_application.databinding.RvGetFarmItemBinding
 import com.example.farmus_application.model.reserve.reserve_list.ReserveListResult
 import java.time.LocalDate
@@ -62,7 +59,7 @@ class ReserveFarmListRVAdapter() : ListAdapter<ReserveListResult, ReserveFarmLis
                 oldItem: ReserveListResult,
                 newItem: ReserveListResult
             ): Boolean {
-                return oldItem.Farmid == newItem.Farmid
+                return oldItem.FarmID == newItem.FarmID
             }
 
             override fun areContentsTheSame(

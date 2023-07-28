@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.farmus_application.R
 import com.example.farmus_application.databinding.FragmentFarmTab1Binding
 import com.example.farmus_application.model.reserve.reserve_list.ReserveListResult
 import com.example.farmus_application.repository.UserPrefsStorage
@@ -16,7 +15,6 @@ import com.example.farmus_application.ui.MainActivity
 import com.example.farmus_application.ui.home.Adapter.EmptyDataObserve
 import com.example.farmus_application.utilities.JWTUtils
 import com.example.farmus_application.viewmodel.farm.FarmListViewModel
-import com.kakao.sdk.user.model.User
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -54,9 +52,9 @@ class ReserveFarmListFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentFarmTab1Binding.inflate(layoutInflater, container, false)
         farmListViewModel = ViewModelProvider(this)[FarmListViewModel::class.java]
-        farmListViewModel.let {
-            it.getCurrentList(email)
-            it.getPastList(email)
+        farmListViewModel.apply {
+            getCurrentList(email)
+            getPastList(email)
         }
 
         return binding.root
@@ -74,7 +72,7 @@ class ReserveFarmListFragment : Fragment() {
         val recentAdapter = ReserveFarmListRVAdapter().apply {
             setOnClickListener(object : ReserveFarmListRVAdapter.OnClickListener {
                 override fun onClick(view: View, data: ReserveListResult, pos: Int) {
-                    moveToFarmDetail(data.Farmid)
+                    moveToFarmDetail(data.FarmID)
                 }
             })
         }
@@ -97,7 +95,7 @@ class ReserveFarmListFragment : Fragment() {
         val pastAdapter = ReserveFarmListRVAdapter().apply {
             setOnClickListener(object : ReserveFarmListRVAdapter.OnClickListener {
                 override fun onClick(view: View, data: ReserveListResult, pos: Int) {
-                    moveToFarmDetail(data.Farmid)
+                    moveToFarmDetail(data.FarmID)
                 }
             })
         }
