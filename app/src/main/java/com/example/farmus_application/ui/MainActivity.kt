@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         mainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mainBinding.root)
 
-        changeFrame(mainBinding, HomeFragment.newInstance("","")) //Initialize Frame
+        changeFragment(HomeFragment.newInstance("","")) //Initialize Frame
 
         mainBinding.selectFragmentBottomNavi.run {
             setOnItemSelectedListener {
@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
                     R.id.menu_my_page -> MyPageFragment.newInstance("", "")
                     else -> HomeFragment.newInstance("","")
                 }
-                changeFrame(mainBinding, switchFragment)
+                changeFragment(switchFragment)
                 true
             }
         }
@@ -66,6 +66,13 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.commit{
             replace(mainBinding.mainFragmentFrame.id, fragment)
         }
+    }
+
+    fun changeFarmDetailFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction()
+            .replace(mainBinding.mainFragmentFrame.id, fragment)
+            .addToBackStack(null)
+            .commit()
     }
 
     //SearchFragment에서 HomeSearchActivity로 전환

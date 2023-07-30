@@ -44,7 +44,12 @@ class FarmDetailFragment: Fragment() {
         binding.farmDetailToolbar.toolbarWithoutTitleBackButton.apply {
             setBackgroundColor(Color.TRANSPARENT)
             setImageResource(R.drawable.back_vector_image_white)
-            setOnClickListener { (activity as MainActivity).changeFragment(FarmFragment()) }
+            setOnClickListener {
+                activity?.supportFragmentManager?.apply {
+                    beginTransaction().remove(this@FarmDetailFragment).commit()
+                    popBackStack()
+                }
+            }
         }
 
         farmDetailViewModel.farmDetail.observe(viewLifecycleOwner) { detailRes ->

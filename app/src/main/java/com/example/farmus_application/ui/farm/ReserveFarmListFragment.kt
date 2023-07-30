@@ -118,7 +118,7 @@ class ReserveFarmListFragment : Fragment() {
             putInt("farmId",farmId)
         }
         farmDetailFragment.arguments = bundle
-        (activity as MainActivity).changeFragment(farmDetailFragment)
+        (activity as MainActivity).changeFarmDetailFragment(farmDetailFragment)
     }
 
     companion object {
