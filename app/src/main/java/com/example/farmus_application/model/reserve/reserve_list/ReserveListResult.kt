@@ -8,5 +8,5 @@ data class ReserveListResult(
     val endAt: String,
     val startAt: String,
     val Name: String,
-    val Picture_url: String
+    val Picture_url: String?
 )
