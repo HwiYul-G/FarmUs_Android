@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.farmus_application.R
 import com.example.farmus_application.databinding.FragmentFarmTab2Binding
@@ -18,10 +17,10 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [FarmTab2Fragment.newInstance] factory method to
+ * Use the [MyFarmListFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class FarmTab2Fragment : Fragment() {
+class MyFarmListFragment : Fragment() {
 
     private lateinit var binding: FragmentFarmTab2Binding
     private lateinit var adapter: MyFarmRVAdapter
@@ -41,7 +40,7 @@ class FarmTab2Fragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = FragmentFarmTab2Binding.inflate(layoutInflater, container, false)
 
@@ -82,7 +81,7 @@ class FarmTab2Fragment : Fragment() {
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            FarmTab2Fragment().apply {
+            MyFarmListFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)
