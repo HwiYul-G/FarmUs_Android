@@ -1,20 +1,20 @@
 package com.example.farmus_application.ui.farm
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.farmus_application.R
 import com.example.farmus_application.databinding.FragmentFarmTab1Binding
 import com.example.farmus_application.model.reserve.reserve_list.ReserveListResult
 import com.example.farmus_application.repository.UserPrefsStorage
 import com.example.farmus_application.ui.MainActivity
+import com.example.farmus_application.ui.home.Adapter.EmptyDataObserve
 import com.example.farmus_application.utilities.JWTUtils
 import com.example.farmus_application.viewmodel.farm.FarmListViewModel
-import com.kakao.sdk.user.model.User
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -48,13 +48,13 @@ class ReserveFarmListFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = FragmentFarmTab1Binding.inflate(layoutInflater, container, false)
         farmListViewModel = ViewModelProvider(this)[FarmListViewModel::class.java]
-        farmListViewModel.let {
-            it.getCurrentList(email)
-            it.getPastList(email)
+        farmListViewModel.apply {
+            getCurrentList(email)
+            getPastList(email)
         }
 
         return binding.root
@@ -72,14 +72,18 @@ class ReserveFarmListFragment : Fragment() {
         val recentAdapter = ReserveFarmListRVAdapter().apply {
             setOnClickListener(object : ReserveFarmListRVAdapter.OnClickListener {
                 override fun onClick(view: View, data: ReserveListResult, pos: Int) {
-                    // itme click시 해당 farm의 farmId를 가지고 상세정보 페이지로 이동
+                    moveToFarmDetail(data.FarmID)
                 }
             })
         }
+
         binding.rvRecent.apply {
             adapter = recentAdapter
             layoutManager = LinearLayoutManager(requireContext())
         }
+
+        val emptyDataObserve = EmptyDataObserve(binding.rvRecent, binding.emptyCurrentDataParent.root)
+        recentAdapter.registerAdapterDataObserver(emptyDataObserve)
 
         farmListViewModel.currentFarmList.observe(viewLifecycleOwner) {
             recentAdapter.submitList(it.result)
@@ -91,7 +95,7 @@ class ReserveFarmListFragment : Fragment() {
         val pastAdapter = ReserveFarmListRVAdapter().apply {
             setOnClickListener(object : ReserveFarmListRVAdapter.OnClickListener {
                 override fun onClick(view: View, data: ReserveListResult, pos: Int) {
-                    // itme click시 해당 farm의 farmId를 가지고 상세정보 페이지로 이동
+                    moveToFarmDetail(data.FarmID)
                 }
             })
         }
@@ -100,9 +104,21 @@ class ReserveFarmListFragment : Fragment() {
             layoutManager = LinearLayoutManager(requireContext())
         }
 
+        val emptyDataObserve = EmptyDataObserve(binding.rvPast, binding.emptyPastDataParent.root)
+        pastAdapter.registerAdapterDataObserver(emptyDataObserve)
+
         farmListViewModel.pastFarmList.observe(viewLifecycleOwner) {
             pastAdapter.submitList(it.result)
         }
+    }
+
+    private fun moveToFarmDetail(farmId: Int) {
+        val farmDetailFragment = FarmDetailFragment()
+        val bundle = Bundle().apply {
+            putInt("farmId",farmId)
+        }
+        farmDetailFragment.arguments = bundle
+        (activity as MainActivity).changeFarmDetailFragment(farmDetailFragment)
     }
 
     companion object {

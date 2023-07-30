@@ -1,63 +1,75 @@
 package com.example.farmus_application.ui.farm
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.farmus_application.R
 import com.example.farmus_application.databinding.RvGetFarmItemBinding
 import com.example.farmus_application.model.reserve.reserve_list.ReserveListResult
 import java.time.LocalDate
 
-class ReserveFarmListRVAdapter() : ListAdapter<ReserveListResult, ReserveFarmListRVAdapter.ViewHolder>(diffUtil) {
+class ReserveFarmListRVAdapter() : ListAdapter<ReserveListResult, ReserveFarmListRVAdapter.ReserveFarmListViewHolder>(diffUtil) {
 
+    private var listener: OnClickListener? = null
     private lateinit var binding: RvGetFarmItemBinding
 
     interface OnClickListener {
         fun onClick(view: View, data: ReserveListResult, pos: Int)
     }
 
-    private var listener: OnClickListener? = null
     fun setOnClickListener(listener: OnClickListener) {
         this.listener = listener
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) : ReserveFarmListRVAdapter.ViewHolder {
-        binding = RvGetFarmItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        binding.rvItemImg.clipToOutline = true
-        return ViewHolder(binding)
-    }
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = currentList[position]
-        holder.bind(item)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReserveFarmListViewHolder {
+        binding = DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.rv_get_farm_item, parent, false)
+        return ReserveFarmListViewHolder(binding)
     }
 
-    inner class ViewHolder( binding: RvGetFarmItemBinding) :RecyclerView.ViewHolder(binding.root) {
+    override fun onBindViewHolder(holder: ReserveFarmListViewHolder, position: Int) {
+        holder.bind(currentList[position])
+    }
 
+    inner class ReserveFarmListViewHolder(private val binding: RvGetFarmItemBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(item : ReserveListResult) {
             // TODO: 추후에 databinding으로 수정
-            Glide.with(binding.rvItemImg)
-                .load(item.Picture_url)
-                .centerCrop()
-                .into(binding.rvItemImg)
+            if (item.Picture_url == null) {
+                Glide.with(binding.rvItemImg)
+                    .load(R.drawable.farm_image_example)
+                    .centerCrop()
+                    .into(binding.rvItemImg)
+
+            } else {
+                Glide.with(binding.rvItemImg)
+                    .load(item.Picture_url)
+                    .centerCrop()
+                    .into(binding.rvItemImg)
+            }
             binding.rvItemTitle.text = item.Name
-            binding.rvItemStartDay.text = LocalDate.parse(item.startAt.substring(0 until  10)).toString()
-            binding.rvItemEndDay.text = LocalDate.parse(item.endAt.substring(0 until  10)).toString()
+            binding.rvItemStartDay.text =
+                LocalDate.parse(item.startAt.substring(0 until 10)).toString()
+            binding.rvItemEndDay.text = LocalDate.parse(item.endAt.substring(0 until 10)).toString()
 
             binding.root.setOnClickListener {
                 listener?.onClick(binding.root, item, absoluteAdapterPosition)
             }
         }
     }
-    companion object{
-        val diffUtil = object: DiffUtil.ItemCallback<ReserveListResult>(){
+
+    companion object {
+
+        val diffUtil = object : DiffUtil.ItemCallback<ReserveListResult>() {
             override fun areItemsTheSame(
                 oldItem: ReserveListResult,
                 newItem: ReserveListResult
             ): Boolean {
-                return oldItem.Farmid == newItem.Farmid
+                return oldItem.FarmID == newItem.FarmID
             }
 
             override fun areContentsTheSame(
