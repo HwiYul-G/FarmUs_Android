@@ -22,6 +22,7 @@ class ReserveFarmListRVAdapter() : ListAdapter<ReserveListResult, ReserveFarmLis
     interface OnClickListener {
         fun onClick(view: View, data: ReserveListResult, pos: Int)
     }
+
     fun setOnClickListener(listener: OnClickListener) {
         this.listener = listener
     }
@@ -38,13 +39,22 @@ class ReserveFarmListRVAdapter() : ListAdapter<ReserveListResult, ReserveFarmLis
     inner class ReserveFarmListViewHolder(private val binding: RvGetFarmItemBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(item : ReserveListResult) {
             // TODO: 추후에 databinding으로 수정
-            Glide.with(binding.rvItemImg)
-                .load(item.Picture_url)
-                .centerCrop()
-                .into(binding.rvItemImg)
+            if (item.Picture_url == null) {
+                Glide.with(binding.rvItemImg)
+                    .load(R.drawable.farm_image_example)
+                    .centerCrop()
+                    .into(binding.rvItemImg)
+
+            } else {
+                Glide.with(binding.rvItemImg)
+                    .load(item.Picture_url)
+                    .centerCrop()
+                    .into(binding.rvItemImg)
+            }
             binding.rvItemTitle.text = item.Name
-            binding.rvItemStartDay.text = LocalDate.parse(item.startAt.substring(0 until  10)).toString()
-            binding.rvItemEndDay.text = LocalDate.parse(item.endAt.substring(0 until  10)).toString()
+            binding.rvItemStartDay.text =
+                LocalDate.parse(item.startAt.substring(0 until 10)).toString()
+            binding.rvItemEndDay.text = LocalDate.parse(item.endAt.substring(0 until 10)).toString()
 
             binding.root.setOnClickListener {
                 listener?.onClick(binding.root, item, absoluteAdapterPosition)
@@ -52,9 +62,9 @@ class ReserveFarmListRVAdapter() : ListAdapter<ReserveListResult, ReserveFarmLis
         }
     }
 
-    companion object{
+    companion object {
 
-        val diffUtil = object: DiffUtil.ItemCallback<ReserveListResult>(){
+        val diffUtil = object : DiffUtil.ItemCallback<ReserveListResult>() {
             override fun areItemsTheSame(
                 oldItem: ReserveListResult,
                 newItem: ReserveListResult
