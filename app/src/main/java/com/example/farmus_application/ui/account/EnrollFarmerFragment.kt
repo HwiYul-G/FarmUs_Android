@@ -44,7 +44,7 @@ class EnrollFarmerFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = FragmentEnrollFarmerBinding.inflate(layoutInflater, container, false)
 
@@ -105,7 +105,11 @@ class EnrollFarmerFragment : Fragment() {
         }
 
         binding.toolBar.toolbarWithoutTitleBackButton.setOnClickListener {
-            (activity as MainActivity).changeFragment(MyPageFragment.newInstance("",""))
+//            (activity as MainActivity).changeFragment(MyPageFragment.newInstance("",""))
+            activity?.supportFragmentManager?.apply {
+                beginTransaction().remove(this@EnrollFarmerFragment).commit()
+                popBackStack()
+            }
         }
     }
 

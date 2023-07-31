@@ -51,7 +51,7 @@ class MyPageFragment : Fragment() {
         }
 
         view.listEnrollFarmer.setOnClickListener {
-            (activity as MainActivity).changeFragment(EnrollFarmerFragment.newInstance("",""))
+            (activity as MainActivity).changeFragmentAddToBackStack(EnrollFarmerFragment.newInstance("",""))
         }
 
         view.profileName.text = tokenBody.name
