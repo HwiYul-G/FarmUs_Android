@@ -23,8 +23,8 @@ class FarmRepository(
         return farmApiClient.postFarmPostings(params)
     }
 
-    override suspend fun patchFarmRegister(): Response<RegisterRes> {
-        return farmApiClient.patchFarmRegister()
+    override suspend fun patchFarmRegister(token: String): Response<RegisterRes> {
+        return farmApiClient.patchFarmRegister(token)
     }
 
     override suspend fun getFarmSearchKeyword(keyword: String): Response<SearchedRes> {

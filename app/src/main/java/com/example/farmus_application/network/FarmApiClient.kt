@@ -18,7 +18,9 @@ interface FarmApiClient {
     suspend fun postFarmPostings(@Body params: PostingsReq): Response<PostingsRes>
 
     @PATCH("/farm/register")
-    suspend fun patchFarmRegister(): Response<RegisterRes>
+    suspend fun patchFarmRegister(
+        @Header("token") token: String
+    ): Response<RegisterRes>
 
 
     @GET("/farm/search")
