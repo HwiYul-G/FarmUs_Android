@@ -19,7 +19,7 @@
                 android:background="@color/gray_third"
                 android:gravity="center_vertical"
                 android:paddingLeft="16dp"
-                android:text="최근 이용 내역(3개월 이내)"
+                android:text="현재 이용 내역"
                 android:textColor="@color/text_second"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -49,7 +49,7 @@
                 android:paddingStart="16dp"
                 android:text="과거 이용 내역"
                 android:textColor="@color/text_second"
-                app:layout_constraintTop_toBottomOf="@id/rv_recent" />
+                app:layout_constraintTop_toBottomOf="@id/empty_current_data_parent" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_past"

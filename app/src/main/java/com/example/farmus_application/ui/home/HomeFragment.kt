@@ -85,7 +85,7 @@ class HomeFragment : Fragment() {
                     putInt("farmId", farmId)
                 }
                 farmDetailFragment.arguments = bundle
-                (activity as MainActivity).changeFarmDetailFragment(farmDetailFragment)
+                (activity as MainActivity).changeFragmentAddToBackStack(farmDetailFragment)
             }
         })
         binding.rvHomeFarm.adapter = adapter

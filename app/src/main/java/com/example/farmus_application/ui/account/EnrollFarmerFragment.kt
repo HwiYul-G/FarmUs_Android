@@ -6,11 +6,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import com.example.farmus_application.R
 import com.example.farmus_application.databinding.FragmentEnrollFarmerBinding
+import com.example.farmus_application.repository.UserPrefsStorage
 import com.example.farmus_application.ui.MainActivity
+import com.example.farmus_application.viewmodel.account.EnrollFarmerViewModel
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -25,13 +29,12 @@ private const val ARG_PARAM2 = "param2"
 class EnrollFarmerFragment : Fragment() {
 
     private lateinit var binding: FragmentEnrollFarmerBinding
-
-    //뒤로가기 기능 구현
-    private lateinit var callback: OnBackPressedCallback
+    private lateinit var enrollFarmerViewModel: EnrollFarmerViewModel
 
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    private val token = UserPrefsStorage.accessToken ?: ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,9 +47,10 @@ class EnrollFarmerFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = FragmentEnrollFarmerBinding.inflate(layoutInflater, container, false)
+        enrollFarmerViewModel = ViewModelProvider(this)[EnrollFarmerViewModel::class.java]
 
         return binding.root
     }
@@ -54,10 +58,16 @@ class EnrollFarmerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        enrollFarmerViewModel.farmRegister.observe(viewLifecycleOwner) { response ->
+            if (response) {
+                Toast.makeText(requireContext(), "농장주 등록이 완료되었습니다.",Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(requireContext(), "농장주 등록에 실패하였습니다.",Toast.LENGTH_SHORT).show()
+            }
+        }
+
         //BottomNavigationView 숨기기
         (activity as MainActivity).hideBottomNavigation(true)
-
-        binding.btnAgree.isSelected = binding.checkboxAgreeAll.isChecked
 
         //모두 동의합니다 체크 박스 기능
         binding.checkboxAgreeAll.setOnClickListener {
@@ -99,31 +109,16 @@ class EnrollFarmerFragment : Fragment() {
         }
 
         binding.btnAgree.setOnClickListener {
-            if(binding.btnAgree.isSelected){
-                (activity as MainActivity).changeFragment(CompleteEnrollFarmerFragment.newInstance("",""))
-            }
+            enrollFarmerViewModel.patchFarmRegister(token)
+            (activity as MainActivity).changeFragment(CompleteEnrollFarmerFragment.newInstance("",""))
         }
 
         binding.toolBar.toolbarWithoutTitleBackButton.setOnClickListener {
-            (activity as MainActivity).changeFragment(MyPageFragment.newInstance("",""))
-        }
-    }
-
-    //뒤로가기 누르면 MyPageFragment로 이동
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        callback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                (activity as MainActivity).changeFragment(MyPageFragment.newInstance("",""))
+            activity?.supportFragmentManager?.apply {
+                beginTransaction().remove(this@EnrollFarmerFragment).commit()
+                popBackStack()
             }
         }
-        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
-    }
-
-    //뒤로가기 누르면 MyPageFragment로 이동
-    override fun onDetach() {
-        super.onDetach()
-        callback.remove()
     }
 
     companion object {

@@ -5,13 +5,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.FrameLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.setupWithNavController
 import com.example.farmus_application.R
 import com.example.farmus_application.databinding.ActivityMainBinding
 import com.example.farmus_application.ui.account.MyPageFragment
@@ -68,7 +63,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun changeFarmDetailFragment(fragment: Fragment) {
+    fun changeFragmentAddToBackStack(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
             .replace(mainBinding.mainFragmentFrame.id, fragment)
             .addToBackStack(null)
