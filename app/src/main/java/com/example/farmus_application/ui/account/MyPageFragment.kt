@@ -4,6 +4,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
 import com.example.farmus_application.R
@@ -33,7 +34,7 @@ class MyPageFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         myPageBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_my_page, container, false)
         val view = myPageBinding
@@ -51,7 +52,11 @@ class MyPageFragment : Fragment() {
         }
 
         view.listEnrollFarmer.setOnClickListener {
-            (activity as MainActivity).changeFragmentAddToBackStack(EnrollFarmerFragment.newInstance("",""))
+            if (tokenBody.role == "C") {
+                (activity as MainActivity).changeFragmentAddToBackStack(EnrollFarmerFragment.newInstance("",""))
+            } else {
+                Toast.makeText(requireContext(), "이미 농장주 등록이 완료되었습니다.",Toast.LENGTH_SHORT).show()
+            }
         }
 
         view.profileName.text = tokenBody.name

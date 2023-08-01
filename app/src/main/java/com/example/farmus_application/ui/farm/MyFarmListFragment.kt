@@ -31,7 +31,6 @@ class MyFarmListFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     private val jwtToken = UserPrefsStorage.accessToken
-    private val email = JWTUtils.decoded(jwtToken.toString())?.tokenBody?.email ?: ""
     // 농장주가 아니면 리스트 자체를 요청할 필요가 없다  (C: client, F: Farmer)
     private val role = JWTUtils.decoded(jwtToken.toString())?.tokenBody?.role ?: ""
 
