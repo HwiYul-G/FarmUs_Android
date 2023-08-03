@@ -6,6 +6,7 @@ import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -87,6 +88,14 @@ class HomeFragment : Fragment() {
                 farmDetailFragment.arguments = bundle
                 (activity as MainActivity).changeFragmentAddToBackStack(farmDetailFragment)
             }
+
+            override fun likeClick(email : String, farmId : Int) {
+                homeViewModel.postLikeFarm(email, farmId)
+            }
+
+            override fun deleteLikeClick(email : String, farmId : Int) {
+                homeViewModel.deleteLikeFarm(email, farmId)
+            }
         })
         binding.rvHomeFarm.adapter = adapter
         binding.rvHomeFarm.addItemDecoration(GridSpaceItemDecoration(2, px.toInt()))
@@ -96,6 +105,17 @@ class HomeFragment : Fragment() {
             // 매번 새롭게 리스트를 처리하기 위함
             adapter.submitList(null)
             adapter.submitList(it)
+        }
+
+        homeViewModel.isLikeFarmSuccess.observe(viewLifecycleOwner) {
+            if(it == false){
+                Toast.makeText(requireContext(), "찜하기가 실패했습니다.", Toast.LENGTH_SHORT).show()
+            }
+        }
+        homeViewModel.isDeleteLikeFarmSuccess.observe(viewLifecycleOwner){
+            if(it == false){
+                Toast.makeText(requireContext(), "찜하기 취소가 실패했습니다.", Toast.LENGTH_SHORT).show()
+            }
         }
 
     }
