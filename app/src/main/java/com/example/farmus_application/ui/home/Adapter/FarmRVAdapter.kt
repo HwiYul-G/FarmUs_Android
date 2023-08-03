@@ -9,13 +9,21 @@ import com.bumptech.glide.Glide
 import com.example.farmus_application.R
 import com.example.farmus_application.databinding.RvLocalFarmBinding
 import com.example.farmus_application.model.farm.list.ListResult
+import com.example.farmus_application.repository.UserPrefsStorage
+import com.example.farmus_application.utilities.JWTUtils
 
 
 class FarmRVAdapter : ListAdapter<ListResult, FarmRVAdapter.ViewHolder>(diffUtil) {
 
     private var listener: OnItemClickListener? = null
+
+    val jwtToken = UserPrefsStorage.accessToken
+    val email = JWTUtils.decoded(jwtToken.toString())?.tokenBody?.email
+
     interface OnItemClickListener {
         fun itemClick(farmId: Int)
+        fun likeClick(email : String, farmId : Int)
+        fun deleteLikeClick(email : String, farmId : Int)
     }
 
     fun setOnItemClick(listener: OnItemClickListener) {
@@ -42,8 +50,14 @@ class FarmRVAdapter : ListAdapter<ListResult, FarmRVAdapter.ViewHolder>(diffUtil
             binding.rvFarmSize.text = itemSize
             binding.rvFarmPrice.text = item.Price.toString()
 
+            binding.bookMark.isSelected = item.Liked
             binding.bookMark.setOnClickListener {
                 binding.bookMark.isSelected = !binding.bookMark.isSelected
+                if (binding.bookMark.isSelected) {
+                    listener?.likeClick(email.toString(), item.FarmID)
+                } else {
+                    listener?.deleteLikeClick(email.toString(), item.FarmID)
+                }
             }
 
             binding.root.setOnClickListener {
