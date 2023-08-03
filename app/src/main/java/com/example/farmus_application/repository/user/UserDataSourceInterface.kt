@@ -2,7 +2,6 @@ package com.example.farmus_application.repository.user
 
 import com.example.farmus_application.model.user.findaccount.FindAccountRes
 import com.example.farmus_application.model.user.findpassword.FindPasswordRes
-import com.example.farmus_application.model.user.likes.DeleteLikeFarmReq
 import com.example.farmus_application.model.user.likes.DeleteLikeFarmRes
 import com.example.farmus_application.model.user.likes.LikeFarmReq
 import com.example.farmus_application.model.user.likes.LikeFarmRes
@@ -38,7 +37,7 @@ interface UserDataSourceInterface {
 
     suspend fun postUserLikeFarm(params: LikeFarmReq): Response<LikeFarmRes>
 
-    suspend fun deleteUserLikeFarm(params: DeleteLikeFarmReq): Response<DeleteLikeFarmRes>
+    suspend fun deleteUserLikeFarm(email : String, farmid : Int): Response<DeleteLikeFarmRes>
 
     // user의 생일을 입력받아서 수정하는 함수
     // suspend fun postUserBirth(params : BirthReq) : BirthRes

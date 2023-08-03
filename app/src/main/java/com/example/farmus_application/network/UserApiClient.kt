@@ -3,7 +3,6 @@ package com.example.farmus_application.network
 import com.example.farmus_application.model.user.*
 import com.example.farmus_application.model.user.findaccount.FindAccountRes
 import com.example.farmus_application.model.user.findpassword.FindPasswordRes
-import com.example.farmus_application.model.user.likes.DeleteLikeFarmReq
 import com.example.farmus_application.model.user.likes.DeleteLikeFarmRes
 import com.example.farmus_application.model.user.likes.LikeFarmReq
 import com.example.farmus_application.model.user.likes.LikeFarmRes
@@ -20,7 +19,6 @@ import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
-import retrofit2.http.HTTP
 import retrofit2.http.PATCH
 import retrofit2.http.POST
 import retrofit2.http.Path
@@ -59,7 +57,7 @@ interface UserApiClient {
     suspend fun postUserLikeFarm(@Body params : LikeFarmReq) : Response<LikeFarmRes>
 
     // TODO : DELETE 함수는 안드로이드 상에서 Body로 전달 받을 수 없음, 쿼리로 전달 받아야함.
-    @HTTP(method = "DELETE", path = "/user/likes", hasBody = true)
-    suspend fun deleteUserLikeFarm(@Body params : DeleteLikeFarmReq) : Response<DeleteLikeFarmRes>
+    @DELETE("/user/likes")
+    suspend fun deleteUserLikeFarm(@Query("email") email : String, @Query("farmid") farmid : Int) : Response<DeleteLikeFarmRes>
     // 농장 찜하기. 생일 수정 API는 추가 예정
 }

@@ -3,7 +3,6 @@ package com.example.farmus_application.repository.user
 import com.example.farmus_application.ServiceLocator
 import com.example.farmus_application.model.user.findaccount.FindAccountRes
 import com.example.farmus_application.model.user.findpassword.FindPasswordRes
-import com.example.farmus_application.model.user.likes.DeleteLikeFarmReq
 import com.example.farmus_application.model.user.likes.DeleteLikeFarmRes
 import com.example.farmus_application.model.user.likes.LikeFarmReq
 import com.example.farmus_application.model.user.likes.LikeFarmRes
@@ -63,8 +62,8 @@ class UserRepository(
         return userApiClient.postUserLikeFarm(params = params)
     }
 
-    override suspend fun deleteUserLikeFarm(params: DeleteLikeFarmReq): Response<DeleteLikeFarmRes> {
-        return userApiClient.deleteUserLikeFarm(params = params)
+    override suspend fun deleteUserLikeFarm(email : String, farmid : Int): Response<DeleteLikeFarmRes> {
+        return userApiClient.deleteUserLikeFarm(email, farmid)
     }
 
 
