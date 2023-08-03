@@ -3,6 +3,10 @@ package com.example.farmus_application.repository.user
 import com.example.farmus_application.ServiceLocator
 import com.example.farmus_application.model.user.findaccount.FindAccountRes
 import com.example.farmus_application.model.user.findpassword.FindPasswordRes
+import com.example.farmus_application.model.user.likes.DeleteLikeFarmReq
+import com.example.farmus_application.model.user.likes.DeleteLikeFarmRes
+import com.example.farmus_application.model.user.likes.LikeFarmReq
+import com.example.farmus_application.model.user.likes.LikeFarmRes
 import com.example.farmus_application.model.user.login.LoginReq
 import com.example.farmus_application.model.user.login.LoginRes
 import com.example.farmus_application.model.user.signup.SignUpReq
@@ -17,7 +21,7 @@ import retrofit2.Response
 
 class UserRepository(
     private val userApiClient: UserApiClient = ServiceLocator.userApiClient
-) : UserDataSourceInterface{
+) : UserDataSourceInterface {
 
     override suspend fun postUserSignup(params: SignUpReq): Response<SignUpRes> {
         return userApiClient.postSignUp(params = params)
@@ -31,30 +35,38 @@ class UserRepository(
         return userApiClient.getUserEmailVerification(params)
     }
 
-    override suspend fun postUserSignupVerification(params : SignUpVerificationReq): Response<SignUpVerificationRes> {
+    override suspend fun postUserSignupVerification(params: SignUpVerificationReq): Response<SignUpVerificationRes> {
         return userApiClient.postUserSignupVerification(params = params)
     }
 
-    override suspend fun postUserVerification(params : VerificationReq): Response<VerificationRes> {
+    override suspend fun postUserVerification(params: VerificationReq): Response<VerificationRes> {
         return userApiClient.postUserVerification(params = params)
     }
 
     // == get과 patch에 대한
-    override suspend fun getUserFindAccount(name : String, phoneNumber : String): Response<FindAccountRes> {
+    override suspend fun getUserFindAccount(
+        name: String,
+        phoneNumber: String
+    ): Response<FindAccountRes> {
         return userApiClient.getUserFindAccount(name = name, phoneNumber = phoneNumber)
     }
 
-    override suspend fun getUserFindPassword(userEmail : String): Response<FindPasswordRes> {
+    override suspend fun getUserFindPassword(userEmail: String): Response<FindPasswordRes> {
         return userApiClient.getUserFindPassword(userEmail = userEmail)
     }
 
-    override suspend fun patchUserWithdrawal(userEmail: String): Response<WithdrawalRes>{
+    override suspend fun patchUserWithdrawal(userEmail: String): Response<WithdrawalRes> {
         return userApiClient.patchUserWithdrawal(userEmail = userEmail)
     }
 
-//    suspend fun postUserStarFarmid(params : StarFarmidReq): StarFarmidRes {
-//        return userApiClient.postUserStarFarmid(params = params)
-//    }
+    override suspend fun postUserLikeFarm(params: LikeFarmReq): Response<LikeFarmRes> {
+        return userApiClient.postUserLikeFarm(params = params)
+    }
+
+    override suspend fun deleteUserLikeFarm(params: DeleteLikeFarmReq): Response<DeleteLikeFarmRes> {
+        return userApiClient.deleteUserLikeFarm(params = params)
+    }
+
 
 
 //    suspend fun postUserBirth(params : BirthReq): BirthRes {
