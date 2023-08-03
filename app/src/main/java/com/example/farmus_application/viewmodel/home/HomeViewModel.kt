@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.farmus_application.model.farm.list.ListResult
-import com.example.farmus_application.model.user.likes.DeleteLikeFarmReq
 import com.example.farmus_application.model.user.likes.LikeFarmReq
 import com.example.farmus_application.repository.farm.FarmRepository
 import com.example.farmus_application.repository.user.UserRepository
@@ -91,7 +90,7 @@ class HomeViewModel : ViewModel() {
     fun deleteLikeFarm(email: String, farmId: Int) {
         viewModelScope.launch {
             try{
-                val response = userRepo.deleteUserLikeFarm(DeleteLikeFarmReq(email, farmId))
+                val response = userRepo.deleteUserLikeFarm(email, farmId)
                 if(response.isSuccessful){
                     response.body()?.let {
                         if(it.result){
