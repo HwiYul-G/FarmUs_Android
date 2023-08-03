@@ -7,31 +7,32 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.farmus_application.R
 import com.example.farmus_application.databinding.FragmentFavoriteBinding
+import com.example.farmus_application.repository.UserPrefsStorage
 import com.example.farmus_application.ui.home.Adapter.FavoriteRVAdapter
 import com.example.farmus_application.ui.home.GridSpaceItemDecoration
-import com.example.farmus_application.ui.home.RVFarmDataModel
+import com.example.farmus_application.utilities.JWTUtils
+import com.example.farmus_application.viewmodel.favorite.FavoriteViewModel
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+
 const val ARG_PARAM1 = "param1"
 const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [FavoriteFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+
 class FavoriteFragment : Fragment() {
 
-    private lateinit var binding : FragmentFavoriteBinding
+    private lateinit var binding: FragmentFavoriteBinding
 
-    private lateinit var adapter : FavoriteRVAdapter
+    private lateinit var adapter: FavoriteRVAdapter
 
-    // TODO: Rename and change types of parameters
+    private val favoriteViewModel: FavoriteViewModel by viewModels()
+
+
     private var param1: String? = null
     private var param2: String? = null
 
@@ -46,7 +47,7 @@ class FavoriteFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_favorite, container, false)
 
         return binding.root
@@ -59,24 +60,55 @@ class FavoriteFragment : Fragment() {
         binding.toolBar.toolbarMainTitleText.text = "좋아요"
         binding.toolBar.toolbarMainTitleText.setTextColor(resources.getColor(R.color.text_2))
 
-        val farmItems = mutableListOf<RVFarmDataModel>()
+        val jwtToken = UserPrefsStorage.accessToken
+        val email = JWTUtils.decoded(jwtToken.toString())?.tokenBody?.email
+
 
         val dp = 16
         val px = dpToPx(requireContext(), dp.toFloat())
 
         adapter = FavoriteRVAdapter()
+        favoriteViewModel.getFavoriteFarmList(email.toString())
+
+        // adapter 내부의 이벤트 관련
+        adapter.setOnItemClick(object : FavoriteRVAdapter.OnItemClickListener {
+            override fun likeClick(email: String, farmId: Int) {
+                favoriteViewModel.postLikeFarm(email, farmId)
+            }
+
+            override fun deleteLikeClick(email: String, farmId: Int) {
+                favoriteViewModel.deleteLikeFarm(email, farmId)
+            }
+
+        })
         binding.rvFarm.adapter = adapter
-        adapter.submitList(farmItems)
         binding.rvFarm.layoutManager = GridLayoutManager(requireActivity(), 2)
-        binding.rvFarm.addItemDecoration(GridSpaceItemDecoration(2,px.toInt()))
-        // RV 데이터 클래스 변경에 따라서 임시 데이터 형식도 수정
-        farmItems.add(RVFarmDataModel("","고덕 주말 농장","3평","150,000"))
-        farmItems.add(RVFarmDataModel("","고덕 주말 농장","3평","150,000"))
-        farmItems.add(RVFarmDataModel("","고덕 주말 농장","3평","150,000"))
-        farmItems.add(RVFarmDataModel("","고덕 주말 농장","3평","150,000"))
+        binding.rvFarm.addItemDecoration(GridSpaceItemDecoration(2, px.toInt()))
+
+        favoriteViewModel.favoriteFarmList.observe(viewLifecycleOwner) {
+            adapter.submitList(null)
+            adapter.submitList(it)
+        }
+
+        favoriteViewModel.isLikeFarmSuccess.observe(viewLifecycleOwner) {
+            if (it == false) {
+                Toast.makeText(requireContext(), "찜하기가 실패했습니다.", Toast.LENGTH_SHORT).show()
+            }
+        }
+        favoriteViewModel.isDeleteLikeFarmSuccess.observe(viewLifecycleOwner) {
+            if (it == false) {
+                Toast.makeText(requireContext(), "찜하기 취소가 실패했습니다.", Toast.LENGTH_SHORT).show()
+            }
+        }
+        favoriteViewModel.farmListSize.observe(viewLifecycleOwner) { farmListSize ->
+            if (farmListSize == 0) {
+                // TODO : 찜한 목록이 없을 때 띄울 화면
+            }
+        }
 
 
     }
+
     private fun dpToPx(context: Context, dp: Float): Float {
         return TypedValue.applyDimension(
             TypedValue.COMPLEX_UNIT_DIP,
