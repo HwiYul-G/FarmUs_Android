@@ -2,6 +2,7 @@ package com.example.farmus_application.network
 
 import com.example.farmus_application.model.farm.detail.DetailRes
 import com.example.farmus_application.model.farm.list.ListRes
+import com.example.farmus_application.model.farm.myfarm.MyFarmRes
 import com.example.farmus_application.model.farm.phone.PhoneNumberRes
 import com.example.farmus_application.model.farm.postings.PostingsReq
 import com.example.farmus_application.model.farm.postings.PostingsRes
@@ -35,5 +36,10 @@ interface FarmApiClient {
 
     @GET("/farm/farmerPhoneNumber")
     suspend fun getFarmerPhoneNumber(@Query("farmID") farmID: Int) : Response<PhoneNumberRes>
+
+    @GET("/farm/myfarm")
+    suspend fun getMyFarm(
+        @Header("token") token: String
+    ):Response<MyFarmRes>
 
 }
