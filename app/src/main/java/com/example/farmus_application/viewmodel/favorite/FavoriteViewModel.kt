@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.farmus_application.model.favorite.FavoriteFarm
+import com.example.farmus_application.model.favorite.FavoriteFarmRes
 import com.example.farmus_application.model.user.likes.LikeFarmReq
 import com.example.farmus_application.repository.farm.FarmRepository
 import com.example.farmus_application.repository.user.UserRepository
@@ -17,15 +18,14 @@ class FavoriteViewModel : ViewModel() {
     private val farmRepo = FarmRepository()
     private val userRepo = UserRepository()
 
-    private val _favoriteFarmList: MutableLiveData<List<FavoriteFarm>> = MutableLiveData()
-    val favoriteFarmList: LiveData<List<FavoriteFarm>> = _favoriteFarmList
+
+    private val _favoriteFarmResponse : MutableLiveData<FavoriteFarmRes> = MutableLiveData()
+    val favoriteFarmResponse : LiveData<FavoriteFarmRes> = _favoriteFarmResponse
 
     private val _isLikeFarmSuccess: MutableLiveData<Boolean> = MutableLiveData()
     val isLikeFarmSuccess: LiveData<Boolean> = _isLikeFarmSuccess
     private val _isDeleteLikeFarmSuccess: MutableLiveData<Boolean> = MutableLiveData()
     val isDeleteLikeFarmSuccess: LiveData<Boolean> = _isDeleteLikeFarmSuccess
-    private val _farmListSize : MutableLiveData<Int> = MutableLiveData()
-    val farmListSize : LiveData<Int> = _farmListSize
 
     fun getFavoriteFarmList(email: String) {
         viewModelScope.launch {
@@ -51,11 +51,10 @@ class FavoriteViewModel : ViewModel() {
                                     )
                                 )
                             }
-                            _favoriteFarmList.postValue(favoriteFarmList)
-                            _farmListSize.postValue(favoriteFarmList.size)
+                            _favoriteFarmResponse.postValue(it)
                         } else {
+                            _favoriteFarmResponse.postValue(it)
                             Log.d("FavoriteFarmList result failed : ", response.body().toString())
-                            _farmListSize.postValue(0)
                         }
                     }
                 } else {
