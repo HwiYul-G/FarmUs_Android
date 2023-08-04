@@ -21,6 +21,7 @@ class FavoriteRVAdapter : ListAdapter<FavoriteFarm, FavoriteRVAdapter.ViewHolder
     val email = JWTUtils.decoded(jwtToken.toString())?.tokenBody?.email
 
     interface OnItemClickListener {
+        fun itemClick(farmId: Int)
         fun likeClick(email : String, farmId : Int)
         fun deleteLikeClick(email : String, farmId : Int)
     }
@@ -55,7 +56,9 @@ class FavoriteRVAdapter : ListAdapter<FavoriteFarm, FavoriteRVAdapter.ViewHolder
                 }
             }
 
-            // TODO : item click event 관련
+            binding.root.setOnClickListener {
+                listener?.itemClick(item.FarmID)
+            }
         }
     }
 
