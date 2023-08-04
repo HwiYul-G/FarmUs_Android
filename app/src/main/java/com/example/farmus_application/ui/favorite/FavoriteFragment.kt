@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.farmus_application.R
 import com.example.farmus_application.databinding.FragmentFavoriteBinding
 import com.example.farmus_application.repository.UserPrefsStorage
+import com.example.farmus_application.ui.MainActivity
+import com.example.farmus_application.ui.farm.FarmDetailFragment
 import com.example.farmus_application.ui.home.Adapter.FavoriteRVAdapter
 import com.example.farmus_application.ui.home.GridSpaceItemDecoration
 import com.example.farmus_application.utilities.JWTUtils
@@ -58,6 +60,7 @@ class FavoriteFragment : Fragment() {
 
         //툴바 설정
         binding.toolBar.toolbarMainTitleText.text = "좋아요"
+        binding.toolBar.toolbarWithTitleBackButton.visibility = View.GONE
         binding.toolBar.toolbarMainTitleText.setTextColor(resources.getColor(R.color.text_2))
 
         val jwtToken = UserPrefsStorage.accessToken
@@ -68,10 +71,20 @@ class FavoriteFragment : Fragment() {
         val px = dpToPx(requireContext(), dp.toFloat())
 
         adapter = FavoriteRVAdapter()
+
         favoriteViewModel.getFavoriteFarmList(email.toString())
 
         // adapter 내부의 이벤트 관련
         adapter.setOnItemClick(object : FavoriteRVAdapter.OnItemClickListener {
+            override fun itemClick(farmId: Int) {
+                val farmDetailFragment = FarmDetailFragment()
+                val bundle = Bundle().apply {
+                    putInt("farmId", farmId)
+                }
+                farmDetailFragment.arguments = bundle
+                (activity as MainActivity).changeFragmentAddToBackStack(farmDetailFragment)
+            }
+
             override fun likeClick(email: String, farmId: Int) {
                 favoriteViewModel.postLikeFarm(email, farmId)
             }
@@ -85,9 +98,20 @@ class FavoriteFragment : Fragment() {
         binding.rvFarm.layoutManager = GridLayoutManager(requireActivity(), 2)
         binding.rvFarm.addItemDecoration(GridSpaceItemDecoration(2, px.toInt()))
 
-        favoriteViewModel.favoriteFarmList.observe(viewLifecycleOwner) {
+
+        favoriteViewModel.favoriteFarmResponse.observe(viewLifecycleOwner){
             adapter.submitList(null)
-            adapter.submitList(it)
+            if(it.result){
+                // View visible 조정
+                binding.rvFarm.visibility = View.VISIBLE
+                binding.emptyDataParent.root.visibility = View.GONE
+                // adapter에 데이터 전달
+                adapter.submitList(it.farmList)
+            }else{
+                binding.rvFarm.visibility = View.GONE
+                binding.emptyDataParent.root.visibility = View.VISIBLE
+                binding.emptyDataParent.emptyItemTextview.text = "찜한 농장이 없습니다."
+            }
         }
 
         favoriteViewModel.isLikeFarmSuccess.observe(viewLifecycleOwner) {
@@ -98,11 +122,6 @@ class FavoriteFragment : Fragment() {
         favoriteViewModel.isDeleteLikeFarmSuccess.observe(viewLifecycleOwner) {
             if (it == false) {
                 Toast.makeText(requireContext(), "찜하기 취소가 실패했습니다.", Toast.LENGTH_SHORT).show()
-            }
-        }
-        favoriteViewModel.farmListSize.observe(viewLifecycleOwner) { farmListSize ->
-            if (farmListSize == 0) {
-                // TODO : 찜한 목록이 없을 때 띄울 화면
             }
         }
 
