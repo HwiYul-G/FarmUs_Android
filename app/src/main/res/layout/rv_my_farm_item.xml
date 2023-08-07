@@ -2,6 +2,12 @@
 <layout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <variable
+            name="myFarmItem"
+            type="com.example.farmus_application.model.farm.myfarm.MyFarmItem" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="110dp">
@@ -34,12 +40,16 @@
             android:layout_marginTop="4dp"
             app:layout_constraintStart_toEndOf="@id/rv_item_image_card_view"
             app:layout_constraintTop_toTopOf="@id/rv_item_image_card_view"
+            locationBig="@{myFarmItem.locationBig}"
+            locationMid="@{myFarmItem.locationMid}"
+            locationSmall="@{myFarmItem.locationSmall}"
             tools:text="서울특별시 강동구 고덕1동" />
 
         <TextView
             android:id="@+id/tv_farm_name"
             style="@style/Body1Bold"
             android:layout_width="wrap_content"
+            android:text="@{myFarmItem.name}"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:textColor="@color/text_1"
@@ -63,6 +73,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:textColor="@color/text_2"
+            squareMeters="@{myFarmItem.squaredMeters}"
             app:layout_constraintStart_toEndOf="@id/ic_farm_size"
             app:layout_constraintTop_toTopOf="@id/ic_farm_size"
             tools:text="4.5평(15㎡)" />

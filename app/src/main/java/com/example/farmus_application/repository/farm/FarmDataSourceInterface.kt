@@ -2,6 +2,7 @@ package com.example.farmus_application.repository.farm
 
 import com.example.farmus_application.model.farm.detail.DetailRes
 import com.example.farmus_application.model.farm.list.ListRes
+import com.example.farmus_application.model.farm.myfarm.MyFarmRes
 import com.example.farmus_application.model.farm.phone.PhoneNumberRes
 import com.example.farmus_application.model.farm.postings.PostingsReq
 import com.example.farmus_application.model.farm.postings.PostingsRes
@@ -25,7 +26,9 @@ interface FarmDataSourceInterface {
     suspend fun getFarmDetail(farmid: Int): Response<DetailRes>
 
     suspend fun getFarmerPhoneNumber(farmId: Int): Response<PhoneNumberRes>
-
+  
+    suspend fun getMyFarm(token: String): Response<MyFarmRes>
+  
     suspend fun getFavoriteFarmList(email: String): Response<FavoriteFarmRes>
 
 }

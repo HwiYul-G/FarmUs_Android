@@ -3,6 +3,7 @@ package com.example.farmus_application.repository.farm
 import com.example.farmus_application.ServiceLocator
 import com.example.farmus_application.model.farm.detail.DetailRes
 import com.example.farmus_application.model.farm.list.ListRes
+import com.example.farmus_application.model.farm.myfarm.MyFarmRes
 import com.example.farmus_application.model.farm.phone.PhoneNumberRes
 import com.example.farmus_application.model.farm.postings.PostingsReq
 import com.example.farmus_application.model.farm.postings.PostingsRes
@@ -45,7 +46,12 @@ class FarmRepository(
         return farmApiClient.getFarmerPhoneNumber(farmId)
     }
 
+    override suspend fun getMyFarm(token: String): Response<MyFarmRes> {
+        return farmApiClient.getMyFarm(token)
+    }
+
     override suspend fun getFavoriteFarmList(email: String): Response<FavoriteFarmRes> {
         return farmApiClient.getFavoriteFarmList(email)
     }
+    
 }

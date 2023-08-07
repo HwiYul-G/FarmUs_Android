@@ -6,9 +6,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.example.farmus_application.R
 import com.example.farmus_application.databinding.RvMyFarmItemBinding
+import com.example.farmus_application.model.farm.myfarm.MyFarmItem
 
-class MyFarmRVAdapter(val onClick: (MyFarmDataModel) -> Unit) : ListAdapter<MyFarmDataModel, MyFarmRVAdapter.ViewHolder>(diffUtil) {
+class MyFarmRVAdapter(val onClick: (MyFarmItem) -> Unit) : ListAdapter<MyFarmItem, MyFarmRVAdapter.ViewHolder>(diffUtil) {
 
     private lateinit var binding : RvMyFarmItemBinding
 //    private var listener: OnClickListener? = null
@@ -22,11 +25,19 @@ class MyFarmRVAdapter(val onClick: (MyFarmDataModel) -> Unit) : ListAdapter<MyFa
 //    }
 
     inner class ViewHolder(binding : RvMyFarmItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item : MyFarmDataModel){
-            binding.ivItemImg.setImageResource(item.image)
-            binding.tvLocation.text = item.location
-            binding.tvFarmName.text = item.title
-            binding.tvFarmSize.text = item.size
+        fun bind(item : MyFarmItem){
+            if (item.Picture_url == null) {
+                Glide.with(binding.ivItemImg)
+                    .load(R.drawable.farm_image_example)
+                    .centerCrop()
+                    .into(binding.ivItemImg)
+
+            } else {
+                Glide.with(binding.ivItemImg)
+                    .load(item.Picture_url)
+                    .centerCrop()
+                    .into(binding.ivItemImg)
+            }
 
             binding.root.setOnClickListener {
                 onClick(item)
@@ -43,17 +54,17 @@ class MyFarmRVAdapter(val onClick: (MyFarmDataModel) -> Unit) : ListAdapter<MyFa
         holder.bind(currentList[position])
     }
     companion object{
-        val diffUtil = object: DiffUtil.ItemCallback<MyFarmDataModel>(){
+        val diffUtil = object: DiffUtil.ItemCallback<MyFarmItem>(){
             override fun areItemsTheSame(
-                oldItem: MyFarmDataModel,
-                newItem: MyFarmDataModel
+                oldItem: MyFarmItem,
+                newItem: MyFarmItem
             ): Boolean {
                 return oldItem == newItem
             }
 
             override fun areContentsTheSame(
-                oldItem: MyFarmDataModel,
-                newItem: MyFarmDataModel
+                oldItem: MyFarmItem,
+                newItem: MyFarmItem
             ): Boolean {
                 return oldItem == newItem
             }
