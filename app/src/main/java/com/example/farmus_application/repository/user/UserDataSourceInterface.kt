@@ -2,6 +2,9 @@ package com.example.farmus_application.repository.user
 
 import com.example.farmus_application.model.user.findaccount.FindAccountRes
 import com.example.farmus_application.model.user.findpassword.FindPasswordRes
+import com.example.farmus_application.model.user.likes.DeleteLikeFarmRes
+import com.example.farmus_application.model.user.likes.LikeFarmReq
+import com.example.farmus_application.model.user.likes.LikeFarmRes
 import com.example.farmus_application.model.user.login.LoginReq
 import com.example.farmus_application.model.user.login.LoginRes
 import com.example.farmus_application.model.user.signup.SignUpReq
@@ -20,18 +23,21 @@ interface UserDataSourceInterface {
 
     suspend fun postUserLogin(params: LoginReq): Response<LoginRes>
 
-    suspend fun getUserEmailVerification(params: String) : Response<LoginRes>
+    suspend fun getUserEmailVerification(params: String): Response<LoginRes>
 
-    suspend fun postUserSignupVerification(params : SignUpVerificationReq) : Response<SignUpVerificationRes>
+    suspend fun postUserSignupVerification(params: SignUpVerificationReq): Response<SignUpVerificationRes>
 
-    suspend fun postUserVerification(params : VerificationReq) : Response<VerificationRes>
+    suspend fun postUserVerification(params: VerificationReq): Response<VerificationRes>
 
-    suspend fun getUserFindAccount(name : String, phoneNumber : String) : Response<FindAccountRes>
+    suspend fun getUserFindAccount(name: String, phoneNumber: String): Response<FindAccountRes>
 
-    suspend fun getUserFindPassword(userEmail : String) : Response<FindPasswordRes>
+    suspend fun getUserFindPassword(userEmail: String): Response<FindPasswordRes>
 
-    suspend fun patchUserWithdrawal(userEmail: String) : Response<WithdrawalRes>
+    suspend fun patchUserWithdrawal(userEmail: String): Response<WithdrawalRes>
 
+    suspend fun postUserLikeFarm(params: LikeFarmReq): Response<LikeFarmRes>
+
+    suspend fun deleteUserLikeFarm(email : String, farmid : Int): Response<DeleteLikeFarmRes>
 
     // user의 생일을 입력받아서 수정하는 함수
     // suspend fun postUserBirth(params : BirthReq) : BirthRes

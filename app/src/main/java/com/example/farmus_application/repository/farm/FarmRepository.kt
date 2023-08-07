@@ -9,6 +9,8 @@ import com.example.farmus_application.model.farm.postings.PostingsReq
 import com.example.farmus_application.model.farm.postings.PostingsRes
 import com.example.farmus_application.model.farm.register.RegisterRes
 import com.example.farmus_application.model.farm.search.SearchedRes
+import com.example.farmus_application.model.favorite.FavoriteFarm
+import com.example.farmus_application.model.favorite.FavoriteFarmRes
 import com.example.farmus_application.network.FarmApiClient
 import retrofit2.Response
 
@@ -48,4 +50,8 @@ class FarmRepository(
         return farmApiClient.getMyFarm(token)
     }
 
+    override suspend fun getFavoriteFarmList(email: String): Response<FavoriteFarmRes> {
+        return farmApiClient.getFavoriteFarmList(email)
+    }
+    
 }

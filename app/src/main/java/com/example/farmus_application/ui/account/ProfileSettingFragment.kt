@@ -82,6 +82,9 @@ class ProfileSettingFragment : Fragment() {
             (activity as MainActivity).changeFragment(MyPageFragment.newInstance("", ""))
         }
 
+        // TODO : 23년 8월 3일(목) 회의에서 아직 기능이 없으므로 가리기로 함.
+        binding.layoutIntroduction.visibility = View.GONE
+
         val userEmail : String = tokenBody.email
         val userNickname = tokenBody.nickName
         val userName = tokenBody.name

@@ -1,76 +1,78 @@
-package com.example.farmus_application.viewmodel.home
+package com.example.farmus_application.viewmodel.favorite
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.farmus_application.model.farm.list.ListResult
+import com.example.farmus_application.model.favorite.FavoriteFarm
+import com.example.farmus_application.model.favorite.FavoriteFarmRes
 import com.example.farmus_application.model.user.likes.LikeFarmReq
 import com.example.farmus_application.repository.farm.FarmRepository
 import com.example.farmus_application.repository.user.UserRepository
 import kotlinx.coroutines.launch
+import java.lang.Exception
 
-class HomeViewModel : ViewModel() {
+class FavoriteViewModel : ViewModel() {
 
     private val farmRepo = FarmRepository()
-    val farmListResponse: MutableLiveData<List<ListResult>> = MutableLiveData()
-
     private val userRepo = UserRepository()
-    private val _isLikeFarmSuccess : MutableLiveData<Boolean> = MutableLiveData()
-    val isLikeFarmSuccess : LiveData<Boolean> = _isLikeFarmSuccess
-    private val _isDeleteLikeFarmSuccess : MutableLiveData<Boolean> = MutableLiveData()
-    val isDeleteLikeFarmSuccess : LiveData<Boolean> = _isDeleteLikeFarmSuccess
 
 
-    fun getFarmList(email: String) {
+    private val _favoriteFarmResponse : MutableLiveData<FavoriteFarmRes> = MutableLiveData()
+    val favoriteFarmResponse : LiveData<FavoriteFarmRes> = _favoriteFarmResponse
+
+    private val _isLikeFarmSuccess: MutableLiveData<Boolean> = MutableLiveData()
+    val isLikeFarmSuccess: LiveData<Boolean> = _isLikeFarmSuccess
+    private val _isDeleteLikeFarmSuccess: MutableLiveData<Boolean> = MutableLiveData()
+    val isDeleteLikeFarmSuccess: LiveData<Boolean> = _isDeleteLikeFarmSuccess
+
+    fun getFavoriteFarmList(email: String) {
         viewModelScope.launch {
             try {
-                val response = farmRepo.getFarmList(email)
+                val response = farmRepo.getFavoriteFarmList(email)
+                Log.d("FavoriteFarmList : ", response.raw().toString())
                 if (response.isSuccessful) {
                     response.body()?.let {
-                        if (it.isSuccess) {
-                            Log.d("FarmList Success : ", response.body().toString())
-                            val farmList = mutableListOf<ListResult>()
-                            for (item in it.result) {
-                                farmList.add(
-                                    ListResult(
+                        if (it.result) {
+                            val favoriteFarmList = mutableListOf<FavoriteFarm>()
+                            for (item in it.farmList) {
+                                favoriteFarmList.add(
+                                    FavoriteFarm(
                                         item.FarmID,
                                         item.Name,
                                         item.Price,
                                         item.SquaredMeters,
-                                        item.Views,
-                                        item.Star,
+                                        item.LocationBig,
+                                        item.LocationMid,
+                                        item.LocationSmall,
                                         item.Likes,
-                                        item.Status,
-                                        item.Pictures,
-                                        item.Liked
+                                        item.PictureUrl
                                     )
                                 )
                             }
-                            farmListResponse.postValue(farmList)
+                            _favoriteFarmResponse.postValue(it)
                         } else {
-                            Log.d("FarmList Success : ", response.body().toString())
+                            _favoriteFarmResponse.postValue(it)
+                            Log.d("FavoriteFarmList result failed : ", response.body().toString())
                         }
                     }
                 } else {
-                    Log.d("FarmList Failed : ", response.body().toString())
+                    Log.d("FavoriteFarmList Failed : ", response.body().toString())
                 }
-
             } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
     }
 
-
     fun postLikeFarm(email: String, farmId: Int) {
         viewModelScope.launch {
             try {
                 val response = userRepo.postUserLikeFarm(LikeFarmReq(email, farmId))
-                if(response.isSuccessful){
+                if (response.isSuccessful) {
                     response.body()?.let {
-                        if(it.isSuccess){
+                        if (it.isSuccess) {
                             Log.d("LikeFarm Success : ", response.body().toString())
                             _isLikeFarmSuccess.postValue(true)
                         } else {
@@ -89,11 +91,11 @@ class HomeViewModel : ViewModel() {
 
     fun deleteLikeFarm(email: String, farmId: Int) {
         viewModelScope.launch {
-            try{
+            try {
                 val response = userRepo.deleteUserLikeFarm(email, farmId)
-                if(response.isSuccessful){
+                if (response.isSuccessful) {
                     response.body()?.let {
-                        if(it.result){
+                        if (it.result) {
                             Log.d("DeleteLikeFarm Success : ", response.body().toString())
                             _isDeleteLikeFarmSuccess.postValue(true)
                         } else {
@@ -102,9 +104,10 @@ class HomeViewModel : ViewModel() {
                         }
                     }
                 }
-            }catch(e : Exception){
+            } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
     }
+
 }
