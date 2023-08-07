@@ -6,12 +6,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.farmus_application.databinding.FragmentFarmTab2Binding
 import com.example.farmus_application.repository.UserPrefsStorage
 import com.example.farmus_application.ui.MainActivity
 import com.example.farmus_application.ui.account.EnrollFarmerFragment
 import com.example.farmus_application.utilities.JWTUtils
+import com.example.farmus_application.viewmodel.farm.FarmListViewModel
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,6 +28,7 @@ private const val ARG_PARAM2 = "param2"
 class MyFarmListFragment : Fragment() {
 
     private lateinit var binding: FragmentFarmTab2Binding
+    private lateinit var farmListViewModel: FarmListViewModel
 
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -33,6 +36,7 @@ class MyFarmListFragment : Fragment() {
     private val jwtToken = UserPrefsStorage.accessToken
     // 농장주가 아니면 리스트 자체를 요청할 필요가 없다  (C: client, F: Farmer)
     private val role = JWTUtils.decoded(jwtToken.toString())?.tokenBody?.role ?: ""
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,34 +52,30 @@ class MyFarmListFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         binding = FragmentFarmTab2Binding.inflate(layoutInflater, container, false)
-        Log.e("JWT_Token","$jwtToken")
+        farmListViewModel = ViewModelProvider(this)[FarmListViewModel::class.java]
 
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //보유중인 농장 리사이클러뷰
-//        val farmDataItems = mutableListOf<MyFarmDataModel>()
-//        farmDataItems.add(MyFarmDataModel(R.drawable.farm_image_example, "위치", "농장 이름", "농장 크기"))
-//        farmDataItems.add(MyFarmDataModel(R.drawable.farm_image_example, "위치", "농장 이름", "농장 크기"))
-//        farmDataItems.add(MyFarmDataModel(R.drawable.farm_image_example, "위치", "농장 이름", "농장 크기"))
-//        farmDataItems.add(MyFarmDataModel(R.drawable.farm_image_example, "위치", "농장 이름", "농장 크기"))
-//
-//        adapter = MyFarmRVAdapter() {
-//            // farmDetail로 이동하는거 처럼 changeFarmDetailFragment함수 사용해야 할듯
-//            (activity as MainActivity).changeFragment(FarmerFarmDetailFragment())
-//        }
-//        adapter.submitList(farmDataItems)
-//        binding.rvTab2.adapter = adapter
-//        binding.rvTab2.layoutManager = LinearLayoutManager(requireContext())
-//
-//        binding.floatingActionButton.setOnClickListener {
-//            (activity as MainActivity).changeFragment(FirstFarmRegistrationFragment())
-//        }
+
         viewVisibility(role)
+
+        Log.e("UserToken:","$jwtToken")
+        farmListViewModel.getMyFarmList(jwtToken.toString())
+
         val myFarmAdapter = MyFarmRVAdapter() {
-            // FarmerFarmDetailFragment로 이동
+            val farmerFarmDetailFragment = FarmerFarmDetailFragment()
+            val bundle = Bundle().apply {
+                putInt("farmId",it.FarmID)
+            }
+            farmerFarmDetailFragment.arguments = bundle
+            (activity as MainActivity).changeFragmentAddToBackStack(farmerFarmDetailFragment)
+        }
+
+        farmListViewModel.myFarmRes.observe(viewLifecycleOwner) { response ->
+            myFarmAdapter.submitList(response)
         }
 
         binding.rvTab2.apply {
