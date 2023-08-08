@@ -27,8 +27,8 @@ interface ReserveDataSourceInterface {
 
     suspend fun getReserveUnBookable(farmId: String): Response<ReserveUnBookableRes>
 
-    suspend fun getCurrentList(email: String): Response<ReserveListRes>
+    suspend fun getCurrentList(): Response<ReserveListRes>
 
-    suspend fun getPastList(email: String): Response<ReserveListRes>
+    suspend fun getPastList(): Response<ReserveListRes>
 
 }

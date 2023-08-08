@@ -38,11 +38,11 @@ interface ReserveApiClient {
     @GET("/reserve/unbookable/{farmid}")
     suspend fun getReserveUnBookable(@Path("farmid") farmId: String): Response<ReserveUnBookableRes>
 
-    @GET("/reserve/current/list/{email}")
-    suspend fun getCurrentList(@Path("email") email: String): Response<ReserveListRes>
+    @GET("/reserve/current/list")
+    suspend fun getCurrentList(): Response<ReserveListRes>
 
-    @GET("/reserve/past/list/{email}")
-    suspend fun getPastList(@Path("email") email: String): Response<ReserveListRes>
+    @GET("/reserve/past/list/")
+    suspend fun getPastList(): Response<ReserveListRes>
 
 
 }

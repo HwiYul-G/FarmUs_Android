@@ -25,10 +25,10 @@ class FarmListViewModel: ViewModel() {
     private var _myFarmList = MutableLiveData<MyFarmRes>()
     var myFarmRes: LiveData<MyFarmRes> = _myFarmList
 
-    fun getCurrentList(email: String) {
+    fun getCurrentList() {
         viewModelScope.launch {
             try {
-                val response = reserveRepo.getCurrentList(email)
+                val response = reserveRepo.getCurrentList()
                 if (response.isSuccessful) {
                     _currentFarmList.postValue(response.body())
                 } else {
@@ -40,10 +40,10 @@ class FarmListViewModel: ViewModel() {
         }
     }
 
-    fun getPastList(email: String) {
+    fun getPastList() {
         viewModelScope.launch {
             try {
-                val response = reserveRepo.getPastList(email)
+                val response = reserveRepo.getPastList()
                 if (response.isSuccessful) {
                     _pastFarmList.postValue(response.body())
                 } else {
