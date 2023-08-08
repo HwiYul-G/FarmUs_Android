@@ -52,8 +52,8 @@ class ReserveFarmListFragment : Fragment() {
         binding = FragmentFarmTab1Binding.inflate(layoutInflater, container, false)
         farmListViewModel = ViewModelProvider(this)[FarmListViewModel::class.java]
         farmListViewModel.apply {
-            getCurrentList(email)
-            getPastList(email)
+            getCurrentList()
+            getPastList()
         }
 
         return binding.root

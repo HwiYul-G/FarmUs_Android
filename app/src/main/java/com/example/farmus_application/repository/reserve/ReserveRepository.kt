@@ -42,11 +42,11 @@ class ReserveRepository(
         return reserveApiClient.getReserveUnBookable(farmId)
     }
 
-    override suspend fun getCurrentList(email: String): Response<ReserveListRes> {
-        return reserveApiClient.getCurrentList(email)
+    override suspend fun getCurrentList(): Response<ReserveListRes> {
+        return reserveApiClient.getCurrentList()
     }
 
-    override suspend fun getPastList(email: String): Response<ReserveListRes> {
-        return reserveApiClient.getPastList(email)
+    override suspend fun getPastList(): Response<ReserveListRes> {
+        return reserveApiClient.getPastList()
     }
 }
