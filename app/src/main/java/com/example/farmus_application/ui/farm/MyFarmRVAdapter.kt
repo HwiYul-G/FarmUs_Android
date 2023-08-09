@@ -3,6 +3,7 @@ package com.example.farmus_application.ui.farm
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -14,18 +15,19 @@ import com.example.farmus_application.model.farm.myfarm.MyFarmItem
 class MyFarmRVAdapter(val onClick: (MyFarmItem) -> Unit) : ListAdapter<MyFarmItem, MyFarmRVAdapter.ViewHolder>(diffUtil) {
 
     private lateinit var binding : RvMyFarmItemBinding
-//    private var listener: OnClickListener? = null
-//
-//    interface OnClickListener {
-//        fun onClick(view: View, data: MyFarmDataModel, pos: Int)
-//    }
-//
-//    fun setOnClickListener(listener: OnClickListener) {
-//        this.listener = listener
-//    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        binding = DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.rv_my_farm_item, parent, false )
+        return ViewHolder(binding)
+    }
 
-    inner class ViewHolder(binding : RvMyFarmItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.bind(currentList[position])
+    }
+
+    inner class ViewHolder(private val binding: RvMyFarmItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item : MyFarmItem){
+            binding.myFarmItem = item
+
             if (item.Picture_url == null) {
                 Glide.with(binding.ivItemImg)
                     .load(R.drawable.farm_image_example)
@@ -44,22 +46,13 @@ class MyFarmRVAdapter(val onClick: (MyFarmItem) -> Unit) : ListAdapter<MyFarmIte
             }
         }
     }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        binding = RvMyFarmItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(binding)
-    }
-
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(currentList[position])
-    }
     companion object{
         val diffUtil = object: DiffUtil.ItemCallback<MyFarmItem>(){
             override fun areItemsTheSame(
                 oldItem: MyFarmItem,
                 newItem: MyFarmItem
             ): Boolean {
-                return oldItem == newItem
+                return oldItem.FarmID == newItem.FarmID
             }
 
             override fun areContentsTheSame(
