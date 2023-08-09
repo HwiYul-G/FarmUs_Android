@@ -10,15 +10,13 @@ private const val NUM = 2
 class ViewPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) :
     FragmentStateAdapter(fragmentManager, lifecycle) {
 
-    override fun getItemCount(): Int {
-        return NUM
-    }
+    override fun getItemCount(): Int = NUM
 
     override fun createFragment(position: Int): Fragment {
-        when(position){
-            0 -> return ReserveFarmListFragment()
-            1 -> return MyFarmListFragment()
+        return when (position) {
+            0 -> ReserveFarmListFragment()
+            1 -> MyFarmListFragment()
+            else -> ReserveFarmListFragment()
         }
-        return ReserveFarmListFragment()
     }
 }
