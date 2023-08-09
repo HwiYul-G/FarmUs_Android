@@ -20,9 +20,7 @@ interface FarmApiClient {
     suspend fun postFarmPostings(@Body params: PostingsReq): Response<PostingsRes>
 
     @PATCH("/farm/register")
-    suspend fun patchFarmRegister(
-        @Header("token") token: String
-    ): Response<RegisterRes>
+    suspend fun patchFarmRegister(): Response<RegisterRes>
 
 
     @GET("/farm/search")
@@ -44,8 +42,6 @@ interface FarmApiClient {
     suspend fun getFavoriteFarmList(@Query("email") email: String): Response<FavoriteFarmRes>
 
     @GET("/farm/myfarm")
-    suspend fun getMyFarm(
-        @Header("token") token: String
-    ):Response<MyFarmRes>
+    suspend fun getMyFarm():Response<MyFarmRes>
 
 }

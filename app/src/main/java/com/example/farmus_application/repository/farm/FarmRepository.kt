@@ -26,8 +26,8 @@ class FarmRepository(
         return farmApiClient.postFarmPostings(params)
     }
 
-    override suspend fun patchFarmRegister(token: String): Response<RegisterRes> {
-        return farmApiClient.patchFarmRegister(token)
+    override suspend fun patchFarmRegister(): Response<RegisterRes> {
+        return farmApiClient.patchFarmRegister()
     }
 
     override suspend fun getFarmSearchKeyword(keyword: String): Response<SearchedRes> {
@@ -46,8 +46,8 @@ class FarmRepository(
         return farmApiClient.getFarmerPhoneNumber(farmId)
     }
 
-    override suspend fun getMyFarm(token: String): Response<MyFarmRes> {
-        return farmApiClient.getMyFarm(token)
+    override suspend fun getMyFarm(): Response<MyFarmRes> {
+        return farmApiClient.getMyFarm()
     }
 
     override suspend fun getFavoriteFarmList(email: String): Response<FavoriteFarmRes> {
