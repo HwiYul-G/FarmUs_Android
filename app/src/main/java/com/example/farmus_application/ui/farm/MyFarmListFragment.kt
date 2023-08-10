@@ -87,6 +87,10 @@ class MyFarmListFragment : Fragment() {
         binding.emptyMyFarmButton.setOnClickListener {
             (activity as MainActivity).changeFragmentAddToBackStack(EnrollFarmerFragment())
         }
+
+        binding.floatingActionButton.setOnClickListener {
+            (activity as MainActivity).changeFragmentAddToBackStack(FirstFarmRegistrationFragment())
+        }
     }
 
     private fun viewVisibility(role: String) {
