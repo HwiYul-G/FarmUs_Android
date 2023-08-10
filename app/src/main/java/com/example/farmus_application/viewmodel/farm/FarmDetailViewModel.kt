@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.farmus_application.model.farm.detail.DetailRes
+import com.example.farmus_application.model.farm.detail.DetailResult
 import com.example.farmus_application.model.reserve.request.ReserveRequestReq
 import com.example.farmus_application.model.reserve.request.ReserveRequestRes
 import com.example.farmus_application.repository.farm.FarmRepository
@@ -16,8 +17,8 @@ class FarmDetailViewModel(): ViewModel() {
 
     private val farmRepo = FarmRepository()
 
-    private var _farmDetail = MutableLiveData<DetailRes>()
-    var farmDetail: LiveData<DetailRes> = _farmDetail
+    private var _farmDetail = MutableLiveData<DetailResult>()
+    var farmDetail: LiveData<DetailResult> = _farmDetail
 
     fun getFarmDetail(farmId: Int) {
         viewModelScope.launch {
@@ -25,7 +26,7 @@ class FarmDetailViewModel(): ViewModel() {
                 val response = farmRepo.getFarmDetail(farmId)
                 if (response.isSuccessful) {
                     response.body()?.let { detailRes ->
-                        _farmDetail.postValue(detailRes)
+                        _farmDetail.postValue(detailRes.result)
                     }
                 } else {
                     Log.e("getFarmDetailResponseCode:", response.body().toString())
