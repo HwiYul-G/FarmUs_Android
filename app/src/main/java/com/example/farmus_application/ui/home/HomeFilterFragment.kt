@@ -133,7 +133,7 @@ class HomeFilterFragment : Fragment() {
                 "전라남도" -> itemList.addAll(resources.getStringArray(R.array.jeonnam_list))
                 "경상북도" -> itemList.addAll(resources.getStringArray(R.array.gyeongbuk_list))
                 "경상남도" -> itemList.addAll(resources.getStringArray(R.array.gyeongnam_list))
-                "제주도" -> itemList.addAll(resources.getStringArray(R.array.jeju_list))
+                "제주특별자치도" -> itemList.addAll(resources.getStringArray(R.array.jeju_list))
                 "부산광역시" -> itemList.addAll(resources.getStringArray(R.array.busan_list))
                 "대구광역시" -> itemList.addAll(resources.getStringArray(R.array.daegu_list))
                 "인천광역시" -> itemList.addAll(resources.getStringArray(R.array.incheon_list))
