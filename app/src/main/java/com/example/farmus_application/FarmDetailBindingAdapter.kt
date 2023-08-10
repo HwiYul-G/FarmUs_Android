@@ -1,7 +1,9 @@
 package com.example.farmus_application
 
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import com.bumptech.glide.Glide
 import java.text.DecimalFormat
 import kotlin.math.roundToInt
 
@@ -24,7 +26,6 @@ object FarmDetailBindingAdapter {
     fun changeSquareMeters(view: TextView, squareMeters: Int) {
         val pyeong = (squareMeters / 3.3).roundToInt().toString()
         view.text = view.context.getString(R.string.change_squareMeter, pyeong, squareMeters)
-//        view.text = pyeong+"평 "+"("+squareMeters+"m^2)"
     }
 
     @JvmStatic
@@ -32,5 +33,29 @@ object FarmDetailBindingAdapter {
     fun applyPriceFormat(view: TextView, price: Int) {
         val decimalFormat = DecimalFormat("#,###")
         view.text = view.context.getString(R.string.price_format, decimalFormat.format(price))
+    }
+
+    @JvmStatic
+    @BindingAdapter("farmerNickname", "farmerName")
+    fun settingFarmerNickname(view: TextView, nickname: String?, name: String?) {
+        if (nickname.isNullOrEmpty()) {
+            view.text = name
+        } else {
+            view.text = nickname
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("farmerImage")
+    fun settingFarmerImage(view: ImageView, image: String?) {
+        if (image.isNullOrEmpty()) {
+            Glide.with(view)
+                .load(R.drawable.farmer_default_image)
+                .into(view)
+        } else {
+            Glide.with(view)
+                .load(image)
+                .into(view)
+        }
     }
 }

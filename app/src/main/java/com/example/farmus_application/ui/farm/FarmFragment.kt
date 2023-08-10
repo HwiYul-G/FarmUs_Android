@@ -46,7 +46,7 @@ class FarmFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = FragmentFarmBinding.inflate(layoutInflater,container,false)
 
@@ -60,15 +60,12 @@ class FarmFragment : Fragment() {
         binding.toolbar.toolbarOnlyTitleText.setTextColor(resources.getColor(R.color.text_first))
         (activity as MainActivity).hideBottomNavigation(false)
 
-        val viewPager = binding.viewPager
-        val tabLayout = binding.tabLayout
-
-        viewPager.adapter = ViewPagerAdapter(childFragmentManager,lifecycle)
-        //tablayout 이름 설정
-        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-            tab.text = tabTitleArray[position]
-        }.attach()
-
+        binding.apply {
+            farmViewpager.adapter = ViewPagerAdapter(childFragmentManager, lifecycle)
+            TabLayoutMediator(farmTabLayout, farmViewpager) { tab, position ->
+                tab.text = tabTitleArray[position]
+            }.attach()
+        }
     }
 
     companion object {

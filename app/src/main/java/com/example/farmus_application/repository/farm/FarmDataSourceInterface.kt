@@ -17,7 +17,7 @@ interface FarmDataSourceInterface {
 
     suspend fun postFarmPostings(params: PostingsReq): Response<PostingsRes>
 
-    suspend fun patchFarmRegister(token: String): Response<RegisterRes>
+    suspend fun patchFarmRegister(): Response<RegisterRes>
 
     suspend fun getFarmSearchKeyword(keyword: String): Response<SearchedRes>
 
@@ -27,7 +27,7 @@ interface FarmDataSourceInterface {
 
     suspend fun getFarmerPhoneNumber(farmId: Int): Response<PhoneNumberRes>
   
-    suspend fun getMyFarm(token: String): Response<MyFarmRes>
+    suspend fun getMyFarm(): Response<MyFarmRes>
   
     suspend fun getFavoriteFarmList(email: String): Response<FavoriteFarmRes>
 

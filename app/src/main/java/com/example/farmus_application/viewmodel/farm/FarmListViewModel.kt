@@ -55,10 +55,10 @@ class FarmListViewModel: ViewModel() {
         }
     }
 
-    fun getMyFarmList(token: String) {
+    fun getMyFarmList() {
         viewModelScope.launch {
             try {
-                val response = farmRepo.getMyFarm(token)
+                val response = farmRepo.getMyFarm()
                 if (response.isSuccessful) {
                     _myFarmList.postValue(response.body())
                 } else {

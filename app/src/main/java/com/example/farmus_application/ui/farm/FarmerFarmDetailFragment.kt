@@ -11,13 +11,17 @@ import android.widget.Toast
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.example.farmus_application.R
 import com.example.farmus_application.databinding.FragmentFarmerFarmDetailBinding
 import com.example.farmus_application.ui.MainActivity
+import com.example.farmus_application.viewmodel.farm.FarmDetailViewModel
 
 class FarmerFarmDetailFragment : Fragment() {
 
     private lateinit var binding: FragmentFarmerFarmDetailBinding
+    private lateinit var farmDetailViewModel: FarmDetailViewModel
+    private lateinit var farmImageAdapter: FarmImageAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,6 +34,9 @@ class FarmerFarmDetailFragment : Fragment() {
             container,
             false
         )
+        farmDetailViewModel = ViewModelProvider(this)[FarmDetailViewModel::class.java]
+        getFarmDetail()
+        settingImageAdapter()
 
         return binding.root
     }
@@ -42,7 +49,17 @@ class FarmerFarmDetailFragment : Fragment() {
         binding.farmerFarmDetailToolbar.toolbarWithoutTitleBackButton.apply {
             setBackgroundColor(Color.TRANSPARENT)
             setImageResource(R.drawable.back_vector_image_white)
-            setOnClickListener { (activity as MainActivity).changeFragment(FarmFragment()) }
+            setOnClickListener {
+                activity?.supportFragmentManager?.apply {
+                    beginTransaction().remove(this@FarmerFarmDetailFragment).commit()
+                    popBackStack()
+                }
+            }
+        }
+
+        farmDetailViewModel.farmDetail.observe(viewLifecycleOwner) { detailResult ->
+            binding.farmDetail = detailResult
+            farmImageAdapter.setData(detailResult)
         }
 
         binding.farmerFarmDetailEtcButton.setOnClickListener {
@@ -69,11 +86,11 @@ class FarmerFarmDetailFragment : Fragment() {
             popUpMenu.show()
         }
 
-        binding.farmerFarmDetailRequestCalendar.setOnClickListener {
-            // 불가 날짜 bottomSheetFragment
-            val bottomSheetDialog = UnavailableBottomSheetDialog()
-            bottomSheetDialog.show(parentFragmentManager, "bottomSheetDialog")
-        }
+//        binding.farmerFarmDetailRequestCalendar.setOnClickListener {
+//            // 불가 날짜 bottomSheetFragment
+//            val bottomSheetDialog = UnavailableBottomSheetDialog()
+//            bottomSheetDialog.show(parentFragmentManager, "bottomSheetDialog")
+//        }
 
         binding.farmerFarmDetailRequestList.setOnClickListener {
             // 요청온 목록 bottomSheetFragment
@@ -82,4 +99,16 @@ class FarmerFarmDetailFragment : Fragment() {
         }
 
     }
+
+    private fun getFarmDetail() {
+        val farmId = arguments?.getInt("farmId") ?: 0
+        farmDetailViewModel.getFarmDetail(farmId)
+    }
+
+    private fun settingImageAdapter() {
+        farmImageAdapter = FarmImageAdapter()
+        binding.farmerFarmDetailImage.adapter = farmImageAdapter
+    }
+
+
 }

@@ -18,10 +18,10 @@ class EnrollFarmerViewModel: ViewModel() {
     private var _farmRegister = MutableLiveData<Boolean>()
     var farmRegister: LiveData<Boolean> = _farmRegister
 
-    fun patchFarmRegister(token: String) {
+    fun patchFarmRegister() {
         viewModelScope.launch {
             try {
-                val response = farmRepository.patchFarmRegister(token)
+                val response = farmRepository.patchFarmRegister()
                 if (response.isSuccessful) {
                     response.body()?.let {
                         UserPrefsStorage.accessToken = it.accessToken

@@ -5,7 +5,7 @@ data class MyFarmItem(
     val Likes: Int,
     val LocationBig: String,
     val LocationMid: String,
-    val LocationSmall: String,
+    val LocationSmall: String?,
     val Name: String,
     val Picture_url: String?,
     val Price: Int,

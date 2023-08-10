@@ -63,7 +63,7 @@ class MyFarmListFragment : Fragment() {
         viewVisibility(role)
 
         Log.e("UserToken:","$jwtToken")
-        farmListViewModel.getMyFarmList(jwtToken.toString())
+        farmListViewModel.getMyFarmList()
 
         val myFarmAdapter = MyFarmRVAdapter() {
             val farmerFarmDetailFragment = FarmerFarmDetailFragment()
@@ -75,7 +75,8 @@ class MyFarmListFragment : Fragment() {
         }
 
         farmListViewModel.myFarmRes.observe(viewLifecycleOwner) { response ->
-            myFarmAdapter.submitList(response)
+            Log.e("myFarmRes:","$response")
+            myFarmAdapter.submitList(response.myFarmList)
         }
 
         binding.rvTab2.apply {

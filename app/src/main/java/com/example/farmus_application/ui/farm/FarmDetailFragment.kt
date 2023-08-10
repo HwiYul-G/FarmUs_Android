@@ -53,11 +53,9 @@ class FarmDetailFragment: Fragment() {
         }
 
         farmDetailViewModel.farmDetail.observe(viewLifecycleOwner) { detailRes ->
-            val result = detailRes.result
-            binding.farmDetail = result
-            farmImageAdapter.setData(result)
-            bottomSheetDialog = CalendarBottomSheetDialog(result)
-            Log.e("FarmDetailResult","$result")
+            binding.farmDetail = detailRes
+            farmImageAdapter.setData(detailRes)
+            bottomSheetDialog = CalendarBottomSheetDialog(detailRes)
         }
 
         return binding.root
