@@ -6,7 +6,7 @@
     <data>
         <variable
             name="recFarm"
-            type="com.example.farmus_application.ui.home.RVRecDataModel" />
+            type="com.farmus.farmus_application.ui.home.RVRecDataModel" />
     </data>
 
     <LinearLayout

@@ -6,15 +6,15 @@ plugins {
 }
 
 android {
-    namespace 'com.example.farmus_application'
-    compileSdk 32
+    namespace 'com.farmus.farmus_application'
+    compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.farmus_application"
+        applicationId "com.farm.farmus_application"
         minSdk 26
-        targetSdk 32
-        versionCode 1
-        versionName "1.0"
+        targetSdk 33
+        versionCode 2
+        versionName "1.01"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
