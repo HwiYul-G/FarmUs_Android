@@ -1,6 +1,6 @@
-package com.example.farmus_application.network
+package com.farm.farmus_application.network
 
-import com.example.farmus_application.repository.UserPrefsStorage
+import com.farm.farmus_application.repository.UserPrefsStorage
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
@@ -31,11 +31,11 @@ interface BaseApiClient {
                 .build()
         }
 
-        class AppInterceptor: Interceptor {
+        class AppInterceptor : Interceptor {
             override fun intercept(chain: Interceptor.Chain): Response {
                 val newRequest = chain.request().newBuilder()
-                    .addHeader("token", jwtToken)
-                    return chain.proceed(newRequest.build())
+                    .addHeader("token", jwtToken.toString())
+                return chain.proceed(newRequest.build())
             }
         }
     }
