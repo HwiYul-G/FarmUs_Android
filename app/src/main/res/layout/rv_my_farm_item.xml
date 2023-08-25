@@ -5,7 +5,7 @@
     <data>
         <variable
             name="myFarmItem"
-            type="com.example.farmus_application.model.farm.myfarm.MyFarmItem" />
+            type="com.farm.farmus_application.model.farm.myfarm.MyFarmItem" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
