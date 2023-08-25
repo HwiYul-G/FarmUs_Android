@@ -6,11 +6,12 @@ plugins {
 }
 
 android {
-    namespace 'com.example.farmus_application'
-    compileSdk 33
+    namespace 'com.farm.farmus_application'
+    compileSdk 32
+
 
     defaultConfig {
-        applicationId "com.example.farmus_application"
+        applicationId "com.farm.farmus_application"
         minSdk 26
         targetSdk 33
         versionCode 3
