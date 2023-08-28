@@ -1,6 +1,5 @@
 package com.farm.farmus_application.repository.reserve
 
-import com.farm.farmus_application.ServiceLocator
 import com.farm.farmus_application.model.reserve.cancel.ReserveCancelRes
 import com.farm.farmus_application.model.reserve.client_list.ReserveClientListRes
 import com.farm.farmus_application.model.reserve.farm_list.ReserveFarmListRes
@@ -11,9 +10,11 @@ import com.farm.farmus_application.model.reserve.status.ReserveStatusRes
 import com.farm.farmus_application.model.reserve.unbookable.ReserveUnBookableRes
 import com.farm.farmus_application.network.ReserveApiClient
 import retrofit2.Response
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class ReserveRepository(
-    private val reserveApiClient: ReserveApiClient = ServiceLocator.reserveApiClient
+class ReserveRepository @Inject constructor(
+    private val reserveApiClient: ReserveApiClient
 ): ReserveDataSourceInterface {
     override suspend fun postReserveRequest(params: ReserveRequestReq): Response<ReserveRequestRes> {
         return reserveApiClient.postReserveRequest(params)

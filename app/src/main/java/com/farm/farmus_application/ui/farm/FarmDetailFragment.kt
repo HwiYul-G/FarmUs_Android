@@ -7,15 +7,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.farm.farmus_application.R
 import com.farm.farmus_application.databinding.FragmentFarmDetailBinding
 import com.farm.farmus_application.viewmodel.farm.FarmDetailViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class FarmDetailFragment: Fragment() {
 
     private lateinit var binding: FragmentFarmDetailBinding
-    private lateinit var farmDetailViewModel: FarmDetailViewModel
+    private val farmDetailViewModel: FarmDetailViewModel by viewModels()
     private lateinit var bottomSheetDialog: CalendarBottomSheetDialog
 
 
@@ -25,7 +28,6 @@ class FarmDetailFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_farm_detail, container, false)
-        farmDetailViewModel = ViewModelProvider(this)[FarmDetailViewModel::class.java]
         val farmImageAdapter = FarmImageAdapter()
         binding.farmDetailImage.adapter = farmImageAdapter
         val farmId = arguments?.getInt("farmId") ?: 0

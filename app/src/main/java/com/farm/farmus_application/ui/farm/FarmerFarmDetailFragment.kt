@@ -11,16 +11,19 @@ import android.widget.Toast
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.farm.farmus_application.R
 import com.farm.farmus_application.databinding.FragmentFarmerFarmDetailBinding
 import com.farm.farmus_application.ui.MainActivity
 import com.farm.farmus_application.viewmodel.farm.FarmDetailViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class FarmerFarmDetailFragment : Fragment() {
 
     private lateinit var binding: FragmentFarmerFarmDetailBinding
-    private lateinit var farmDetailViewModel: FarmDetailViewModel
+    private val farmDetailViewModel: FarmDetailViewModel by viewModels()
     private lateinit var farmImageAdapter: FarmImageAdapter
 
     override fun onCreateView(
@@ -34,7 +37,6 @@ class FarmerFarmDetailFragment : Fragment() {
             container,
             false
         )
-        farmDetailViewModel = ViewModelProvider(this)[FarmDetailViewModel::class.java]
         getFarmDetail()
         settingImageAdapter()
 

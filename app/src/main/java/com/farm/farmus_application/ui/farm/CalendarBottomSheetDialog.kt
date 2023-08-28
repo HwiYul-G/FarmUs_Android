@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.farm.farmus_application.R
 import com.farm.farmus_application.databinding.DialogBottomSheetCalendarBinding
@@ -26,15 +27,18 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.DayViewDecorator
 import com.prolificinteractive.materialcalendarview.DayViewFacade
+import dagger.hilt.android.AndroidEntryPoint
 import java.time.*
 import java.time.temporal.ChronoUnit
 import java.util.stream.Collectors
 import java.util.stream.Stream
 
+@AndroidEntryPoint
 class CalendarBottomSheetDialog(private val farmDetail: DetailResult): BottomSheetDialogFragment() {
 
     private lateinit var binding: DialogBottomSheetCalendarBinding
-    private lateinit var calendarViewModel: CalendarBottomSheetViewModel
+//    private lateinit var calendarViewModel: CalendarBottomSheetViewModel
+    private val calendarViewModel: CalendarBottomSheetViewModel by viewModels()
     private lateinit var firstSelectedDay: CalendarDay
     private lateinit var lastSelectedDay: CalendarDay
     private var unBookDayList: List<UnBookableResult> = listOf()
@@ -48,7 +52,6 @@ class CalendarBottomSheetDialog(private val farmDetail: DetailResult): BottomShe
     ): View {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.dialog_bottom_sheet_calendar, container, false)
-        calendarViewModel = ViewModelProvider(this)[CalendarBottomSheetViewModel::class.java]
 
         return binding.root
     }

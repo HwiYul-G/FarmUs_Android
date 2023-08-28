@@ -6,10 +6,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.farm.farmus_application.model.user.findpassword.FindPasswordRes
 import com.farm.farmus_application.repository.user.UserRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-
-class FindPasswordViewModel : ViewModel(){
-    private val userRepository = UserRepository()
+import javax.inject.Inject
+@HiltViewModel
+class FindPasswordViewModel @Inject constructor(
+    private val userRepository: UserRepository
+): ViewModel(){
     val findPasswordResponse : MutableLiveData<FindPasswordRes> = MutableLiveData()
 
     fun findPassword(userEmail: String){

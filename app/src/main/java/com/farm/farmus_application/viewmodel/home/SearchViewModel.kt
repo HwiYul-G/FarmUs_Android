@@ -6,13 +6,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.farm.farmus_application.model.farm.search.SearchedFarm
 import com.farm.farmus_application.repository.farm.FarmRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
+@HiltViewModel
+class SearchViewModel @Inject constructor(
+    private val farmRepo: FarmRepository
+): ViewModel() {
 
-class SearchViewModel : ViewModel() {
-
-    private val farmRepo = FarmRepository()
     val searchedFarmResponse : MutableLiveData<List<SearchedFarm>> = MutableLiveData()
-
 
     fun getFarmSearchKeyword(keyword : String) {
         viewModelScope.launch {

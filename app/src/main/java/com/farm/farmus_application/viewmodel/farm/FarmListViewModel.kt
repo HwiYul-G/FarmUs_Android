@@ -9,12 +9,15 @@ import com.farm.farmus_application.model.farm.myfarm.MyFarmRes
 import com.farm.farmus_application.model.reserve.reserve_list.ReserveListRes
 import com.farm.farmus_application.repository.farm.FarmRepository
 import com.farm.farmus_application.repository.reserve.ReserveRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class FarmListViewModel: ViewModel() {
-
-    private val reserveRepo = ReserveRepository()
-    private val farmRepo = FarmRepository()
+@HiltViewModel
+class FarmListViewModel @Inject constructor(
+    private val reserveRepo: ReserveRepository,
+    private val farmRepo: FarmRepository
+): ViewModel() {
 
     private var _currentFarmList = MutableLiveData<ReserveListRes>()
     var currentFarmList: LiveData<ReserveListRes> = _currentFarmList

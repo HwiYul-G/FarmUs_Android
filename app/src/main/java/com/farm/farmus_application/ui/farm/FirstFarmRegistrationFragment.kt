@@ -20,8 +20,10 @@ import com.farm.farmus_application.databinding.FragmentFarmFirstRegistrationBind
 import com.farm.farmus_application.ui.MainActivity
 import com.farm.farmus_application.ui.farm.adapter.FirstFarmRegistrationRVAdapter
 import com.farm.farmus_application.viewmodel.farm.FarmRegistrationViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import java.lang.Math.min
 
+@AndroidEntryPoint
 class FirstFarmRegistrationFragment: Fragment() {
     private val TAG = "FirstFarmRegistrationFragment"
     private val PICK_IMAGE_REQUEST = 333

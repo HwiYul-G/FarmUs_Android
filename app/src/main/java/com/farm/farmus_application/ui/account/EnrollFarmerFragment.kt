@@ -6,10 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
+import com.example.farmus_application.viewmodel.account.EnrollFarmerViewModel
 import com.farm.farmus_application.databinding.FragmentEnrollFarmerBinding
 import com.farm.farmus_application.ui.MainActivity
-import com.farm.farmus_application.viewmodel.account.EnrollFarmerViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -21,10 +22,11 @@ private const val ARG_PARAM2 = "param2"
  * Use the [EnrollFarmerFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
+@AndroidEntryPoint
 class EnrollFarmerFragment : Fragment() {
 
     private lateinit var binding: FragmentEnrollFarmerBinding
-    private lateinit var enrollFarmerViewModel: EnrollFarmerViewModel
+    private val enrollFarmerViewModel: EnrollFarmerViewModel by viewModels()
 
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -44,7 +46,6 @@ class EnrollFarmerFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         binding = FragmentEnrollFarmerBinding.inflate(layoutInflater, container, false)
-        enrollFarmerViewModel = ViewModelProvider(this)[EnrollFarmerViewModel::class.java]
 
         return binding.root
     }

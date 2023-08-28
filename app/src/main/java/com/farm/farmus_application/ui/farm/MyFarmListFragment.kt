@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.farm.farmus_application.databinding.FragmentFarmTab2Binding
@@ -14,6 +15,7 @@ import com.farm.farmus_application.ui.MainActivity
 import com.farm.farmus_application.ui.account.EnrollFarmerFragment
 import com.farm.farmus_application.utilities.JWTUtils
 import com.farm.farmus_application.viewmodel.farm.FarmListViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -25,10 +27,11 @@ private const val ARG_PARAM2 = "param2"
  * Use the [MyFarmListFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
+@AndroidEntryPoint
 class MyFarmListFragment : Fragment() {
 
     private lateinit var binding: FragmentFarmTab2Binding
-    private lateinit var farmListViewModel: FarmListViewModel
+    private val farmListViewModel: FarmListViewModel by viewModels()
 
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -52,7 +55,6 @@ class MyFarmListFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         binding = FragmentFarmTab2Binding.inflate(layoutInflater, container, false)
-        farmListViewModel = ViewModelProvider(this)[FarmListViewModel::class.java]
 
         return binding.root
     }

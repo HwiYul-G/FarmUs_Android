@@ -20,12 +20,14 @@ import com.farm.farmus_application.ui.home.Adapter.FavoriteRVAdapter
 import com.farm.farmus_application.ui.home.GridSpaceItemDecoration
 import com.farm.farmus_application.utilities.JWTUtils
 import com.farm.farmus_application.viewmodel.favorite.FavoriteViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
 
 const val ARG_PARAM1 = "param1"
 const val ARG_PARAM2 = "param2"
 
 
+@AndroidEntryPoint
 class FavoriteFragment : Fragment() {
 
     private lateinit var binding: FragmentFavoriteBinding

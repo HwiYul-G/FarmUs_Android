@@ -18,10 +18,12 @@ import com.farm.farmus_application.repository.UserPrefsStorage
 import com.farm.farmus_application.ui.MainActivity
 import com.farm.farmus_application.utilities.JWTUtils
 import com.farm.farmus_application.viewmodel.farm.FarmRegistrationViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import kotlin.math.roundToInt
 
+@AndroidEntryPoint
 class SecondFarmRegistrationFragment: Fragment() {
 
     private lateinit var binding: FragmentFarmSecondRegistrationBinding

@@ -14,7 +14,9 @@ import com.farm.farmus_application.ui.farm.FarmFragment
 import com.farm.farmus_application.ui.favorite.FavoriteFragment
 import com.farm.farmus_application.ui.home.HomeFragment
 import com.farm.farmus_application.ui.message.ChatFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var mainBinding: ActivityMainBinding
