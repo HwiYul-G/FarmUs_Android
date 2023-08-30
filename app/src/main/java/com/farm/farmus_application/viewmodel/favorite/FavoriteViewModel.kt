@@ -10,14 +10,16 @@ import com.farm.farmus_application.model.favorite.FavoriteFarmRes
 import com.farm.farmus_application.model.user.likes.LikeFarmReq
 import com.farm.farmus_application.repository.farm.FarmRepository
 import com.farm.farmus_application.repository.user.UserRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.lang.Exception
+import javax.inject.Inject
 
-class FavoriteViewModel : ViewModel() {
-
-    private val farmRepo = FarmRepository()
-    private val userRepo = UserRepository()
-
+@HiltViewModel
+class FavoriteViewModel @Inject constructor(
+    private val farmRepo: FarmRepository,
+    private val userRepo: UserRepository
+) : ViewModel() {
 
     private val _favoriteFarmResponse : MutableLiveData<FavoriteFarmRes> = MutableLiveData()
     val favoriteFarmResponse : LiveData<FavoriteFarmRes> = _favoriteFarmResponse

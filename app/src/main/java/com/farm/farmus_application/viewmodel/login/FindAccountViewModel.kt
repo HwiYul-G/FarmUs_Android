@@ -6,10 +6,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.farm.farmus_application.model.user.findaccount.FindAccountRes
 import com.farm.farmus_application.repository.user.UserRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class FindAccountViewModel : ViewModel() {
-    private val userRepository = UserRepository()
+@HiltViewModel
+class FindAccountViewModel @Inject constructor(
+    private val userRepository: UserRepository
+) : ViewModel() {
 
     // 인증번호 발송 응답 라이브 데이터
     val findAccountRes : MutableLiveData<FindAccountRes> = MutableLiveData()

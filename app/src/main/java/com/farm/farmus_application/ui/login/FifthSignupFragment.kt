@@ -7,16 +7,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.farm.farmus_application.databinding.FragmentSignupFifthBinding
 import com.farm.farmus_application.model.user.signup.SignUpReq
 import com.farm.farmus_application.viewmodel.login.SignUpViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class SignupFifthFragment: Fragment(){
 
     private lateinit var viewBinding : FragmentSignupFifthBinding
-    private lateinit var signUpViewModel : SignUpViewModel
+    private val signUpViewModel: SignUpViewModel by viewModels()
 
     private var signupActivity: SignupActivity? = null
 
@@ -31,7 +33,6 @@ class SignupFifthFragment: Fragment(){
         savedInstanceState: Bundle?
     ): View {
         viewBinding = FragmentSignupFifthBinding.inflate(inflater, container, false)
-        signUpViewModel = ViewModelProvider(requireActivity())[SignUpViewModel::class.java]
 
         viewBinding.signupRoleToolbar.toolbarWithoutTitleBackButton.setOnClickListener{
             signupActivity!!.supportFragmentManager.beginTransaction().remove(this).commit()

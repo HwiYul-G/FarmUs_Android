@@ -1,13 +1,13 @@
 package com.farm.farmus_application.repository.myPage
 
-import com.farm.farmus_application.ServiceLocator
 import com.farm.farmus_application.model.mypage.*
 import com.farm.farmus_application.network.MyPageApiClient
 import okhttp3.MultipartBody
 import retrofit2.Response
+import javax.inject.Inject
 
-class MyPageRepository(
-    private val myPageApiClient: MyPageApiClient = ServiceLocator.myPageApiClient
+class MyPageRepository @Inject constructor(
+    private val myPageApiClient: MyPageApiClient
 ) : MyPageDataSourceInterface {
     override suspend fun patchEditInfoNickname(
         email: String,

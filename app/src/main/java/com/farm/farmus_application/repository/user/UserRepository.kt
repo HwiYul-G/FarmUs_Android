@@ -1,6 +1,5 @@
 package com.farm.farmus_application.repository.user
 
-import com.farm.farmus_application.ServiceLocator
 import com.farm.farmus_application.model.user.findaccount.FindAccountRes
 import com.farm.farmus_application.model.user.findpassword.FindPasswordRes
 import com.farm.farmus_application.model.user.likes.DeleteLikeFarmRes
@@ -17,9 +16,10 @@ import com.farm.farmus_application.model.user.verification.VerificationRes
 import com.farm.farmus_application.model.user.withdrawal.WithdrawalRes
 import com.farm.farmus_application.network.UserApiClient
 import retrofit2.Response
+import javax.inject.Inject
 
-class UserRepository(
-    private val userApiClient: UserApiClient = ServiceLocator.userApiClient
+class UserRepository @Inject constructor(
+    private val userApiClient: UserApiClient
 ) : UserDataSourceInterface {
 
     override suspend fun postUserSignup(params: SignUpReq): Response<SignUpRes> {

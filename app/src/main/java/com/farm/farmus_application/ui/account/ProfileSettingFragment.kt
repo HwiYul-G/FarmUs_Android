@@ -31,12 +31,13 @@ import com.farm.farmus_application.ui.MainActivity
 import com.farm.farmus_application.ui.StartActivity
 import com.farm.farmus_application.utilities.JWTUtils
 import com.farm.farmus_application.viewmodel.account.ProfileSettingViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-
+@AndroidEntryPoint
 class ProfileSettingFragment : Fragment() {
 
     private lateinit var binding: FragmentProfileSettingBinding

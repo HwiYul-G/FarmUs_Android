@@ -1,4 +1,4 @@
-package com.farm.farmus_application.viewmodel.account
+package com.example.farmus_application.viewmodel.account
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -7,12 +7,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.farm.farmus_application.repository.UserPrefsStorage
 import com.farm.farmus_application.repository.farm.FarmRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class EnrollFarmerViewModel: ViewModel() {
-
-    private val farmRepository = FarmRepository()
-
+@HiltViewModel
+class EnrollFarmerViewModel @Inject constructor(
+    private val farmRepository: FarmRepository
+): ViewModel() {
     private var _farmRegister = MutableLiveData<Boolean>()
     var farmRegister: LiveData<Boolean> = _farmRegister
 

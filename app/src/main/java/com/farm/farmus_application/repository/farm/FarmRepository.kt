@@ -1,6 +1,5 @@
 package com.farm.farmus_application.repository.farm
 
-import com.farm.farmus_application.ServiceLocator
 import com.farm.farmus_application.model.farm.detail.DetailRes
 import com.farm.farmus_application.model.farm.list.ListRes
 import com.farm.farmus_application.model.farm.myfarm.MyFarmRes
@@ -16,9 +15,10 @@ import okhttp3.RequestBody
 import retrofit2.Response
 import java.io.File
 import java.util.*
+import javax.inject.Inject
 
-class FarmRepository(
-    private val farmApiClient: FarmApiClient = ServiceLocator.farmApiClient
+class FarmRepository @Inject constructor(
+    private val farmApiClient: FarmApiClient
 ) : FarmDataSourceInterface {
 
     override suspend fun getFarmList(email : String): Response<ListRes> {

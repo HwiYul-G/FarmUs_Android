@@ -11,7 +11,9 @@ import com.farm.farmus_application.databinding.ActivityFindPwBinding
 import androidx.activity.viewModels
 import com.farm.farmus_application.utilities.ValidationCheckUtil
 import com.farm.farmus_application.viewmodel.login.FindPasswordViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class FindpwActivity : AppCompatActivity() {
 
     private lateinit var findPwBinding: ActivityFindPwBinding

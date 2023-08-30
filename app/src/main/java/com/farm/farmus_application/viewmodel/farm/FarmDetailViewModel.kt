@@ -7,11 +7,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.farm.farmus_application.model.farm.detail.DetailResult
 import com.farm.farmus_application.repository.farm.FarmRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class FarmDetailViewModel(): ViewModel() {
-
-    private val farmRepo = FarmRepository()
+@HiltViewModel
+class FarmDetailViewModel @Inject constructor(
+    private val farmRepo: FarmRepository
+): ViewModel() {
 
     private var _farmDetail = MutableLiveData<DetailResult>()
     var farmDetail: LiveData<DetailResult> = _farmDetail

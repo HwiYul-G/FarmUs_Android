@@ -8,13 +8,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.farm.farmus_application.model.farm.postings.PostingsResult
 import com.farm.farmus_application.repository.farm.FarmRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.io.File
+import javax.inject.Inject
 
-class FarmRegistrationViewModel() : ViewModel() {
+@HiltViewModel
+class FarmRegistrationViewModel @Inject constructor(
+    private val farmRepository: FarmRepository
+) : ViewModel() {
     private val TAG = "FarmRegistrationViewModel"
-
-    private val farmRepository = FarmRepository()
 
     private var _postingsResponse = MutableLiveData<PostingsResult?>()
     var postingsResponse: LiveData<PostingsResult?> = _postingsResponse

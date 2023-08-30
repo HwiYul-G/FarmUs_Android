@@ -11,20 +11,23 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.farm.farmus_application.utilities.ValidationCheckUtil
 import com.farm.farmus_application.databinding.FragmentSignupThirdBinding
 import com.farm.farmus_application.model.user.signup_verification.SignUpVerificationReq
 import com.farm.farmus_application.model.user.verification.VerificationReq
 import com.farm.farmus_application.viewmodel.login.SignUpViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SignupThirdFragment: Fragment(){
 
     private lateinit var viewBinding : FragmentSignupThirdBinding
-    private lateinit var signUpViewModel: SignUpViewModel
     private lateinit var editTextId: String
     private lateinit var editTextPw: String
     private lateinit var editTextPhone: EditText
+    private val signUpViewModel: SignUpViewModel by viewModels()
 
     private var signupActivity: SignupActivity? = null
 
@@ -39,7 +42,6 @@ class SignupThirdFragment: Fragment(){
         savedInstanceState: Bundle?
     ): View {
         viewBinding = FragmentSignupThirdBinding.inflate(layoutInflater)
-        signUpViewModel = ViewModelProvider(requireActivity())[SignUpViewModel::class.java]
 
         viewBinding.signupPhoneToolbar.toolbarWithoutTitleBackButton.setOnClickListener{
             signupActivity!!.supportFragmentManager.beginTransaction().remove(this).commit()

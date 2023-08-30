@@ -10,6 +10,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -26,21 +27,11 @@ import com.kakao.sdk.common.model.ClientErrorCause
 import com.kakao.sdk.common.model.KakaoSdkError
 import com.kakao.sdk.common.util.Utility
 import com.kakao.sdk.user.UserApiClient
+import dagger.hilt.android.AndroidEntryPoint
 
 
-
+@AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
-
-//    private lateinit var getPwMessage: ActivityResultLauncher<Intent>
-
-//    val getPwMessage = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
-//        result : ActivityResult ->
-//        if (result.resultCode == Activity.RESULT_OK) {
-//            val str = result.data?.getStringExtra("PW_Resent")
-//            Toast.makeText(this.applicationContext,"$str", Toast.LENGTH_SHORT).show()
-//        }
-//        Log.i("resentMessage","----------------------")
-//    }
 
     private val callback : (OAuthToken?, Throwable?) -> Unit = { token, error ->
         if (error != null){
@@ -58,12 +49,11 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private lateinit var loginBinding: ActivityLoginMainBinding
-    private lateinit var viewModel: LoginViewModel
+    private val viewModel: LoginViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         loginBinding = ActivityLoginMainBinding.inflate(layoutInflater)
-        viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
         setContentView(loginBinding.root)
 
         loginBinding.loginStartToolbar.toolbarMainTitleText.text = "시작화면"

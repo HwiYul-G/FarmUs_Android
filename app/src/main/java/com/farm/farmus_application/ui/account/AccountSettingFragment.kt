@@ -8,11 +8,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import com.farm.farmus_application.databinding.FragmentAccountSettingBinding
 import com.farm.farmus_application.ui.MainActivity
 import com.farm.farmus_application.ui.StartActivity
 import com.farm.farmus_application.viewmodel.account.AccountSettingViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -24,12 +25,13 @@ private const val ARG_PARAM2 = "param2"
  * Use the [AccountSettingFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
+@AndroidEntryPoint
 class AccountSettingFragment : Fragment() {
 
     private lateinit var binding : FragmentAccountSettingBinding
     //뒤로가기 기능 구현
     private lateinit var callback: OnBackPressedCallback
-    private lateinit var viewModel: AccountSettingViewModel
+    private val viewModel: AccountSettingViewModel by viewModels()
 
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -46,7 +48,7 @@ class AccountSettingFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = FragmentAccountSettingBinding.inflate(layoutInflater, container, false)
         return binding.root
@@ -54,7 +56,6 @@ class AccountSettingFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this).get(AccountSettingViewModel::class.java)
 
         binding.toolbar.toolbarMainTitleText.apply {
             text = "설정"

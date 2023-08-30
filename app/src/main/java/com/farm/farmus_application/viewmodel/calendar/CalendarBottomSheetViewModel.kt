@@ -11,12 +11,14 @@ import com.farm.farmus_application.model.reserve.request.ReserveRequestRes
 import com.farm.farmus_application.model.reserve.unbookable.ReserveUnBookableRes
 import com.farm.farmus_application.repository.farm.FarmRepository
 import com.farm.farmus_application.repository.reserve.ReserveRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-
-class CalendarBottomSheetViewModel: ViewModel() {
-
-    private val reserveRepo = ReserveRepository()
-    private val farmRepo = FarmRepository()
+import javax.inject.Inject
+@HiltViewModel
+class CalendarBottomSheetViewModel @Inject constructor(
+    private val reserveRepo: ReserveRepository,
+    private val farmRepo: FarmRepository
+): ViewModel() {
 
     private var _isSuccessReserve = MutableLiveData<ReserveRequestRes>()
     var isSuccessReserve: LiveData<ReserveRequestRes> = _isSuccessReserve

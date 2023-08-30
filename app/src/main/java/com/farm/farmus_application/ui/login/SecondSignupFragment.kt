@@ -10,13 +10,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.farm.farmus_application.utilities.ValidationCheckUtil
 import com.farm.farmus_application.databinding.FragmentSignupSecondBinding
+import dagger.hilt.android.AndroidEntryPoint
 
 
-
+@AndroidEntryPoint
 class SignupSecondFragment: Fragment(){
 
     private lateinit var viewBinding : FragmentSignupSecondBinding
-
     private var signupActivity: SignupActivity? = null
     private var pwcCheck: Boolean = false
 

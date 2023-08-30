@@ -9,10 +9,14 @@ import com.farm.farmus_application.model.user.signup.SignUpReq
 import com.farm.farmus_application.model.user.signup_verification.SignUpVerificationReq
 import com.farm.farmus_application.model.user.verification.VerificationReq
 import com.farm.farmus_application.repository.user.UserRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SignUpViewModel(): ViewModel() {
-    private val userRepo = UserRepository()
+@HiltViewModel
+class SignUpViewModel @Inject constructor(
+    private val userRepo: UserRepository
+): ViewModel() {
     private var _isVerificationSuccess = MutableLiveData<Boolean>()
     var isVerificationSuccess: LiveData<Boolean> = _isVerificationSuccess
     private var _isUserSignUpSuccess = MutableLiveData<Boolean>()

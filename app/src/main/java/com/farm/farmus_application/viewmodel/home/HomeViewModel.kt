@@ -9,14 +9,17 @@ import com.farm.farmus_application.model.farm.list.ListResult
 import com.farm.farmus_application.model.user.likes.LikeFarmReq
 import com.farm.farmus_application.repository.farm.FarmRepository
 import com.farm.farmus_application.repository.user.UserRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class HomeViewModel : ViewModel() {
+@HiltViewModel
+class HomeViewModel @Inject constructor(
+    private val farmRepo: FarmRepository,
+    private val userRepo: UserRepository
+) : ViewModel() {
 
-    private val farmRepo = FarmRepository()
     val farmListResponse: MutableLiveData<List<ListResult>> = MutableLiveData()
-
-    private val userRepo = UserRepository()
     private val _isLikeFarmSuccess : MutableLiveData<Boolean> = MutableLiveData()
     val isLikeFarmSuccess : LiveData<Boolean> = _isLikeFarmSuccess
     private val _isDeleteLikeFarmSuccess : MutableLiveData<Boolean> = MutableLiveData()

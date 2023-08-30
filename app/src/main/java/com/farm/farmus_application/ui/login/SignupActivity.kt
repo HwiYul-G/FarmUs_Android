@@ -6,6 +6,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.View.*
 import android.view.inputmethod.InputMethodManager
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
@@ -13,16 +14,17 @@ import com.farm.farmus_application.R
 import com.farm.farmus_application.utilities.ValidationCheckUtil
 import com.farm.farmus_application.databinding.ActivitySignupFirstBinding
 import com.farm.farmus_application.viewmodel.login.SignUpViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SignupActivity : AppCompatActivity() {
 
     private lateinit var signupBinding: ActivitySignupFirstBinding
-    private lateinit var signUpViewModel: SignUpViewModel
+    private val signUpViewModel: SignUpViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         signupBinding = ActivitySignupFirstBinding.inflate(layoutInflater)
-        signUpViewModel = ViewModelProvider(this)[SignUpViewModel::class.java]
         setContentView(signupBinding.root)
 
         // 입력칸 관련 value 설정

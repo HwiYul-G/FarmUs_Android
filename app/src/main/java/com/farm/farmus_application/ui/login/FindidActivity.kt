@@ -11,7 +11,9 @@ import androidx.appcompat.app.AppCompatActivity
 import com.farm.farmus_application.utilities.ValidationCheckUtil
 import com.farm.farmus_application.databinding.ActivityFindIdBinding
 import com.farm.farmus_application.viewmodel.login.FindAccountViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class FindidActivity : AppCompatActivity() {
 
     private lateinit var findIdBinding: ActivityFindIdBinding

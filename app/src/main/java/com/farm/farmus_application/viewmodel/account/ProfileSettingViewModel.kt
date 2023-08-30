@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import com.farm.farmus_application.model.mypage.*
 import com.farm.farmus_application.repository.UserPrefsStorage
 import com.farm.farmus_application.repository.myPage.MyPageRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -16,11 +17,12 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.ByteArrayOutputStream
+import javax.inject.Inject
 
-class ProfileSettingViewModel : ViewModel() {
-
-    private val myPageRepository = MyPageRepository()
-
+@HiltViewModel
+class ProfileSettingViewModel @Inject constructor(
+    private val myPageRepository: MyPageRepository
+): ViewModel() {
     // LiveData
     private var _editInfoNicknameResponse = MutableLiveData<Boolean>()
     val editInfoNicknameResponse : LiveData<Boolean> get() = _editInfoNicknameResponse

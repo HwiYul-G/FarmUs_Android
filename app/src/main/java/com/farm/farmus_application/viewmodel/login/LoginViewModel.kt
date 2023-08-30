@@ -8,8 +8,10 @@ import com.farm.farmus_application.model.user.login.LoginReq
 import com.farm.farmus_application.model.user.login.LoginResult
 import com.farm.farmus_application.repository.UserPrefsStorage
 import com.farm.farmus_application.repository.user.UserRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 /**
 LiveData?
@@ -26,10 +28,12 @@ LiveData : 값의 get()만을 할 수 있다.
 factory를 응용하여 훨씬 적은 수고로 구상 클래스별 팩토리를 관리하여 응집성을 높이면서도
 실제 사용시의 코드에서 정말 깔끔하게 클래스명만 넘기는 것으로 복잡한 별도의 factory객체를 전달하지 않아도 된다.
  **/
-class LoginViewModel() : ViewModel(){
+@HiltViewModel
+class LoginViewModel @Inject constructor(
+    private val userRepo: UserRepository
+) : ViewModel(){
     private val TAG = "LoginViewModel"
 
-    private val userRepo = UserRepository()
     val loginResponse: MutableLiveData<LoginResult?> = MutableLiveData()
     val errorResponse: MutableLiveData<String> = MutableLiveData()
 
