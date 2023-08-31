@@ -23,17 +23,19 @@ import com.farm.farmus_application.ui.home.Adapter.EmptyDataObserve
 import com.farm.farmus_application.ui.home.Adapter.SearchedFarmRVAdapter
 import com.farm.farmus_application.viewmodel.home.SearchViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import dagger.hilt.android.AndroidEntryPoint
 
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
 //검색바 누르면 나올 Fragment
+@AndroidEntryPoint
 class SearchFragment : Fragment() {
 
     private lateinit var binding: FragmentSearchBinding
     private lateinit var bottomSheetRegionBinding: BottomSheetFilterRegionBinding
-    private val searchViewModel: SearchViewModel by viewModels()
+    private val searchViewModel: SearchViewModel by viewModels() // TODO : 여기서 오류 발생
 
     private var city = "전체"
     private var town = "전체"
