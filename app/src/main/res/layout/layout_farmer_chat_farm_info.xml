@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/farmer_chat_img_card_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="23dp"
+            app:cardCornerRadius="7dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/farmer_chat_img"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/farm_image_example" />
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/farmer_chat_farm_name"
+            style="@style/Body1Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:text="서울 유일 농장"
+            android:textColor="@color/text_1"
+            app:layout_constraintStart_toEndOf="@id/farmer_chat_img_card_view"
+            app:layout_constraintTop_toTopOf="@id/farmer_chat_img_card_view" />
+
+        <TextView
+            android:id="@+id/farmer_chat_period"
+            style="@style/Body3Med"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="6dp"
+            android:text="희망 분양기간 "
+            android:textColor="@color/text_2"
+            app:layout_constraintStart_toEndOf="@id/farmer_chat_img_card_view"
+            app:layout_constraintTop_toBottomOf="@id/farmer_chat_farm_name" />
+
+        <TextView
+            android:id="@+id/farmer_chat_period_day"
+            style="@style/Body3Med"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2022.05.12. ~ 2022.12.07."
+            android:textColor="@color/text_2"
+            app:layout_constraintStart_toEndOf="@id/farmer_chat_period"
+            app:layout_constraintTop_toTopOf="@id/farmer_chat_period" />
+
+        <ImageButton
+            android:id="@+id/farmer_chat_btn_next"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/next_black_vector_image"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/farmer_chat_farm_name" />
+
+        <TextView
+            android:id="@+id/farmer_chat_history"
+            style="@style/Body3Reg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="6dp"
+            android:text="분양 신청 내역"
+            android:textColor="@color/text_3"
+            app:layout_constraintStart_toEndOf="@id/farmer_chat_img_card_view"
+            app:layout_constraintTop_toBottomOf="@id/farmer_chat_period" />
+
+        <TextView
+            android:id="@+id/farmer_chat_use_textview"
+            style="@style/Body3Med"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="23dp"
+            android:text="승인됨"
+            android:textColor="@color/main"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/farmer_chat_history" />
+
+
+        <TextView
+            android:id="@+id/farmer_chat_btn_cancel"
+            style="@style/Body3Med"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="13dp"
+            android:background="@drawable/corner_radius_rv_rec_item_box"
+            android:backgroundTint="@color/gray_3"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="8dp"
+            android:text="거절"
+            android:textColor="@color/text_3"
+            app:layout_constraintBottom_toBottomOf="@id/farmer_chat_btn_approve"
+            app:layout_constraintEnd_toStartOf="@id/farmer_chat_btn_approve" />
+
+        <TextView
+            android:id="@+id/farmer_chat_btn_approve"
+            style="@style/Body3Med"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="23dp"
+            android:background="@drawable/corner_radius_rv_rec_item_box"
+            android:backgroundTint="@color/gray_3"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="8dp"
+            android:text="승인"
+            android:textColor="@color/text_3"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/farmer_chat_history" />
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/gray_2"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

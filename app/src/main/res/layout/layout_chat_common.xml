@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- 채팅 대화 내용 부분-->
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_chat"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#F5F5F5"
+        android:clipToPadding="false"
+        android:orientation="vertical"
+        android:overScrollMode="never"
+        android:padding="5sp"
+        app:layout_constraintBottom_toTopOf="@+id/layout_send"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <!--
+        대화 내용 업로드 x 일 때, Progress bar를 이용하기도 하는 것 같다..
+    -->
+
+
+    <!-- 채팅 내용 입력 부분 -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_send"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+
+        <ImageButton
+            android:id="@+id/btn_plus"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_marginVertical="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
+            android:background="@color/white"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintWidth_percent="0.3"
+            app:srcCompat="@drawable/plus_line_vector_image" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginVertical="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/round_background_color_border"
+            android:orientation="horizontal"
+            app:layout_constraintLeft_toRightOf="@+id/btn_plus"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintWidth_percent="0.7">
+
+            <EditText
+                android:id="@+id/edittext_send_msg"
+                android:layout_width="280dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="5dp"
+                android:background="@null"
+                android:hint="내용 입력"
+                android:paddingLeft="10dp"
+                android:textColor="@color/text_2"
+                android:textSize="15sp" />
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                app:srcCompat="@drawable/send_vector_image" />
+
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

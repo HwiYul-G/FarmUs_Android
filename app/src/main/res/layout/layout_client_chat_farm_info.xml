@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/client_chat_img_card_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="7dp"
+            android:layout_marginTop="23dp"
+            android:layout_marginStart="15dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <ImageView
+                android:id="@+id/client_chat_img"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/farm_image_example"
+                android:scaleType="centerCrop"
+                />
+        </androidx.cardview.widget.CardView>
+
+
+
+        <TextView
+            android:id="@+id/client_chat_farm_name"
+            style="@style/Body1Bold"
+            android:textColor="@color/text_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/client_chat_img_card_view"
+            app:layout_constraintStart_toEndOf="@id/client_chat_img_card_view"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="10dp"
+            android:text="서울 유일 농장"/>
+
+        <TextView
+            android:id="@+id/client_chat_period"
+            style="@style/Body3Med"
+            android:textColor="@color/text_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/client_chat_farm_name"
+            app:layout_constraintStart_toEndOf="@id/client_chat_img_card_view"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="6dp"
+            android:text="희망 분양기간 "/>
+
+        <TextView
+            android:id="@+id/client_chat_period_day"
+            style="@style/Body3Med"
+            android:textColor="@color/text_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/client_chat_period"
+            app:layout_constraintTop_toTopOf="@id/client_chat_period"
+            android:text="2022.05.12. ~ 2022.12.07."/>
+
+        <ImageButton
+            android:id="@+id/client_chat_btn_next"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:background="@drawable/next_black_vector_image"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/client_chat_farm_name"
+            android:layout_marginEnd="16dp"/>
+
+        <TextView
+            android:id="@+id/client_chat_history"
+            style="@style/Body3Reg"
+            android:textColor="@color/text_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/client_chat_period"
+            app:layout_constraintStart_toEndOf="@id/client_chat_img_card_view"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="6dp"
+            android:text="분양 신청 내역"/>
+
+        <TextView
+            android:id="@+id/client_chat_state"
+            style="@style/Body3Med"
+            android:textColor="@color/text_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="4dp"
+            android:text="신청대기"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/client_chat_period_day"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="18dp"
+            android:layout_marginBottom="17dp"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/gray_2"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
