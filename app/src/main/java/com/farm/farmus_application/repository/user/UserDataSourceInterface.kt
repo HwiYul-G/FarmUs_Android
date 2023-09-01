@@ -33,7 +33,7 @@ interface UserDataSourceInterface {
 
     suspend fun getUserFindPassword(userEmail: String): Response<FindPasswordRes>
 
-    suspend fun patchUserWithdrawal(userEmail: String): Response<WithdrawalRes>
+    suspend fun deleteUserWithdrawal(): Response<WithdrawalRes>
 
     suspend fun postUserLikeFarm(params: LikeFarmReq): Response<LikeFarmRes>
 

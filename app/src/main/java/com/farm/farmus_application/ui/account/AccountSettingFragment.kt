@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.viewModels
 import com.farm.farmus_application.databinding.FragmentAccountSettingBinding
@@ -57,23 +58,46 @@ class AccountSettingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        settingToolbar()
+
+        viewModel.isSuccess.observe(viewLifecycleOwner) { response ->
+            if (response.result) {
+                viewModel.clearUserData()
+                moveToStartActivity()
+                Toast.makeText(requireContext(), "회원탈퇴가 완료되었습니다!", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(requireContext(), "회원탈퇴에 실패했습니다.", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        binding.layerLogout.setOnClickListener{
+            //Datastore(로그인 유저정보) 비우기
+            viewModel.clearUserData()
+            moveToStartActivity()
+        }
+
+        binding.layerSignout.setOnClickListener {
+            viewModel.apply {
+                withdrawalUser()
+            }
+        }
+
+    }
+
+    private fun settingToolbar() {
         binding.toolbar.toolbarMainTitleText.apply {
             text = "설정"
         }
         //툴바 백터튼 누르면 MyPageFragment로 이동
         binding.toolbar.toolbarWithTitleBackButton.setOnClickListener {
-            (activity as MainActivity).changeFragment(MyPageFragment.newInstance("",""))
+            (activity as MainActivity).changeFragment(MyPageFragment.newInstance("", ""))
         }
+    }
 
-        //로그아웃 버튼
-        binding.layerLogout.setOnClickListener{
-            //Datastore(로그인 유저정보) 비우기
-            viewModel.clearUserData()
-
-            val intent = Intent(requireContext(), StartActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            startActivity(intent)
-        }
+    private fun moveToStartActivity() {
+        val intent = Intent(requireContext(), StartActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
     }
 
     //뒤로가기 누르면 MyPageFragment로 이동
@@ -92,7 +116,6 @@ class AccountSettingFragment : Fragment() {
         super.onDetach()
         callback.remove()
     }
-
 
     companion object {
         /**

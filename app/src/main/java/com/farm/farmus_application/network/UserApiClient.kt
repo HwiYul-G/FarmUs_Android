@@ -19,7 +19,6 @@ import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
-import retrofit2.http.PATCH
 import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -49,8 +48,8 @@ interface UserApiClient {
     @GET("/user/find-password")
     suspend fun getUserFindPassword(@Query("userEmail") userEmail: String): Response<FindPasswordRes>
 
-    @PATCH("/user/withdrawal?{userEmail}")
-    suspend fun patchUserWithdrawal(@Query("userEmail") userEmail: String): Response<WithdrawalRes>
+    @DELETE("/user/withdrawal")
+    suspend fun deleteUserWithdrawal(): Response<WithdrawalRes>
 
 
     @POST("/user/likes")
