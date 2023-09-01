@@ -49,8 +49,8 @@ interface UserApiClient {
     @GET("/user/find-password")
     suspend fun getUserFindPassword(@Query("userEmail") userEmail: String): Response<FindPasswordRes>
 
-    @PATCH("/user/withdrawal?{userEmail}")
-    suspend fun patchUserWithdrawal(@Query("userEmail") userEmail: String): Response<WithdrawalRes>
+    @PATCH("/user/withdrawal")
+    suspend fun deleteUserWithdrawal(): Response<WithdrawalRes>
 
 
     @POST("/user/likes")

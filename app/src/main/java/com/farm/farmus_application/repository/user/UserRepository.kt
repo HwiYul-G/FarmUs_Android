@@ -54,8 +54,8 @@ class UserRepository @Inject constructor(
         return userApiClient.getUserFindPassword(userEmail = userEmail)
     }
 
-    override suspend fun patchUserWithdrawal(userEmail: String): Response<WithdrawalRes> {
-        return userApiClient.patchUserWithdrawal(userEmail = userEmail)
+    override suspend fun deleteUserWithdrawal(): Response<WithdrawalRes> {
+        return userApiClient.deleteUserWithdrawal()
     }
 
     override suspend fun postUserLikeFarm(params: LikeFarmReq): Response<LikeFarmRes> {
