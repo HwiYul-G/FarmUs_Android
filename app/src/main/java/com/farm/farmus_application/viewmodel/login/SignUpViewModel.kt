@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.farm.farmus_application.model.user.signup.SignUpReq
 import com.farm.farmus_application.model.user.signup_verification.SignUpVerificationReq
 import com.farm.farmus_application.model.user.verification.VerificationReq
+import com.farm.farmus_application.model.user.verification.VerificationRes
 import com.farm.farmus_application.repository.user.UserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -17,8 +18,8 @@ import javax.inject.Inject
 class SignUpViewModel @Inject constructor(
     private val userRepo: UserRepository
 ): ViewModel() {
-    private var _isVerificationSuccess = MutableLiveData<Boolean>()
-    var isVerificationSuccess: LiveData<Boolean> = _isVerificationSuccess
+    private var _isVerificationSuccess = MutableLiveData<VerificationRes>()
+    var isVerificationSuccess: LiveData<VerificationRes> = _isVerificationSuccess
     private var _isUserSignUpSuccess = MutableLiveData<Boolean>()
     var isUserSignUpSuccess: LiveData<Boolean> = _isUserSignUpSuccess
     private var _isEmailVerificationSuccess = MutableLiveData<Boolean>()
@@ -80,8 +81,7 @@ class SignUpViewModel @Inject constructor(
             try {
                 val response = userRepo.postUserVerification(verificationReq)
                 if (response.isSuccessful) {
-                    val result = response.body()?.result ?: false
-                    _isVerificationSuccess.postValue(result)
+                    _isVerificationSuccess.postValue(response.body())
                 } else {
                     Log.e("VerificationCode", response.body().toString())
                 }

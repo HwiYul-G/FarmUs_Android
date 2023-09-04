@@ -12,7 +12,6 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import com.farm.farmus_application.utilities.ValidationCheckUtil
 import com.farm.farmus_application.databinding.FragmentSignupThirdBinding
 import com.farm.farmus_application.model.user.signup_verification.SignUpVerificationReq
@@ -48,8 +47,8 @@ class SignupThirdFragment: Fragment(){
             signupActivity!!.supportFragmentManager.popBackStack()
         }
 
-        signUpViewModel.isVerificationSuccess.observe(viewLifecycleOwner) { isSuccess ->
-            if (isSuccess) {
+        signUpViewModel.isVerificationSuccess.observe(viewLifecycleOwner) { result ->
+            if (result.result) {
                 // 인증이 성공한 상태
                 val bundle = Bundle().apply {
                     putString("idText",editTextId)
@@ -59,7 +58,11 @@ class SignupThirdFragment: Fragment(){
                 signupActivity!!.replaceFragment(4,bundle)
             } else {
                 // 인증이 실패한 상태
-                Toast.makeText(requireContext(), "인증번호가 일치하지않습니다!",Toast.LENGTH_SHORT).show()
+                if (result.message.isEmpty()) {
+                    Toast.makeText(requireContext(), "인증번호가 일치하지않습니다!",Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(requireContext(), "이미 가입된 회원입니다!",Toast.LENGTH_SHORT).show()
+                }
             }
         }
 
