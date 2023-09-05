@@ -88,11 +88,11 @@ class FarmerFarmDetailFragment : Fragment() {
             popUpMenu.show()
         }
 
-//        binding.farmerFarmDetailRequestCalendar.setOnClickListener {
-//            // 불가 날짜 bottomSheetFragment
-//            val bottomSheetDialog = UnavailableBottomSheetDialog()
-//            bottomSheetDialog.show(parentFragmentManager, "bottomSheetDialog")
-//        }
+        binding.farmerFarmDetailRequestCalendar.setOnClickListener {
+            // 불가 날짜 bottomSheetFragment
+            (activity as MainActivity).changeFragmentAddToBackStack(ManagementCalendarFragment())
+
+        }
 
         binding.farmerFarmDetailRequestList.setOnClickListener {
             // 요청온 목록 bottomSheetFragment
