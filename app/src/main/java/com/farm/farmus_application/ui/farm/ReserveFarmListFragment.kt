@@ -6,12 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.farm.farmus_application.databinding.FragmentFarmTab1Binding
 import com.farm.farmus_application.model.reserve.reserve_list.ReserveListResult
 import com.farm.farmus_application.repository.UserPrefsStorage
 import com.farm.farmus_application.ui.MainActivity
+import com.farm.farmus_application.ui.farm.adapter.ReserveFarmListRVAdapter
 import com.farm.farmus_application.ui.home.Adapter.EmptyDataObserve
 import com.farm.farmus_application.utilities.JWTUtils
 import com.farm.farmus_application.viewmodel.farm.FarmListViewModel

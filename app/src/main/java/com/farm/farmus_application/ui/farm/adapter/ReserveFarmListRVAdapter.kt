@@ -1,4 +1,4 @@
-package com.farm.farmus_application.ui.farm
+package com.farm.farmus_application.ui.farm.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +13,9 @@ import com.farm.farmus_application.databinding.RvGetFarmItemBinding
 import com.farm.farmus_application.model.reserve.reserve_list.ReserveListResult
 import java.time.LocalDate
 
-class ReserveFarmListRVAdapter() : ListAdapter<ReserveListResult, ReserveFarmListRVAdapter.ReserveFarmListViewHolder>(diffUtil) {
+class ReserveFarmListRVAdapter() : ListAdapter<ReserveListResult, ReserveFarmListRVAdapter.ReserveFarmListViewHolder>(
+    diffUtil
+) {
 
     private var listener: OnClickListener? = null
     private lateinit var binding: RvGetFarmItemBinding
