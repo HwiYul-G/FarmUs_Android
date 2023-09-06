@@ -12,7 +12,6 @@ import androidx.appcompat.view.ContextThemeWrapper
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import com.farm.farmus_application.R
 import com.farm.farmus_application.databinding.FragmentFarmerFarmDetailBinding
 import com.farm.farmus_application.ui.MainActivity
@@ -25,6 +24,7 @@ class FarmerFarmDetailFragment : Fragment() {
     private lateinit var binding: FragmentFarmerFarmDetailBinding
     private val farmDetailViewModel: FarmDetailViewModel by viewModels()
     private lateinit var farmImageAdapter: FarmImageAdapter
+    private var farmId: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -62,6 +62,7 @@ class FarmerFarmDetailFragment : Fragment() {
         farmDetailViewModel.farmDetail.observe(viewLifecycleOwner) { detailResult ->
             binding.farmDetail = detailResult
             farmImageAdapter.setData(detailResult)
+            farmId = detailResult.FarmID
         }
 
         binding.farmerFarmDetailEtcButton.setOnClickListener {
@@ -90,15 +91,20 @@ class FarmerFarmDetailFragment : Fragment() {
 
         binding.farmerFarmDetailRequestCalendar.setOnClickListener {
             // 불가 날짜 bottomSheetFragment
-            (activity as MainActivity).changeFragmentAddToBackStack(ManagementCalendarFragment())
+            val managementCalendarFragment = ManagementCalendarFragment()
+            val bundle = Bundle().apply {
+                putInt("farmId",farmId)
+            }
+            managementCalendarFragment.arguments = bundle
+            (activity as MainActivity).changeFragmentAddToBackStack(managementCalendarFragment)
 
         }
 
-        binding.farmerFarmDetailRequestList.setOnClickListener {
-            // 요청온 목록 bottomSheetFragment
-            val bottomSheetDialog = RequestBottomSheetDialog()
-            bottomSheetDialog.show(parentFragmentManager, "bottomSheetDialog")
-        }
+//        binding.farmerFarmDetailRequestList.setOnClickListener {
+//            // 요청온 목록 bottomSheetFragment
+//            val bottomSheetDialog = RequestBottomSheetDialog()
+//            bottomSheetDialog.show(parentFragmentManager, "bottomSheetDialog")
+//        }
 
     }
 

@@ -15,7 +15,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 @HiltViewModel
-class CalendarBottomSheetViewModel @Inject constructor(
+class CalendarViewModel @Inject constructor(
     private val reserveRepo: ReserveRepository,
     private val farmRepo: FarmRepository
 ): ViewModel() {

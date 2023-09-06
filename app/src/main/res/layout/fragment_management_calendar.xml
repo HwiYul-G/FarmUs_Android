@@ -80,7 +80,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:background="@color/gray_2"
-            android:layout_marginTop="330dp"
+            android:layout_marginTop="370dp"
             app:layout_constraintTop_toBottomOf="@id/management_calendar_toolbar" />
 
         <TextView
