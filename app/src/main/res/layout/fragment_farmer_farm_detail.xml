@@ -576,47 +576,45 @@
             android:background="@drawable/request_bar_background"
             app:layout_constraintBottom_toBottomOf="parent">
 
-            <!--            <androidx.appcompat.widget.AppCompatImageButton-->
-            <!--                android:id="@+id/farmer_farm_detail_request_message"-->
-            <!--                android:layout_width="50dp"-->
-            <!--                android:layout_height="50dp"-->
-            <!--                android:background="@drawable/farm_detail_request_background"-->
-            <!--                android:src="@drawable/chat_green_vector_image"-->
-            <!--                app:layout_constraintStart_toStartOf="parent"-->
-            <!--                app:layout_constraintTop_toTopOf="parent"-->
-            <!--                app:layout_constraintBottom_toBottomOf="parent"-->
-            <!--                android:layout_marginStart="16dp"-->
-            <!--                android:layout_marginTop="13dp"-->
-            <!--                android:layout_marginBottom="17dp" />-->
+                        <androidx.appcompat.widget.AppCompatImageButton
+                            android:id="@+id/farmer_farm_detail_request_message"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:background="@drawable/farm_detail_request_background"
+                            android:src="@drawable/chat_green_vector_image"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="13dp"
+                            android:layout_marginBottom="17dp" />
 
-            <!--            <androidx.appcompat.widget.AppCompatImageButton-->
-            <!--                android:id="@+id/farmer_farm_detail_request_calendar"-->
-            <!--                android:layout_width="50dp"-->
-            <!--                android:layout_height="50dp"-->
-            <!--                android:background="@drawable/farm_detail_request_background"-->
-            <!--                android:src="@drawable/calendar_green_vector_image"-->
-            <!--                app:layout_constraintStart_toEndOf="@id/farmer_farm_detail_request_message"-->
-            <!--                app:layout_constraintTop_toTopOf="@id/farmer_farm_detail_request_message"-->
-            <!--                app:layout_constraintBottom_toBottomOf="@id/farmer_farm_detail_request_message"-->
-            <!--                android:layout_marginStart="13dp" />-->
+                        <androidx.appcompat.widget.AppCompatImageButton
+                            android:id="@+id/farmer_farm_detail_request_calendar"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:background="@drawable/farm_detail_request_background"
+                            android:src="@drawable/calendar_green_vector_image"
+                            app:layout_constraintStart_toEndOf="@id/farmer_farm_detail_request_message"
+                            app:layout_constraintTop_toTopOf="@id/farmer_farm_detail_request_message"
+                            app:layout_constraintBottom_toBottomOf="@id/farmer_farm_detail_request_message"
+                            android:layout_marginStart="13dp" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/farmer_farm_detail_request_list"
                 style="@style/Body1Med"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="13dp"
+                android:layout_marginStart="13dp"
                 android:layout_marginEnd="16dp"
-                android:layout_marginBottom="17dp"
                 android:background="@drawable/farm_detail_request_background"
                 android:outlineProvider="none"
                 android:text="@string/farmer_farm_detail_request"
                 android:textColor="@color/main_green"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:layout_constraintStart_toEndOf="@id/farmer_farm_detail_request_calendar"
+                app:layout_constraintTop_toTopOf="@id/farmer_farm_detail_request_message"
+                app:layout_constraintBottom_toBottomOf="@id/farmer_farm_detail_request_message"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

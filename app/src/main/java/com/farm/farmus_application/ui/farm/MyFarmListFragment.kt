@@ -7,12 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.farm.farmus_application.databinding.FragmentFarmTab2Binding
 import com.farm.farmus_application.repository.UserPrefsStorage
 import com.farm.farmus_application.ui.MainActivity
 import com.farm.farmus_application.ui.account.EnrollFarmerFragment
+import com.farm.farmus_application.ui.farm.adapter.MyFarmRVAdapter
 import com.farm.farmus_application.utilities.JWTUtils
 import com.farm.farmus_application.viewmodel.farm.FarmListViewModel
 import dagger.hilt.android.AndroidEntryPoint

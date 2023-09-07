@@ -14,7 +14,6 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import com.farm.farmus_application.R
 import com.farm.farmus_application.databinding.DialogBottomSheetCalendarBinding
 import com.farm.farmus_application.model.farm.detail.DetailResult
@@ -22,7 +21,7 @@ import com.farm.farmus_application.model.reserve.request.ReserveRequestReq
 import com.farm.farmus_application.model.reserve.unbookable.UnBookableResult
 import com.farm.farmus_application.repository.UserPrefsStorage
 import com.farm.farmus_application.utilities.JWTUtils
-import com.farm.farmus_application.viewmodel.calendar.CalendarBottomSheetViewModel
+import com.farm.farmus_application.viewmodel.calendar.CalendarViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.DayViewDecorator
@@ -38,7 +37,7 @@ class CalendarBottomSheetDialog(private val farmDetail: DetailResult): BottomShe
 
     private lateinit var binding: DialogBottomSheetCalendarBinding
 //    private lateinit var calendarViewModel: CalendarBottomSheetViewModel
-    private val calendarViewModel: CalendarBottomSheetViewModel by viewModels()
+    private val calendarViewModel: CalendarViewModel by viewModels()
     private lateinit var firstSelectedDay: CalendarDay
     private lateinit var lastSelectedDay: CalendarDay
     private var unBookDayList: List<UnBookableResult> = listOf()

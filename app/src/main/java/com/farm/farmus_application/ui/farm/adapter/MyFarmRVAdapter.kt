@@ -1,4 +1,4 @@
-package com.farm.farmus_application.ui.farm
+package com.farm.farmus_application.ui.farm.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -11,7 +11,9 @@ import com.farm.farmus_application.R
 import com.farm.farmus_application.databinding.RvMyFarmItemBinding
 import com.farm.farmus_application.model.farm.myfarm.MyFarmItem
 
-class MyFarmRVAdapter(val onClick: (MyFarmItem) -> Unit) : ListAdapter<MyFarmItem, MyFarmRVAdapter.ViewHolder>(diffUtil) {
+class MyFarmRVAdapter(val onClick: (MyFarmItem) -> Unit) : ListAdapter<MyFarmItem, MyFarmRVAdapter.ViewHolder>(
+    diffUtil
+) {
 
     private lateinit var binding : RvMyFarmItemBinding
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

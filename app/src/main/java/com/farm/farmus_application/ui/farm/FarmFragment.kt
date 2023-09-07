@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import com.farm.farmus_application.R
 import com.farm.farmus_application.databinding.FragmentFarmBinding
 import com.farm.farmus_application.ui.MainActivity
+import com.farm.farmus_application.ui.farm.adapter.ViewPagerAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 
 // TODO: Rename parameter arguments, choose names that match
