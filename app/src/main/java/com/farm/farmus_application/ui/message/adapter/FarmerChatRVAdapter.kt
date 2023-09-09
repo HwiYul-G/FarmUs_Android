@@ -3,31 +3,25 @@ package com.farm.farmus_application.ui.message.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.farm.farmus_application.databinding.ItemContainerDateBinding
 import com.farm.farmus_application.databinding.ItemContainerReceivedMessageBinding
 import com.farm.farmus_application.databinding.ItemContainerSentMessageBinding
+import com.farm.farmus_application.repository.UserPrefsStorage
 import com.farm.farmus_application.ui.message.ChatMessage
+import com.farm.farmus_application.utilities.JWTUtils
 
 class FarmerChatRVAdapter(
     private val chatMessages: List<ChatMessage>,
-    private val senderId: String
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    enum class ViewType {
-        VIEW_TYPE_SENT, VIEW_TYPE_RECEIVED, VIEW_TYPE_DAY
-    }
+    private val jwtToken = UserPrefsStorage.accessToken
+    private val name = JWTUtils.decoded(jwtToken.toString())?.tokenBody?.name ?: ""
 
     override fun getItemViewType(position: Int): Int {
         val chatMessage = chatMessages[position]
-        return when {
-            chatMessage.senderId == senderId -> {
+        return when (chatMessage.name) {
+            name -> {
                 ClientChatRVAdapter.ViewType.VIEW_TYPE_SENT.ordinal
             }
-
-            chatMessage.senderId == "0" && chatMessage.receiverId == "0" -> {
-                ClientChatRVAdapter.ViewType.VIEW_TYPE_DAY.ordinal
-            }
-
             else -> {
                 ClientChatRVAdapter.ViewType.VIEW_TYPE_RECEIVED.ordinal
             }
@@ -47,11 +41,10 @@ class FarmerChatRVAdapter(
                     ItemContainerReceivedMessageBinding.inflate(layoutInflater, parent, false)
                 ReceivedMessageViewHolder(binding)
             }
-
-            ClientChatRVAdapter.ViewType.VIEW_TYPE_DAY -> {
-                val binding = ItemContainerDateBinding.inflate(layoutInflater, parent, false)
-                DayViewHolder(binding)
-            }
+//            ClientChatRVAdapter.ViewType.VIEW_TYPE_DAY -> {
+//                val binding = ItemContainerDateBinding.inflate(layoutInflater, parent, false)
+//                DayViewHolder(binding)
+//            }
         }
     }
 
@@ -70,9 +63,9 @@ class FarmerChatRVAdapter(
                 chatMessage
             )
 
-            ClientChatRVAdapter.ViewType.VIEW_TYPE_DAY -> (holder as DayViewHolder).setData(
-                chatMessage
-            )
+//            ClientChatRVAdapter.ViewType.VIEW_TYPE_DAY -> (holder as DayViewHolder).setData(
+//                chatMessage
+//            )
         }
     }
 
@@ -80,24 +73,26 @@ class FarmerChatRVAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         fun setData(chatMessage: ChatMessage) {
-            binding.textMessage.text = chatMessage.message
-            binding.textDateTime.text = chatMessage.dateTime
+//            binding.textMessage.text = chatMessage.message
+//            binding.textDateTime.text = chatMessage.dateTime
+            binding.chatModel = chatMessage
         }
     }
 
     class ReceivedMessageViewHolder(private val binding: ItemContainerReceivedMessageBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun setData(chatMessage: ChatMessage) {
-            binding.textMessage.text = chatMessage.message
-            binding.textDateTime.text = chatMessage.dateTime
+//            binding.textMessage.text = chatMessage.message
+//            binding.textDateTime.text = chatMessage.dateTime
+            binding.chatModel = chatMessage
         }
     }
 
-    class DayViewHolder(private val binding: ItemContainerDateBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        fun setData(chatMessage: ChatMessage) {
-            binding.tvDate.text = chatMessage.message
-        }
-    }
+//    class DayViewHolder(private val binding: ItemContainerDateBinding) :
+//        RecyclerView.ViewHolder(binding.root) {
+//        fun setData(chatMessage: ChatMessage) {
+//            binding.tvDate.text = chatMessage.message
+//        }
+//    }
 
 }
