@@ -78,9 +78,12 @@ class FarmerFarmDetailFragment : Fragment() {
             popUpMenu.setOnMenuItemClickListener { item ->
                 when (item.itemId) {
                     R.id.modify_post -> {
-                        Toast.makeText(requireContext(), "글 수정 클릭", Toast.LENGTH_SHORT).show()
+                        //글 수정 클릭
+                        farmDetailViewModel.saveTempFarmDetail(farmDetailViewModel.farmDetail.value) //글 수정 뷰로 데이터 넘기기
+                        (activity as MainActivity).changeFragment(FarmModifyFragment())
                     }
                     R.id.delete_post -> {
+                        //글 삭제 클릭
                         Toast.makeText(requireContext(), "글 삭제 클릭", Toast.LENGTH_SHORT).show()
                     }
                 }
@@ -117,6 +120,5 @@ class FarmerFarmDetailFragment : Fragment() {
         farmImageAdapter = FarmImageAdapter()
         binding.farmerFarmDetailImage.adapter = farmImageAdapter
     }
-
 
 }
