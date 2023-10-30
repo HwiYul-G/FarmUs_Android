@@ -58,7 +58,10 @@ class FirstFarmRegistrationFragment: Fragment() {
 
         //뒤로가기 버튼
         binding.farmFirstRegistrationToolbar.toolbarWithoutTitleBackButton.setOnClickListener{
-            (activity as MainActivity).changeFragment(FarmFragment())
+            (activity as MainActivity).supportFragmentManager.apply {
+                beginTransaction().remove(this@FirstFarmRegistrationFragment).commit()
+                popBackStack()
+            }
         }
 
         binding.farmFirstRegistrationToolbarNextButton.setOnClickListener {
