@@ -76,7 +76,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:textColor="@color/text_2"
-            squareMeters="@{myFarmItem.squaredMeters}"
+            changeSquareMeters="@{myFarmItem.squaredMeters}"
             app:layout_constraintStart_toEndOf="@id/ic_farm_size"
             app:layout_constraintTop_toTopOf="@id/ic_farm_size"
             tools:text="4.5평(15㎡)" />
