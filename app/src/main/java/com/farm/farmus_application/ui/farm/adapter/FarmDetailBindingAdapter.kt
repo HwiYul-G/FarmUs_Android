@@ -1,9 +1,10 @@
-package com.farm.farmus_application
+package com.farm.farmus_application.ui.farm.adapter
 
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
+import com.farm.farmus_application.R
 import java.text.DecimalFormat
 import kotlin.math.roundToInt
 
@@ -22,7 +23,7 @@ object FarmDetailBindingAdapter {
     }
 
     @JvmStatic
-    @BindingAdapter("squareMeters")
+    @BindingAdapter("changeSquareMeters")
     fun changeSquareMeters(view: TextView, squareMeters: Int) {
         val pyeong = (squareMeters / 3.3).roundToInt().toString()
         view.text = view.context.getString(R.string.change_squareMeter, pyeong, squareMeters)

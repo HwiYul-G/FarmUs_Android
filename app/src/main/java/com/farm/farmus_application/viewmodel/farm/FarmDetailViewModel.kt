@@ -9,12 +9,14 @@ import com.farm.farmus_application.model.farm.detail.DetailResult
 import com.farm.farmus_application.repository.farm.FarmRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import java.io.File
 import javax.inject.Inject
 
 @HiltViewModel
 class FarmDetailViewModel @Inject constructor(
     private val farmRepo: FarmRepository
 ): ViewModel() {
+    private val TAG = "FarmDetailViewModel"
 
     private var _farmDetail = MutableLiveData<DetailResult>()
     var farmDetail: LiveData<DetailResult> = _farmDetail
@@ -33,6 +35,12 @@ class FarmDetailViewModel @Inject constructor(
             } catch (e: Exception) {
                 e.printStackTrace()
             }
+        }
+    }
+
+    fun saveTempFarmDetail(farmDetail: DetailResult?) {
+        viewModelScope.launch {
+            farmRepo.saveTempFarmDetail(farmDetail)
         }
     }
 }

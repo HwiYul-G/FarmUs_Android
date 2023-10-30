@@ -1,6 +1,7 @@
 package com.farm.farmus_application.repository.farm
 
 import com.farm.farmus_application.model.farm.detail.DetailRes
+import com.farm.farmus_application.model.farm.editinfo.EditinfoRes
 import com.farm.farmus_application.model.farm.list.ListRes
 import com.farm.farmus_application.model.farm.myfarm.MyFarmRes
 import com.farm.farmus_application.model.farm.phone.PhoneNumberRes
@@ -30,6 +31,18 @@ interface FarmDataSourceInterface {
         tag: String,
         imageFiles: List<File>
     ): Response<PostingsRes>
+
+    suspend fun patchFarmEditinfo(
+        farmId: Int,
+        farmName: String,
+        farmInfo: String,
+        locationBig: String,
+        locationMid: String,
+        locationSmall: String,
+        size: String,
+        price: String,
+        file: List<File>
+    ): Response<EditinfoRes>
 
     suspend fun patchFarmRegister(): Response<RegisterRes>
 

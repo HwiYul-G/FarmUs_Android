@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="farmDetail"
+            type="com.farm.farmus_application.model.farm.detail.DetailResult" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,7 +25,8 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:text="@string/text_complete"
-            android:textColor="@color/main"
+            android:enabled="false"
+            android:textColor="@color/farm_modify_complete_color"
             app:layout_constraintBottom_toBottomOf="@id/farm_modify_toolbar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/farm_modify_toolbar" />
@@ -67,6 +71,8 @@
                 <EditText
                     android:id="@+id/farm_modify_farm_title_edit"
                     style="@style/Body1Reg"
+                    android:text="@{farmDetail.name}"
+                    tools:text="서울 농장"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="24dp"
@@ -75,11 +81,10 @@
                     android:inputType="text"
                     android:maxLength="20"
                     android:maxLines="1"
-                    android:textColorHint="@color/text_1"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/farm_modify_farm_title"
                     app:layout_constraintTop_toTopOf="@id/farm_modify_farm_title"
-                    tools:hint="서울 유일 농장" />
+                    />
 
                 <View
                     android:layout_width="match_parent"
@@ -116,6 +121,7 @@
                     android:maxLength="150"
                     android:textColorHint="@color/text_1"
                     android:textSize="16sp"
+                    android:text="@{farmDetail.description}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/farm_modify_farm_introduction"
@@ -141,22 +147,22 @@
                     <TextView
                         android:id="@+id/introduction_divider"
                         style="@style/Body2Reg"
+                        android:text="/"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/text_3"
                         app:layout_constraintStart_toEndOf="@id/introduction_edit_count"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:text="/" />
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/introduction_edit_max"
                         style="@style/Body2Reg"
+                        android:text="150"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/text_3"
                         app:layout_constraintStart_toEndOf="@id/introduction_divider"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:text="150" />
+                        app:layout_constraintTop_toTopOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -172,35 +178,16 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/farm_modify_farm_introduction_edit" />
 
-                <ImageView
-                    android:id="@+id/farm_modify_camera_button"
-                    android:layout_width="wrap_content"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/image_recycler_view"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="17dp"
-                    android:background="@drawable/camera_green_background_vector_image"
-                    android:scaleType="center"
-                    android:src="@drawable/add_a_photo"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/farm_modify_farm_image_title" />
-
-                <ImageView
-                    android:id="@+id/farm_modify_farm_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="13dp"
-                    android:background="@drawable/camera_gray_background_vector_image"
-                    android:scaleType="center"
-                    app:layout_constraintStart_toEndOf="@id/farm_modify_camera_button"
-                    app:layout_constraintTop_toTopOf="@id/farm_modify_camera_button" />
-
-                <ImageView
-                    android:id="@+id/farm_modify_delete_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/delete_circle_vector_image"
-                    app:layout_constraintEnd_toEndOf="@id/farm_modify_farm_image"
-                    app:layout_constraintTop_toTopOf="@id/farm_modify_farm_image" />
 
                 <TextView
                     android:id="@+id/farm_modify_location_title"
@@ -212,28 +199,76 @@
                     android:text="@string/farm_second_registration_location"
                     android:textColor="@color/text_2"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/farm_modify_camera_button" />
+                    app:layout_constraintTop_toBottomOf="@id/image_recycler_view" />
 
-                <TextView
-                    android:id="@+id/farm_modify_address"
-                    style="@style/Body1Reg"
+                <!--시/도 선택에 따르 시/군/구 선택하는 dropdown 만들기-->
+                <LinearLayout
+                    android:id="@+id/farm_modify_location_dropdown"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
-                    android:textColor="@color/text_1"
-                    app:layout_constraintBottom_toBottomOf="@id/farm_modify_location_title"
-                    app:layout_constraintEnd_toStartOf="@id/farm_modify_address_delete_button"
-                    app:layout_constraintTop_toTopOf="@id/farm_modify_location_title"
-                    tools:text="서울특별시 강동구 고덕1동" />
+                    app:layout_constraintStart_toStartOf="@id/farm_modify_location_title"
+                    app:layout_constraintTop_toBottomOf="@id/farm_modify_location_title"
+                    android:layout_marginTop="13dp"
+                    android:layout_marginBottom="25dp"
+                    android:orientation="horizontal">
 
-                <ImageView
-                    android:id="@+id/farm_modify_address_delete_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/small_delete_circle_vector_image"
-                    app:layout_constraintBottom_toBottomOf="@id/farm_modify_location_title"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/farm_modify_location_title" />
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/city_inputLayout"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                        android:layout_width="156dp"
+                        android:layout_height="64dp"
+                        app:boxStrokeColor="@color/main"
+                        app:endIconDrawable="@drawable/next_down_vector_image"
+                        app:endIconTint="@color/gray_2"
+                        android:background="@drawable/area_dropdown_bg"
+                        android:textColorHint="@color/text_3"
+                        app:hintTextColor="@color/text_3"
+                        android:hint="시/도"
+                        >
+
+                        <AutoCompleteTextView
+                            android:id="@+id/city_text_item"
+                            style="@style/Body2Med"
+                            android:background="@drawable/area_dropdown_bg"
+                            android:dropDownSelector="@color/main_hover"
+                            android:dropDownHeight="300dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+
+                            android:inputType="none"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/town_inputLayout"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                        android:layout_width="156dp"
+                        android:layout_height="64dp"
+                        android:layout_marginLeft="16dp"
+                        app:boxStrokeColor="@color/main"
+                        app:endIconDrawable="@drawable/next_down_vector_image"
+                        app:endIconTint="@color/gray_2"
+                        android:background="@drawable/area_dropdown_bg"
+                        android:textColorHint="@color/text_3"
+                        app:hintTextColor="@color/text_3"
+                        android:hint="시/군/구"
+                        >
+
+                        <AutoCompleteTextView
+                            android:id="@+id/town_text_item"
+                            style="@style/Body2Med"
+                            android:background="@drawable/area_dropdown_bg"
+                            android:dropDownSelector="@color/main_hover"
+                            android:dropDownHeight="wrap_content"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+
+                            android:inputType="none"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/farm_modify_total_area_title"
@@ -245,7 +280,7 @@
                     android:text="@string/farm_second_registration_total_area"
                     android:textColor="@color/text_2"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/farm_modify_location_title" />
+                    app:layout_constraintTop_toBottomOf="@id/farm_modify_location_dropdown" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/farm_modify_total_area_first"
@@ -261,6 +296,7 @@
                     <EditText
                         android:id="@+id/total_conversion_first_text"
                         style="@style/Body1Reg"
+                        pyeong="@{farmDetail.squaredMeters}"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:layout_marginEnd="8dp"
@@ -317,6 +353,7 @@
                     <EditText
                         android:id="@+id/total_conversion_second_text"
                         style="@style/Body1Reg"
+                        squareMeters="@{farmDetail.squaredMeters}"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:layout_marginEnd="8dp"
@@ -373,6 +410,7 @@
                     <EditText
                         android:id="@+id/rental_conversion_first_text"
                         style="@style/Body1Reg"
+                        pyeong="@{farmDetail.squaredMeters}"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:layout_marginEnd="8dp"
@@ -429,6 +467,7 @@
                     <EditText
                         android:id="@+id/rental_conversion_second_text"
                         style="@style/Body1Reg"
+                        squareMeters="@{farmDetail.squaredMeters}"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:layout_marginEnd="8dp"
@@ -470,13 +509,19 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/farm_modify_rental_area_first" />
 
-                <TextView
+                <EditText
                     android:id="@+id/farm_modify_rental_price"
                     style="@style/Body1Reg"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="10dp"
+                    android:inputType="number"
                     android:textColor="@color/text_2"
+                    android:textColorHint="@color/gray_1"
+                    android:background="@drawable/edittext_no_underline"
+                    android:gravity="center_vertical|end"
+                    price="@{farmDetail.price}"
+                    android:hint="0"
                     app:layout_constraintBottom_toBottomOf="@id/rental_price_unit"
                     app:layout_constraintEnd_toStartOf="@id/rental_price_unit"
                     app:layout_constraintTop_toTopOf="@id/rental_price_unit"
@@ -495,6 +540,7 @@
                     app:layout_constraintTop_toBottomOf="@id/farm_modify_rental_area_first" />
 
                 <View
+                    android:id="@+id/rental_price_underline"
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
                     android:layout_marginStart="16dp"
@@ -505,6 +551,16 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/rental_price_unit" />
 
+                <TextView
+                    android:id="@+id/rental_price_error"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:textSize="12dp"
+                    android:textColor="@color/sub_red"
+                    android:text="최소 분양금액은 1000원입니다."
+                    app:layout_constraintEnd_toEndOf="@id/rental_price_underline"
+                    app:layout_constraintTop_toBottomOf="@id/rental_price_underline" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </ScrollView>
