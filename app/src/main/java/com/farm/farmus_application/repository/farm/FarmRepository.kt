@@ -1,6 +1,9 @@
 package com.farm.farmus_application.repository.farm
 
+import android.util.Log
 import com.farm.farmus_application.model.farm.detail.DetailRes
+import com.farm.farmus_application.model.farm.detail.DetailResult
+import com.farm.farmus_application.model.farm.editinfo.EditinfoRes
 import com.farm.farmus_application.model.farm.list.ListRes
 import com.farm.farmus_application.model.farm.myfarm.MyFarmRes
 import com.farm.farmus_application.model.farm.phone.PhoneNumberRes
@@ -12,6 +15,8 @@ import com.farm.farmus_application.network.FarmApiClient
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Response
 import java.io.File
 import java.util.*
@@ -21,6 +26,9 @@ class FarmRepository @Inject constructor(
     private val farmApiClient: FarmApiClient
 ) : FarmDataSourceInterface {
 
+    companion object {
+        private var tempFarmDetail: DetailResult? = null
+    }
     override suspend fun getFarmList(email : String): Response<ListRes> {
         return farmApiClient.getFarmList(email)
     }
@@ -41,18 +49,18 @@ class FarmRepository @Inject constructor(
         imageFiles: List<File>
     ): Response<PostingsRes> {
         // 텍스트 데이터를 RequestBody로 변환
-        val nameRequestBody = RequestBody.create("text/plain".toMediaTypeOrNull(), name)
-        val ownerRequestBody = RequestBody.create("text/plain".toMediaTypeOrNull(), owner)
-        val startDateRequestBody = RequestBody.create("text/plain".toMediaTypeOrNull(), startDate)
-        val endDateRequestBody = RequestBody.create("text/plain".toMediaTypeOrNull(), endDate)
-        val priceRequestBody = RequestBody.create("text/plain".toMediaTypeOrNull(), price)
-        val squareMetersRequestBody = RequestBody.create("text/plain".toMediaTypeOrNull(), squaredMeters)
-        val locationBigRequestBody = RequestBody.create("text/plain".toMediaTypeOrNull(), locationBig)
-        val locationMidRequestBody = RequestBody.create("text/plain".toMediaTypeOrNull(), locationMid)
-        val locationSmallRequestBody = RequestBody.create("text/plain".toMediaTypeOrNull(), locationSmall)
-        val descriptionRequestBody = RequestBody.create("text/plain".toMediaTypeOrNull(), description)
-        val categoryRequestBody = RequestBody.create("text/plain".toMediaTypeOrNull(), category)
-        val tagRequestBody = RequestBody.create("text/plain".toMediaTypeOrNull(), tag)
+        val nameRequestBody = name.toRequestBody("text/plain".toMediaTypeOrNull())
+        val ownerRequestBody = owner.toRequestBody("text/plain".toMediaTypeOrNull())
+        val startDateRequestBody = startDate.toRequestBody("text/plain".toMediaTypeOrNull())
+        val endDateRequestBody = endDate.toRequestBody("text/plain".toMediaTypeOrNull())
+        val priceRequestBody = price.toRequestBody("text/plain".toMediaTypeOrNull())
+        val squareMetersRequestBody = squaredMeters.toRequestBody("text/plain".toMediaTypeOrNull())
+        val locationBigRequestBody = locationBig.toRequestBody("text/plain".toMediaTypeOrNull())
+        val locationMidRequestBody = locationMid.toRequestBody("text/plain".toMediaTypeOrNull())
+        val locationSmallRequestBody = locationSmall.toRequestBody("text/plain".toMediaTypeOrNull())
+        val descriptionRequestBody = description.toRequestBody("text/plain".toMediaTypeOrNull())
+        val categoryRequestBody = category.toRequestBody("text/plain".toMediaTypeOrNull())
+        val tagRequestBody = tag.toRequestBody("text/plain".toMediaTypeOrNull())
 
         // 이미지 데이터를 MultipartBody.Part로 변환
         val imageParts = mutableListOf<MultipartBody.Part>()
@@ -62,7 +70,7 @@ class FarmRepository @Inject constructor(
                 "png" -> "image/png"
                 else -> return@forEach
             }
-            val imageRequestBody = RequestBody.create(mimeType.toMediaTypeOrNull(), imageFile)
+            val imageRequestBody = imageFile.asRequestBody(mimeType.toMediaTypeOrNull())
             val imagePart = MultipartBody.Part.createFormData("file", imageFile.path, imageRequestBody)
             imageParts.add(imagePart)
         }
@@ -81,6 +89,52 @@ class FarmRepository @Inject constructor(
             description = descriptionRequestBody,
             category = categoryRequestBody,
             tag = tagRequestBody,
+            file = imageParts
+        )
+    }
+
+    override suspend fun patchFarmEditinfo(
+        farmId: Int,
+        farmName: String,
+        farmInfo: String,
+        locationBig: String,
+        locationMid: String,
+        locationSmall: String,
+        size: String,
+        price: String,
+        file: List<File>
+    ): Response<EditinfoRes> {
+        // 텍스트 데이터를 RequestBody로 변환
+        val farmNameRequestBody = farmName.toRequestBody("text/plain".toMediaTypeOrNull())
+        val farmInfoRequestBody = farmInfo.toRequestBody("text/plain".toMediaTypeOrNull())
+        val locationBigRequestBody = locationBig.toRequestBody("text/plain".toMediaTypeOrNull())
+        val locationMidRequestBody = locationMid.toRequestBody("text/plain".toMediaTypeOrNull())
+        val locationSmallRequestBody = locationSmall.toRequestBody("text/plain".toMediaTypeOrNull())
+        val sizeRequestBody = size.toRequestBody("text/plain".toMediaTypeOrNull())
+        val priceRequestBody = price.toRequestBody("text/plain".toMediaTypeOrNull())
+
+        // 이미지 데이터를 MultipartBody.Part로 변환
+        val imageParts = mutableListOf<MultipartBody.Part>()
+        file.forEach { imageFile ->
+            val mimeType = when(imageFile.extension.toLowerCase(Locale.ROOT)){
+                "jpeg","jpg" -> "image/jpeg"
+                "png" -> "image/png"
+                else -> return@forEach
+            }
+            val imageRequestBody = imageFile.asRequestBody(mimeType.toMediaTypeOrNull())
+            val imagePart = MultipartBody.Part.createFormData("file", imageFile.path, imageRequestBody)
+            imageParts.add(imagePart)
+        }
+
+        return farmApiClient.patchFarmEditinfo(
+            farmId = farmId,
+            farmName = farmNameRequestBody,
+            farmInfo = farmInfoRequestBody,
+            locationBig = locationBigRequestBody,
+            locationMid = locationMidRequestBody,
+            locationSmall = locationSmallRequestBody,
+            size = sizeRequestBody,
+            price = priceRequestBody,
             file = imageParts
         )
     }
@@ -112,5 +166,17 @@ class FarmRepository @Inject constructor(
     override suspend fun getFavoriteFarmList(email: String): Response<FavoriteFarmRes> {
         return farmApiClient.getFavoriteFarmList(email)
     }
+
+    // 글 수정을 위한 데이터 넘기기------------------
+    suspend fun saveTempFarmDetail(farmDetail: DetailResult?){
+        tempFarmDetail = farmDetail
+    }
+
+    suspend fun getTempFarmDetail(): DetailResult?{
+        val farmDetail = tempFarmDetail
+        tempFarmDetail = null
+        return farmDetail
+    }
+    // -----------------------------------------
     
 }

@@ -1,6 +1,7 @@
 package com.farm.farmus_application.network
 
 import com.farm.farmus_application.model.farm.detail.DetailRes
+import com.farm.farmus_application.model.farm.editinfo.EditinfoRes
 import com.farm.farmus_application.model.farm.list.ListRes
 import com.farm.farmus_application.model.farm.myfarm.MyFarmRes
 import com.farm.farmus_application.model.farm.phone.PhoneNumberRes
@@ -34,6 +35,20 @@ interface FarmApiClient {
         @Part("tag") tag: RequestBody,
         @Part file: List<MultipartBody.Part> // 사진 파일
     ): Response<PostingsRes>
+
+    @Multipart
+    @PATCH("/farm/editinfo")
+    suspend fun patchFarmEditinfo(
+        @Query("farmId") farmId: Int,
+        @Part("farmName") farmName: RequestBody,
+        @Part("farmInfo") farmInfo: RequestBody,
+        @Part("LocationBig") locationBig: RequestBody,
+        @Part("LocationMid") locationMid: RequestBody,
+        @Part("LocationSmall") locationSmall: RequestBody,
+        @Part("size") size: RequestBody,
+        @Part("price") price: RequestBody,
+        @Part file: List<MultipartBody.Part>
+    ): Response<EditinfoRes>
 
     @PATCH("/farm/register")
     suspend fun patchFarmRegister(): Response<RegisterRes>
