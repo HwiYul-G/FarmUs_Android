@@ -9,7 +9,10 @@ import com.farm.farmus_application.model.farm.myfarm.MyFarmRes
 import com.farm.farmus_application.model.farm.phone.PhoneNumberRes
 import com.farm.farmus_application.model.farm.postings.PostingsRes
 import com.farm.farmus_application.model.farm.register.RegisterRes
-import com.farm.farmus_application.model.farm.search.SearchedRes
+import com.farm.farmus_application.model.farm.search.SearchedRes import com.farm.farmus_application.model.farm.unavailableDate.DeleteDateRes
+import com.farm.farmus_application.model.farm.unavailableDate.RetrieveDateRes
+import com.farm.farmus_application.model.farm.unavailableDate.UnavailableDateAdditionReq
+import com.farm.farmus_application.model.farm.unavailableDate.UnavailaleDateAdditionRes
 import com.farm.farmus_application.model.favorite.FavoriteFarmRes
 import com.farm.farmus_application.network.FarmApiClient
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -178,5 +181,15 @@ class FarmRepository @Inject constructor(
         return farmDetail
     }
     // -----------------------------------------
+    override suspend fun postUnavailableDate(params : UnavailableDateAdditionReq) : Response<UnavailaleDateAdditionRes>{
+        return farmApiClient.postUnavailableDate(params)
+    }
+
+    override suspend fun putDeleteUnavailableDate(farmDateID : Int) : Response<DeleteDateRes>{
+        return farmApiClient.putDeleteUnavailableDate(farmDateID)
+    }
+    override suspend fun getUnavailableDate(farmId : Int) : Response<RetrieveDateRes>{
+        return farmApiClient.getUnavailableDate(farmId)
+    }
     
 }
