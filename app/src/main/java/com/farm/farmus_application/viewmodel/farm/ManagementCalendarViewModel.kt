@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.farm.farmus_application.model.farm.unavailableDate.UnavailableDateAdditionReq
 import com.farm.farmus_application.model.farm.unavailableDate.UnavailableDateInfo
 import com.farm.farmus_application.repository.farm.FarmDataSourceInterface
+import com.prolificinteractive.materialcalendarview.CalendarDay
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -25,6 +26,9 @@ class ManagementCalendarViewModel @Inject constructor(
 
     private val _unavailableDateInfoList = MutableLiveData<List<UnavailableDateInfo>>()
     val unavailableDateInfoList: LiveData<List<UnavailableDateInfo>> = _unavailableDateInfoList
+
+    private val _unavailableDates = MutableLiveData<List<CalendarDay>>()
+    val unavailableDates: LiveData<List<CalendarDay>> get() = _unavailableDates
 
     private val _isSuccessDeleteDate = MutableLiveData<Boolean>()
     val isSuccessDeleteDate: LiveData<Boolean> = _isSuccessDeleteDate
@@ -86,6 +90,25 @@ class ManagementCalendarViewModel @Inject constructor(
                 response.body()?.let {
                     if (it.isSuccess) {
                         _unavailableDateInfoList.postValue(it.result)
+                        val unavailableDatesForCalendar = it.result.flatMap { dateInfo->
+                            val startDate = dateInfo.getStartDate()
+                            val endDate = dateInfo.getEndDate()
+                            val dates = mutableListOf<CalendarDay>()
+
+                            val startCalendar = java.util.Calendar.getInstance().apply { time = startDate }
+                            val endCalendar = java.util.Calendar.getInstance().apply { time = endDate }
+
+                            while (!startCalendar.after(endCalendar)) {
+                                dates.add(
+                                    CalendarDay.from(startCalendar.get(java.util.Calendar.YEAR),
+                                    startCalendar.get(java.util.Calendar.MONTH) + 1,
+                                    startCalendar.get(java.util.Calendar.DAY_OF_MONTH))
+                                )
+                                startCalendar.add(java.util.Calendar.DAY_OF_MONTH, 1)
+                            }
+                            dates
+                        }
+                        _unavailableDates.postValue(unavailableDatesForCalendar)
                     } else {
                         _errorMessage.value = "이용 불가 기간 목록을 불러오는 데 문제가 발생했습니다."
                         Log.e(TAG, response.errorBody()?.string() ?: response.message())
@@ -95,6 +118,10 @@ class ManagementCalendarViewModel @Inject constructor(
                 e.printStackTrace()
             }
         }
+    }
+
+    fun isSelectedDateUnavailable(selectedDate: CalendarDay): Boolean {
+        return unavailableDates.value?.contains(selectedDate) ?: false
     }
 
 

@@ -31,8 +31,6 @@ class ManagementCalendarFragment : Fragment(), OnDeleteClickListener {
     private lateinit var firstSelectedDay: CalendarDay
     private lateinit var lastSelectedDay: CalendarDay
     private var farmId = 0
-    private var unBookDayList: List<UnBookableResult> = listOf()
-    private val calendarViewModel: CalendarViewModel by viewModels()
     private val managementCalendarViewModel: ManagementCalendarViewModel by viewModels()
     private val managementRVAdapter = ManagementRVAdapter(this)
 
@@ -65,21 +63,16 @@ class ManagementCalendarFragment : Fragment(), OnDeleteClickListener {
             }
         }
 
-        calendarViewModel.unBookable.observe(viewLifecycleOwner) { result ->
-            if (result.isSuccess) {
-                result.result?.let {
-                    binding.managementCalendar.addDecorator(UnBookableDayDecorator(it))
-                    unBookDayList = it
-                    Log.e("unBookDayList", "$unBookDayList")
-                }
-            } else {
-                Toast.makeText(requireContext(), result.message, Toast.LENGTH_SHORT).show()
-            }
-        }
 
         binding.managementCalendar.setOnDateChangedListener { widget, date, _ ->
+            if(managementCalendarViewModel.isSelectedDateUnavailable(date)){
+                Toast.makeText(context, "이미 등록된 날짜입니다.", Toast.LENGTH_SHORT).show()
+                return@setOnDateChangedListener
+            }
+
             widget.apply {
                 removeDecorators()
+                addDecorator(UnavailableDatesDecorator(managementCalendarViewModel.unavailableDates.value ?: listOf()))
                 addDecorator(SelectedDecorator(date))
                 addDecorators(
                     TodayDecorator(requireContext()),
@@ -117,13 +110,8 @@ class ManagementCalendarFragment : Fragment(), OnDeleteClickListener {
                 val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
 
                 val calendar = Calendar.getInstance()
-                calendar.set(
-                    firstSelectedDay.year,
-                    firstSelectedDay.month - 1,
-                    firstSelectedDay.day
-                ) // CalendarDay의 month는 1을 빼야 합니다 (0-11 범위)
+                calendar.set(firstSelectedDay.year, firstSelectedDay.month - 1, firstSelectedDay.day) // CalendarDay의 month는 1을 빼야 합니다 (0-11 범위)
                 val unavailableStartDate = dateFormat.format(calendar.time)
-
                 calendar.set(lastSelectedDay.year, lastSelectedDay.month - 1, lastSelectedDay.day)
                 val unavailableEndDate = dateFormat.format(calendar.time)
 
@@ -155,7 +143,11 @@ class ManagementCalendarFragment : Fragment(), OnDeleteClickListener {
 
         // 이용 불가 기간 목록 전체 확인 -> 리사이클러 뷰로 아이템 넣기
         managementCalendarViewModel.unavailableDateInfoList.observe(viewLifecycleOwner) {
-            managementRVAdapter.submitList(it)
+            managementRVAdapter.submitList(it) // 리사이클러 뷰에 불가 기간 표기
+        }
+
+        managementCalendarViewModel.unavailableDates.observe(viewLifecycleOwner) {
+            updateCalendarWithUnavailableDates(it)
         }
 
         managementCalendarViewModel.errorMessage.observe(viewLifecycleOwner) { errorMessage ->
@@ -169,7 +161,7 @@ class ManagementCalendarFragment : Fragment(), OnDeleteClickListener {
         val date = CalendarDay.today()
         settingCalendarStartText(date)
         settingCalendarLastText(date)
-        calendarViewModel.getReserveUnBookable(farmId.toString())
+
         binding.managementCalendar.apply {
             addDecorator(TodayDecorator(requireContext()))
             addDecorator(BeforeDayDecorator())
@@ -222,5 +214,12 @@ class ManagementCalendarFragment : Fragment(), OnDeleteClickListener {
 
     override fun onDeleteClick(farmDateID: Int) {
         managementCalendarViewModel.deleteUnavailableDate(farmDateID, farmId)
+    }
+
+    private fun updateCalendarWithUnavailableDates(unavailableDates: List<CalendarDay>){
+        binding.managementCalendar.apply {
+            removeDecorators()
+            addDecorator(UnavailableDatesDecorator(unavailableDates))
+        }
     }
 }

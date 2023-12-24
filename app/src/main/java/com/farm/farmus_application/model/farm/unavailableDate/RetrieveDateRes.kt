@@ -31,4 +31,17 @@ data class UnavailableDateInfo(
     fun getFormattedEndDate(): String {
         return formatDate(UnavailableEndDate)
     }
+
+    private fun parseDate(dateString: String): Date? {
+        val parser = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
+        return parser.parse(dateString)
+    }
+
+    fun getStartDate(): Date? {
+        return parseDate(UnavailableStartDate)
+    }
+
+    fun getEndDate(): Date? {
+        return parseDate(UnavailableEndDate)
+    }
 }
