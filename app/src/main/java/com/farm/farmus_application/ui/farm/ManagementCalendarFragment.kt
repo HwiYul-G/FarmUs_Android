@@ -101,7 +101,6 @@ class ManagementCalendarFragment : Fragment(), OnDeleteClickListener {
             }
             settingCalendarLastText(dates[dates.size - 1])
             activateAddButton(true)
-
         }
 
         // '추가' 버튼 클릭 이벤트
@@ -109,11 +108,17 @@ class ManagementCalendarFragment : Fragment(), OnDeleteClickListener {
             if (binding.managementCalendarAdd.isSelected) {
                 val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
 
-                val calendar = Calendar.getInstance()
-                calendar.set(firstSelectedDay.year, firstSelectedDay.month - 1, firstSelectedDay.day) // CalendarDay의 month는 1을 빼야 합니다 (0-11 범위)
-                val unavailableStartDate = dateFormat.format(calendar.time)
-                calendar.set(lastSelectedDay.year, lastSelectedDay.month - 1, lastSelectedDay.day)
-                val unavailableEndDate = dateFormat.format(calendar.time)
+                // CalendarDay를 Calendar로 변환
+                val startCalendar = Calendar.getInstance().apply {
+                    set(firstSelectedDay.year, firstSelectedDay.month - 1, firstSelectedDay.day)
+                }
+                val endCalendar = Calendar.getInstance().apply {
+                    set(lastSelectedDay.year, lastSelectedDay.month - 1, lastSelectedDay.day)
+                }
+
+                // 포맷된 날짜 문자열 생성
+                val unavailableStartDate = dateFormat.format(startCalendar.time)
+                val unavailableEndDate = dateFormat.format(endCalendar.time)
 
                 managementCalendarViewModel.addUnavailableDate(
                     farmId,
