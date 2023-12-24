@@ -64,47 +64,23 @@ object AppModule {
         return retrofit.create(UserApiClient::class.java)
     }
 
-    // Repository를 Module로 만들어줘야 하는 이유가 없는거같아서 일단 주석처리
-//    @Provides
-//    @Singleton
-//    fun provideUserRepository(userApiClient: UserApiClient) : UserRepository {
-//        return UserRepository(userApiClient)
-//    }
 
     @Provides
     @Singleton
     fun provideFarmApiClient(retrofit: Retrofit) : FarmApiClient {
         return retrofit.create(FarmApiClient::class.java)
     }
-//
-//    @Provides
-//    @Singleton
-//    fun provideFarmRepository(farmApiClient: FarmApiClient) : FarmRepository {
-//        return FarmRepository(farmApiClient)
-//    }
-//
+
     @Provides
     @Singleton
     fun provideMyPageApiClient(retrofit: Retrofit) : MyPageApiClient {
         return retrofit.create(MyPageApiClient::class.java)
     }
-//
-//    @Provides
-//    @Singleton
-//    fun provideMyPageRepository(myPageApiClient: MyPageApiClient) : MyPageRepository {
-//        return MyPageRepository(myPageApiClient)
-//    }
-//
+
     @Provides
     @Singleton
     fun provideReserveApiClient(retrofit: Retrofit) : ReserveApiClient {
         return retrofit.create(ReserveApiClient::class.java)
     }
-//
-//    @Provides
-//    @Singleton
-//    fun provideReserveRepository(reserveApiClient: ReserveApiClient) : ReserveRepository {
-//        return ReserveRepository(reserveApiClient)
-//    }
 
 }
