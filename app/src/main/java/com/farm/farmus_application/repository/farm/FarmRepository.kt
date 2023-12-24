@@ -1,6 +1,5 @@
 package com.farm.farmus_application.repository.farm
 
-import android.util.Log
 import com.farm.farmus_application.model.farm.detail.DetailRes
 import com.farm.farmus_application.model.farm.detail.DetailResult
 import com.farm.farmus_application.model.farm.editinfo.EditinfoRes
@@ -17,7 +16,6 @@ import com.farm.farmus_application.model.favorite.FavoriteFarmRes
 import com.farm.farmus_application.network.FarmApiClient
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Response
