@@ -1,6 +1,5 @@
 package com.farm.farmus_application.di
 
-import com.example.farmus_application.network.*
 import com.farm.farmus_application.network.FarmApiClient
 import com.farm.farmus_application.network.MyPageApiClient
 import com.farm.farmus_application.network.ReserveApiClient
