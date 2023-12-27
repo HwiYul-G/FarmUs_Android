@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class SignUpRes(
     @SerializedName("isSuccess") val isSuccess: Boolean,
-    @SerializedName("code") val code: Int,
+    @SerializedName("code") var code: Int,
     @SerializedName("message") val message: String,
     @SerializedName("result") val result: SignUpResult
 )

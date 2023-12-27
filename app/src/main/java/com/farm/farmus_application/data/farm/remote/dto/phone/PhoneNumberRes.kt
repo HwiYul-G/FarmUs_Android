@@ -1,4 +1,4 @@
-package com.farm.farmus_application.model.farm.phone
+package com.farm.farmus_application.data.farm.remote.dto.phone
 
 import com.google.gson.annotations.SerializedName
 

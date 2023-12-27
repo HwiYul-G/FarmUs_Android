@@ -4,6 +4,6 @@ import com.google.gson.annotations.SerializedName
 
 data class SignUpVerificationRes(
     @SerializedName("result") val result: Boolean,
-    @SerializedName("code") val code: Int,
+    @SerializedName("code") var code: Int,
     @SerializedName("message") val message: String
 )
