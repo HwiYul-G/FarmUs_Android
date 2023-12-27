@@ -7,7 +7,8 @@ import com.farm.farmus_application.data.user.remote.dto.likes.LikeFarmReq
 import com.farm.farmus_application.data.user.remote.dto.likes.LikeFarmRes
 import com.farm.farmus_application.data.user.remote.dto.login.LoginRequest
 import com.farm.farmus_application.data.user.remote.dto.login.LoginRes
-import com.farm.farmus_application.data.user.remote.dto.signup.SignUpRequest
+import com.farm.farmus_application.data.user.remote.dto.signup.SignUpReq
+import com.farm.farmus_application.data.user.remote.dto.signup.SignUpRes
 import com.farm.farmus_application.data.user.remote.dto.signup_verification.SignUpVerificationReq
 import com.farm.farmus_application.data.user.remote.dto.signup_verification.SignUpVerificationRes
 import com.farm.farmus_application.data.user.remote.dto.verification.VerificationReq
@@ -24,7 +25,7 @@ import retrofit2.http.Query
 interface UserApi {
 
     @POST("/user/signup")
-    suspend fun postSignUp(@Body params: SignUpRequest): Response<SignUpRes>
+    suspend fun postSignUp(@Body params: SignUpReq): Response<SignUpRes>
 
     @POST("/user/login")
     suspend fun postLogin(@Body params: LoginRequest): Response<LoginRes>
@@ -54,7 +55,6 @@ interface UserApi {
     @POST("/user/likes")
     suspend fun postUserLikeFarm(@Body params: LikeFarmReq): Response<LikeFarmRes>
 
-    // TODO : DELETE 함수는 안드로이드 상에서 Body로 전달 받을 수 없음, 쿼리로 전달 받아야함.
     @DELETE("/user/likes")
     suspend fun deleteUserLikeFarm(
         @Query("email") email: String,
