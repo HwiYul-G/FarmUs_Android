@@ -1,13 +1,13 @@
-package com.farm.farmus_application.network
+package com.farm.farmus_application.data.reserve.remote
 
-import com.farm.farmus_application.model.reserve.cancel.ReserveCancelRes
-import com.farm.farmus_application.model.reserve.client_list.ReserveClientListRes
-import com.farm.farmus_application.model.reserve.farm_list.ReserveFarmListRes
-import com.farm.farmus_application.model.reserve.request.ReserveRequestReq
-import com.farm.farmus_application.model.reserve.request.ReserveRequestRes
-import com.farm.farmus_application.model.reserve.reserve_list.ReserveListRes
-import com.farm.farmus_application.model.reserve.status.ReserveStatusRes
-import com.farm.farmus_application.model.reserve.unbookable.ReserveUnBookableRes
+import com.farm.farmus_application.data.reserve.remote.dto.cancel.ReserveCancelRes
+import com.farm.farmus_application.data.reserve.remote.dto.client_list.ReserveClientListRes
+import com.farm.farmus_application.data.reserve.remote.dto.farm_list.ReserveFarmListRes
+import com.farm.farmus_application.data.reserve.remote.dto.request.ReserveRequestReq
+import com.farm.farmus_application.data.reserve.remote.dto.request.ReserveRequestRes
+import com.farm.farmus_application.data.reserve.remote.dto.reserve_list.ReserveListRes
+import com.farm.farmus_application.data.reserve.remote.dto.status.ReserveStatusRes
+import com.farm.farmus_application.data.reserve.remote.dto.unbookable.ReserveUnBookableRes
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -15,7 +15,7 @@ import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Path
 
-interface ReserveApiClient {
+interface ReserveApi {
     @POST("/reserve/request")
     suspend fun postReserveRequest(@Body params: ReserveRequestReq): Response<ReserveRequestRes>
 
@@ -42,6 +42,4 @@ interface ReserveApiClient {
 
     @GET("/reserve/past/list/")
     suspend fun getPastList(): Response<ReserveListRes>
-
-
 }
