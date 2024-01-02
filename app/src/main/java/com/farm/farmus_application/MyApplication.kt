@@ -2,7 +2,6 @@ package com.farm.farmus_application
 
 import android.app.Application
 import android.content.Context
-import com.farm.farmus_application.repository.UserPrefsStorage
 import com.kakao.sdk.common.KakaoSdk
 import dagger.hilt.android.HiltAndroidApp
 
