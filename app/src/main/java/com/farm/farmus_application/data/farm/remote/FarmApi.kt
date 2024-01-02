@@ -2,6 +2,7 @@ package com.farm.farmus_application.data.farm.remote
 
 
 
+import com.farm.farmus_application.data.farm.remote.dto.detail.DetailRes
 import com.farm.farmus_application.data.farm.remote.dto.editinfo.EditinfoRes
 import com.farm.farmus_application.data.farm.remote.dto.favorite.FavoriteFarmRes
 import com.farm.farmus_application.data.farm.remote.dto.list.ListRes
@@ -77,7 +78,7 @@ interface FarmApi {
     ): Response<SearchedRes>
 
     @GET("/farm/detail/{farmid}")
-    suspend fun getFarmDetail(@Path(value = "farmid") farmid: Int): Response<com.farm.farmus_application.data.farm.remote.dto.detail.DetailRes>
+    suspend fun getFarmDetail(@Path(value = "farmid") farmid: Int): Response<DetailRes>
 
     @GET("/farm/farmerPhoneNumber")
     suspend fun getFarmerPhoneNumber(@Query("farmID") farmID: Int): Response<PhoneNumberRes>
