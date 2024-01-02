@@ -2,7 +2,8 @@ package com.farm.farmus_application.data.mypage
 
 import com.farm.farmus_application.data.common.NetworkModule
 import com.farm.farmus_application.data.mypage.remote.MyPageApi
-import com.farm.farmus_application.data.reserve.remote.ReserveApi
+import com.farm.farmus_application.data.mypage.repository.MyPageRepositoryImpl
+import com.farm.farmus_application.domain.mypage.MyPageRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -19,10 +20,10 @@ class MyPageModule {
     fun provideReserveApi(retrofit: Retrofit) : MyPageApi {
         return retrofit.create(MyPageApi::class.java)
     }
-//
-//    @Singleton
-//    @Provides
-//    fun provideUserRepository(myPageApi: MyPageApi) : MyPageRepository {
-//        return UserRepositoryImpl(myPageApi)
-//    }
+
+    @Singleton
+    @Provides
+    fun provideMyPageRepository(myPageApi: MyPageApi) : MyPageRepository {
+        return MyPageRepositoryImpl(myPageApi)
+    }
 }

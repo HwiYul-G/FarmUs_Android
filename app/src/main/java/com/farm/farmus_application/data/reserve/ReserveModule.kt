@@ -2,7 +2,8 @@ package com.farm.farmus_application.data.reserve
 
 import com.farm.farmus_application.data.common.NetworkModule
 import com.farm.farmus_application.data.reserve.remote.ReserveApi
-import com.farm.farmus_application.data.user.remote.UserApi
+import com.farm.farmus_application.data.reserve.repository.ReserveRepositoryImpl
+import com.farm.farmus_application.domain.reserve.ReserveRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -19,10 +20,10 @@ class ReserveModule {
     fun provideReserveApi(retrofit: Retrofit) : ReserveApi {
         return retrofit.create(ReserveApi::class.java)
     }
-//
-//    @Singleton
-//    @Provides
-//    fun provideUserRepository(reserveApi: ReserveApi) : ReserveRepository {
-//        return UserRepositoryImpl(reserveApi)
-//    }
+
+    @Singleton
+    @Provides
+    fun provideReserveRepository(reserveApi: ReserveApi) : ReserveRepository {
+        return ReserveRepositoryImpl(reserveApi)
+    }
 }
