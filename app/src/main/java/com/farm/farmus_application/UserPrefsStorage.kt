@@ -1,4 +1,4 @@
-package com.farm.farmus_application.repository
+package com.farm.farmus_application
 
 import android.content.Context
 import android.content.SharedPreferences
