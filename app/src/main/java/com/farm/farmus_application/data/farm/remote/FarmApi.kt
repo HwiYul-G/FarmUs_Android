@@ -1,18 +1,19 @@
 package com.farm.farmus_application.data.farm.remote
 
-import com.farm.farmus_application.data.farm.remote.dto.detail.DetailRes
-import com.farm.farmus_application.model.farm.editinfo.EditinfoRes
-import com.farm.farmus_application.model.farm.list.ListRes
-import com.farm.farmus_application.model.farm.myfarm.MyFarmRes
-import com.farm.farmus_application.model.farm.phone.PhoneNumberRes
-import com.farm.farmus_application.model.farm.postings.PostingsRes
-import com.farm.farmus_application.model.farm.register.RegisterRes
-import com.farm.farmus_application.model.farm.search.SearchedRes
-import com.farm.farmus_application.model.farm.unavailableDate.DeleteDateRes
-import com.farm.farmus_application.model.farm.unavailableDate.RetrieveDateRes
-import com.farm.farmus_application.model.farm.unavailableDate.UnavailableDateAdditionReq
-import com.farm.farmus_application.model.farm.unavailableDate.UnavailaleDateAdditionRes
+
+
+import com.farm.farmus_application.data.farm.remote.dto.editinfo.EditinfoRes
 import com.farm.farmus_application.data.farm.remote.dto.favorite.FavoriteFarmRes
+import com.farm.farmus_application.data.farm.remote.dto.list.ListRes
+import com.farm.farmus_application.data.farm.remote.dto.myfarm.MyFarmRes
+import com.farm.farmus_application.data.farm.remote.dto.phone.PhoneNumberRes
+import com.farm.farmus_application.data.farm.remote.dto.postings.PostingsRes
+import com.farm.farmus_application.data.farm.remote.dto.register.RegisterRes
+import com.farm.farmus_application.data.farm.remote.dto.search.SearchedRes
+import com.farm.farmus_application.data.farm.remote.dto.unavailableDate.DeleteDateRes
+import com.farm.farmus_application.data.farm.remote.dto.unavailableDate.RetrieveDateRes
+import com.farm.farmus_application.data.farm.remote.dto.unavailableDate.UnavailableDateAdditionReq
+import com.farm.farmus_application.data.farm.remote.dto.unavailableDate.UnavailaleDateAdditionRes
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response
